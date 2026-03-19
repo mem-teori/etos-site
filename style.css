@@ -380,3 +380,117 @@ h3 { font-size: 1.12rem; }
 .scene-space {
   background: linear-gradient(135deg, #8a5cff, #43308a);
 }
+
+/* Themed project pages */
+.themed-hero {
+  border-radius: 22px;
+  padding: 2.4rem 1.6rem;
+  margin-bottom: 2rem;
+}
+
+.books-page .themed-hero,
+.books-hero {
+  background: linear-gradient(135deg, #fff8f2 0%, #fffdf8 100%);
+  border: 1px solid #f0e2cf;
+}
+
+.vr-page .themed-hero,
+.vr-hero {
+  background: linear-gradient(135deg, #f4fbff 0%, #f8fcff 100%);
+  border: 1px solid #dbe8f5;
+}
+
+.visual-section {
+  margin: 2.5rem 0;
+  text-align: center;
+}
+
+.feature-image {
+  width: 100%;
+  max-width: 900px;
+  border-radius: 18px;
+  margin: 1rem auto;
+  display: block;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.image-caption {
+  font-size: 0.95rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.feature-band {
+  margin: 2rem 0;
+}
+
+.feature-card {
+  text-align: left;
+}
+
+.excerpt-card {
+  margin: 2rem 0;
+  background: linear-gradient(180deg, #fffdf9 0%, #fff8f0 100%);
+}
+
+.book-excerpt {
+  margin: 1.2rem 0 0;
+  padding: 1.2rem 1.3rem;
+  border-left: 4px solid #d7b487;
+  background: rgba(255,255,255,0.75);
+  border-radius: 14px;
+  font-style: italic;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+.excerpt-note {
+  margin-top: 1rem;
+  font-size: 0.92rem;
+  color: #6d6d6d;
+}
+
+.visual-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.visual-orb {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.orb-1 {
+  background: radial-gradient(circle at 30% 30%, #8de1c8, #2d8f7d);
+}
+
+.orb-2 {
+  background: radial-gradient(circle at 30% 30%, #9bd0ff, #446dcb);
+}
+
+.orb-3 {
+  background: radial-gradient(circle at 30% 30%, #d6b5ff, #7b5cc9);
+}
+
+.inner-signal-card {
+  margin: 2rem 0;
+  background: linear-gradient(180deg, #fff9fb 0%, #fff5f8 100%);
+}
+
+.bankeren-image {
+  max-width: 760px;
+}
+
+.direct-mail {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.direct-mail a {
+  color: inherit;
+  text-decoration: underline;
+}
