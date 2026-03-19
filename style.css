@@ -398,3 +398,7 @@ h3 { font-size: 1.22rem; }
     font-size: 0.98rem;
   }
 }
+
+.spaced-top {
+  margin-top: 1rem;
+}
