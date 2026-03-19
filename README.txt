@@ -1,20 +1,21 @@
-ETOS V10.5 full pack
+ETOS V11 samlet pakke
 
-Upload contents of this folder to the root of your GitHub Pages repo.
+Indhold:
+- index.html
+- om.html
+- etos.html
+- anvendelse.html
+- pilot.html
+- kontakt.html
+- dirigent.html
+- regnskab.html
+- sandbox.html
+- boerneboeger.html
+- style.css
 
-This pack keeps the existing DA / EN / DE filename structure:
-- side.html
-- side-en.html
-- side-de.html
+For at sandbox.html virker korrekt, skal disse billeder uploades i samme mappe som HTML-filerne:
+- vandmolekyle.png
+- minecraft.png
 
-Included:
-- refreshed landing pages
-- calm onboarding pages
-- borger / fagperson flow
-- main thematic pages
-- robots.txt
-- sitemap.xml
-- shared style.css and script.js
-
-Note:
-Your existing PDF files can stay in the repo. This pack does not replace them.
+For boerneboeger.html bruges en direkte absolut URL til bankeren.png.
+Hvis du vil gøre den lokal senere, så upload bankeren.png i samme mappe og skift img src.

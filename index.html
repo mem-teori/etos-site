@@ -1,126 +1,61 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ETOS — Beslutninger i komplekse situationer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ETOS — Beslutninger i komplekse situationer</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<nav class="nav">
+  <a href="index.html" class="active">Forside</a>
+  <a href="om.html">Om</a>
+  <a href="etos.html">ETOS</a>
+  <a href="anvendelse.html">Anvendelse</a>
+  <a href="pilot.html">Pilot</a>
+  <a href="kontakt.html">Kontakt</a>
+</nav>
 
-<!-- NAVIGATION -->
-<header class="fs-header">
-  <div class="fs-nav">
-    <span class="fs-logo">ETOS</span>
-    <nav class="fs-links">
-      <a href="om.html">Om</a>
-      <a href="etos.html">ETOS-modellen</a>
-      <a href="anvendelse.html">Anvendelse</a>
-      <a href="pilot.html">Pilot</a>
-    </nav>
-    <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
-  </div>
-</header>
-
-<!-- HERO -->
-<section class="fs-hero">
-  <!-- Venstre: tekst -->
-  <div class="fs-hero-left">
-    <div class="fs-tag">
-      <span class="fs-tag-dot"></span>
-      Under udvikling · Åben for samarbejde
+<main class="container">
+  <section class="hero">
+    <h1>ETOS</h1>
+    <p class="subtitle">Når regler, mennesker og virkelighed ikke stemmer — opstår svære beslutninger.</p>
+    <div class="hero-buttons">
+      <a href="om.html" class="button">Forstå ETOS</a>
+      <a href="anvendelse.html" class="button secondary">Se anvendelse</a>
     </div>
-    <h1 class="fs-h1">
-      Når regler og<br>virkelighed<br><em>ikke stemmer</em>
-    </h1>
-    <p class="fs-lead">
-      ETOS gør konflikter synlige — i stedet for at skjule dem.
-      Et redskab til beslutninger i komplekse situationer.
-    </p>
-    <div class="fs-hero-btns">
-      <a href="om.html" class="fs-btn-primary">Forstå ETOS</a>
-      <a href="anvendelse.html" class="fs-btn-ghost">Se anvendelse →</a>
+  </section>
+
+  <section class="grid-3">
+    <div class="card"><h2>Hvad er ETOS</h2><p>ETOS gør konflikter mellem regler, mennesker og virkelighed synlige — i stedet for at skjule dem.</p></div>
+    <div class="card"><h2>Hvor bruges det</h2><p>Modellen kan anvendes i bl.a. psykiatri, kommuner, organisationer og AI-systemer.</p></div>
+    <div class="card"><h2>Hvorfor nu</h2><p>Flere beslutninger bliver komplekse — og kræver bedre måder at håndtere spændinger på.</p></div>
+  </section>
+
+  <section class="projects">
+    <h2>Andre projekter</h2>
+    <p class="section-intro">Projekterne udspringer af samme grundidé, men anvendes i forskellige sammenhænge.</p>
+    <p class="section-intro">Flere af projekterne er i udviklingsfase og søger samarbejdspartnere og investorer til næste skridt.</p>
+    <div class="grid-4">
+      <a href="dirigent.html" class="card small"><h3>Dirigent</h3><p>Strukturér idéer og beslutninger i komplekse projekter</p></a>
+      <a href="regnskab.html" class="card small"><h3>Regnskab</h3><p>Et enkelt og visuelt økonomiværktøj</p></a>
+      <a href="sandbox.html" class="card small"><h3>Lærings-uniVRs</h3><p>Læring gennem oplevelse, eksperimenter og visuelle modeller</p></a>
+      <a href="boerneboeger.html" class="card small"><h3>Børnebøger</h3><p>Historier om følelser, grænser og forståelse</p></a>
     </div>
-  </div>
+  </section>
 
-  <!-- Højre: projektindgange -->
-  <div class="fs-hero-right">
-    <p class="fs-section-label">Projekter</p>
-    <div class="fs-proj-list">
-      <a href="etos.html" class="fs-proj-item">
-        <div class="fs-proj-icon" style="background:#EDE4D6;">🧭</div>
-        <div class="fs-proj-text">
-          <h4>ETOS</h4>
-          <p>Beslutningsmodel til komplekse situationer</p>
-        </div>
-        <span class="fs-proj-arrow">→</span>
-      </a>
-      <a href="dirigent.html" class="fs-proj-item">
-        <div class="fs-proj-icon" style="background:#D8E4D6;">🎼</div>
-        <div class="fs-proj-text">
-          <h4>Dirigent</h4>
-          <p>Strukturér idéer og projekter</p>
-        </div>
-        <span class="fs-proj-arrow">→</span>
-      </a>
-      <a href="sandbox.html" class="fs-proj-item">
-        <div class="fs-proj-icon" style="background:#D6D8E4;">🌐</div>
-        <div class="fs-proj-text">
-          <h4>Lærings-uniVRs</h4>
-          <p>Læring gennem oplevelse og visuelle modeller</p>
-        </div>
-        <span class="fs-proj-arrow">→</span>
-      </a>
-      <a href="boerneboeger.html" class="fs-proj-item">
-        <div class="fs-proj-icon" style="background:#E4D6D6;">📖</div>
-        <div class="fs-proj-text">
-          <h4>Børnebøger</h4>
-          <p>Historier om følelser og forståelse</p>
-        </div>
-        <span class="fs-proj-arrow">→</span>
-      </a>
-      <a href="regnskab.html" class="fs-proj-item">
-        <div class="fs-proj-icon" style="background:#E4E0D6;">📊</div>
-        <div class="fs-proj-text">
-          <h4>Regnskab</h4>
-          <p>Enkelt og visuelt økonomiværktøj</p>
-        </div>
-        <span class="fs-proj-arrow">→</span>
-      </a>
+  <section class="section">
+    <div class="section-head">
+      <p class="eyebrow">Videre herfra</p>
+      <h2>Vil du arbejde videre med ETOS?</h2>
+      <p class="section-intro">ETOS er under udvikling som pilot og er åbent for dialog med fagpersoner, samarbejdspartnere og presse.</p>
     </div>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section class="fs-features">
-  <div class="fs-feature">
-    <div class="fs-feature-num">01</div>
-    <h3>Synliggør kompleksitet</h3>
-    <p>Mange systemer forsøger at forenkle virkeligheden. ETOS gør det modsatte — det gør kompleksiteten synlig, så den kan håndteres.</p>
-  </div>
-  <div class="fs-feature">
-    <div class="fs-feature-num">02</div>
-    <h3>Konkrete redskaber</h3>
-    <p>Modellen kan anvendes i psykiatri, kommuner, organisationer og AI-systemer — overalt hvor svære beslutninger opstår.</p>
-  </div>
-  <div class="fs-feature">
-    <div class="fs-feature-num">03</div>
-    <h3>Åben for dialog</h3>
-    <p>ETOS er under udvikling som pilot og søger samarbejdspartnere, fagpersoner og investorer til næste skridt.</p>
-  </div>
-</section>
-
-<!-- CTA STRIP -->
-<section class="fs-cta-strip">
-  <p class="fs-cta-quote">"Vil du arbejde videre med ETOS?"</p>
-  <div class="fs-cta-btns">
-    <a href="samarbejde.html" class="fs-btn-primary">Gå til samarbejde</a>
-    <a href="kontakt.html" class="fs-btn-ghost-dark">Kontakt os</a>
-  </div>
-</section>
-
+    <div class="card-grid three">
+      <article class="card"><span class="kicker">Samarbejde</span><h3>Afprøv ETOS i praksis</h3><p>Se hvordan modellen kan bruges i mindre pilotforløb og konkrete samarbejder.</p><p><a class="text-link" href="kontakt.html">Gå til kontakt →</a></p></article>
+      <article class="card"><span class="kicker">Pilot</span><h3>Se den aktuelle retning</h3><p>Læs om pilotspor, videre udvikling og hvordan ETOS kan prøves af i praksis.</p><p><a class="text-link" href="pilot.html">Gå til pilot →</a></p></article>
+      <article class="card"><span class="kicker">Kontakt</span><h3>Tag dialogen videre</h3><p>Hvis du ser en relevans i dit arbejde, er du velkommen til at tage kontakt.</p><p><a class="text-link" href="kontakt.html">Gå til kontakt →</a></p></article>
+    </div>
+  </section>
+</main>
 </body>
 </html>
