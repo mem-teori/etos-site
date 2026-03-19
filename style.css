@@ -226,3 +226,50 @@ h3 { font-size: 1.12rem; }
   h2 { max-width: 100%; font-size: clamp(1.35rem, 6vw, 1.8rem); }
   .aha-line { font-size: .98rem; }
 }
+
+.hero h1 {
+  font-size: 2.4rem;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #4a5a4a;
+}
+
+.grid-3 {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.grid-4 {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.card.small {
+  text-align: center;
+  padding: 1rem;
+}
+
+.projects h2 {
+  margin-bottom: 1rem;
+}
+
+.flow {
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.hero-buttons {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.button.secondary {
+  background: transparent;
+  border: 1px solid #ccc;
+}
