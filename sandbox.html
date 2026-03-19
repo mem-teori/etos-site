@@ -1,13 +1,47 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lærings-uniVRs — M.E.M.</title>
-  <meta name="description" content="Lærings-uniVRs: læring gennem oplevelse, eksperimenter og visuelle modeller.">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lærings-uniVRs — M.E.M.</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+.visual-section {
+  margin: 40px 0;
+  text-align: center;
+}
+
+.feature-image {
+  width: 100%;
+  max-width: 800px;
+  border-radius: 16px;
+  margin-top: 15px;
+}
+
+.image-caption {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 8px;
+}
+
+.cta {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.cta a {
+  display: inline-block;
+  padding: 12px 20px;
+  background: #c4381a;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+}
+</style>
+
 </head>
-<body class="vr-page">
+<body>
 
 <nav class="nav">
   <a href="index.html">Forside</a>
@@ -16,100 +50,49 @@
 
 <main class="container">
 
-  <section class="hero themed-hero vr-hero">
-    <h1>Lærings-uniVRs</h1>
-    <p class="subtitle">
-      Læring gennem oplevelse, eksperimenter og visuelle modeller
-    </p>
-  </section>
+<section class="hero">
+  <h1>Lærings-uniVRs</h1>
+  <p class="subtitle">
+    Læring gennem oplevelse, eksperimenter og visuelle modeller
+  </p>
+</section>
 
-  <section class="content">
-    <p>
-      Lærings-uniVRs er et læringsprojekt, hvor børn og unge kan opleve naturvidenskab
-      i stedet for kun at læse om det.
-    </p>
+<section class="content">
+  <p>
+    Her handler læring ikke om at få forklaret verden —
+    men om at opdage den selv.
+  </p>
+</section>
 
-    <p>
-      Fokus er på nysgerrighed, sansning og undersøgelse — så abstrakte fænomener
-      bliver lettere at forstå gennem oplevelse.
-    </p>
-  </section>
+<section class="visual-section">
+  <h2>Fra oplevelse til forståelse</h2>
 
-  <section class="visual-section">
-    <p class="eyebrow">Fra oplevelse til forståelse</p>
-    <h2>Sådan kan læringen begynde</h2>
+  <img src="vandmolekyle.png" alt="Læringsflow" class="feature-image">
 
-    <img src="vandmolekyle.png" alt="Visuelt læringsflow omkring et vandmolekyle" class="feature-image">
+  <p class="image-caption">
+    Først oplevelse. Så interaktion. Så forståelse.
+  </p>
+</section>
 
-    <p class="image-caption">
-      Først oplevelse. Så interaktion. Så model. Målet er at lade forståelsen vokse
-      gennem det, eleven selv gør og opdager.
-    </p>
-  </section>
+<section class="visual-section">
+  <h2>Prototype</h2>
 
-  <section class="visual-section">
-    <p class="eyebrow">Pilotretning</p>
-    <h2>Et første bud på et læringsmiljø</h2>
+  <img src="minecraft.png" alt="Prototype" class="feature-image">
 
-    <img src="minecraft.png" alt="Prototype på Science Sandbox læringsmiljø" class="feature-image">
+  <p class="image-caption">
+    Et første læringsmiljø kan bygges i eksisterende platforme som Minecraft.
+  </p>
+</section>
 
-    <p class="image-caption">
-      En tidlig pilot kan bygges i eksisterende miljøer, hvor elever kan samle elementer,
-      skabe molekyler, eksperimentere med temperatur og undersøge naturvidenskab aktivt.
-    </p>
-  </section>
+<section class="cta">
+  <p>Projektet er i udvikling og åbent for samarbejde.</p>
 
-  <section class="card feature-band vr-band">
-    <h2>Hvad læringsrummet skal kunne</h2>
+  <a href="kontakt.html">Tag kontakt</a>
 
-    <div class="grid-3">
-      <div class="card visual-card">
-        <div class="visual-orb orb-1"></div>
-        <h3>Eksperimenter i sikre rum</h3>
-        <p>
-          Udforsk kemi og fysik uden risiko, og prøv ting af flere gange uden at miste modet.
-        </p>
-      </div>
-
-      <div class="card visual-card">
-        <div class="visual-orb orb-2"></div>
-        <h3>Se det usynlige</h3>
-        <p>
-          Visualisér processer, kræfter og sammenhænge, som normalt er svære at forestille sig.
-        </p>
-      </div>
-
-      <div class="card visual-card">
-        <div class="visual-orb orb-3"></div>
-        <h3>Lær gennem deltagelse</h3>
-        <p>
-          Gør læring mere aktiv, mere undersøgende og mere motiverende for forskellige typer elever.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="content">
-    <p>
-      Projektet er tænkt som et læringsunivers, der på sigt kan udvikles i digitale formater,
-      immersive oplevelser og samarbejder med skoler, fonde og læringsmiljøer.
-    </p>
-  </section>
-
-  <section class="cta">
-    <p>
-      Projektet er i udvikling og åbent for samarbejde, pilotforløb og investeringsdialog.
-    </p>
-
-    <a href="kontakt.html" class="button">
-      Tag kontakt
-    </a>
-
-    <p class="direct-mail">
-      Eller skriv direkte:
-      <a href="mailto:M.E.M.Teori@gmail.com">M.E.M.Teori@gmail.com</a>
-    </p>
-  </section>
+  <p style="margin-top:10px;">
+    <a href="mailto:M.E.M.Teori@gmail.com">M.E.M.Teori@gmail.com</a>
+  </p>
+</section>
 
 </main>
 
