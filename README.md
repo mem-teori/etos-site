@@ -1,20 +1,11 @@
-ETOS V10.5 full pack
+ETOS V10.6 go-live pack
 
 Upload contents of this folder to the root of your GitHub Pages repo.
 
-This pack keeps the existing DA / EN / DE filename structure:
-- side.html
-- side-en.html
-- side-de.html
+This version combines:
+- sharper public-facing wording
+- clearer press / collaboration / contact flow
+- small SEO improvements on key pages
+- a go-live checklist and sharing copy
 
-Included:
-- refreshed landing pages
-- calm onboarding pages
-- borger / fagperson flow
-- main thematic pages
-- robots.txt
-- sitemap.xml
-- shared style.css and script.js
-
-Note:
-Your existing PDF files can stay in the repo. This pack does not replace them.
+Keep your existing PDF files in the repo if you want them to stay visible.

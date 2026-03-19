@@ -264,3 +264,8 @@ h3 { font-size: 1.22rem; }
 .note-box { padding:1rem 1.05rem; border-radius:18px; background:rgba(255,255,255,.82); border:1px solid var(--line); }
 .compat-links { display:flex; gap:.75rem; flex-wrap:wrap; margin-top:1rem; }
 .compat-links a { font-weight:700; color:var(--primary); }
+
+
+/* V10.6 go-live support */
+.page-copy { display: grid; gap: 1rem; }
+.spaced-top { margin-top: 1rem; }
