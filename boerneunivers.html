@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Børneunivers — M.E.M.</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .bu-hero {
+      background: #1a0f1e;
+      padding: 72px 52px 60px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .bu-hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(180,120,220,0.18), transparent 70%);
+      pointer-events: none;
+    }
+    .bu-hero h1 { color: #f0e8f8; font-size: clamp(32px, 5vw, 52px); margin-bottom: 14px; }
+    .bu-hero .subtitle { color: rgba(240,232,248,0.6); font-size: 16px; max-width: 520px; margin: 0 auto 16px; }
+    .bu-hero .lead-text {
+      font-size: 14px; color: rgba(240,232,248,0.45);
+      max-width: 480px; margin: 0 auto;
+      font-weight: 300; line-height: 1.8;
+    }
+
+    /* 3 SPOR */
+    .spor-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+    .spor-card {
+      padding: 44px 36px;
+      text-decoration: none;
+      display: block;
+      transition: background 0.2s;
+      position: relative;
+      overflow: hidden;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .spor-card:last-child { border-right: none; }
+    .spor-card::before {
+      content: '';
+      position: absolute;
+      bottom: -40px; right: -40px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      opacity: 0.12;
+      transition: opacity 0.2s;
+    }
+    .spor-card:hover::before { opacity: 0.22; }
+    .spor-0_4 { background: #1a1228; }
+    .spor-0_4::before { background: #b478dc; }
+    .spor-0_4:hover { background: #1f1530; }
+    .spor-5_8 { background: #121a20; }
+    .spor-5_8::before { background: #4a9eda; }
+    .spor-5_8:hover { background: #162028; }
+    .spor-9_12 { background: #1a1a12; }
+    .spor-9_12::before { background: #e2884e; }
+    .spor-9_12:hover { background: #202015; }
+
+    .spor-age {
+      font-family: 'Playfair Display', serif;
+      font-size: 13px; font-weight: 400;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .spor-0_4 .spor-age { color: #c89ee0; }
+    .spor-5_8 .spor-age { color: #6ab4e8; }
+    .spor-9_12 .spor-age { color: #e2a06a; }
+
+    .spor-card h2 {
+      font-size: 22px; margin-bottom: 10px;
+    }
+    .spor-0_4 h2 { color: #f0e8f8; }
+    .spor-5_8 h2 { color: #e8f4fc; }
+    .spor-9_12 h2 { color: #fdf4e8; }
+
+    .spor-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-bottom: 16px;
+    }
+    .spor-tag {
+      font-size: 11px; font-weight: 400;
+      padding: 3px 9px; border-radius: 20px;
+    }
+    .spor-0_4 .spor-tag { background: rgba(180,120,220,0.15); color: #c89ee0; }
+    .spor-5_8 .spor-tag { background: rgba(74,158,218,0.15); color: #6ab4e8; }
+    .spor-9_12 .spor-tag { background: rgba(226,136,78,0.15); color: #e2a06a; }
+
+    .spor-book {
+      font-family: 'Playfair Display', serif;
+      font-style: italic; font-size: 13px;
+      margin-top: 16px;
+    }
+    .spor-0_4 .spor-book { color: rgba(200,158,224,0.7); }
+    .spor-5_8 .spor-book { color: rgba(106,180,232,0.7); }
+    .spor-9_12 .spor-book { color: rgba(226,160,106,0.7); }
+
+    .spor-arrow {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 500; margin-top: 12px;
+      opacity: 0.5; transition: opacity 0.15s;
+    }
+    .spor-card:hover .spor-arrow { opacity: 1; }
+    .spor-0_4 .spor-arrow { color: #c89ee0; }
+    .spor-5_8 .spor-arrow { color: #6ab4e8; }
+    .spor-9_12 .spor-arrow { color: #e2a06a; }
+
+    /* BANKEREN */
+    .bankeren-section {
+      background: #130e1a;
+      padding: 56px 52px;
+      text-align: center;
+    }
+    .bankeren-pulse {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, #d4a0f0, #8040b0);
+      margin: 0 auto 28px;
+      animation: bu-pulse 3s ease-in-out infinite;
+    }
+    @keyframes bu-pulse {
+      0%,100% { transform: scale(1); opacity: 0.9; box-shadow: 0 0 0 0 rgba(160,80,200,0.3); }
+      50% { transform: scale(1.08); opacity: 1; box-shadow: 0 0 0 16px rgba(160,80,200,0); }
+    }
+    .bankeren-section h2 { color: #f0e8f8; font-size: 26px; margin-bottom: 12px; }
+    .bankeren-section p { color: rgba(240,232,248,0.5); max-width: 440px; margin: 0 auto; font-size: 15px; line-height: 1.8; }
+
+    /* HVORFOR */
+    .hvorfor-section { padding: 56px 52px; background: var(--bg); }
+    .hvorfor-section h2 { color: var(--ink); margin-bottom: 28px; }
+    .hvorfor-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    /* TOGGLE */
+    .toggle-bar {
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; margin-bottom: 32px;
+    }
+    .toggle-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px; font-weight: 500;
+      padding: 8px 20px; border-radius: 8px;
+      border: 1px solid var(--line);
+      background: transparent; color: var(--muted);
+      cursor: pointer; transition: all 0.15s;
+    }
+    .toggle-btn.active {
+      background: var(--bg-dark);
+      color: var(--sand);
+      border-color: var(--bg-dark);
+    }
+    .toggle-content { display: none; }
+    .toggle-content.active { display: block; }
+
+    @media (max-width: 760px) {
+      .spor-grid { grid-template-columns: 1fr; }
+      .spor-card { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .bu-hero { padding: 48px 28px 40px; }
+      .bankeren-section, .hvorfor-section { padding: 40px 28px; }
+      .hvorfor-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">ETOS</a>
+  <div class="nav-links">
+    <a href="etos.html">ETOS</a>
+    <a href="boerneunivers.html" class="active">Børneunivers</a>
+    <a href="index.html#projekter">Projekter</a>
+    <a href="pilot.html">Pilot</a>
+  </div>
+  <a href="kontakt.html" class="nav-cta">Kontakt</a>
+</nav>
+
+<!-- HERO -->
+<div class="bu-hero">
+  <span class="eyebrow" style="color:#c89ee0;">Børnebogsunivers</span>
+  <h1>Når verden taler tilbage</h1>
+  <p class="subtitle">En børnebogsserie om at mærke, forstå og bruge sin egen stemme</p>
+  <p class="lead-text">Et univers for børn – og de voksne omkring dem. Her handler det ikke om rigtigt og forkert, men om at mærke det, der allerede er der.</p>
+</div>
+
+<!-- 3 SPOR -->
+<div class="spor-grid">
+  <a href="boern_0_4.html" class="spor-card spor-0_4">
+    <div class="spor-age">0–4 år · Mærke</div>
+    <h2>Hej, lille banker</h2>
+    <div class="spor-tags">
+      <span class="spor-tag">Sansning</span>
+      <span class="spor-tag">Tryghed</span>
+      <span class="spor-tag">Rytme</span>
+      <span class="spor-tag">Relation</span>
+    </div>
+    <p style="color:rgba(240,232,248,0.45); font-size:13px; line-height:1.7;">Før børn forstår ord, forstår de rytme, nærvær og gentagelse.</p>
+    <div class="spor-book">"Hej, lille banker"</div>
+    <div class="spor-arrow">Læs mere →</div>
+  </a>
+
+  <a href="boern_5_8.html" class="spor-card spor-5_8">
+    <div class="spor-age">5–8 år · Forstå</div>
+    <h2>Det der sidder fast</h2>
+    <div class="spor-tags">
+      <span class="spor-tag">Følelser</span>
+      <span class="spor-tag">Venskaber</span>
+      <span class="spor-tag">Konflikter</span>
+    </div>
+    <p style="color:rgba(232,244,252,0.45); font-size:13px; line-height:1.7;">Genkendelige situationer — følelser uden forklaring, men med plads.</p>
+    <div class="spor-book">Små historier, store mærkelser</div>
+    <div class="spor-arrow">Læs mere →</div>
+  </a>
+
+  <a href="boern_9_12.html" class="spor-card spor-9_12">
+    <div class="spor-age">9–12 år · Handle</div>
+    <h2>Når verden taler tilbage</h2>
+    <div class="spor-tags">
+      <span class="spor-tag">Grænser</span>
+      <span class="spor-tag">Gruppepres</span>
+      <span class="spor-tag">Din stemme</span>
+    </div>
+    <p style="color:rgba(253,244,232,0.45); font-size:13px; line-height:1.7;">En historie om Alma, der opdager at hendes stemme ikke er noget hun skal finde — men noget hun skal turde bruge.</p>
+    <div class="spor-book">"Når verden taler tilbage"</div>
+    <div class="spor-arrow">Læs mere →</div>
+  </a>
+</div>
+
+<!-- BANKEREN -->
+<div class="bankeren-section">
+  <div class="bankeren-pulse"></div>
+  <h2>Hvad er "Bankeren"?</h2>
+  <p>Bankeren er ikke en figur. Det er det, man mærker indeni — før man har ord for det. En fornemmelse. Et signal. Noget der banker.</p>
+</div>
+
+<!-- HVORFOR -->
+<div class="hvorfor-section">
+  <div class="container">
+    <div class="section-head" style="text-align:center; max-width:100%;">
+      <span class="eyebrow">Baggrund</span>
+      <h2>Hvorfor findes universet?</h2>
+    </div>
+
+    <!-- TOGGLE -->
+    <div class="toggle-bar">
+      <button class="toggle-btn active" onclick="showToggle('foraeldre', this)">Til forældre</button>
+      <button class="toggle-btn" onclick="showToggle('fagperson', this)">Til fagpersoner</button>
+    </div>
+
+    <div id="toggle-foraeldre" class="toggle-content active">
+      <div class="hvorfor-grid">
+        <div class="card">
+          <span class="kicker">Mærke</span>
+          <h3>Børn kan mærke ting</h3>
+          <p>Lange før de har ord for det. Det her univers giver dem et sprog — ikke til at forklare, men til at blive i det.</p>
+        </div>
+        <div class="card">
+          <span class="kicker">Forstå</span>
+          <h3>Mange lærer at ignorere det</h3>
+          <p>Vi voksne fortæller dem tit at det nok ikke er så slemt. Men det de mærker, er rigtigt. Det er værd at lytte til.</p>
+        </div>
+        <div class="card">
+          <span class="kicker">Handle</span>
+          <h3>Et fundament for livet</h3>
+          <p>Børn der lærer at lytte til sig selv, er bedre rustet til grænser, relationer og at finde deres egen stemme.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="toggle-fagperson" class="toggle-content">
+      <div class="hvorfor-grid">
+        <div class="card">
+          <span class="kicker">Metode</span>
+          <h3>Somatisk opmærksomhed</h3>
+          <p>Universet bygger på forskning i kropslig opmærksomhed og tidlig emotionel regulering — præsenteret i tilgængeligt format.</p>
+        </div>
+        <div class="card">
+          <span class="kicker">Progression</span>
+          <h3>Alderstilpasset forløb</h3>
+          <p>De tre spor er designet til at bygge oven på hinanden — fra sansning og tryghed til selvforståelse og handling.</p>
+        </div>
+        <div class="card">
+          <span class="kicker">Samarbejde</span>
+          <h3>Udviklet i dialog</h3>
+          <p>Projektet udvikles med fokus på virkelige erfaringer fra børn og familier — og i dialog med organisationer som Mødrehjælpen.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-strip">
+  <p class="cta-quote">"Interesseret i samarbejde om børneunivers?"</p>
+  <div class="cta-strip-btns">
+    <a href="kontakt.html" class="btn btn-primary">Tag kontakt</a>
+    <a href="mailto:M.E.M.Teori@gmail.com" class="btn btn-ghost">Skriv direkte</a>
+  </div>
+</div>
+
+<script>
+function showToggle(id, btn) {
+  document.querySelectorAll('.toggle-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.toggle-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('toggle-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+
+</body>
+</html>
