@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dirigenten — M.E.M.</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* HERO */
+    .dir-hero {
+      background: #1a1a12;
+      padding: 88px 52px 80px;
+      position: relative; overflow: hidden;
+      text-align: center;
+    }
+    .dir-hero::before {
+      content: '';
+      position: absolute; top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 460px; height: 460px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(226,136,78,0.12), transparent 70%);
+      pointer-events: none;
+    }
+    .dir-hero-inner { max-width: 620px; margin: 0 auto; position: relative; }
+    .dir-hero h1 {
+      color: #fdf4e8; font-size: clamp(36px, 5vw, 58px);
+      margin-bottom: 20px; line-height: 1.08;
+    }
+    .dir-hero h1 em { color: var(--accent); font-style: italic; }
+    .dir-hero .lead {
+      font-size: 18px; color: rgba(253,244,232,0.55);
+      font-family: 'Playfair Display', serif; font-style: italic;
+      line-height: 1.7; margin-bottom: 14px;
+    }
+    .dir-hero .sub {
+      font-size: 14px; color: rgba(253,244,232,0.35);
+      line-height: 1.8; max-width: 440px; margin: 0 auto 36px;
+    }
+    .dir-hero-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .btn-dir-primary { background: var(--accent); color: #fff; }
+    .btn-dir-primary:hover { background: var(--accent-dk); }
+    .btn-dir-ghost {
+      background: transparent; color: rgba(253,244,232,0.65);
+      border: 1px solid rgba(253,244,232,0.2);
+    }
+    .btn-dir-ghost:hover { border-color: rgba(253,244,232,0.4); color: #fdf4e8; }
+
+    /* Svævende noter */
+    .dir-notes {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none; overflow: hidden;
+    }
+    .dir-note {
+      position: absolute; font-size: 18px; opacity: 0.12;
+      animation: note-float 8s ease-in-out infinite;
+    }
+    @keyframes note-float {
+      0%,100% { transform: translateY(0px) rotate(0deg); opacity: 0.12; }
+      50% { transform: translateY(-20px) rotate(6deg); opacity: 0.22; }
+    }
+
+    /* PROBLEM */
+    .dir-problem {
+      background: var(--bg);
+      padding: 72px 52px;
+    }
+    .dir-problem-inner {
+      max-width: var(--max); margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: start;
+    }
+    .dir-problem h2 { color: var(--ink); margin-bottom: 20px; }
+    .dir-problem p { font-size: 15px; color: #555; line-height: 1.85; margin-bottom: 14px; }
+    .dir-compare {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .dir-compare-box {
+      border-radius: 12px; padding: 20px 24px;
+    }
+    .dir-compare-box.them {
+      background: #fdf0ee; border: 1px solid rgba(200,80,60,0.12);
+      border-left: 3px solid #c8503c;
+    }
+    .dir-compare-box.them .dir-compare-label { color: #c8503c; }
+    .dir-compare-box.you {
+      background: #fdf6ee; border: 1px solid rgba(226,136,78,0.18);
+      border-left: 3px solid var(--accent);
+    }
+    .dir-compare-box.you .dir-compare-label { color: var(--accent-dk); }
+    .dir-compare-label {
+      font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 10px; display: block;
+    }
+    .dir-compare-box ul { padding-left: 18px; }
+    .dir-compare-box ul li { font-size: 13px; margin-bottom: 6px; line-height: 1.6; }
+    .dir-compare-box.them ul li { color: #7a4040; }
+    .dir-compare-box.you ul li { color: #5a3a1a; }
+
+    /* LØSNING */
+    .dir-solution {
+      background: #1a1a12;
+      padding: 72px 52px;
+    }
+    .dir-solution-inner { max-width: var(--max); margin: 0 auto; text-align: center; }
+    .dir-solution h2 { color: #fdf4e8; margin-bottom: 12px; }
+    .dir-solution .lead { color: rgba(253,244,232,0.45); font-size: 15px; font-style: italic; margin-bottom: 48px; max-width: 480px; margin-left: auto; margin-right: auto; }
+
+    .dir-flow {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0; flex-wrap: wrap; margin-bottom: 36px;
+    }
+    .dir-flow-step {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 20px 24px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(226,136,78,0.15);
+      border-radius: 12px; min-width: 120px;
+    }
+    .dir-flow-icon { font-size: 22px; margin-bottom: 8px; }
+    .dir-flow-step h4 {
+      font-family: 'Playfair Display', serif; font-size: 14px;
+      color: #fdf4e8; font-weight: 400; margin-bottom: 4px;
+    }
+    .dir-flow-step p { font-size: 11px; color: rgba(253,244,232,0.35); }
+    .dir-flow-arrow {
+      font-size: 18px; color: rgba(226,136,78,0.4); padding: 0 8px;
+      flex-shrink: 0;
+    }
+    .dir-solution .bottom-line {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 16px; color: rgba(253,244,232,0.4); max-width: 400px; margin: 0 auto;
+    }
+
+    /* STEPS */
+    .dir-how {
+      background: var(--bg);
+      padding: 72px 52px;
+    }
+    .dir-how-inner { max-width: var(--max); margin: 0 auto; }
+    .dir-how h2 { color: var(--ink); margin-bottom: 32px; }
+    .dir-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+    }
+    .dir-step {
+      background: #fff; border: 1px solid var(--line);
+      border-radius: 12px; padding: 28px 24px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .dir-step:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .dir-step-num {
+      font-family: 'Playfair Display', serif; font-size: 32px;
+      color: var(--accent); opacity: 0.5; margin-bottom: 12px;
+      display: block; font-weight: 400;
+    }
+    .dir-step h3 { font-size: 17px; color: var(--ink); margin-bottom: 8px; }
+    .dir-step p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+    /* FOR HVEM */
+    .dir-for {
+      background: #fdf6ee;
+      padding: 72px 52px;
+      border-top: 1px solid rgba(226,136,78,0.1);
+    }
+    .dir-for-inner {
+      max-width: var(--max); margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: center;
+    }
+    .dir-for h2 { color: var(--ink); margin-bottom: 16px; }
+    .dir-for p { font-size: 15px; color: #555; line-height: 1.85; margin-bottom: 14px; }
+    .dir-for ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+    .dir-for ul li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 14px; color: #555; line-height: 1.6;
+    }
+    .dir-for ul li::before {
+      content: '→'; color: var(--accent); font-size: 14px;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .dir-for-quote {
+      background: #1a1a12; border-radius: 16px; padding: 36px 32px;
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 20px; color: #fdf4e8; line-height: 1.6;
+      position: relative;
+    }
+    .dir-for-quote::before {
+      content: '"'; font-size: 72px; color: rgba(226,136,78,0.2);
+      position: absolute; top: 10px; left: 24px;
+      font-family: 'Playfair Display', serif; line-height: 1;
+    }
+    .dir-for-quote p { color: rgba(253,244,232,0.7); font-size: 20px; margin: 0; padding-top: 20px; }
+
+    /* LIVE DEMO */
+    .dir-demo {
+      background: var(--bg-dark);
+      padding: 72px 52px;
+    }
+    .dir-demo-inner { max-width: 680px; margin: 0 auto; }
+    .dir-demo h2 { color: var(--sand); margin-bottom: 8px; }
+    .dir-demo .lead { color: rgba(240,235,224,0.45); font-size: 14px; margin-bottom: 32px; }
+
+    .demo-input-wrap {
+      position: relative; margin-bottom: 16px;
+    }
+    .demo-input {
+      width: 100%; min-height: 100px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(240,235,224,0.15);
+      border-radius: 12px; padding: 20px 24px;
+      font-family: 'DM Sans', sans-serif; font-size: 15px;
+      color: #fdf4e8; line-height: 1.7; resize: none;
+      transition: border-color 0.15s;
+      outline: none;
+    }
+    .demo-input::placeholder { color: rgba(240,235,224,0.2); }
+    .demo-input:focus { border-color: rgba(226,136,78,0.4); }
+    .demo-char {
+      position: absolute; bottom: 12px; right: 16px;
+      font-size: 11px; color: rgba(240,235,224,0.2);
+    }
+
+    .demo-btn {
+      font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+      padding: 11px 24px; border-radius: 8px; border: none; cursor: pointer;
+      background: var(--accent); color: #fff; transition: background 0.15s;
+    }
+    .demo-btn:hover { background: var(--accent-dk); }
+    .demo-btn:disabled { opacity: 0.5; cursor: default; }
+
+    .demo-result {
+      margin-top: 24px; display: none;
+    }
+    .demo-result.visible { display: block; }
+    .demo-result-label {
+      font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+    }
+    .demo-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .demo-tag {
+      font-size: 12px; padding: 5px 12px; border-radius: 20px;
+      font-family: 'DM Sans', sans-serif; font-weight: 400;
+      animation: tag-appear 0.3s ease forwards;
+      opacity: 0; transform: translateY(6px);
+    }
+    @keyframes tag-appear {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .demo-tag-project { background: rgba(226,136,78,0.15); color: #e2a06a; }
+    .demo-tag-type    { background: rgba(74,158,218,0.15); color: #6ab4e8; }
+    .demo-tag-mood    { background: rgba(78,200,140,0.12); color: #4ec88c; }
+
+    .demo-suggestion {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(240,235,224,0.1);
+      border-left: 3px solid var(--accent);
+      border-radius: 10px; padding: 16px 20px;
+      animation: slide-in 0.3s ease forwards;
+    }
+    @keyframes slide-in {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .demo-suggestion p {
+      font-size: 13px; color: rgba(240,235,224,0.6); margin: 0; line-height: 1.7;
+    }
+    .demo-suggestion strong { color: rgba(240,235,224,0.85); font-weight: 500; }
+
+    .demo-note {
+      margin-top: 16px; font-size: 12px;
+      color: rgba(240,235,224,0.2); font-style: italic; text-align: center;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 860px) {
+      .dir-hero { padding: 60px 28px 52px; }
+      .dir-problem { padding: 52px 28px; }
+      .dir-problem-inner { grid-template-columns: 1fr; gap: 32px; }
+      .dir-solution { padding: 52px 28px; }
+      .dir-how { padding: 52px 28px; }
+      .dir-steps { grid-template-columns: repeat(2, 1fr); }
+      .dir-for { padding: 52px 28px; }
+      .dir-for-inner { grid-template-columns: 1fr; gap: 32px; }
+      .dir-demo { padding: 52px 28px; }
+      .dir-flow { gap: 0; }
+      .dir-flow-step { min-width: 90px; padding: 14px 12px; }
+      .dir-flow-arrow { padding: 0 4px; font-size: 14px; }
+    }
+    @media (max-width: 560px) {
+      .dir-steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">ETOS</a>
+  <div class="nav-links">
+    <a href="etos.html">ETOS</a>
+    <a href="boerneunivers.html">Børneunivers</a>
+    <a href="laering.html">Lærings-uniVRs</a>
+    <a href="pilot.html">Pilot</a>
+  </div>
+  <a href="kontakt.html" class="nav-cta">Kontakt</a>
+</nav>
+
+<!-- HERO -->
+<div class="dir-hero">
+  <div class="dir-notes">
+    <div class="dir-note" style="top:18%;left:8%;animation-delay:0s;">🎼</div>
+    <div class="dir-note" style="top:65%;left:5%;animation-delay:1.4s;">♩</div>
+    <div class="dir-note" style="top:30%;right:9%;animation-delay:0.7s;">♪</div>
+    <div class="dir-note" style="top:72%;right:7%;animation-delay:2.1s;">🎵</div>
+    <div class="dir-note" style="top:14%;right:22%;animation-delay:1.8s;">♫</div>
+  </div>
+  <div class="dir-hero-inner">
+    <span class="eyebrow" style="color:var(--accent);">Projekt · Under udvikling</span>
+    <h1>Dirigenten</h1>
+    <p class="lead">Et rum for tanker, der ikke kommer i rækkefølge.</p>
+    <p class="sub">Ikke alle tænker i lister. Nogle tænker i forbindelser, stemninger og bevægelse. Dirigenten er bygget til dem.</p>
+    <div class="dir-hero-btns">
+      <a href="#demo" class="btn btn-dir-primary">Prøv det selv</a>
+      <a href="#hvordan" class="btn btn-dir-ghost">Hvordan det virker</a>
+      <a href="kontakt.html" class="btn btn-dir-ghost">Kontakt</a>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEMET -->
+<div class="dir-problem">
+  <div class="dir-problem-inner">
+    <div>
+      <span class="eyebrow">Problemet</span>
+      <h2>Systemerne er bygget til én slags tanker</h2>
+      <p>De fleste planlægningsværktøjer forventer, at du tænker lineært — én ting ad gangen, i rækkefølge, opdelt i opgaver.</p>
+      <p>For mange er det præcis det modsatte af, hvordan tankerne faktisk fungerer. Mening kommer før struktur. Alt hænger sammen. Overblikket opstår, når noget får lov at eksistere råt.</p>
+      <p>Det er ikke et problem med dig. Det er et problem med systemet.</p>
+    </div>
+    <div class="dir-compare">
+      <div class="dir-compare-box them">
+        <span class="dir-compare-label">Hvad systemerne forventer</span>
+        <ul>
+          <li>Tænk lineært</li>
+          <li>Prioritér før du forstår</li>
+          <li>Bryd alt ned i opgaver</li>
+          <li>Hav styr på det fra starten</li>
+        </ul>
+      </div>
+      <div class="dir-compare-box you">
+        <span class="dir-compare-label">Hvad der faktisk sker</span>
+        <ul>
+          <li>Mening kommer før struktur</li>
+          <li>Alt hænger sammen på én gang</li>
+          <li>Overblik opstår, når noget eksisterer råt</li>
+          <li>Bevægelse skaber klarhed</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LØSNING -->
+<div class="dir-solution">
+  <div class="dir-solution-inner">
+    <span class="eyebrow" style="color:var(--accent);">Løsningen</span>
+    <h2 style="color:#fdf4e8;">Et oversættelsesrum</h2>
+    <p class="lead">Dirigenten er ikke en to-do liste. Det er et rum mellem kaos og handling.</p>
+    <div class="dir-flow">
+      <div class="dir-flow-step">
+        <div class="dir-flow-icon">🧠</div>
+        <h4>Tanke</h4>
+        <p>Rå, ufiltreret</p>
+      </div>
+      <div class="dir-flow-arrow">→</div>
+      <div class="dir-flow-step">
+        <div class="dir-flow-icon">📥</div>
+        <h4>Landingsplads</h4>
+        <p>Ingen struktur endnu</p>
+      </div>
+      <div class="dir-flow-arrow">→</div>
+      <div class="dir-flow-step">
+        <div class="dir-flow-icon">🧷</div>
+        <h4>Projekt</h4>
+        <p>Forbindelser opstår</p>
+      </div>
+      <div class="dir-flow-arrow">→</div>
+      <div class="dir-flow-step">
+        <div class="dir-flow-icon">📊</div>
+        <h4>Portfolio</h4>
+        <p>Overblik vokser frem</p>
+      </div>
+    </div>
+    <p class="bottom-line">Du starter ikke med struktur. Du starter med at få det ud.</p>
+  </div>
+</div>
+
+<!-- HVORDAN DET VIRKER -->
+<div class="dir-how" id="hvordan">
+  <div class="dir-how-inner">
+    <span class="eyebrow">Metode</span>
+    <h2>Hvordan det virker</h2>
+    <div class="dir-steps">
+      <div class="dir-step">
+        <span class="dir-step-num">01</span>
+        <h3>Land</h3>
+        <p>Skriv alt uden filter. Ingen struktur. Ingen krav om at det giver mening — endnu.</p>
+      </div>
+      <div class="dir-step">
+        <span class="dir-step-num">02</span>
+        <h3>Forbind</h3>
+        <p>Tilknyt idéen til et projekt, når det giver mening. Eller lad den ligge og vente.</p>
+      </div>
+      <div class="dir-step">
+        <span class="dir-step-num">03</span>
+        <h3>Forstå</h3>
+        <p>Dirigenten foreslår, hvor idéen hører hjemme — baseret på mønstre, ikke regler.</p>
+      </div>
+      <div class="dir-step">
+        <span class="dir-step-num">04</span>
+        <h3>Udvikl</h3>
+        <p>Projektet vokser til en levende portfolio. Overblikket opstår af sig selv.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOR HVEM -->
+<div class="dir-for">
+  <div class="dir-for-inner">
+    <div>
+      <span class="eyebrow">For hvem</span>
+      <h2>Bygget til dem, der tænker anderledes</h2>
+      <p>Dirigenten er for mennesker, der har mange idéer på én gang — og bliver overvældet af klassiske planlægningsværktøjer.</p>
+      <ul>
+        <li>Du har mange idéer på én gang</li>
+        <li>Du tænker i helheder frem for trin</li>
+        <li>Klassiske systemer føles som modstand</li>
+        <li>Du har ADHD eller lignende tankeprocesser</li>
+        <li>Du vil have bevægelse, ikke kontrol</li>
+      </ul>
+      <p style="margin-top:20px;">Det er ikke et system til at styre dig. Det er et system til at følge dig.</p>
+    </div>
+    <div class="dir-for-quote">
+      <p>"Her må jeg tænke som jeg er — ikke som systemet vil have mig til at være."</p>
+    </div>
+  </div>
+</div>
+
+<!-- LIVE DEMO -->
+<div class="dir-demo" id="demo">
+  <div class="dir-demo-inner">
+    <span class="eyebrow" style="color:var(--accent);">Prøv det</span>
+    <h2>Land en tanke</h2>
+    <p class="lead">Skriv en idé, en tanke eller noget der fylder. Ufiltreret. Dirigenten lytter.</p>
+
+    <div class="demo-input-wrap">
+      <textarea
+        class="demo-input"
+        id="demoInput"
+        placeholder="Skriv hvad der er i dit hoved lige nu..."
+        maxlength="400"
+        oninput="updateChar(this)"
+      ></textarea>
+      <span class="demo-char" id="charCount">0 / 400</span>
+    </div>
+    <button class="demo-btn" id="demoBtn" onclick="landTanke()" disabled>
+      Land tanken →
+    </button>
+
+    <div class="demo-result" id="demoResult">
+      <div class="demo-result-label">Dirigenten ser</div>
+      <div class="demo-tags" id="demoTags"></div>
+      <div class="demo-suggestion" id="demoSuggestion"></div>
+      <p class="demo-note">Dette er en simpel demo — den rigtige Dirigent lærer af dine mønstre over tid.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-strip">
+  <p class="cta-quote">"Første version er bygget simpelt. Men den er bygget ærligt."</p>
+  <div class="cta-strip-btns">
+    <a href="kontakt.html" class="btn btn-primary">Bliv med fra starten</a>
+    <a href="mailto:M.E.M.Teori@gmail.com" class="btn btn-ghost">Skriv direkte</a>
+  </div>
+</div>
+
+<script>
+function updateChar(el) {
+  const len = el.value.length;
+  document.getElementById('charCount').textContent = len + ' / 400';
+  document.getElementById('demoBtn').disabled = len < 3;
+}
+
+function landTanke() {
+  const input = document.getElementById('demoInput').value.trim();
+  if (!input) return;
+
+  const btn = document.getElementById('demoBtn');
+  btn.disabled = true;
+  btn.textContent = 'Lytter...';
+
+  setTimeout(() => {
+    const result = analyserTanke(input);
+    visDemoResultat(result);
+    btn.textContent = 'Land tanken →';
+    btn.disabled = false;
+  }, 900);
+}
+
+function analyserTanke(tekst) {
+  const t = tekst.toLowerCase();
+
+  // Projekt-gæt
+  let projekt = 'Løs idé';
+  let projektFarve = 'demo-tag-project';
+  if (t.match(/barn|børn|skole|lær|elev|undervise/)) { projekt = 'Børneunivers'; }
+  else if (t.match(/musik|sang|lyd|rytme|tone/)) { projekt = 'Kreativt spor'; }
+  else if (t.match(/penge|økonomi|budget|regnskab|faktura/)) { projekt = 'Regnskab'; }
+  else if (t.match(/kemi|fysik|vr|minecraft|videnskab|natur/)) { projekt = 'Lærings-uniVRs'; }
+  else if (t.match(/beslut|etik|system|regl|konflik/)) { projekt = 'ETOS'; }
+  else if (t.match(/ide|tanke|projekt|plan|bygge|skabe/)) { projekt = 'Nyt projekt?'; }
+
+  // Type
+  let type = 'Tanke';
+  if (t.match(/\?/)) type = 'Spørgsmål';
+  else if (t.match(/vil|skal|bør|burde|måske|prøve/)) type = 'Intention';
+  else if (t.match(/hvad hvis|forestil|tænk hvis/)) type = 'Vision';
+  else if (t.match(/problem|svært|frustrerende|bøvlet/)) type = 'Udfordring';
+  else if (t.match(/fedt|god|virker|sejt|elsker/)) type = 'Energi';
+
+  // Stemning
+  let stemning = 'Neutral';
+  if (t.match(/glad|fedt|spændt|glæd|ja|perfekt|elsker/)) stemning = 'Høj energi';
+  else if (t.match(/træt|svært|tung|bøvl|frustr|ikke/)) stemning = 'Modstand';
+  else if (t.match(/rolig|stille|måske|tænker|overvejer/)) stemning = 'Refleksiv';
+  else if (t.match(/\?|hvad|hvordan|hvorfor|hvem/)) stemning = 'Nysgerrig';
+
+  // Forslag
+  const forslag = [
+    `<strong>Projekt:</strong> Denne tanke ligner noget der hører til under "${projekt}".`,
+    `<strong>Næste skridt:</strong> Lad den ligge i 24 timer — eller skriv tre ord mere om, hvad der er interessant ved den.`,
+    `<strong>Mønster:</strong> Du skriver oftest om det der giver energi, ikke det der kræver noget. Det er information.`
+  ];
+
+  return { projekt, type, stemning, forslag: forslag[Math.floor(Math.random() * forslag.length)] };
+}
+
+function visDemoResultat(r) {
+  const tagsEl = document.getElementById('demoTags');
+  const suggEl = document.getElementById('demoSuggestion');
+  const resultEl = document.getElementById('demoResult');
+
+  tagsEl.innerHTML = '';
+  const tags = [
+    { text: r.projekt, cls: 'demo-tag-project' },
+    { text: r.type,    cls: 'demo-tag-type' },
+    { text: r.stemning,cls: 'demo-tag-mood' },
+  ];
+  tags.forEach((tag, i) => {
+    const el = document.createElement('span');
+    el.className = 'demo-tag ' + tag.cls;
+    el.textContent = tag.text;
+    el.style.animationDelay = (i * 0.12) + 's';
+    tagsEl.appendChild(el);
+  });
+
+  suggEl.innerHTML = '<p>' + r.forslag + '</p>';
+  resultEl.classList.add('visible');
+  resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+</script>
+
+</body>
+</html>
