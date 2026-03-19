@@ -273,3 +273,110 @@ h3 { font-size: 1.12rem; }
   background: transparent;
   border: 1px solid #ccc;
 }
+
+/* Themed project pages */
+.themed-hero {
+  border-radius: 22px;
+  padding: 2.4rem 1.6rem;
+  margin-bottom: 2rem;
+}
+
+.books-page .themed-hero,
+.books-hero {
+  background: linear-gradient(135deg, #fff8f2 0%, #fffdf8 100%);
+  border: 1px solid #f0e2cf;
+}
+
+.vr-page .themed-hero,
+.vr-hero {
+  background: linear-gradient(135deg, #f4fbff 0%, #f8fcff 100%);
+  border: 1px solid #dbe8f5;
+}
+
+.feature-band {
+  margin: 2rem 0;
+}
+
+.feature-card {
+  text-align: left;
+}
+
+.excerpt-card {
+  margin: 2rem 0;
+  background: linear-gradient(180deg, #fffdf9 0%, #fff8f0 100%);
+}
+
+.book-excerpt {
+  margin: 1.2rem 0 0;
+  padding: 1.2rem 1.3rem;
+  border-left: 4px solid #d7b487;
+  background: rgba(255,255,255,0.75);
+  border-radius: 14px;
+  font-style: italic;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+.excerpt-note {
+  margin-top: 1rem;
+  font-size: 0.92rem;
+  color: #6d6d6d;
+}
+
+.visual-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.visual-orb {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.orb-1 {
+  background: radial-gradient(circle at 30% 30%, #8de1c8, #2d8f7d);
+}
+
+.orb-2 {
+  background: radial-gradient(circle at 30% 30%, #9bd0ff, #446dcb);
+}
+
+.orb-3 {
+  background: radial-gradient(circle at 30% 30%, #d6b5ff, #7b5cc9);
+}
+
+.mini-scenes {
+  margin: 2rem 0;
+}
+
+.scene-card {
+  min-height: 130px;
+  border-radius: 18px;
+  display: flex;
+  align-items: end;
+  padding: 1rem;
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+}
+
+.scene-card span {
+  background: rgba(0,0,0,0.24);
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+}
+
+.scene-chem {
+  background: linear-gradient(135deg, #34c59a, #1d7f7f);
+}
+
+.scene-physics {
+  background: linear-gradient(135deg, #4f8cff, #4255c7);
+}
+
+.scene-space {
+  background: linear-gradient(135deg, #8a5cff, #43308a);
+}
