@@ -197,3 +197,49 @@ h3 { font-size: 1.22rem; }
   .hero { padding-top: 3.8rem; }
   h1 { max-width: 100%; }
 }
+
+
+.start-strip { display:flex; align-items:center; gap:.8rem; flex-wrap:wrap; margin-top:.5rem; }
+.start-copy { color: var(--muted); font-weight: 700; }
+.aha-line {
+  margin-top: 1.2rem; padding: 1rem 1.1rem; border-radius: 20px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.88), rgba(241,249,245,0.95));
+  border: 1px solid rgba(191,215,202,0.95); box-shadow: var(--shadow-soft);
+  font-weight: 800; letter-spacing: -0.01em; max-width: 58ch;
+}
+.insight-band { padding-top: 1rem; }
+.insight-box { padding: 1.4rem; background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(244,251,247,0.96)); }
+.enhanced { position: relative; }
+.enhanced::before {
+  content: ""; position: absolute; inset: 14% 20%; border-radius: 28px;
+  background: radial-gradient(circle, rgba(62,140,118,0.08), transparent 70%); z-index: 0;
+}
+.enhanced .model-cell { position: relative; z-index: 1; }
+.pulse { animation: floaty 4.6s ease-in-out infinite; }
+.delay-1 { animation-delay: .4s; }
+.delay-2 { animation-delay: .8s; }
+.delay-3 { animation-delay: 1.2s; }
+@keyframes floaty {
+  0%,100% { transform: translateY(0); box-shadow: var(--shadow-soft); }
+  50% { transform: translateY(-5px); box-shadow: 0 14px 28px rgba(18, 47, 38, 0.08); }
+}
+.btn:hover { box-shadow: 0 14px 30px rgba(18,47,38,0.12); }
+.card:hover, .model-cell:hover, .step:hover { transform: translateY(-2px); transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; box-shadow: 0 14px 30px rgba(18,47,38,0.08); }
+.card, .model-cell, .step { transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+:root {
+  --bg: #f6fbf8;
+  --bg-2: #edf8f2;
+  --surface: rgba(255,255,255,0.9);
+  --line: #dcebe2;
+  --line-strong: #bfd8ca;
+  --text: #152522;
+  --muted: #60736c;
+  --primary: #176a57;
+  --primary-2: #3f9078;
+  --accent: #c89a63;
+  --accent-soft: #f8ead8;
+}
+@media (max-width: 760px) {
+  .aha-line { font-size: .98rem; }
+  .insight-box { padding: 1.15rem; }
+}
