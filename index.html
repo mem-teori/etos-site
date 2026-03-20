@@ -70,7 +70,17 @@
     .kontekst-desc { font-size: 13px; color: rgba(232,236,252,0.4); line-height: 1.7; font-family: 'DM Sans', sans-serif; }
 
     @media (max-width: 860px) {
-      .fs-hero-left { grid-template-columns: 1fr !important; padding: 40px 28px; }
+      .fs-hero-left {
+  background: #1E2E1F;
+  padding: 56px 52px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  max-width: 1160px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
       .mini-case-inner { grid-template-columns: 1fr; }
       .mini-case-arrow { display: none; }
       .proj-diff-grid { grid-template-columns: 1fr 1fr; }
@@ -143,8 +153,8 @@
 </header>
 
 <!-- HERO -->
-<section class="fs-hero">
-  <div class="fs-hero-left">
+<section style="background:#1E2E1F;display:block;">
+  <div style="background:#1E2E1F;padding:56px 52px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;max-width:1160px;margin:0 auto;position:relative;overflow:hidden;">
     <div class="fs-hero-text">
       <div class="fs-tag">
         <span class="fs-tag-dot"></span>
@@ -218,36 +228,6 @@
       </div>
       <p class="mc-verdict" id="mcVerdict">Systemlogik og menneskelig virkelighed trækker i modsat retning. Etisk gæld opstår uanset valg.</p>
       <a href="system.html" class="mc-link">Prøv selv med sliders →</a>
-    </div>
-  </div>
-</div>
-
-<!-- PROJEKT FORSKEL -->
-<div class="proj-diff">
-  <div class="proj-diff-inner">
-    <span style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#E2884E;font-family:'DM Sans',sans-serif;">Hvad er hvad</span>
-    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1A1A1A;font-weight:400;margin-top:8px;">Fire projekter — én grundidé</h2>
-    <div class="proj-diff-grid">
-      <div class="proj-diff-card" style="border-left:3px solid #7a9ee8;">
-        <div class="proj-diff-tag" style="color:#7a9ee8;">ETOS</div>
-        <div class="proj-diff-title">Forstå beslutninger</div>
-        <div class="proj-diff-desc">Synliggør spændinger i komplekse situationer — til fagpersoner og organisationer.</div>
-      </div>
-      <div class="proj-diff-card" style="border-left:3px solid #E2884E;">
-        <div class="proj-diff-tag" style="color:#E2884E;">Dirigenten</div>
-        <div class="proj-diff-title">Dit personlige OS</div>
-        <div class="proj-diff-desc">Tag kaos fra hovedet og lav det til en overskuelig portfolio. Til neurodivergente og kreative.</div>
-      </div>
-      <div class="proj-diff-card" style="border-left:3px solid #4ec88c;">
-        <div class="proj-diff-tag" style="color:#3a8a5a;">Lærings-uniVRs</div>
-        <div class="proj-diff-title">Oplev før du forstår</div>
-        <div class="proj-diff-desc">Naturvidenskab gennem oplevelse — for børn og unge der lærer bedst ved at gøre.</div>
-      </div>
-      <div class="proj-diff-card" style="border-left:3px solid #5a7ed8;">
-        <div class="proj-diff-tag" style="color:#4a6ec8;">Regnskab</div>
-        <div class="proj-diff-title">Overblik over økonomi</div>
-        <div class="proj-diff-desc">Simpelt og visuelt — uden revisorlogik. Bygget til iværksættere og solo-founders.</div>
-      </div>
     </div>
   </div>
 </div>
