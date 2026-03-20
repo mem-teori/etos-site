@@ -300,6 +300,124 @@
       display: flex; flex-direction: column; justify-content: center;
       border-left: 1px solid rgba(0,0,0,0.08);
     }
+
+    /* === FORBEDRET INDGANG BAR === */
+    .indgang-bar {
+      background: #0a0f16;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      position: sticky; top: 62px; z-index: 40;
+      transition: background 0.3s;
+    }
+    .indgang-inner {
+      max-width: var(--max); margin: 0 auto;
+      display: flex; align-items: center;
+      gap: 8px; padding: 10px 40px;
+      flex-wrap: wrap;
+    }
+    .indgang-label { font-size: 12px; color: rgba(255,255,255,0.25); margin-right: 4px; flex-shrink: 0; }
+    .indgang-btn {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'DM Sans', sans-serif;
+      padding: 8px 16px; border-radius: 10px; border: 1px solid transparent;
+      cursor: pointer; transition: all 0.2s; text-decoration: none;
+      background: rgba(255,255,255,0.04);
+    }
+    .ib-icon { font-size: 16px; flex-shrink: 0; }
+    .ib-text { display: flex; flex-direction: column; text-align: left; }
+    .ib-title { font-size: 13px; font-weight: 500; line-height: 1.2; }
+    .ib-sub { font-size: 10px; opacity: 0.5; margin-top: 1px; }
+    .indgang-btn.borger { border-color: rgba(78,200,140,0.15); }
+    .indgang-btn.borger .ib-title { color: rgba(240,252,245,0.7); }
+    .indgang-btn.borger.active, .indgang-btn.borger:hover {
+      background: rgba(78,200,140,0.12);
+      border-color: rgba(78,200,140,0.4);
+      transform: translateY(-1px);
+    }
+    .indgang-btn.borger.active .ib-title, .indgang-btn.borger:hover .ib-title { color: #4ec88c; }
+    .indgang-btn.fagperson { border-color: rgba(90,126,216,0.15); }
+    .indgang-btn.fagperson .ib-title { color: rgba(232,236,252,0.7); }
+    .indgang-btn.fagperson.active, .indgang-btn.fagperson:hover {
+      background: rgba(90,126,216,0.12);
+      border-color: rgba(90,126,216,0.4);
+      transform: translateY(-1px);
+    }
+    .indgang-btn.fagperson.active .ib-title, .indgang-btn.fagperson:hover .ib-title { color: #7a9ee8; }
+    .indgang-hint {
+      font-size: 11px; color: rgba(255,255,255,0.18); font-style: italic;
+      margin-left: auto; transition: opacity 0.3s;
+    }
+    .indgang-hint.hidden { opacity: 0; pointer-events: none; }
+
+    /* Aktiv indgang farver hele baren */
+    .indgang-bar.vis-borger   { background: #091410; }
+    .indgang-bar.vis-fagperson { background: #0a0d1a; }
+
+    /* === MINI-CASE BAR === */
+    .mini-case-bar { background: #f5f0e8; border-bottom: 1px solid rgba(0,0,0,0.07); }
+    .mini-case-inner {
+      max-width: var(--max); margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 32px 1fr;
+      gap: 0; align-items: center;
+      padding: 0;
+    }
+    .mini-case-scenario { padding: 24px 32px; }
+    .mini-case-label {
+      font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 10px;
+    }
+    .mini-case-tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+    .mc-tab {
+      font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 400;
+      padding: 5px 12px; border-radius: 20px; border: 1px solid var(--line);
+      background: #fff; color: var(--muted); cursor: pointer;
+      transition: all 0.15s;
+    }
+    .mc-tab:hover { border-color: var(--accent); color: var(--accent-dk); }
+    .mc-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 500; }
+    .mini-case-text {
+      font-size: 14px; color: #444; line-height: 1.7; font-style: italic;
+    }
+    .mini-case-arrow {
+      font-size: 20px; color: var(--accent); text-align: center; opacity: 0.6;
+    }
+    .mini-case-result { padding: 24px 32px; background: var(--bg-dark); }
+    .mini-case-result-label {
+      font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(240,235,224,0.3); display: block; margin-bottom: 10px;
+    }
+    .mc-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+    .mc-tag {
+      font-size: 11px; font-weight: 500; padding: 3px 10px;
+      border-radius: 20px; animation: tag-pop 0.25s ease forwards;
+    }
+    .mc-tag.red    { background: rgba(224,112,112,0.15); color: #e07070; border: 1px solid rgba(224,112,112,0.2); }
+    .mc-tag.orange { background: rgba(226,136,78,0.15);  color: #e2a06a; border: 1px solid rgba(226,136,78,0.2); }
+    .mc-tag.blue   { background: rgba(90,126,216,0.15);  color: #7a9ee8; border: 1px solid rgba(90,126,216,0.2); }
+    .mc-tag.green  { background: rgba(78,200,140,0.15);  color: #4ec88c; border: 1px solid rgba(78,200,140,0.2); }
+    @keyframes tag-pop {
+      from { opacity: 0; transform: translateY(4px) scale(0.95); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .mini-case-verdict {
+      font-size: 13px; color: rgba(240,235,224,0.55);
+      line-height: 1.7; margin-bottom: 12px;
+    }
+    .mini-case-link {
+      font-size: 12px; font-weight: 500; color: var(--accent);
+      text-decoration: none; display: inline-flex; align-items: center; gap: 5px;
+      opacity: 0.8; transition: opacity 0.15s;
+    }
+    .mini-case-link:hover { opacity: 1; }
+
+    /* Hero demo — pulserende border når mode skifter */
+    .hero-demo-result.pulse-anim {
+      animation: result-pulse 0.4s ease;
+    }
+    @keyframes result-pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(226,136,78,0.4); }
+      50%  { box-shadow: 0 0 0 6px rgba(226,136,78,0); }
+      100% { box-shadow: 0 0 0 0 rgba(226,136,78,0); }
+    }
   </style>
 </head>
 <body>
@@ -406,11 +524,24 @@
 
 
 <!-- VÆLG DIN INDGANG -->
-<div class="indgang-bar">
+<div class="indgang-bar" id="indgangBar">
   <div class="indgang-inner">
-    <span class="indgang-label">Vælg din indgang:</span>
-    <button class="indgang-btn borger" onclick="setIndgang('borger', this)">👤 Jeg er borger</button>
-    <button class="indgang-btn fagperson" onclick="setIndgang('fagperson', this)">🧑‍⚕️ Jeg er fagperson</button>
+    <span class="indgang-label">Hvem er du?</span>
+    <button class="indgang-btn borger" id="btnBorger" onclick="setIndgang('borger', this)">
+      <span class="ib-icon">👤</span>
+      <span class="ib-text">
+        <span class="ib-title">Jeg er borger</span>
+        <span class="ib-sub">Enkel forklaring + demo</span>
+      </span>
+    </button>
+    <button class="indgang-btn fagperson" id="btnFag" onclick="setIndgang('fagperson', this)">
+      <span class="ib-icon">🧑‍⚕️</span>
+      <span class="ib-text">
+        <span class="ib-title">Jeg er fagperson</span>
+        <span class="ib-sub">Teknisk analyse + system</span>
+      </span>
+    </button>
+    <span class="indgang-hint" id="indgangHint">← Klik for at tilpasse din oplevelse</span>
   </div>
 </div>
 
@@ -422,6 +553,32 @@
       <p style="font-size:13px;color:rgba(255,255,255,0.7);margin:0;">Ingen konto. Ingen opsætning. Bare juster og se hvad ETOS opdager.</p>
     </div>
     <a href="system.html" style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:11px 24px;border-radius:8px;background:#fff;color:var(--accent-dk);text-decoration:none;white-space:nowrap;flex-shrink:0;">Start her → 2 min</a>
+  </div>
+</div>
+
+<!-- MINI-CASE: forstå ETOS på 5 sekunder -->
+<div class="mini-case-bar" id="miniCaseBar">
+  <div class="mini-case-inner">
+    <div class="mini-case-scenario">
+      <span class="mini-case-label">Hvad ser ETOS i denne situation?</span>
+      <div class="mini-case-tabs">
+        <button class="mc-tab active" onclick="switchCase(0, this)">🏥 Psykiatri</button>
+        <button class="mc-tab" onclick="switchCase(1, this)">🏛 Kommune</button>
+        <button class="mc-tab" onclick="switchCase(2, this)">🏢 Ledelse</button>
+      </div>
+      <p class="mini-case-text" id="mcText">En patient nægter behandling. Systemet vurderer risiko som høj. Patienten ønsker at forblive hjemme.</p>
+    </div>
+    <div class="mini-case-arrow">→</div>
+    <div class="mini-case-result">
+      <span class="mini-case-result-label">ETOS registrerer</span>
+      <div class="mc-tags" id="mcTags">
+        <span class="mc-tag red">Høj divergens</span>
+        <span class="mc-tag orange">Etisk pres</span>
+        <span class="mc-tag blue">Lav tillid</span>
+      </div>
+      <p class="mini-case-verdict" id="mcVerdict">Systemlogik og menneskelig virkelighed trækker i hver sin retning. Beslutningen bærer etisk gæld — uanset valg.</p>
+      <a href="system.html" class="mini-case-link">Prøv selv med sliders →</a>
+    </div>
   </div>
 </div>
 
@@ -723,20 +880,112 @@ function heroUpdate() {
     mode = 'Requires Review'; color = '#7a9ee8';
     insight = `Spænding mellem ${aL} autonomi (${s2}/100), ${tL} tillid (${s3}/100) og ${rL} risikovurdering (${s1}/100). Review anbefales frem for hurtig eskalation.`;
   }
+  const prevMode = document.getElementById('heroMode').textContent;
   document.getElementById('heroMode').textContent = mode;
   document.getElementById('heroMode').style.color = color;
   document.getElementById('heroInsight').textContent = insight;
+
+  // Pulse animation when mode changes
+  if (prevMode !== mode) {
+    const resultEl = document.getElementById('heroResult');
+    resultEl.classList.remove('pulse-anim');
+    void resultEl.offsetWidth; // reflow
+    resultEl.classList.add('pulse-anim');
+    resultEl.style.borderLeftColor = color;
+  }
 }
 
-// INDGANG TOGGLE
+// INDGANG TOGGLE — aktiv visuel feedback
 function setIndgang(type, btn) {
   document.body.classList.remove('vis-borger','vis-fagperson');
   document.body.classList.add('vis-' + type);
   document.querySelectorAll('.indgang-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  // Scroll til første indhold
-  document.querySelector('.guided-flow, .for-' + type).scrollIntoView({behavior:'smooth', block:'start'});
+  document.getElementById('indgangBar').classList.remove('vis-borger','vis-fagperson');
+  document.getElementById('indgangBar').classList.add('vis-' + type);
+  document.getElementById('indgangHint').classList.add('hidden');
+
+  // Opdater hero slider labels baseret på indgang
+  if (type === 'borger') {
+    document.querySelector('#hs1').closest('.hero-demo-slider').querySelector('.hds-label').textContent = 'Systemets pres på dig';
+    document.querySelector('#hs2').closest('.hero-demo-slider').querySelector('.hds-label').textContent = 'Din virkelighed';
+    document.querySelector('#hs3').closest('.hero-demo-slider').querySelector('.hds-label').textContent = 'Din tillid til systemet';
+  } else {
+    document.querySelector('#hs1').closest('.hero-demo-slider').querySelector('.hds-label').textContent = 'Systemets risikovurdering';
+    document.querySelector('#hs2').closest('.hero-demo-slider').querySelector('.hds-label').textContent = 'Patientens / borgerens autonomi';
+    document.querySelector('#hs3').closest('.hero-demo-slider').querySelector('.hds-label').textContent = 'Relationel tillid';
+  }
+
+  // Opdater mini-case kontekst baseret på indgang
+  if (type === 'borger') {
+    document.querySelector('.mc-tab.active')?.classList.remove('active');
+    document.querySelectorAll('.mc-tab')[0]?.classList.add('active');
+    switchCase(0, document.querySelectorAll('.mc-tab')[0]);
+  }
+
+  heroUpdate();
+
+  // Smooth scroll til demo
+  setTimeout(() => {
+    document.querySelector('.mini-case-bar').scrollIntoView({behavior:'smooth', block:'start'});
+  }, 100);
 }
+
+// MINI-CASE switcher
+const cases = [
+  {
+    tab: '🏥 Psykiatri',
+    text: 'En patient nægter behandling. Systemet vurderer risiko som høj. Patienten ønsker at forblive hjemme.',
+    tags: [{cls:'red',txt:'Høj divergens'},{cls:'orange',txt:'Etisk pres'},{cls:'blue',txt:'Lav tillid'}],
+    verdict: 'Systemlogik og menneskelig virkelighed trækker i hver sin retning. Beslutningen bærer etisk gæld — uanset valg.'
+  },
+  {
+    tab: '🏛 Kommune',
+    text: 'En familie vurderes til anbringelse. Forældrene samarbejder. Barnet ønsker at blive hjemme. Lovgivningen kræver handling.',
+    tags: [{cls:'orange',txt:'Systemkonflikt'},{cls:'red',txt:'Etisk pres'},{cls:'blue',txt:'Moderat tillid'}],
+    verdict: 'Reglerne trækker én vej, relationen en anden. ETOS registrerer spændingen — og hvad der er på spil for alle parter.'
+  },
+  {
+    tab: '🏢 Ledelse',
+    text: 'En leder skal nedlægge en afdeling. Medarbejderne er loyale. Beslutningen er truffet oppe fra. Ingen god løsning.',
+    tags: [{cls:'orange',txt:'Incompatible'},{cls:'red',txt:'Høj etisk gæld'},{cls:'green',txt:'Lav divergens'}],
+    verdict: 'Systemet har besluttet. Lederen er i klemme. ETOS synliggør, at ansvarsfordelingen er uklar — og hvad det koster.'
+  }
+];
+
+function switchCase(idx, tabEl) {
+  const c = cases[idx];
+  const textEl = document.getElementById('mcText');
+  const tagsEl = document.getElementById('mcTags');
+  const verdictEl = document.getElementById('mcVerdict');
+
+  // Fade out
+  textEl.style.opacity = '0';
+  tagsEl.style.opacity = '0';
+  verdictEl.style.opacity = '0';
+
+  setTimeout(() => {
+    textEl.textContent = c.text;
+    tagsEl.innerHTML = c.tags.map(t => `<span class="mc-tag ${t.cls}">${t.txt}</span>`).join('');
+    verdictEl.textContent = c.verdict;
+    // Fade in
+    textEl.style.opacity = '1';
+    tagsEl.style.opacity = '1';
+    verdictEl.style.opacity = '1';
+  }, 180);
+
+  document.querySelectorAll('.mc-tab').forEach(b => b.classList.remove('active'));
+  if (tabEl) tabEl.classList.add('active');
+}
+
+// Add transitions to fade elements
+document.addEventListener('DOMContentLoaded', () => {
+  ['mcText','mcTags','mcVerdict'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.transition = 'opacity 0.18s ease';
+  });
+  heroUpdate(); // run on load
+});
 
 // BORGER MINI DEMO
 function updateBorger() {
