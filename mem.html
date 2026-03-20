@@ -1,42 +1,497 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>M.E.M. – Meaning, Experience, Model</title>
-  <meta name="description" content="Her ligger det teoretiske fundament under ETOS." />
-  <meta name="robots" content="index,follow" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M.E.M. — Meaning, Experience, Model</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    .mem-hero {
+      background: linear-gradient(135deg, #0d1117 0%, #1a1228 50%, #0d1a2a 100%);
+      padding: 72px 52px 64px;
+      position: relative; overflow: hidden;
+    }
+    .mem-hero::before {
+      content: ''; position: absolute; top: -80px; right: -80px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(122,158,232,0.08), transparent 70%);
+      pointer-events: none;
+    }
+    .mem-hero::after {
+      content: ''; position: absolute; bottom: -60px; left: 60px;
+      width: 280px; height: 280px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(226,136,78,0.06), transparent 70%);
+      pointer-events: none;
+    }
+    .mem-hero-inner { max-width: 1160px; margin: 0 auto; position: relative; }
+    .mem-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(122,158,232,0.1); border: 1px solid rgba(122,158,232,0.2);
+      border-radius: 20px; padding: 6px 14px;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      color: #7a9ee8; font-family: 'DM Sans', sans-serif; margin-bottom: 28px;
+    }
+    .mem-badge-dot { width: 5px; height: 5px; border-radius: 50%; background: #7a9ee8; }
+    .mem-hero h1 {
+      font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 56px);
+      color: #f0ebe0; font-weight: 400; line-height: 1.1; letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .mem-hero h1 em { font-style: italic; color: #7a9ee8; }
+    .mem-hero h1 span { color: var(--accent); }
+    .mem-subtitle {
+      font-family: 'Playfair Display', serif; font-size: 18px;
+      color: rgba(240,235,224,0.5); font-style: italic; margin-bottom: 28px;
+    }
+    .mem-lead {
+      font-family: 'DM Sans', sans-serif; font-size: 15px;
+      color: rgba(240,235,224,0.6); line-height: 1.8;
+      max-width: 620px; margin-bottom: 40px;
+    }
+    .mem-hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .mem-btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #7a9ee8; color: #fff;
+      padding: 12px 24px; border-radius: 9px;
+      font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+      text-decoration: none; transition: background 0.15s;
+    }
+    .mem-btn-primary:hover { background: #5a7ed0; }
+    .mem-btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: rgba(240,235,224,0.6);
+      padding: 12px 24px; border-radius: 9px;
+      font-family: 'DM Sans', sans-serif; font-size: 13px;
+      border: 1px solid rgba(240,235,224,0.15);
+      text-decoration: none; transition: all 0.15s;
+    }
+    .mem-btn-ghost:hover { color: rgba(240,235,224,0.9); border-color: rgba(240,235,224,0.3); }
+
+    /* INTRO */
+    .mem-intro { background: #f5f0e8; padding: 64px 52px; }
+    .mem-intro-inner { max-width: 1160px; margin: 0 auto; }
+    .mem-intro-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; border: 1px solid rgba(0,0,0,0.08); border-radius: 16px; overflow: hidden; margin-top: 40px; }
+    .mem-dim {
+      padding: 36px 32px;
+      border-right: 1px solid rgba(0,0,0,0.08);
+    }
+    .mem-dim:last-child { border-right: none; }
+    .mem-dim-letter {
+      font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 400;
+      line-height: 1; margin-bottom: 12px;
+    }
+    .mem-dim-title {
+      font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;
+    }
+    .mem-dim-desc {
+      font-family: 'DM Sans', sans-serif; font-size: 14px; color: #666; line-height: 1.7;
+    }
+    .mem-dim.meaning { background: #fff; }
+    .mem-dim.meaning .mem-dim-letter { color: #7a9ee8; }
+    .mem-dim.meaning .mem-dim-title { color: #7a9ee8; }
+    .mem-dim.experience { background: #fff; }
+    .mem-dim.experience .mem-dim-letter { color: var(--accent); }
+    .mem-dim.experience .mem-dim-title { color: var(--accent); }
+    .mem-dim.model { background: #fff; }
+    .mem-dim.model .mem-dim-letter { color: #4ec88c; }
+    .mem-dim.model .mem-dim-title { color: #3a8a5a; }
+
+    /* TENSION */
+    .mem-tension {
+      background: #0d1117; padding: 64px 52px;
+    }
+    .mem-tension-inner { max-width: 1160px; margin: 0 auto; }
+    .mem-tension-diagram {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0; margin: 48px 0; flex-wrap: wrap;
+    }
+    .mem-t-node {
+      text-align: center; padding: 28px 32px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px; min-width: 160px;
+    }
+    .mem-t-node-icon { font-size: 28px; margin-bottom: 10px; }
+    .mem-t-node-name {
+      font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 400;
+      color: #e8ecfc; margin-bottom: 4px;
+    }
+    .mem-t-node-sub {
+      font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(232,236,252,0.4);
+    }
+    .mem-t-arrow {
+      font-size: 24px; color: rgba(255,255,255,0.15); padding: 0 16px;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .mem-t-center {
+      background: rgba(122,158,232,0.08); border: 1px solid rgba(122,158,232,0.2);
+    }
+    .mem-t-center .mem-t-node-name { color: #7a9ee8; }
+
+    /* TWO BOOKS */
+    .mem-books { background: #1e2e1f; padding: 72px 52px; }
+    .mem-books-inner { max-width: 1160px; margin: 0 auto; }
+    .mem-books-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
+    .mem-book {
+      border-radius: 16px; padding: 40px;
+      position: relative; overflow: hidden;
+      text-decoration: none; display: block;
+      transition: transform 0.15s;
+    }
+    .mem-book:hover { transform: translateY(-2px); }
+    .mem-book.humanist { background: rgba(122,158,232,0.08); border: 1px solid rgba(122,158,232,0.2); }
+    .mem-book.diagnostic { background: rgba(78,200,140,0.08); border: 1px solid rgba(78,200,140,0.2); }
+    .mem-book-tag {
+      font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; display: block;
+    }
+    .mem-book.humanist .mem-book-tag { color: #7a9ee8; }
+    .mem-book.diagnostic .mem-book-tag { color: #4ec88c; }
+    .mem-book h3 {
+      font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 400;
+      color: #f0ebe0; margin-bottom: 6px; line-height: 1.3;
+    }
+    .mem-book-subtitle {
+      font-family: 'Playfair Display', serif; font-size: 14px;
+      color: rgba(240,235,224,0.45); font-style: italic; margin-bottom: 20px;
+    }
+    .mem-book-desc {
+      font-family: 'DM Sans', sans-serif; font-size: 13px;
+      color: rgba(240,235,224,0.55); line-height: 1.75; margin-bottom: 24px;
+    }
+    .mem-book-chapters {
+      display: flex; flex-direction: column; gap: 6px; margin-bottom: 28px;
+    }
+    .mem-book-ch {
+      font-family: 'DM Sans', sans-serif; font-size: 12px;
+      color: rgba(240,235,224,0.35); padding-left: 14px;
+      position: relative;
+    }
+    .mem-book-ch::before {
+      content: '→'; position: absolute; left: 0;
+      font-size: 10px; color: rgba(240,235,224,0.2);
+    }
+    .mem-book-link {
+      font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500;
+    }
+    .mem-book.humanist .mem-book-link { color: #7a9ee8; }
+    .mem-book.diagnostic .mem-book-link { color: #4ec88c; }
+
+    /* APPLICATIONS */
+    .mem-apply { background: #f5f0e8; padding: 64px 52px; }
+    .mem-apply-inner { max-width: 1160px; margin: 0 auto; }
+    .mem-apply-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 36px; }
+    .mem-apply-card {
+      background: #fff; border: 1px solid rgba(0,0,0,0.07); border-radius: 14px;
+      padding: 28px 24px;
+    }
+    .mem-apply-icon { font-size: 22px; margin-bottom: 12px; }
+    .mem-apply-title {
+      font-family: 'Playfair Display', serif; font-size: 17px; color: #1a1a1a;
+      font-weight: 400; margin-bottom: 4px;
+    }
+    .mem-apply-tension {
+      font-family: 'DM Sans', sans-serif; font-size: 11px; color: var(--accent);
+      font-style: italic; margin-bottom: 10px; display: block;
+    }
+    .mem-apply-desc {
+      font-family: 'DM Sans', sans-serif; font-size: 13px; color: #888; line-height: 1.7;
+    }
+
+    /* BETA */
+    .mem-beta { background: #0d1117; padding: 64px 52px; }
+    .mem-beta-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+    .mem-beta h2 {
+      font-family: 'Playfair Display', serif; font-size: 32px; color: #f0ebe0;
+      font-weight: 400; margin-bottom: 16px;
+    }
+    .mem-beta p {
+      font-family: 'DM Sans', sans-serif; font-size: 14px; color: rgba(240,235,224,0.5);
+      line-height: 1.8; margin-bottom: 36px;
+    }
+    .mem-beta-boxes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 36px; text-align: left; }
+    .mem-beta-box {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 20px 22px;
+    }
+    .mem-beta-box-title {
+      font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .mem-beta-box-text {
+      font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(240,235,224,0.5); line-height: 1.65;
+    }
+
+    /* CTA */
+    .mem-cta { background: #1e2e1f; padding: 56px 52px; }
+    .mem-cta-inner { max-width: 1160px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+    .mem-cta-text p {
+      font-family: 'Playfair Display', serif; font-size: 26px; color: #f0ebe0;
+      font-weight: 400; font-style: italic; margin: 0;
+    }
+    .mem-cta-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    @media (max-width: 860px) {
+      .mem-hero { padding: 48px 28px; }
+      .mem-intro { padding: 48px 28px; }
+      .mem-intro-grid { grid-template-columns: 1fr; }
+      .mem-dim { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.08); }
+      .mem-dim:last-child { border-bottom: none; }
+      .mem-books { padding: 48px 28px; }
+      .mem-books-grid { grid-template-columns: 1fr; }
+      .mem-apply { padding: 48px 28px; }
+      .mem-apply-grid { grid-template-columns: 1fr; }
+      .mem-beta { padding: 48px 28px; }
+      .mem-beta-boxes { grid-template-columns: 1fr; }
+      .mem-cta { padding: 40px 28px; }
+      .mem-cta-inner { flex-direction: column; }
+      .mem-tension-diagram { flex-direction: column; }
+      .mem-t-arrow { transform: rotate(90deg); }
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container nav-wrap">
-      <a class="brand" href="index.html">
-        <span class="brand-mark">M.E.M.</span>
-        <span class="brand-lockup">
-          <span class="brand-text">ETOS</span>
-          <span class="brand-sub">pilot prototype</span>
-        </span>
+
+<header class="fs-header">
+  <div class="fs-nav">
+    <a href="index.html" class="fs-logo">ETOS</a>
+    <nav class="fs-links">
+      <a href="etos.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a2040;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Beslutningsmodel</span></span>
       </a>
-      <div class="utility-bar">
-        <nav class="nav"><a href="index.html" class="">Forside</a><a href="om.html" class="">Start her</a><a href="etos.html" class="">ETOS</a><a href="anvendelse.html" class="">Anvendelse</a><a href="research.html" class="">Research</a><a href="samarbejde.html" class="">Samarbejde</a></nav>
-        <div class="lang-switch"><span class="lang-note">DA / EN / DE</span><a href="index.html" class="">DA</a><a href="index-en.html" class="">EN</a><a href="index-de.html" class="">DE</a></div>
+      <a href="system.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#0d1117;">⚙️</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Systemet</span><span class="fs-nav-sub">Case analyse</span></span>
+      </a>
+      <a href="boerneunivers.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#2a1f1a;">📖</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Børneunivers</span><span class="fs-nav-sub">Børnebøger</span></span>
+      </a>
+      <a href="laering.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#0d1a2a;">🌐</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Lærings-uniVRs</span><span class="fs-nav-sub">Oplevelse</span></span>
+      </a>
+      <a href="dirigent-rum.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1a12;">🎼</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Dirigenten</span><span class="fs-nav-sub">Idéer</span></span>
+      </a>
+      <a href="regnskab-program.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#111520;">📊</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Regnskab</span><span class="fs-nav-sub">Økonomi</span></span>
+      </a>
+    </nav>
+    <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="mem-hero">
+  <div class="mem-hero-inner">
+    <div class="mem-badge"><span class="mem-badge-dot"></span> Beta-model · Working Paper · 2026</div>
+    <h1>M.E.M.<br><em>Meaning</em> · <span>Experience</span> · Model</h1>
+    <p class="mem-subtitle">Et sprog for det, der sker mellem mennesker og systemer</p>
+    <p class="mem-lead">M.E.M. er en konceptuel grundmodel til at forstå og arbejde med spændinger i komplekse systemer — uanset fagområde. Den er fundamentet for ETOS, Dirigenten og alle øvrige projekter under dette tag.</p>
+    <div class="mem-hero-btns">
+      <a href="kontakt.html" class="mem-btn-primary">Tal med os om M.E.M. →</a>
+      <a href="#de-to-dele" class="mem-btn-ghost">Læs teorien ↓</a>
+    </div>
+  </div>
+</div>
+
+<!-- DE TRE DIMENSIONER -->
+<div class="mem-intro">
+  <div class="mem-intro-inner">
+    <span style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);font-family:'DM Sans',sans-serif;">Grundstrukturen</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:28px;color:#1a1a1a;font-weight:400;margin-top:8px;margin-bottom:8px;">Tre dimensioner — én spænding</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;max-width:600px;line-height:1.75;">Mange komplekse beslutningssituationer opstår ikke tilfældigt. De er strukturelle spændinger mellem tre dimensioner, der trækker i hver sin retning.</p>
+    <div class="mem-intro-grid">
+      <div class="mem-dim meaning">
+        <div class="mem-dim-letter">M</div>
+        <div class="mem-dim-title">Meaning</div>
+        <div class="mem-dim-desc">De normative værdier et system søger at beskytte — sikkerhed, autonomi, værdighed, retfærdighed. Når værdier kolliderer, opstår etisk pres.</div>
+      </div>
+      <div class="mem-dim experience">
+        <div class="mem-dim-letter">E</div>
+        <div class="mem-dim-title">Experience</div>
+        <div class="mem-dim-desc">Den levede virkelighed hos de involverede — moralsk stress, tab af kontrol, usikkerhed, tillid. Det menneskelige lag systemet oftest overser.</div>
+      </div>
+      <div class="mem-dim model">
+        <div class="mem-dim-letter">M</div>
+        <div class="mem-dim-title">Model</div>
+        <div class="mem-dim-desc">De strukturelle mekanismer der styrer beslutninger — love, procedurer, algoritmer, institutionelle rammer. Systemets skelet.</div>
       </div>
     </div>
-  </header>
-  <main>
-    <section class="page-hero"><div class="container content-wrap"><p class="eyebrow">M.E.M.</p><h1>M.E.M. – Meaning, Experience, Model</h1><p class="lead">Her ligger det teoretiske fundament under ETOS.</p></div></section>
-    <section class="section"><div class="container content-wrap page-copy"><div class="card"><span class="kicker">Teori</span><h2>Det teoretiske lag under ETOS</h2><p>M.E.M. beskriver spændinger mellem mening, erfaring og model som grundlæggende strukturer i svære beslutninger.</p><p>ETOS kan ses som den anvendte og mere tilgængelige overbygning oven på denne ramme.</p><div class="compat-links"><a href="etos.html">ETOS →</a><a href="research.html">Research →</a></div></div></div></section>
-  </main>
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div>
-        <strong>M.E.M. Teori — ETOS</strong>
-        <p>Koncept, struktur og tekster af Maria Edlenborg Mortensen.</p>
+  </div>
+</div>
+
+<!-- SPÆNDING -->
+<div class="mem-tension">
+  <div class="mem-tension-inner">
+    <span style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7a9ee8;font-family:'DM Sans',sans-serif;">Normativ spænding</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:28px;color:#e8ecfc;font-weight:400;margin-top:8px;margin-bottom:8px;">Når de tre ikke kan forenes</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(232,236,252,0.45);max-width:580px;line-height:1.75;">Normativ spænding opstår når Meaning, Experience og Model ikke kan forenes fuldt ud. M.E.M. behandler ikke disse spændinger som fejl — men som strukturelle træk ved komplekse systemer. Målet er ikke at fjerne dem, men at gøre dem synlige.</p>
+
+    <div class="mem-tension-diagram">
+      <div class="mem-t-node">
+        <div class="mem-t-node-icon">🧭</div>
+        <div class="mem-t-node-name">Meaning</div>
+        <div class="mem-t-node-sub">Værdier · Normer</div>
       </div>
-      <div class="footer-links"><a href="om.html">Om</a><a href="etos.html">ETOS / M.E.M.</a><a href="anvendelse.html">Anvendelse</a><a href="research.html">Research</a><a href="samarbejde.html">Samarbejde</a></div>
+      <div class="mem-t-arrow">⇄</div>
+      <div class="mem-t-node mem-t-center">
+        <div class="mem-t-node-icon">⚡</div>
+        <div class="mem-t-node-name">Normativ spænding</div>
+        <div class="mem-t-node-sub">Synliggjort · Analyseret</div>
+      </div>
+      <div class="mem-t-arrow">⇄</div>
+      <div class="mem-t-node">
+        <div class="mem-t-node-icon">🧬</div>
+        <div class="mem-t-node-name">Experience</div>
+        <div class="mem-t-node-sub">Mennesker · Virkelighed</div>
+      </div>
+      <div class="mem-t-arrow">⇄</div>
+      <div class="mem-t-node">
+        <div class="mem-t-node-icon">🏛</div>
+        <div class="mem-t-node-name">Model</div>
+        <div class="mem-t-node-sub">Systemer · Strukturer</div>
+      </div>
     </div>
-  </footer>
-  <script src="script.js"></script>
+
+    <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(232,236,252,0.35);max-width:600px;line-height:1.75;font-style:italic;">Når lignende spændinger gentager sig på tværs af mange cases, afslører de systemiske mønstre — ikke individuelle fejl.</p>
+  </div>
+</div>
+
+<!-- DE TO DELE -->
+<div class="mem-books" id="de-to-dele">
+  <div class="mem-books-inner">
+    <span style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,235,224,0.4);font-family:'DM Sans',sans-serif;">Teorien i to dele</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:28px;color:#f0ebe0;font-weight:400;margin-top:8px;margin-bottom:8px;">To sider af samme mønt</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,0.4);max-width:580px;line-height:1.75;">M.E.M. findes i en humanistisk udgave der forklarer <em>hvorfor</em>, og en diagnostisk udgave der viser <em>hvordan</em>. De er skrevet som søstertekster — læs dem i den rækkefølge, der passer din tilgang.</p>
+    <div class="mem-books-grid">
+
+      <div class="mem-book humanist">
+        <span class="mem-book-tag">Del 1 · Humanistisk</span>
+        <h3>M.E.M. — Når forklaring<br>bliver deltagelse</h3>
+        <p class="mem-book-subtitle">Et sprog for det, der sker mellem mennesker og systemer</p>
+        <p class="mem-book-desc">Den filosofiske og eksistentielle del. Forklarer grundstrukturen: verden som relationer, felter, resonans og knudepunkter. Undersøger tid, kausalitet, erkendelse og frihed i et responsivt univers. Skrevet til undren og væren — læs den langsomt.</p>
+        <div class="mem-book-chapters">
+          <div class="mem-book-ch">Verden som relation, ikke ting</div>
+          <div class="mem-book-ch">Resonans som grundprincip</div>
+          <div class="mem-book-ch">Felt-erosion og sanktioneret binding</div>
+          <div class="mem-book-ch">Frihed i relationel navigation</div>
+          <div class="mem-book-ch">Den åbne virkelighed</div>
+        </div>
+        <span class="mem-book-link">Kontakt for adgang →</span>
+      </div>
+
+      <div class="mem-book diagnostic">
+        <span class="mem-book-tag">Del 2 · Diagnostisk</span>
+        <h3>MEM Diagnostik — Relationel<br>feltanalyse i komplekse systemer</h3>
+        <p class="mem-book-subtitle">Praktiske værktøjer til at spotte og håndtere misalignment</p>
+        <p class="mem-book-desc">Den praktiske håndbog. Konkrete værktøjer til at diagnosticere spændinger i AI-systemer, organisationer, teams, ledelse og personlig udvikling. Tjeklister, scanningsmetoder og interventionstyper. Skrevet til handling — brug den aktivt.</p>
+        <div class="mem-book-chapters">
+          <div class="mem-book-ch">Governance-drift tjeklisten</div>
+          <div class="mem-book-ch">Resonans-scanning (5-trins model)</div>
+          <div class="mem-book-ch">Stivheds-diagnose</div>
+          <div class="mem-book-ch">De 5 misalignment-mønstre</div>
+          <div class="mem-book-ch">Forebyggelse af misalignment</div>
+        </div>
+        <span class="mem-book-link">Kontakt for adgang →</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ANVENDELSE -->
+<div class="mem-apply">
+  <div class="mem-apply-inner">
+    <span style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);font-family:'DM Sans',sans-serif;">En grundmodel</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:28px;color:#1a1a1a;font-weight:400;margin-top:8px;margin-bottom:8px;">Tilpasses alle fagområder</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;max-width:600px;line-height:1.75;">M.E.M. er ikke udviklet til ét felt. Spænding mellem værdier, mennesker og systemer opstår overalt — og den samme grundmodel kan aflæse den.</p>
+    <div class="mem-apply-grid">
+      <div class="mem-apply-card">
+        <div class="mem-apply-icon">🏥</div>
+        <div class="mem-apply-title">Psykiatri</div>
+        <span class="mem-apply-tension">Tvang vs. autonomi</span>
+        <div class="mem-apply-desc">Spændingen mellem systemets risikovurdering og patientens ret til selvbestemmelse — synliggjort og analyseret.</div>
+      </div>
+      <div class="mem-apply-card">
+        <div class="mem-apply-icon">🤖</div>
+        <div class="mem-apply-title">AI Alignment</div>
+        <span class="mem-apply-tension">Metrics vs. intention</span>
+        <div class="mem-apply-desc">Governance-drift opstår når proxy-mål løsriver sig fra intentionen. M.E.M. giver sprog og diagnostik for dette.</div>
+      </div>
+      <div class="mem-apply-card">
+        <div class="mem-apply-icon">🏛</div>
+        <div class="mem-apply-title">Kommuner</div>
+        <span class="mem-apply-tension">Regler vs. virkelighed</span>
+        <div class="mem-apply-desc">Sagsbehandlere der træffer beslutninger om mennesker, mens systemet og virkeligheden trækker i modsat retning.</div>
+      </div>
+      <div class="mem-apply-card">
+        <div class="mem-apply-icon">🏢</div>
+        <div class="mem-apply-title">Organisationer</div>
+        <span class="mem-apply-tension">KPI vs. kultur</span>
+        <div class="mem-apply-desc">Felt-erosion, sanktioneret binding og stivhed som strukturelle fænomener — ikke individuelle fejl.</div>
+      </div>
+      <div class="mem-apply-card">
+        <div class="mem-apply-icon">🎓</div>
+        <div class="mem-apply-title">Uddannelse</div>
+        <span class="mem-apply-tension">Præstation vs. læring</span>
+        <div class="mem-apply-desc">Karakterer som proxy-mål der løsriver sig fra intentionen om egentlig læring og forståelse.</div>
+      </div>
+      <div class="mem-apply-card">
+        <div class="mem-apply-icon">🧠</div>
+        <div class="mem-apply-title">Personlig udvikling</div>
+        <span class="mem-apply-tension">Indre vs. ydre krav</span>
+        <div class="mem-apply-desc">Spændingen mellem egne værdier og systemets forventninger — og hvad der sker, når de ikke kan forenes.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BETA STATUS -->
+<div class="mem-beta">
+  <div class="mem-beta-inner">
+    <span style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7a9ee8;font-family:'DM Sans',sans-serif;display:block;margin-bottom:16px;">Beta-model</span>
+    <h2>M.E.M. er bevidst ufærdig</h2>
+    <p>Teorien er ikke præsenteret som en endelig model. Den er en beta — designet til at udvikle sig gennem empirisk anvendelse, kritisk diskussion og praktisk eksperimentering.</p>
+    <div class="mem-beta-boxes">
+      <div class="mem-beta-box">
+        <div class="mem-beta-box-title">Hvad det er</div>
+        <div class="mem-beta-box-text">En konceptuel grundstruktur der kan tilpasses og videreudvikles. Et analytisk sprog for strukturelle spændinger. En ramme der kan bruges på tværs af fagfelter.</div>
+      </div>
+      <div class="mem-beta-box">
+        <div class="mem-beta-box-title">Hvad det ikke er</div>
+        <div class="mem-beta-box-text">En færdig teori med alle svar. En erstatning for fagspecifik ekspertise. En garanteret metode — den kræver øvelse, åbenhed og villighed til at mærke ubehag.</div>
+      </div>
+      <div class="mem-beta-box">
+        <div class="mem-beta-box-title">Rettigheder</div>
+        <div class="mem-beta-box-text">© Maria Edlenborg Mortensen, 2026. Alle rettigheder forbeholdes. M.E.M. er et originalt konceptuelt bidrag — kontakt os ved interest i samarbejde eller anvendelse.</div>
+      </div>
+      <div class="mem-beta-box">
+        <div class="mem-beta-box-title">Åben for samarbejde</div>
+        <div class="mem-beta-box-text">Vi søger fagpersoner, organisationer og forskere der vil afprøve M.E.M. i konkrete kontekster. Pilotsamarbejder er velkomne.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="mem-cta">
+  <div class="mem-cta-inner">
+    <div class="mem-cta-text">
+      <p>"Målet er ikke at fjerne etisk konflikt.<br>Det er at gøre dens strukturelle betingelser synlige."</p>
+    </div>
+    <div class="mem-cta-btns">
+      <a href="kontakt.html" class="fs-btn-primary">Kontakt os</a>
+      <a href="system.html" class="fs-btn-ghost-dark">Prøv ETOS →</a>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
