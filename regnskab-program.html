@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regnskabsprogram — M.E.M.</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* HERO */
+    .rg-hero {
+      background: #111520;
+      padding: 88px 52px 80px;
+      position: relative; overflow: hidden; text-align: center;
+    }
+    .rg-hero::before {
+      content: ''; position: absolute; top: -80px; left: 50%;
+      transform: translateX(-50%); width: 480px; height: 480px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(100,140,220,0.13), transparent 70%);
+      pointer-events: none;
+    }
+    .rg-hero::after {
+      content: ''; position: absolute; bottom: -40px; right: -40px;
+      width: 240px; height: 240px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(226,136,78,0.08), transparent 70%);
+      pointer-events: none;
+    }
+    .rg-hero-inner { max-width: 640px; margin: 0 auto; position: relative; }
+    .rg-hero h1 { color: #eef0fc; font-size: clamp(34px, 5vw, 52px); margin-bottom: 20px; line-height: 1.1; }
+    .rg-hero h1 em { color: #7a9ee8; font-style: italic; }
+    .rg-hero .lead { font-size: 16px; color: rgba(238,240,252,0.5); line-height: 1.8; max-width: 480px; margin: 0 auto 36px; }
+    .rg-hero-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .btn-rg-primary { background: #5a7ed8; color: #fff; }
+    .btn-rg-primary:hover { background: #4a6ec8; }
+    .btn-rg-ghost { background: transparent; color: rgba(238,240,252,0.6); border: 1px solid rgba(238,240,252,0.18); }
+    .btn-rg-ghost:hover { border-color: rgba(238,240,252,0.4); color: #eef0fc; }
+
+    /* STATUS BADGE */
+    .rg-status-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(78,200,140,0.1); border: 1px solid rgba(78,200,140,0.2);
+      border-radius: 20px; padding: 6px 14px; margin-bottom: 24px;
+      font-size: 12px; font-weight: 500; color: #4ec88c;
+    }
+    .rg-status-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: #4ec88c;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    /* DASHBOARD PREVIEW */
+    .rg-preview {
+      background: #0d1020;
+      padding: 52px 52px 0;
+    }
+    .rg-preview-inner { max-width: var(--max); margin: 0 auto; }
+    .rg-preview-label {
+      font-size: 10px; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(238,240,252,0.3); margin-bottom: 16px; text-align: center;
+    }
+    .rg-dashboard {
+      background: #161b2e; border-radius: 16px 16px 0 0;
+      border: 1px solid rgba(100,140,220,0.15); border-bottom: none;
+      padding: 24px; overflow: hidden;
+    }
+    .rg-dash-topbar {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 20px; padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .rg-dash-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .rg-dash-title { font-size: 13px; font-weight: 500; color: rgba(238,240,252,0.5); margin-left: 8px; }
+    .rg-dash-metrics {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px;
+    }
+    .rg-metric {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px; padding: 14px;
+    }
+    .rg-metric-label { font-size: 10px; color: rgba(238,240,252,0.3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    .rg-metric-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 400; }
+    .rg-metric-change { font-size: 11px; margin-top: 4px; }
+    .rg-metric.green .rg-metric-value { color: #4ec88c; }
+    .rg-metric.green .rg-metric-change { color: rgba(78,200,140,0.5); }
+    .rg-metric.red .rg-metric-value { color: #e07070; }
+    .rg-metric.red .rg-metric-change { color: rgba(224,112,112,0.5); }
+    .rg-metric.blue .rg-metric-value { color: #7a9ee8; }
+    .rg-metric.blue .rg-metric-change { color: rgba(122,158,232,0.5); }
+    .rg-metric.amber .rg-metric-value { color: #e2a06a; }
+    .rg-metric.amber .rg-metric-change { color: rgba(226,160,106,0.5); }
+    .rg-dash-bottom { display: grid; grid-template-columns: 2fr 1fr; gap: 10px; }
+    .rg-dash-chart { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 14px; height: 90px; position: relative; overflow: hidden; }
+    .rg-dash-chart-label { font-size: 10px; color: rgba(238,240,252,0.25); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+    .rg-chart-bars { display: flex; align-items: flex-end; gap: 4px; height: 54px; }
+    .rg-bar { border-radius: 3px 3px 0 0; flex: 1; opacity: 0.7; }
+    .rg-dash-projects { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 14px; }
+    .rg-dash-projects-label { font-size: 10px; color: rgba(238,240,252,0.25); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+    .rg-proj-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .rg-proj-name { font-size: 11px; color: rgba(238,240,252,0.5); }
+    .rg-proj-amt  { font-size: 11px; color: #4ec88c; font-weight: 500; }
+
+    /* PROBLEM */
+    .rg-problem { background: var(--bg); padding: 72px 52px; }
+    .rg-problem-inner { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: start; }
+    .rg-problem h2 { color: var(--ink); margin-bottom: 16px; }
+    .rg-problem p { font-size: 15px; color: #555; line-height: 1.85; margin-bottom: 14px; }
+    .rg-pain-list { display: flex; flex-direction: column; gap: 10px; }
+    .rg-pain-item {
+      background: #fdf0ee; border: 1px solid rgba(200,80,60,0.1);
+      border-left: 3px solid #c8503c; border-radius: 10px; padding: 14px 18px;
+      font-size: 13px; color: #7a4040; line-height: 1.6;
+    }
+    .rg-pain-item strong { color: #c8503c; display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+    .rg-result-box {
+      background: #fff8f2; border: 1px solid rgba(226,136,78,0.2);
+      border-radius: 12px; padding: 20px 24px; margin-top: 16px;
+    }
+    .rg-result-box p { font-size: 14px; color: #5a3a1a; line-height: 1.7; margin: 0; }
+    .rg-result-box strong { color: var(--accent-dk); }
+
+    /* LØSNING */
+    .rg-solution { background: #111520; padding: 72px 52px; }
+    .rg-solution-inner { max-width: var(--max); margin: 0 auto; }
+    .rg-solution h2 { color: #eef0fc; margin-bottom: 12px; }
+    .rg-solution .lead { color: rgba(238,240,252,0.45); font-size: 15px; max-width: 520px; line-height: 1.8; margin-bottom: 36px; }
+    .rg-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .rg-feature {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(100,140,220,0.15);
+      border-radius: 12px; padding: 24px 20px; transition: border-color 0.15s;
+    }
+    .rg-feature:hover { border-color: rgba(100,140,220,0.3); }
+    .rg-feature-icon { font-size: 22px; margin-bottom: 12px; }
+    .rg-feature h4 { font-family: 'Playfair Display', serif; font-size: 16px; color: #eef0fc; font-weight: 400; margin-bottom: 8px; }
+    .rg-feature p { font-size: 13px; color: rgba(238,240,252,0.4); line-height: 1.7; }
+    .rg-feature.done { border-color: rgba(78,200,140,0.2); }
+    .rg-feature.done .rg-feature-check { color: #4ec88c; font-size: 11px; margin-top: 10px; display: block; font-weight: 500; }
+
+    /* HVORDAN */
+    .rg-how { background: #f0f4fc; padding: 72px 52px; }
+    .rg-how-inner { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: center; }
+    .rg-how h2 { color: var(--ink); margin-bottom: 24px; }
+    .rg-flow-list { display: flex; flex-direction: column; gap: 0; }
+    .rg-flow-item { display: flex; gap: 18px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid rgba(100,140,220,0.1); }
+    .rg-flow-item:last-child { border-bottom: none; }
+    .rg-flow-arrow { font-size: 16px; color: #7a9ee8; opacity: 0.6; flex-shrink: 0; padding-top: 2px; }
+    .rg-flow-item h4 { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; color: #1a2040; margin-bottom: 3px; }
+    .rg-flow-item p { font-size: 13px; color: #6070a0; line-height: 1.6; }
+    .rg-output-box {
+      background: #161b2e; border-radius: 14px; padding: 24px;
+      border: 1px solid rgba(100,140,220,0.15);
+    }
+    .rg-output-box h4 { font-family: 'Playfair Display', serif; color: #eef0fc; font-size: 16px; margin-bottom: 16px; font-weight: 400; }
+    .rg-output-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 13px;
+    }
+    .rg-output-row:last-child { border-bottom: none; }
+    .rg-output-row .label { color: rgba(238,240,252,0.4); }
+    .rg-output-row .value { font-weight: 500; }
+    .rg-output-row .value.pos { color: #4ec88c; }
+    .rg-output-row .value.neg { color: #e07070; }
+    .rg-output-row .value.neu { color: #7a9ee8; }
+    .rg-output-row .value.warn { color: #e2a06a; }
+
+    /* ANDERLEDES */
+    .rg-diff { background: var(--bg-dark); padding: 72px 52px; }
+    .rg-diff-inner { max-width: var(--max); margin: 0 auto; }
+    .rg-diff h2 { color: var(--sand); margin-bottom: 12px; }
+    .rg-diff .lead { color: rgba(240,235,224,0.45); font-size: 15px; max-width: 520px; line-height: 1.8; margin-bottom: 36px; }
+    .rg-diff-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .rg-diff-item {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(240,235,224,0.08);
+      border-radius: 12px; padding: 24px;
+    }
+    .rg-diff-item h4 { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--sand); font-weight: 400; margin-bottom: 8px; }
+    .rg-diff-item p { font-size: 13px; color: rgba(240,235,224,0.4); line-height: 1.7; }
+    .rg-etos-link {
+      margin-top: 28px; background: rgba(226,136,78,0.08);
+      border: 1px solid rgba(226,136,78,0.2); border-radius: 12px; padding: 24px 28px;
+    }
+    .rg-etos-link p { font-family: 'Playfair Display', serif; font-style: italic; font-size: 17px; color: rgba(240,235,224,0.7); line-height: 1.7; margin: 0; }
+    .rg-etos-link p em { color: var(--accent); font-style: italic; }
+
+    /* STATUS */
+    .rg-status { background: var(--bg); padding: 72px 52px; }
+    .rg-status-inner { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: start; }
+    .rg-status h2 { color: var(--ink); margin-bottom: 16px; }
+    .rg-status p { font-size: 15px; color: #555; line-height: 1.85; margin-bottom: 14px; }
+    .rg-version-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(78,200,140,0.1); border: 1px solid rgba(78,200,140,0.25);
+      border-radius: 8px; padding: 8px 16px; margin-bottom: 20px;
+      font-size: 13px; font-weight: 500; color: #2a7a4a;
+    }
+    .rg-checklist { display: flex; flex-direction: column; gap: 10px; }
+    .rg-check-item {
+      display: flex; align-items: center; gap: 12px;
+      background: #fff; border: 1px solid var(--line);
+      border-radius: 10px; padding: 14px 18px; font-size: 14px;
+    }
+    .rg-check-icon { font-size: 14px; flex-shrink: 0; width: 20px; text-align: center; }
+    .rg-check-item.done { border-left: 3px solid #4ec88c; }
+    .rg-check-item.done span { color: #2a5a3a; font-weight: 500; }
+    .rg-check-item.soon { border-left: 3px solid #7a9ee8; }
+    .rg-check-item.soon span { color: #2a3a6a; }
+    .rg-check-item.later { border-left: 3px solid rgba(0,0,0,0.1); }
+    .rg-check-item.later span { color: var(--muted); }
+
+    /* RESPONSIVE */
+    @media (max-width: 860px) {
+      .rg-hero { padding: 60px 28px 52px; }
+      .rg-preview { padding: 40px 28px 0; }
+      .rg-problem { padding: 52px 28px; }
+      .rg-problem-inner { grid-template-columns: 1fr; gap: 32px; }
+      .rg-solution { padding: 52px 28px; }
+      .rg-features { grid-template-columns: 1fr 1fr; }
+      .rg-how { padding: 52px 28px; }
+      .rg-how-inner { grid-template-columns: 1fr; gap: 32px; }
+      .rg-diff { padding: 52px 28px; }
+      .rg-diff-grid { grid-template-columns: 1fr; }
+      .rg-status { padding: 52px 28px; }
+      .rg-status-inner { grid-template-columns: 1fr; gap: 32px; }
+      .rg-dash-metrics { grid-template-columns: repeat(2, 1fr); }
+      .rg-dash-bottom { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .rg-features { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">ETOS</a>
+  <div class="nav-links">
+    <a href="etos.html">ETOS</a>
+    <a href="boerneunivers.html">Børneunivers</a>
+    <a href="laering.html">Lærings-uniVRs</a>
+    <a href="pilot.html">Pilot</a>
+  </div>
+  <a href="kontakt.html" class="nav-cta">Kontakt</a>
+</nav>
+
+<!-- HERO -->
+<div class="rg-hero">
+  <div class="rg-hero-inner">
+    <div class="rg-status-badge">
+      <div class="rg-status-dot"></div>
+      Beta · Aktivt i brug
+    </div>
+    <h1>Regnskab som overblik<br>— ikke som <em>byrde</em></h1>
+    <p class="lead">Et regnskabsprogram udviklet til iværksættere, der tænker i projekter, idéer og retninger — ikke bare tal. Her handler økonomi om at skabe klarhed i det du bygger.</p>
+    <div class="rg-hero-btns">
+      <a href="#status" class="btn btn-rg-primary">Se hvad det kan</a>
+      <a href="kontakt.html" class="btn btn-rg-ghost">Interesseret? Kontakt</a>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD PREVIEW -->
+<div class="rg-preview">
+  <div class="rg-preview-inner">
+    <p class="rg-preview-label">Live dashboard — overblik i realtid</p>
+    <div class="rg-dashboard">
+      <div class="rg-dash-topbar">
+        <div class="rg-dash-dot" style="background:#e07070;"></div>
+        <div class="rg-dash-dot" style="background:#e2a06a;"></div>
+        <div class="rg-dash-dot" style="background:#4ec88c;"></div>
+        <span class="rg-dash-title">Mit Regnskab · November 2024</span>
+      </div>
+      <div class="rg-dash-metrics">
+        <div class="rg-metric green">
+          <div class="rg-metric-label">Indtægter</div>
+          <div class="rg-metric-value">84.200</div>
+          <div class="rg-metric-change">+12% vs. oktober</div>
+        </div>
+        <div class="rg-metric red">
+          <div class="rg-metric-label">Udgifter</div>
+          <div class="rg-metric-value">31.450</div>
+          <div class="rg-metric-change">Inden for budget</div>
+        </div>
+        <div class="rg-metric blue">
+          <div class="rg-metric-label">Resultat</div>
+          <div class="rg-metric-value">52.750</div>
+          <div class="rg-metric-change">Stærk måned</div>
+        </div>
+        <div class="rg-metric amber">
+          <div class="rg-metric-label">Udlæg / udestående</div>
+          <div class="rg-metric-value">8.300</div>
+          <div class="rg-metric-change">2 forfaldne</div>
+        </div>
+      </div>
+      <div class="rg-dash-bottom">
+        <div class="rg-dash-chart">
+          <div class="rg-dash-chart-label">Omsætning · 6 måneder</div>
+          <div class="rg-chart-bars">
+            <div class="rg-bar" style="height:38%;background:#5a7ed8;"></div>
+            <div class="rg-bar" style="height:52%;background:#5a7ed8;"></div>
+            <div class="rg-bar" style="height:44%;background:#5a7ed8;"></div>
+            <div class="rg-bar" style="height:68%;background:#5a7ed8;"></div>
+            <div class="rg-bar" style="height:58%;background:#5a7ed8;"></div>
+            <div class="rg-bar" style="height:82%;background:#7a9ee8;"></div>
+          </div>
+        </div>
+        <div class="rg-dash-projects">
+          <div class="rg-dash-projects-label">Projekter</div>
+          <div class="rg-proj-row"><span class="rg-proj-name">ETOS pilot</span><span class="rg-proj-amt">+24.000</span></div>
+          <div class="rg-proj-row"><span class="rg-proj-name">Dirigenten</span><span class="rg-proj-amt">+18.500</span></div>
+          <div class="rg-proj-row"><span class="rg-proj-name">Konsulentopgave</span><span class="rg-proj-amt">+41.700</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEMET -->
+<div class="rg-problem">
+  <div class="rg-problem-inner">
+    <div>
+      <span class="eyebrow">Problemet</span>
+      <h2>De fleste regnskabsprogrammer er lavet til revisorer</h2>
+      <p>De viser tal — men ikke sammenhæng. De kræver struktur, før du har overblik. Og de ignorerer, at du arbejder i projekter, idéer og retninger.</p>
+      <p>Resultatet er, at du mister overblikket — ikke fordi du ikke kan, men fordi systemet ikke passer til dig.</p>
+      <div class="rg-result-box">
+        <p><strong>Det koster dig:</strong> tid du bruger på at forstå et system frem for at bruge det — og overblik du aldrig helt får.</p>
+      </div>
+    </div>
+    <div class="rg-pain-list">
+      <div class="rg-pain-item">
+        <strong>Problem 1</strong>
+        De viser tal — men ikke sammenhæng. Du kan se hvad der er ind og ud, men ikke hvad det betyder for det du bygger.
+      </div>
+      <div class="rg-pain-item">
+        <strong>Problem 2</strong>
+        De kræver struktur, før du har overblik. Du skal kategorisere og organisere, inden du forstår hvad der foregår.
+      </div>
+      <div class="rg-pain-item">
+        <strong>Problem 3</strong>
+        De ignorerer projekter og udvikling. Din økonomi hænger uløseligt sammen med det du bygger — men det ser systemet ikke.
+      </div>
+      <div class="rg-pain-item">
+        <strong>Problem 4</strong>
+        De er bygget til store virksomheder. Du er iværksætter — men systemet behandler dig som om du har en regnskabsafdeling.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LØSNINGEN -->
+<div class="rg-solution">
+  <div class="rg-solution-inner">
+    <span class="eyebrow" style="color:#7a9ee8;">Løsningen</span>
+    <h2 style="color:#eef0fc;">Et økonomisk cockpit for iværksættere</h2>
+    <p class="lead">Alt samlet ét sted — præsenteret på en måde, der giver mening for den måde du tænker og arbejder på.</p>
+    <div class="rg-features">
+      <div class="rg-feature done">
+        <div class="rg-feature-icon">💰</div>
+        <h4>Indtægter og udgifter</h4>
+        <p>Registrér transaktioner hurtigt og simpelt. Ingen kategorier du ikke forstår.</p>
+        <span class="rg-feature-check">✓ Klar</span>
+      </div>
+      <div class="rg-feature done">
+        <div class="rg-feature-icon">📊</div>
+        <h4>Resultat i realtid</h4>
+        <p>Se hvad du har tjent — nu. Ikke om en måned, når du lukker bøgerne.</p>
+        <span class="rg-feature-check">✓ Klar</span>
+      </div>
+      <div class="rg-feature done">
+        <div class="rg-feature-icon">📂</div>
+        <h4>Projektoverblik</h4>
+        <p>Knyt transaktioner til projekter og se præcis, hvad hvert projekt giver og koster.</p>
+        <span class="rg-feature-check">✓ Klar</span>
+      </div>
+      <div class="rg-feature done">
+        <div class="rg-feature-icon">🧾</div>
+        <h4>Udlæg</h4>
+        <p>Har du lagt penge ud for firmaet? Hold styr på hvad firmaet skylder dig.</p>
+        <span class="rg-feature-check">✓ Klar</span>
+      </div>
+      <div class="rg-feature done">
+        <div class="rg-feature-icon">⚠️</div>
+        <h4>Forfaldne regninger</h4>
+        <p>Se hvad der er på vej og hvad der allerede burde være betalt — tydeligt markeret.</p>
+        <span class="rg-feature-check">✓ Klar</span>
+      </div>
+      <div class="rg-feature done">
+        <div class="rg-feature-icon">📎</div>
+        <h4>Bilag samlet ét sted</h4>
+        <p>Upload og tilknyt bilag direkte til transaktionen. Klar til revisor når det er tid.</p>
+        <span class="rg-feature-check">✓ Klar</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HVORDAN DET VIRKER -->
+<div class="rg-how">
+  <div class="rg-how-inner">
+    <div>
+      <span class="eyebrow">Metode</span>
+      <h2>Alt registreres ét sted</h2>
+      <p style="font-size:15px;color:#4a5060;line-height:1.85;margin-bottom:24px;">Du behøver ikke tænke på struktur fra starten. Du registrerer det, der sker — og systemet samler det og viser dig, hvad det betyder.</p>
+      <div class="rg-flow-list">
+        <div class="rg-flow-item">
+          <div class="rg-flow-arrow">→</div>
+          <div><h4>Indtægter</h4><p>Betalte fakturaer, honorarer, salg. Hvad kom ind.</p></div>
+        </div>
+        <div class="rg-flow-item">
+          <div class="rg-flow-arrow">→</div>
+          <div><h4>Udgifter</h4><p>Faste og variable. Hvad gik ud — og til hvad.</p></div>
+        </div>
+        <div class="rg-flow-item">
+          <div class="rg-flow-arrow">→</div>
+          <div><h4>Udlæg</h4><p>Det du lagde ud af lommen. Firmaet skylder dig det.</p></div>
+        </div>
+        <div class="rg-flow-item">
+          <div class="rg-flow-arrow">→</div>
+          <div><h4>Projekter</h4><p>Tilknyt alt til det projekt det hører til.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="rg-output-box">
+      <h4>Systemet viser dig</h4>
+      <div class="rg-output-row">
+        <span class="label">Hvad du har</span>
+        <span class="value pos">Resultat i dag</span>
+      </div>
+      <div class="rg-output-row">
+        <span class="label">Hvad du skylder</span>
+        <span class="value warn">Forfaldne poster</span>
+      </div>
+      <div class="rg-output-row">
+        <span class="label">Hvad der er på vej</span>
+        <span class="value neu">Forventede ind/ud</span>
+      </div>
+      <div class="rg-output-row">
+        <span class="label">Hvad projekterne gør</span>
+        <span class="value pos">Per-projekt resultat</span>
+      </div>
+      <div class="rg-output-row">
+        <span class="label">Hvad firmaet skylder dig</span>
+        <span class="value neu">Udlægsoversigt</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HVAD GØR DET ANDERLEDES -->
+<div class="rg-diff">
+  <div class="rg-diff-inner">
+    <span class="eyebrow" style="color:#7a9ee8;">Perspektiv</span>
+    <h2 style="color:var(--sand);">Hvad gør det anderledes?</h2>
+    <p class="lead">Programmet er bygget ud fra en forståelse af, at mennesker ikke kun arbejder lineært — og at økonomi ikke er adskilt fra det du bygger.</p>
+    <div class="rg-diff-grid">
+      <div class="rg-diff-item">
+        <h4>Tager højde for kompleksitet</h4>
+        <p>Du har måske tre projekter i gang, et freelancejob og en idé under udvikling. Systemet forstår det — og holder styr på det hele.</p>
+      </div>
+      <div class="rg-diff-item">
+        <h4>Viser helheder — ikke kun tal</h4>
+        <p>Du ser ikke bare hvad der er ind og ud. Du ser, hvad det betyder for det du bygger og hvilken retning du er på vej i.</p>
+      </div>
+      <div class="rg-diff-item">
+        <h4>Bygget til idé-drevne mennesker</h4>
+        <p>Iværksættere, freelancere, konsulenter og folk der bygger noget nyt. Ikke til revisorer eller store virksomheder.</p>
+      </div>
+      <div class="rg-diff-item">
+        <h4>Understøtter refleksion og beslutning</h4>
+        <p>Overblik er ikke bare kontrol. Det er evnen til at se, hvad der virker — og træffe bedre beslutninger fremover.</p>
+      </div>
+    </div>
+    <div class="rg-etos-link">
+      <p>Koblingen til ETOS er ikke tilfældig. ETOS handler om at gøre værdier og spændinger synlige i beslutningsprocesser. Regnskabsprogrammet gør det samme for økonomi: <em>et system der gør værdier synlige i det du bygger.</em></p>
+    </div>
+  </div>
+</div>
+
+<!-- STATUS -->
+<div class="rg-status" id="status">
+  <div class="rg-status-inner">
+    <div>
+      <span class="eyebrow">Status</span>
+      <h2>Aktivt i brug — under videre udvikling</h2>
+      <div class="rg-version-badge">
+        <span>●</span> Beta-version · Live
+      </div>
+      <p>Programmet er ikke et fremtidsprojekt. Det bruges allerede i praksis — og udvikles løbende baseret på, hvad der faktisk er brug for.</p>
+      <p>Næste skridt er at åbne det op for flere brugere og udvikle det i dialog med dem, der skal bruge det.</p>
+    </div>
+    <div class="rg-checklist">
+      <div class="rg-check-item done">
+        <span class="rg-check-icon">✓</span>
+        <span>Indtægter og udgifter</span>
+      </div>
+      <div class="rg-check-item done">
+        <span class="rg-check-icon">✓</span>
+        <span>Resultat-dashboard</span>
+      </div>
+      <div class="rg-check-item done">
+        <span class="rg-check-icon">✓</span>
+        <span>Projektoversigt</span>
+      </div>
+      <div class="rg-check-item done">
+        <span class="rg-check-icon">✓</span>
+        <span>Udlæg og udestående</span>
+      </div>
+      <div class="rg-check-item soon">
+        <span class="rg-check-icon">→</span>
+        <span>Fakturamodul (under udvikling)</span>
+      </div>
+      <div class="rg-check-item soon">
+        <span class="rg-check-icon">→</span>
+        <span>Eksport til revisor</span>
+      </div>
+      <div class="rg-check-item later">
+        <span class="rg-check-icon">○</span>
+        <span>Bank-integration</span>
+      </div>
+      <div class="rg-check-item later">
+        <span class="rg-check-icon">○</span>
+        <span>AI-baseret kategorisering</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-strip">
+  <p class="cta-quote">"Regnskab er ikke bare kontrol — det er evnen til at forstå, hvad du bygger."</p>
+  <div class="cta-strip-btns">
+    <a href="kontakt.html" class="btn btn-primary">Hør mere eller test det</a>
+    <a href="mailto:M.E.M.Teori@gmail.com" class="btn btn-ghost">Skriv direkte</a>
+  </div>
+</div>
+
+</body>
+</html>
