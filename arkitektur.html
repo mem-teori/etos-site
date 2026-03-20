@@ -282,36 +282,50 @@
   <div class="ark-motor-inner">
     <span class="ark-section-tag" style="color:#4ec88c;">Lag 2 · Beslutningsmotor</span>
     <h2 class="ark-h2" style="color:#e8ecfc;">IDK — Beslutningsmotor</h2>
-    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(232,236,252,0.45);max-width:580px;line-height:1.75;">Strukturerer beslutninger i situationer med normativ spænding. Klassificerer i fire tilstande baseret på risiko, tvang, kapacitet, afvisning og usikkerhed. Status: <strong style="color:#4ec88c;">Fungerende prototype — testet i 1.296 syntetiske cases.</strong></p>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(232,236,252,0.45);max-width:580px;line-height:1.75;">Strukturerer beslutninger i situationer med normativ spænding. Klassificerer i <strong style="color:#4ec88c;">fem tilstande</strong> baseret på seks parametre. Beregner også etisk gæld (debt) som en funktion af divergens. Status: <strong style="color:#4ec88c;">Fungerende prototype — testet i 1.296 syntetiske cases.</strong></p>
 
     <div class="idk-block">
-      <div class="idk-states">
+      <div class="idk-states" style="grid-template-columns:repeat(5,1fr);">
         <div class="idk-state normal">
           <div class="idk-state-name">Normal</div>
-          <div class="idk-state-desc">Standard praksis — beslutningen kan træffes</div>
+          <div class="idk-state-desc">Beslutningen er i balance</div>
         </div>
         <div class="idk-state review">
-          <div class="idk-state-name">Requires Review</div>
-          <div class="idk-state-desc">Øget refleksion nødvendig</div>
+          <div class="idk-state-name">Kræver gennemgang</div>
+          <div class="idk-state-desc">Begyndende spænding — anbefales gennemgang</div>
         </div>
         <div class="idk-state emergency">
-          <div class="idk-state-name">Emergency</div>
-          <div class="idk-state-desc">Kræver eksplicit begrundelse</div>
+          <div class="idk-state-name">Nødtilstand</div>
+          <div class="idk-state-desc">Høj spænding — etisk gæld registreres</div>
         </div>
         <div class="idk-state incompatible">
-          <div class="idk-state-name">Incompatible</div>
-          <div class="idk-state-desc">Bør ikke udføres — etisk brud</div>
+          <div class="idk-state-name">Uforeneligt</div>
+          <div class="idk-state-desc">Systemet kan ikke opfylde sine egne mål</div>
+        </div>
+        <div class="idk-state" style="background:rgba(180,100,200,0.1);border:1px solid rgba(180,100,200,0.2);">
+          <div class="idk-state-name" style="color:#c87ae8;">Grundlovsveto</div>
+          <div class="idk-state-desc">Grundlæggende principper brydes — kræver menneskelig intervention</div>
         </div>
       </div>
       <p style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,0.3);margin-bottom:8px;">Vurderer via disse parametre:</p>
       <div class="idk-params">
-        <span class="idk-param">Risiko</span>
         <span class="idk-param">Tvang</span>
-        <span class="idk-param">Kapacitet</span>
         <span class="idk-param">Afvisning</span>
-        <span class="idk-param">Usikkerhed</span>
+        <span class="idk-param">Kapacitetstab</span>
+        <span class="idk-param">Risiko</span>
+        <span class="idk-param">Tidsfølsomhed</span>
+        <span class="idk-param">Forhåndsdirektiv</span>
       </div>
-      <p style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,0.25);margin-top:16px;font-style:italic;">Testresultat: 23% af 1.296 syntetiske cases klassificeret som Emergency — tydelige strukturelle mønstre identificeret.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;">
+        <div style="background:rgba(255,255,255,0.03);border-radius:8px;padding:12px 14px;">
+          <p style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(240,235,224,0.25);margin-bottom:6px;">Etisk gæld (debt)</p>
+          <p style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,0.45);line-height:1.6;margin:0;">Beregnes som divergens × 0.85. Klassificeres som Lav / Moderat / Høj / Kritisk.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.03);border-radius:8px;padding:12px 14px;">
+          <p style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(240,235,224,0.25);margin-bottom:6px;">Testresultat</p>
+          <p style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,0.45);line-height:1.6;margin:0;">1.296 syntetiske cases · 23% klassificeret som Nødtilstand · Tydelige strukturelle mønstre.</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -438,7 +452,7 @@
           <td>IDK</td>
           <td>Beslutningsmotor</td>
           <td><span class="ov-status"><span class="ov-dot green"></span>Fungerende prototype</span></td>
-          <td>Parameterkalibrering + empirisk data</td>
+          <td>Parameterkalibrering + empirisk data · 5 tilstande</td>
         </tr>
         <tr>
           <td>ETOS Kernesystem</td>
