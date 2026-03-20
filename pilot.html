@@ -5,6 +5,95 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pilot — ETOS</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .pilot-hero {
+      background: var(--bg-dark);
+      padding: 64px 52px 56px;
+      position: relative; overflow: hidden;
+    }
+    .pilot-hero::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 280px; height: 280px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(226,136,78,0.1), transparent 70%);
+      pointer-events: none;
+    }
+    .pilot-hero-inner { max-width: var(--max); margin: 0 auto; }
+    .pilot-hero h1 { color: var(--sand); margin-bottom: 14px; }
+    .pilot-hero .subtitle { color: rgba(240,235,224,0.55); font-size: 15px; max-width: 540px; }
+
+    /* EKSEMPEL FORLØB */
+    .pilot-example {
+      background: #f0f7f4;
+      border: 1px solid rgba(78,200,140,0.2);
+      border-left: 4px solid #4ec88c;
+      border-radius: 14px;
+      padding: 32px 36px;
+      margin: 8px 0;
+    }
+    .pilot-example-label {
+      font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #3a8a5a; margin-bottom: 14px; display: block;
+    }
+    .pilot-example h3 { color: #1a3a2a; font-size: 20px; margin-bottom: 12px; }
+    .pilot-example p { font-size: 14px; color: #3a5a4a; line-height: 1.8; }
+
+    /* TIDSLINJE */
+    .pilot-timeline { display: flex; flex-direction: column; gap: 0; }
+    .pilot-week {
+      display: grid; grid-template-columns: 100px 1fr;
+      gap: 24px; padding: 20px 0;
+      border-bottom: 1px solid var(--line);
+      align-items: start;
+    }
+    .pilot-week:last-child { border-bottom: none; }
+    .pilot-week-label {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent); padding-top: 3px;
+    }
+    .pilot-week h4 { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--ink); font-weight: 400; margin-bottom: 5px; }
+    .pilot-week p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+    .pilot-week-tag {
+      display: inline-block; font-size: 10px; font-weight: 500;
+      padding: 2px 8px; border-radius: 20px; margin-top: 8px;
+    }
+    .pilot-week-tag.prep   { background: rgba(90,126,216,0.1); color: #4a6ec8; }
+    .pilot-week-tag.active { background: rgba(226,136,78,0.1); color: var(--accent-dk); }
+    .pilot-week-tag.learn  { background: rgba(78,200,140,0.1); color: #3a8a5a; }
+
+    /* HVAD FÅR DU */
+    .pilot-outcomes {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 8px;
+    }
+    .pilot-outcome {
+      background: #fff; border: 1px solid var(--line);
+      border-radius: 12px; padding: 22px 20px;
+    }
+    .pilot-outcome-icon { font-size: 22px; margin-bottom: 10px; }
+    .pilot-outcome h4 { font-size: 15px; color: var(--ink); margin-bottom: 6px; }
+    .pilot-outcome p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+    /* PRIS / VILKÅR */
+    .pilot-terms {
+      background: var(--bg-dark);
+      border-radius: 14px; padding: 36px 40px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+      margin: 8px 0;
+    }
+    .pilot-terms h3 { color: var(--sand); font-size: 20px; margin-bottom: 16px; }
+    .pilot-terms-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+    .pilot-terms-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 13px; color: rgba(240,235,224,0.6); line-height: 1.6;
+    }
+    .pilot-terms-list li::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+
+    @media (max-width: 860px) {
+      .pilot-hero { padding: 44px 28px; }
+      .pilot-outcomes { grid-template-columns: 1fr; }
+      .pilot-terms { grid-template-columns: 1fr; padding: 28px; }
+      .pilot-week { grid-template-columns: 1fr; gap: 4px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -21,55 +110,162 @@
   <a href="kontakt.html" class="nav-cta">Kontakt</a>
 </nav>
 
-<div class="page-hero">
-  <div class="page-hero-inner">
+<!-- HERO -->
+<div class="pilot-hero">
+  <div class="pilot-hero-inner">
     <span class="page-hero-tag">Pilotspor</span>
-    <h1>Fra idé til afprøvning i mindre skala</h1>
-    <p class="subtitle">Projektet er klar til pilotafprøvning i forløb, hvor modellen kan testes i praksis.</p>
+    <h1>Sådan ser et pilotforløb ud i praksis</h1>
+    <p class="subtitle">Et pilotforløb med ETOS er ikke et kursus eller en konsulentopgave. Det er en afgrænset afprøvning — hvor vi sammen undersøger, hvad modellen ser i jeres konkrete beslutninger.</p>
   </div>
 </div>
 
 <div class="container">
+
+  <!-- KONKRET EKSEMPEL -->
   <section class="section">
-    <div class="content card">
-      <p>Projektet er klar til pilotafprøvning i mindre forløb, hvor modellen kan testes i praksis.</p>
-      <p>Formålet er at undersøge, hvordan ETOS kan bruges til at skabe mere gennemsigtige beslutninger og læring på tværs af forløb.</p>
-      <p>En pilot kan tilpasses den konkrete kontekst — og starter med dialog om, hvad der giver mening for din organisation.</p>
+    <span class="eyebrow">Eksempel fra praksis</span>
+    <h2>Sådan kunne det se ud på en psykiatrisk afdeling</h2>
+
+    <div class="pilot-example">
+      <span class="pilot-example-label">Fiktivt eksempel · Psykiatri · 6 uger</span>
+      <h3>Afdeling X, regionalt psykiatrisk center</h3>
+      <p>En afdeling med 12 medarbejdere bruger ETOS i seks uger på tre konkrete sager, hvor der opstod uenighed om den rigtige beslutning. Formålet er ikke at nå frem til et "rigtigt svar" — men at gøre det synligt, hvad der egentlig var i spil.</p>
+    </div>
+
+    <div class="section" style="padding:32px 0 0;">
+      <div class="section-head">
+        <span class="eyebrow">Forløbet uge for uge</span>
+        <h2>6 uger i praksis</h2>
+      </div>
+      <div class="pilot-timeline">
+        <div class="pilot-week">
+          <div>
+            <div class="pilot-week-label">Uge 1</div>
+            <span class="pilot-week-tag prep">Forberedelse</span>
+          </div>
+          <div>
+            <h4>Introduktion og kalibrering</h4>
+            <p>Kort intro til ETOS for teamet (1 time). Valg af tre konkrete sager fra de seneste måneder — sager der stadig "sidder" og ikke føltes afklaret. Ingen forkundskaber nødvendige.</p>
+          </div>
+        </div>
+        <div class="pilot-week">
+          <div>
+            <div class="pilot-week-label">Uge 2–3</div>
+            <span class="pilot-week-tag active">Analyse</span>
+          </div>
+          <div>
+            <h4>ETOS-analyse af de tre sager</h4>
+            <p>Hver sag analyseres med ETOS: Hvad var spændingerne? Hvad var divergensen mellem systemets logik og patientens virkelighed? Hvad var det etiske pres? Resultaterne samles i et enkelt overblik per sag.</p>
+          </div>
+        </div>
+        <div class="pilot-week">
+          <div>
+            <div class="pilot-week-label">Uge 4</div>
+            <span class="pilot-week-tag active">Dialog</span>
+          </div>
+          <div>
+            <h4>Fælles refleksion i teamet</h4>
+            <p>Teamet gennemgår analyserne sammen (2 timer). Ikke for at omgøre beslutningerne — men for at se, hvad der kan læres. Hvad ville vi gøre anderledes næste gang? Hvad er et mønster vi ikke havde set?</p>
+          </div>
+        </div>
+        <div class="pilot-week">
+          <div>
+            <div class="pilot-week-label">Uge 5–6</div>
+            <span class="pilot-week-tag learn">Læring</span>
+          </div>
+          <div>
+            <h4>Opsamling og videre</h4>
+            <p>En kort rapport over, hvad piloten viste — mønstre, blinde vinkler, og hvad ETOS gjorde synligt som ikke var synligt før. Beslutning om næste skridt: videre pilot, bredere implementering eller pause.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
+  <!-- HVAD FÅR DU UD AF DET -->
   <section class="section">
     <div class="section-head">
-      <span class="eyebrow">Sådan forløber en pilot</span>
-      <h2>Tre trin</h2>
+      <span class="eyebrow">Udbytte</span>
+      <h2>Hvad får din organisation ud af det?</h2>
+    </div>
+    <div class="pilot-outcomes">
+      <div class="pilot-outcome">
+        <div class="pilot-outcome-icon">🔍</div>
+        <h4>Synlige spændinger</h4>
+        <p>De konflikter der normalt forbliver usynlige eller uudtalte — ETOS bringer dem frem, så de kan arbejdes med.</p>
+      </div>
+      <div class="pilot-outcome">
+        <div class="pilot-outcome-icon">📚</div>
+        <h4>Institutionel læring</h4>
+        <p>En konkret opsamling på, hvad jeres beslutninger afslører om jeres system, kultur og blinde vinkler.</p>
+      </div>
+      <div class="pilot-outcome">
+        <div class="pilot-outcome-icon">🧭</div>
+        <h4>Et fælles sprog</h4>
+        <p>Begreber som divergens, etisk pres og handlingsrum giver teamet et præcist sprog for det, de ellers bare mærker.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VILKÅR OG FORVENTNINGER -->
+  <div class="pilot-terms">
+    <div>
+      <h3>Hvad vi forventer af jer</h3>
+      <ul class="pilot-terms-list">
+        <li>2–4 timers samlet tidsforbrug for teamet over 6 uger</li>
+        <li>Tre konkrete sager I vil kigge nærmere på</li>
+        <li>Åbenhed over for at se mønstre I måske ikke har set</li>
+        <li>En kontaktperson der koordinerer internt</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Hvad I kan forvente af os</h3>
+      <ul class="pilot-terms-list">
+        <li>En tilpasset intro til ETOS — ingen forkundskaber nødvendige</li>
+        <li>Facilitering af analyse og refleksion</li>
+        <li>En skriftlig opsamling med konkrete fund</li>
+        <li>Fortrolighed — alt behandles anonymt og lukket</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ANDRE KONTEKSTER -->
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow">Pilotspor</span>
+      <h2>ETOS kan afprøves i mange kontekster</h2>
+      <p class="section-intro">Eksemplet ovenfor er fra psykiatrien — men et pilotforløb kan tilpasses enhver organisation, der træffer komplekse beslutninger.</p>
     </div>
     <div class="grid-3">
       <div class="card">
-        <div class="feature-num">01</div>
-        <h3>Dialog</h3>
-        <p>Vi taler om konteksten, udfordringerne og hvad der ville give mening at afprøve. Ingen forpligtelse.</p>
+        <span class="kicker">Kommuner</span>
+        <h3>Sagsbehandling og anbringelser</h3>
+        <p>Sager hvor systemets regler og borgerens virkelighed kolliderer. ETOS synliggør, hvornår det sker — og hvad det koster.</p>
       </div>
       <div class="card">
-        <div class="feature-num">02</div>
-        <h3>Afprøvning</h3>
-        <p>ETOS bruges i et afgrænset forløb — med mulighed for at tilpasse undervejs.</p>
+        <span class="kicker">Virksomheder</span>
+        <h3>Ledelse og HR-beslutninger</h3>
+        <p>Svære personalebeslutninger, omstruktureringer og situationer hvor styring og menneskelige behov trækker i hver sin retning.</p>
       </div>
       <div class="card">
-        <div class="feature-num">03</div>
-        <h3>Læring</h3>
-        <p>Vi samler op på, hvad der virkede, hvad der overraskede, og hvad næste skridt kan være.</p>
+        <span class="kicker">AI & Tech</span>
+        <h3>Algoritmiske beslutninger</h3>
+        <p>Når automatiserede systemer træffer beslutninger der påvirker mennesker — ETOS sikrer at ansvaret forbliver synligt og håndterbart.</p>
       </div>
     </div>
   </section>
 
   <div class="cta-box">
-    <p>"Interesseret i en pilot?"</p>
+    <div>
+      <p style="font-family:'Playfair Display',serif;font-size:20px;color:var(--sand);font-style:italic;margin:0 0 6px;">Klar til at tale om en pilot?</p>
+      <p style="color:rgba(240,235,224,0.5);font-size:13px;margin:0;">Det starter med en uforpligtende samtale. Ingen kontrakt. Ingen forpligtelse.</p>
+    </div>
     <div class="cta-btns">
       <a href="kontakt.html" class="btn btn-primary">Tag kontakt</a>
-      <a href="anvendelse.html" class="btn btn-ghost">Se anvendelse</a>
+      <a href="anvendelse.html" class="btn btn-ghost">Se anvendelse →</a>
     </div>
   </div>
-</div>
 
+</div>
 </body>
 </html>
