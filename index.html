@@ -119,6 +119,20 @@
     .fs-hero { display: block !important; }
     .fs-hero-right { display: none !important; }
     .fs-hero-left { grid-template-columns: 1fr 1fr !important; }
+
+    /* Slider mikro-hint */
+    .demo-hint { font-size: 11px; color: rgba(240,235,224,0.22); font-style: italic; margin-top: 3px; font-family: 'DM Sans', sans-serif; transition: color 0.2s; line-height: 1.4; }
+    .demo-hint.active { color: rgba(240,235,224,0.45); }
+
+    /* Recommendation block */
+    .demo-recommendation {
+      margin-top: 8px; padding: 10px 12px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 6px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .demo-rec-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(240,235,224,0.2); font-family: 'DM Sans', sans-serif; margin-bottom: 4px; display: block; }
+    .demo-rec-text { font-size: 11px; color: rgba(240,235,224,0.4); line-height: 1.65; font-family: 'DM Sans', sans-serif; font-style: italic; }
   </style>
 </head>
 <body>
@@ -182,6 +196,7 @@
         </div>
         <input type="range" class="demo-range" id="s1" min="0" max="100" value="60" oninput="demoUpdate()">
         <div class="demo-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
+        <p class="demo-hint" id="hint1">Høj risiko øger systemets behov for handling</p>
       </div>
       <div class="demo-slider">
         <div class="demo-slider-header">
@@ -190,6 +205,7 @@
         </div>
         <input type="range" class="demo-range" id="s2" min="0" max="100" value="75" oninput="demoUpdate()">
         <div class="demo-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
+        <p class="demo-hint" id="hint2">Høj autonomi styrker individets ret til eget valg</p>
       </div>
       <div class="demo-slider">
         <div class="demo-slider-header">
@@ -198,6 +214,7 @@
         </div>
         <input type="range" class="demo-range" id="s3" min="0" max="100" value="40" oninput="demoUpdate()">
         <div class="demo-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
+        <p class="demo-hint" id="hint3">Lav tillid øger risikoen for modstand mod beslutningen</p>
       </div>
       <div class="demo-result" id="demoResult">
         <div class="demo-mode-row">
@@ -205,6 +222,10 @@
           <span class="demo-mode-value" id="dMode">Requires Review</span>
         </div>
         <p class="demo-insight" id="dInsight">Spænding mellem høj autonomi, moderat tillid og stigende risikovurdering. Review anbefales frem for hurtig eskalation.</p>
+        <div class="demo-recommendation">
+          <span class="demo-rec-label">Hvad det betyder</span>
+          <p class="demo-rec-text" id="dRec">Sænk tempoet, forklar beslutningen og styrk relationen før handling.</p>
+        </div>
         <a href="system.html" class="demo-link">Se fuld analyse →</a>
       </div>
       <div class="demo-toggle">
@@ -326,18 +347,57 @@ function demoUpdate(){
   const rL=s1<33?"lav":s1<66?"moderat":"høj";
   const aL=s2<33?"lav":s2<66?"moderat":"høj";
   const tL=s3<33?"svag":s3<66?"moderat":"stærk";
-  let mode,color,insight;
-  if(h>60&&e<33){mode="Normal";color="#4ec88c";insight=`Lavt etisk pres (${e}/100), godt handlingsrum (${h}/100). Risikovurdering ${rL}. Beslutningen kan træffes.`;}
-  else if(e>72||d>75){mode="Emergency";color="#e07070";insight=`Kritisk: pres ${e}/100, divergens ${d}/100. ${rL} risiko mod ${aL} autonomi. Supervision anbefales.`;}
-  else if(Math.abs(s1-s2)>55){mode="Incompatible";color="#e2a06a";insight=`${rL} risikovurdering (${s1}/100) og ${aL} autonomi (${s2}/100) er uforenelige. ${tL} tillid.`;}
-  else{mode="Requires Review";color="#7a9ee8";insight=`${aL} autonomi (${s2}/100), ${tL} tillid (${s3}/100), ${rL} risikovurdering (${s1}/100). Review anbefales.`;}
+
+  // Slider hints — aktivér den mest pressede
+  const h1=document.getElementById("hint1"),h2=document.getElementById("hint2"),h3=document.getElementById("hint3");
+  if(h1&&h2&&h3){
+    h1.classList.toggle("active", s1>60);
+    h2.classList.toggle("active", s2>60);
+    h3.classList.toggle("active", s3<40);
+    if(window._tog==="b"){
+      h1.textContent=s1>66?"Systemet vil handle — det presser på":"Systemets pres er håndterbart lige nu";
+      h2.textContent=s2>66?"Din virkelighed vejer tungt i denne beslutning":"Din virkelighed er kun delvist hørt";
+      h3.textContent=s3<33?"Lav tillid gør det svært at acceptere en beslutning":"Tilliden bærer noget af byrden";
+    } else {
+      h1.textContent=s1>66?"Høj risiko øger systemets behov for handling":"Risikoniveauet er moderat — der er rum til dialog";
+      h2.textContent=s2>66?"Høj autonomi styrker individets ret til eget valg":"Begrænset autonomi — systemet vejer tungt";
+      h3.textContent=s3<33?"Lav tillid øger risikoen for modstand mod beslutningen":"Tilliden understøtter en bæredygtig beslutning";
+    }
+  }
+
+  let mode,color,insight,rec;
+  if(h>60&&e<33){
+    mode="Normal"; color="#4ec88c";
+    insight="Systemets vurdering og menneskets virkelighed peger i samme retning. Der er etisk plads til at handle.";
+    rec="Dokumentér begrundelsen. Involvér den berørte i beslutningen så vidt muligt.";
+  } else if(e>72||d>75){
+    mode="Kritisk spænding"; color="#e07070";
+    insight="Der er stor afstand mellem systemets krav og den menneskelige virkelighed. Enhver beslutning bærer en etisk pris.";
+    rec="Søg supervision. Lad ikke tidspres erstatte etisk refleksion. Dokumentér dilemmaet eksplicit.";
+  } else if(Math.abs(s1-s2)>55){
+    mode="Uforenelige hensyn"; color="#e2a06a";
+    insight="Systemets logik og individets behov kan ikke forenes i denne situation. Der opstår etisk gæld uanset valg.";
+    rec="Anerkend konflikten åbent. Ingen løsning er perfekt — vælg den der skader mindst og forklar hvorfor.";
+  } else {
+    mode="Kræver vurdering"; color="#7a9ee8";
+    insight="Situationen rummer spændinger der ikke kan håndteres med rutine alene. En bevidst vurdering er nødvendig.";
+    rec="Sænk tempoet. Forklar beslutningen til den berørte. Styrk relationen før og efter handling.";
+  }
+
   const prev=document.getElementById("dMode").textContent;
   document.getElementById("dMode").textContent=mode;
   document.getElementById("dMode").style.color=color;
   document.getElementById("dInsight").textContent=insight;
-  if(prev!==mode){const r=document.getElementById("demoResult");r.classList.remove("pulse");void r.offsetWidth;r.classList.add("pulse");r.style.borderLeftColor=color;}
+  const recEl=document.getElementById("dRec");
+  if(recEl) recEl.textContent=rec;
+  if(prev!==mode){
+    const r=document.getElementById("demoResult");
+    r.classList.remove("pulse");void r.offsetWidth;r.classList.add("pulse");
+    r.style.borderLeftColor=color;
+  }
 }
 function setTog(type,btn){
+  window._tog=type;
   document.querySelectorAll(".demo-tog-btn").forEach(b=>b.classList.remove("ab","af"));
   btn.classList.add(type==="b"?"ab":"af");
   document.getElementById("lbl1").textContent=type==="b"?"Systemets pres på dig":"Systemets risikovurdering";
