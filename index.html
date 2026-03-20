@@ -418,6 +418,65 @@
       50%  { box-shadow: 0 0 0 6px rgba(226,136,78,0); }
       100% { box-shadow: 0 0 0 0 rgba(226,136,78,0); }
     }
+
+    /* PRIMÆR KNAP I HERO */
+    .hero-primary-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 28px; border-radius: 10px;
+      background: #e2884e; color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px; font-weight: 500;
+      border: none; cursor: pointer;
+      transition: background 0.15s, transform 0.15s;
+      margin-bottom: 8px;
+    }
+    .hero-primary-btn:hover { background: #d4743a; transform: translateY(-1px); }
+    .hero-primary-sub {
+      font-size: 12px; color: rgba(240,235,224,0.3);
+      font-style: italic; margin-top: 2px;
+    }
+
+    /* HERO LAYOUT: tekst venstre, demo højre */
+    .home-hero-v2 {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 420px; background: var(--bg-dark);
+      max-width: 100%;
+    }
+    .home-hero-v2-left {
+      padding: 56px 52px;
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .home-hero-v2-left::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 260px; height: 260px; border-radius: 50%;
+      background: rgba(226,136,78,0.07); pointer-events: none;
+    }
+    .home-hero-v2-right {
+      padding: 36px 44px;
+      display: flex; flex-direction: column; justify-content: center;
+      border-left: 1px solid rgba(255,255,255,0.07);
+    }
+
+    /* BORGER/FAG TOGGLE I HERO */
+    .hero-toggle-row {
+      display: flex; gap: 6px; margin-top: 12px;
+    }
+    .hero-tog-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px; padding: 5px 12px; border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: transparent; color: rgba(255,255,255,0.45);
+      cursor: pointer; transition: all 0.15s;
+    }
+    .hero-tog-btn.active-borger {
+      background: rgba(78,200,140,0.12); border-color: rgba(78,200,140,0.35);
+      color: #4ec88c;
+    }
+    .hero-tog-btn.active-fag {
+      background: rgba(90,126,216,0.12); border-color: rgba(90,126,216,0.35);
+      color: #7a9ee8;
+    }
   </style>
 </head>
 <body>
@@ -473,95 +532,64 @@
 
 <!-- HERO -->
 <section class="home-hero-v2">
-
-  <!-- VENSTRE: overskrift + live demo -->
   <div class="home-hero-v2-left">
     <div class="hero-tag">
       <span class="hero-tag-dot"></span>
       Under udvikling · Åben for samarbejde
     </div>
-    <h1 class="hero-v2-h1">Når regler og<br>virkelighed<br><em>ikke stemmer</em></h1>
-    <p class="hero-v2-sub">ETOS gør spændinger synlige — prøv det selv.</p>
-
-    <div class="hero-demo-box">
-      <p class="hero-demo-invite">Forestil dig en svær situation — juster og se hvad ETOS ser.</p>
-
-      <div class="hero-demo-slider">
-        <div class="hds-header">
-          <span class="hds-label">Systemets risikovurdering</span>
-          <span class="hds-val"><span id="hv1">60</span><span class="hds-max"> / 100</span></span>
-        </div>
-        <input type="range" class="hero-range" id="hs1" min="0" max="100" value="60" oninput="heroUpdate()">
-        <div class="hds-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
-      </div>
-
-      <div class="hero-demo-slider">
-        <div class="hds-header">
-          <span class="hds-label">Patientens autonomi</span>
-          <span class="hds-val"><span id="hv2">75</span><span class="hds-max"> / 100</span></span>
-        </div>
-        <input type="range" class="hero-range" id="hs2" min="0" max="100" value="75" oninput="heroUpdate()">
-        <div class="hds-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
-      </div>
-
-      <div class="hero-demo-slider">
-        <div class="hds-header">
-          <span class="hds-label">Relationel tillid</span>
-          <span class="hds-val"><span id="hv3">40</span><span class="hds-max"> / 100</span></span>
-        </div>
-        <input type="range" class="hero-range" id="hs3" min="0" max="100" value="40" oninput="heroUpdate()">
-        <div class="hds-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
-      </div>
-
-      <div class="hero-demo-result" id="heroResult">
-        <div class="hdr-mode-row">
-          <span class="hdr-mode-label">Beslutningsmode</span>
-          <span class="hdr-mode-value" id="heroMode">Requires Review</span>
-        </div>
-        <p class="hdr-insight" id="heroInsight">ETOS registrerer spænding mellem høj autonomi, moderat tillid og stigende risikovurdering. Situationen peger mod review frem for hurtig eskalation.</p>
-        <a href="system.html" class="hdr-link">Se fuld analyse →</a>
-      </div>
-    </div>
+    <h1 class="hero-v2-h1">Når systemer presser<br>mennesker ind i<br><em>umulige valg</em></h1>
+    <p class="hero-v2-sub">ETOS gør spændinger synlige — et redskab til beslutninger der ikke har nemme svar.</p>
+    <button class="hero-primary-btn" onclick="document.getElementById('hs1').focus()">
+      Prøv ETOS nu →
+    </button>
+    <p class="hero-primary-sub">2 minutter · ingen konto · ingen opsætning</p>
   </div>
 
+  <div class="home-hero-v2-right">
+    <p class="hero-demo-invite">Forestil dig en svær situation — juster og se hvad ETOS ser.</p>
 
+    <div class="hero-demo-slider">
+      <div class="hds-header">
+        <span class="hds-label" id="lbl1">Systemets risikovurdering</span>
+        <span class="hds-val"><span id="hv1">60</span><span class="hds-max"> / 100</span></span>
+      </div>
+      <input type="range" class="hero-range" id="hs1" min="0" max="100" value="60" oninput="heroUpdate()">
+      <div class="hds-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
+    </div>
 
+    <div class="hero-demo-slider">
+      <div class="hds-header">
+        <span class="hds-label" id="lbl2">Patientens autonomi</span>
+        <span class="hds-val"><span id="hv2">75</span><span class="hds-max"> / 100</span></span>
+      </div>
+      <input type="range" class="hero-range" id="hs2" min="0" max="100" value="75" oninput="heroUpdate()">
+      <div class="hds-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
+    </div>
+
+    <div class="hero-demo-slider">
+      <div class="hds-header">
+        <span class="hds-label" id="lbl3">Relationel tillid</span>
+        <span class="hds-val"><span id="hv3">40</span><span class="hds-max"> / 100</span></span>
+      </div>
+      <input type="range" class="hero-range" id="hs3" min="0" max="100" value="40" oninput="heroUpdate()">
+      <div class="hds-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
+    </div>
+
+    <div class="hero-demo-result" id="heroResult">
+      <div class="hdr-mode-row">
+        <span class="hdr-mode-label">Beslutningsmode</span>
+        <span class="hdr-mode-value" id="heroMode">Requires Review</span>
+      </div>
+      <p class="hdr-insight" id="heroInsight">Spænding mellem høj autonomi, moderat tillid og stigende risikovurdering. Review anbefales frem for hurtig eskalation.</p>
+      <a href="system.html" class="hdr-link">Se fuld analyse →</a>
+    </div>
+
+    <div class="hero-toggle-row">
+      <button class="hero-tog-btn" onclick="setHeroTog('borger',this)">👤 Borger</button>
+      <button class="hero-tog-btn active-fag" onclick="setHeroTog('fag',this)">🧑‍⚕️ Fagperson</button>
+    </div>
+  </div>
 </section>
-
-
-<!-- VÆLG DIN INDGANG -->
-<div class="indgang-bar" id="indgangBar">
-  <div class="indgang-inner">
-    <span class="indgang-label">Hvem er du?</span>
-    <button class="indgang-btn borger" id="btnBorger" onclick="setIndgang('borger', this)">
-      <span class="ib-icon">👤</span>
-      <span class="ib-text">
-        <span class="ib-title">Jeg er borger</span>
-        <span class="ib-sub">Enkel forklaring + demo</span>
-      </span>
-    </button>
-    <button class="indgang-btn fagperson" id="btnFag" onclick="setIndgang('fagperson', this)">
-      <span class="ib-icon">🧑‍⚕️</span>
-      <span class="ib-text">
-        <span class="ib-title">Jeg er fagperson</span>
-        <span class="ib-sub">Teknisk analyse + system</span>
-      </span>
-    </button>
-    <span class="indgang-hint" id="indgangHint">← Klik for at tilpasse din oplevelse</span>
-  </div>
-</div>
-
-<!-- PRØV ETOS NU — synlig CTA band -->
-<div style="background:var(--accent);padding:18px 52px;">
-  <div style="max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
-    <div>
-      <p style="font-family:'Playfair Display',serif;font-size:18px;color:#fff;font-style:italic;margin:0 0 3px;">Klar til at prøve det selv?</p>
-      <p style="font-size:13px;color:rgba(255,255,255,0.7);margin:0;">Ingen konto. Ingen opsætning. Bare juster og se hvad ETOS opdager.</p>
-    </div>
-    <a href="system.html" style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:11px 24px;border-radius:8px;background:#fff;color:var(--accent-dk);text-decoration:none;white-space:nowrap;flex-shrink:0;">Start her → 2 min</a>
-  </div>
-</div>
-
 <!-- MINI-CASE: forstå ETOS på 5 sekunder -->
 <div class="mini-case-bar" id="miniCaseBar">
   <div class="mini-case-inner">
@@ -584,101 +612,6 @@
       </div>
       <p class="mini-case-verdict" id="mcVerdict">Systemlogik og menneskelig virkelighed trækker i hver sin retning. Beslutningen bærer etisk gæld — uanset valg.</p>
       <a href="system.html" class="mini-case-link">Prøv selv med sliders →</a>
-    </div>
-  </div>
-</div>
-
-<!-- GUIDET FLOW -->
-<div class="guided-flow for-begge">
-  <div class="guided-flow-inner">
-    <div class="flow-minutes">
-      <span>⏱</span> Start her · 2 min
-    </div>
-    <h2>Tre trin til at forstå ETOS</h2>
-    <p class="lead">Følg disse trin — og du ved, hvad ETOS er, hvad det kan, og om det er relevant for dig.</p>
-    <div class="flow-steps">
-      <a href="system.html" class="flow-step">
-        <div class="flow-step-num">1</div>
-        <h4>Prøv en ETOS case</h4>
-        <p>Brug de tre sliders og se, hvad ETOS ser i en psykiatrisk beslutning. Ingen forkundskaber nødvendige.</p>
-        <span class="step-link">Åbn case analyse →</span>
-      </a>
-      <a href="etos.html" class="flow-step">
-        <div class="flow-step-num">2</div>
-        <h4>Se hvad det betyder</h4>
-        <p>Forstå begreberne — divergens, etisk pres, handlingsrum. ETOS oversætter kompleksitet til noget synligt.</p>
-        <span class="step-link">Forstå modellen →</span>
-      </a>
-      <a href="anvendelse.html" class="flow-step">
-        <div class="flow-step-num">3</div>
-        <h4>Se hvor det kan bruges</h4>
-        <p>Psykiatri, kommuner, AI, ledelse — ETOS er relevant overalt, hvor beslutninger ikke har nemme svar.</p>
-        <span class="step-link">Se anvendelse →</span>
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- FOR BORGERE -->
-<div class="for-borger">
-  <div class="home-mini-demo">
-    <div class="home-mini-demo-inner">
-      <div>
-        <span class="eyebrow" style="color:#4ec88c;">Til dig som borger</span>
-        <h2>Hvad er ETOS?</h2>
-        <p class="lead">ETOS er et redskab der hjælper med at forstå, hvornår systemet og den menneskelige virkelighed ikke stemmer overens — og hvad man kan gøre ved det.</p>
-        <p style="font-size:14px;color:rgba(232,236,252,0.4);line-height:1.8;margin-bottom:20px;">Prøv det selv — juster de tre parametre og se, hvad ETOS opdager.</p>
-<p style="font-size:13px;color:rgba(232,236,252,0.35);font-style:italic;line-height:1.7;margin-bottom:16px;padding:12px 14px;background:rgba(255,255,255,0.03);border-radius:8px;border-left:2px solid rgba(226,136,78,0.3);">Forestil dig en virkelig situation — og juster værdierne. ETOS registrerer, hvad der sker.</p>
-                <div class="mini-slider-row">
-          <div class="mini-slider-header"><span class="mini-slider-label">Systemets pres</span><span class="mini-slider-val" id="bval1">60</span></div>
-          <input type="range" class="mini-range" id="bslider1" min="0" max="100" value="60" oninput="updateBorger()">
-        </div>
-        <div class="mini-slider-row">
-          <div class="mini-slider-header"><span class="mini-slider-label">Din virkelighed</span><span class="mini-slider-val" id="bval2">75</span></div>
-          <input type="range" class="mini-range" id="bslider2" min="0" max="100" value="75" oninput="updateBorger()">
-        </div>
-        <div class="mini-slider-row">
-          <div class="mini-slider-header"><span class="mini-slider-label">Tillid til systemet</span><span class="mini-slider-val" id="bval3">40</span></div>
-          <input type="range" class="mini-range" id="bslider3" min="0" max="100" value="40" oninput="updateBorger()">
-        </div>
-      </div>
-      <div class="mini-result">
-        <div class="mini-result-mode" id="bMode">Spændingsfelt</div>
-        <p class="mini-result-insight" id="bInsight">ETOS registrerer, at dit oplevede pres og systemets logik ikke stemmer overens. Det er ikke din fejl — det er en spænding, der kan gøres synlig.</p>
-        <a href="etos.html" class="mini-result-link">Forstå hvad det betyder →</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- FOR FAGPERSONER -->
-<div class="for-fagperson">
-  <div class="home-mini-demo">
-    <div class="home-mini-demo-inner">
-      <div>
-        <span class="eyebrow" style="color:#7a9ee8;">Til dig som fagperson</span>
-        <h2>ETOS som analyseværktøj</h2>
-        <p class="lead">Juster parametrene og se ETOS' realtidsanalyse — Beslutningsmode, Divergens, Etisk pres og Handlingsrum.</p>
-<p style="font-size:13px;color:rgba(232,236,252,0.35);font-style:italic;line-height:1.7;margin-bottom:16px;padding:12px 14px;background:rgba(255,255,255,0.03);border-radius:8px;border-left:2px solid rgba(226,136,78,0.3);">Forestil dig en virkelig situation — og juster værdierne. ETOS registrerer, hvad der sker.</p>
-                <div class="mini-slider-row">
-          <div class="mini-slider-header"><span class="mini-slider-label">Systemets risikovurdering</span><span class="mini-slider-val" id="fval1">60</span></div>
-          <input type="range" class="mini-range" id="fslider1" min="0" max="100" value="60" oninput="updateFag()">
-        </div>
-        <div class="mini-slider-row">
-          <div class="mini-slider-header"><span class="mini-slider-label">Patientens / borgerens autonomi</span><span class="mini-slider-val" id="fval2">75</span></div>
-          <input type="range" class="mini-range" id="fslider2" min="0" max="100" value="75" oninput="updateFag()">
-        </div>
-        <div class="mini-slider-row">
-          <div class="mini-slider-header"><span class="mini-slider-label">Relationel tillid</span><span class="mini-slider-val" id="fval3">40</span></div>
-          <input type="range" class="mini-range" id="fslider3" min="0" max="100" value="40" oninput="updateFag()">
-        </div>
-      </div>
-      <div class="mini-result">
-        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:#7a9ee8;margin-bottom:6px;">Beslutningsmode</div>
-        <div class="mini-result-mode" id="fMode">Requires Review</div>
-        <p class="mini-result-insight" id="fInsight">ETOS registrerer spænding mellem moderat autonomi, svag relationel tillid og høj systemisk risikovurdering. Situationen peger mod review frem for hurtig eskalation.</p>
-        <a href="system.html" class="mini-result-link">Åbn fuld systemanalyse →</a>
-      </div>
     </div>
   </div>
 </div>
@@ -872,35 +805,52 @@ function heroUpdate() {
   const aL = s2<33?'lav':s2<66?'moderat':'høj';
   const tL = s3<33?'svag':s3<66?'moderat':'stærk';
 
-  let mode, insight, color;
+  let mode, color, insight;
   if (h > 60 && e < 33) {
     mode = 'Normal'; color = '#4ec88c';
-    insight = `Lavt etisk pres (${e}/100) og godt handlingsrum (${h}/100). Risikovurdering er ${rL}. Beslutningen kan træffes — dokumentér begrundelsen.`;
+    insight = `Lavt etisk pres (${e}/100) og godt handlingsrum (${h}/100). Risikovurdering ${rL}. Beslutningen kan træffes — dokumentér begrundelsen.`;
   } else if (e > 72 || d > 75) {
     mode = 'Emergency'; color = '#e07070';
-    insight = `Kritisk spænding: etisk pres ${e}/100, divergens ${d}/100. ${rL} risikovurdering mod ${aL} autonomi. Supervision anbefales.`;
+    insight = `Kritisk spænding: pres ${e}/100, divergens ${d}/100. ${rL} risikovurdering mod ${aL} autonomi. Supervision anbefales.`;
   } else if (Math.abs(s1-s2) > 55) {
     mode = 'Incompatible'; color = '#e2a06a';
-    insight = `Systemets ${rL} risikovurdering (${s1}/100) og ${aL} autonomi (${s2}/100) er uforenelige. ${tL} tillid. Etisk gæld opstår uanset valg.`;
+    insight = `${rL} risikovurdering (${s1}/100) og ${aL} autonomi (${s2}/100) er uforenelige. ${tL} tillid. Etisk gæld opstår uanset valg.`;
   } else {
     mode = 'Requires Review'; color = '#7a9ee8';
-    insight = `Spænding mellem ${aL} autonomi (${s2}/100), ${tL} tillid (${s3}/100) og ${rL} risikovurdering (${s1}/100). Review anbefales frem for hurtig eskalation.`;
+    insight = `Spænding: ${aL} autonomi (${s2}/100), ${tL} tillid (${s3}/100), ${rL} risikovurdering (${s1}/100). Review anbefales.`;
   }
+
   const prevMode = document.getElementById('heroMode').textContent;
   document.getElementById('heroMode').textContent = mode;
   document.getElementById('heroMode').style.color = color;
   document.getElementById('heroInsight').textContent = insight;
 
-  // Pulse animation when mode changes
   if (prevMode !== mode) {
-    const resultEl = document.getElementById('heroResult');
-    resultEl.classList.remove('pulse-anim');
-    void resultEl.offsetWidth; // reflow
-    resultEl.classList.add('pulse-anim');
-    resultEl.style.borderLeftColor = color;
+    const r = document.getElementById('heroResult');
+    r.classList.remove('pulse-anim');
+    void r.offsetWidth;
+    r.classList.add('pulse-anim');
+    r.style.borderLeftColor = color;
   }
 }
 
+// HERO TOGGLE — skifter kun labels og sprog
+function setHeroTog(type, btn) {
+  document.querySelectorAll('.hero-tog-btn').forEach(b => {
+    b.classList.remove('active-borger','active-fag');
+  });
+  btn.classList.add(type === 'borger' ? 'active-borger' : 'active-fag');
+  if (type === 'borger') {
+    document.getElementById('lbl1').textContent = 'Systemets pres på dig';
+    document.getElementById('lbl2').textContent = 'Din virkelighed';
+    document.getElementById('lbl3').textContent = 'Tillid til systemet';
+  } else {
+    document.getElementById('lbl1').textContent = 'Systemets risikovurdering';
+    document.getElementById('lbl2').textContent = 'Patientens / borgerens autonomi';
+    document.getElementById('lbl3').textContent = 'Relationel tillid';
+  }
+  heroUpdate();
+}
 // INDGANG TOGGLE — aktiv visuel feedback
 function setIndgang(type, btn) {
   document.body.classList.remove('vis-borger','vis-fagperson');
