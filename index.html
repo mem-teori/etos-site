@@ -5,6 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ETOS — Beslutninger i komplekse situationer</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .entry-section { background: var(--bg); padding: 56px 52px 48px; border-bottom: 1px solid var(--line); }
+    .entry-inner { max-width: var(--max); margin: 0 auto; }
+    .entry-label { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; display: block; text-align: center; }
+    .entry-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 720px; margin: 0 auto; }
+    .entry-card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 28px 28px 24px; text-decoration: none; display: block; transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s; }
+    .entry-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .entry-card.citizen:hover { border-color: rgba(78,200,140,0.4); }
+    .entry-card.pro:hover { border-color: rgba(90,126,216,0.4); }
+    .entry-card-icon { font-size: 28px; margin-bottom: 12px; }
+    .entry-card h3 { font-size: 18px; color: var(--ink); margin-bottom: 6px; }
+    .entry-card p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 16px; }
+    .entry-card-link { font-size: 12px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
+    .entry-card.citizen .entry-card-link { color: #3c8c5a; }
+    .entry-card.pro .entry-card-link { color: #4a6ec8; }
+    .home-mini-demo { background: #111520; padding: 52px; }
+    .home-mini-demo-inner { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .home-mini-demo h2 { color: #e8ecfc; margin-bottom: 10px; }
+    .home-mini-demo .lead { color: rgba(232,236,252,0.45); font-size: 14px; line-height: 1.8; margin-bottom: 24px; }
+    .mini-slider-row { margin-bottom: 14px; }
+    .mini-slider-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+    .mini-slider-label { font-size: 12px; color: rgba(232,236,252,0.45); }
+    .mini-slider-val { font-size: 12px; font-weight: 500; color: #7a9ee8; }
+    input[type=range].mini-range { width: 100%; height: 4px; border-radius: 4px; -webkit-appearance: none; appearance: none; background: rgba(90,126,216,0.2); outline: none; cursor: pointer; }
+    input[type=range].mini-range::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: #7a9ee8; cursor: pointer; }
+    .mini-result { background: rgba(255,255,255,0.04); border: 1px solid rgba(90,126,216,0.2); border-radius: 12px; padding: 20px; }
+    .mini-result-mode { font-family: 'Playfair Display', serif; font-size: 20px; color: #e8ecfc; margin-bottom: 12px; }
+    .mini-result-insight { font-size: 13px; color: rgba(232,236,252,0.5); line-height: 1.7; margin-bottom: 16px; }
+    .mini-result-link { font-size: 12px; font-weight: 500; color: #7a9ee8; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+    @media (max-width: 860px) {
+      .entry-section { padding: 40px 28px; }
+      .entry-grid { grid-template-columns: 1fr; }
+      .home-mini-demo { padding: 40px 28px; }
+      .home-mini-demo-inner { grid-template-columns: 1fr; gap: 28px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -12,6 +48,7 @@
   <a href="index.html" class="nav-logo">ETOS</a>
   <div class="nav-links">
     <a href="etos.html">ETOS</a>
+    <a href="system.html">Systemet</a>
     <a href="boerneunivers.html">Børneunivers</a>
     <a href="laering.html">Lærings-uniVRs</a>
     <a href="dirigent-rum.html">Dirigenten</a>
@@ -26,60 +63,107 @@
       <span class="hero-tag-dot"></span>
       Under udvikling · Åben for samarbejde
     </div>
-    <h1>Når regler og<br>virkelighed<br><em>ikke stemmer</em></h1>
-    <p class="lead">ETOS gør konflikter synlige — i stedet for at skjule dem. Et redskab til beslutninger i komplekse situationer.</p>
+    <h1>Når systemer presser<br>mennesker ind i<br><em>umulige valg</em></h1>
+    <p class="lead">ETOS gør spændinger synlige — i stedet for at skjule dem. Et redskab til beslutninger, der ikke har nemme svar.</p>
     <div class="hero-btns">
-      <a href="om.html" class="btn btn-primary">Forstå ETOS</a>
-      <a href="anvendelse.html" class="btn btn-ghost">Se anvendelse →</a>
+      <a href="system.html" class="btn btn-primary">Prøv ETOS nu</a>
+      <a href="etos.html" class="btn btn-ghost">Forstå modellen →</a>
     </div>
   </div>
   <div class="home-hero-right">
     <span class="section-label">Projekter</span>
     <div class="proj-list">
-      <a href="etos.html" class="proj-item">
-        <div class="proj-icon" style="background:#EDE4D6;">🧭</div>
-        <div class="proj-text"><h4>ETOS</h4><p>Beslutningsmodel til komplekse situationer</p></div>
+      <a href="system.html" class="proj-item">
+        <div class="proj-icon" style="background:#1a2040;">🧭</div>
+        <div class="proj-text"><h4>ETOS System</h4><p>Case Analyse, Simulation, Decision Landscape</p></div>
         <span class="proj-arrow">→</span>
       </a>
-      <a href="dirigent.html" class="proj-item">
-        <div class="proj-icon" style="background:#D8E4D6;">🎼</div>
-        <div class="proj-text"><h4>Dirigent</h4><p>Strukturér idéer og projekter</p></div>
+      <a href="boerneunivers.html" class="proj-item">
+        <div class="proj-icon" style="background:#1a1228;">📖</div>
+        <div class="proj-text"><h4>Børneunivers</h4><p>Børnebøger om at mærke og forstå</p></div>
         <span class="proj-arrow">→</span>
       </a>
-      <a href="sandbox.html" class="proj-item">
-        <div class="proj-icon" style="background:#D6D8E4;">🌐</div>
-        <div class="proj-text"><h4>Lærings-uniVRs</h4><p>Læring gennem oplevelse og visuelle modeller</p></div>
+      <a href="laering.html" class="proj-item">
+        <div class="proj-icon" style="background:#0d1a2a;">🌐</div>
+        <div class="proj-text"><h4>Lærings-uniVRs</h4><p>Oplevelse før forklaring</p></div>
         <span class="proj-arrow">→</span>
       </a>
-      <a href="boerneboeger.html" class="proj-item">
-        <div class="proj-icon" style="background:#E4D6D6;">📖</div>
-        <div class="proj-text"><h4>Børnebøger</h4><p>Historier om følelser og forståelse</p></div>
+      <a href="dirigent-rum.html" class="proj-item">
+        <div class="proj-icon" style="background:#1a1a12;">🎼</div>
+        <div class="proj-text"><h4>Dirigenten</h4><p>Strukturér tanker der ikke kommer i rækkefølge</p></div>
         <span class="proj-arrow">→</span>
       </a>
-      <a href="regnskab.html" class="proj-item">
-        <div class="proj-icon" style="background:#E4E0D6;">📊</div>
-        <div class="proj-text"><h4>Regnskab</h4><p>Enkelt og visuelt økonomiværktøj</p></div>
+      <a href="regnskab-program.html" class="proj-item">
+        <div class="proj-icon" style="background:#111520;">📊</div>
+        <div class="proj-text"><h4>Regnskab</h4><p>Overblik som værktøj — ikke byrde</p></div>
         <span class="proj-arrow">→</span>
       </a>
     </div>
   </div>
 </section>
 
+<div class="entry-section">
+  <div class="entry-inner">
+    <span class="entry-label">Vælg din indgang</span>
+    <div class="entry-grid">
+      <a href="etos.html" class="entry-card citizen">
+        <div class="entry-card-icon">👤</div>
+        <h3>Jeg er borger</h3>
+        <p>En tilgængelig forklaring af ETOS — hvad det er, og hvorfor det er relevant for dig.</p>
+        <span class="entry-card-link">Start her →</span>
+      </a>
+      <a href="system.html" class="entry-card pro">
+        <div class="entry-card-icon">🧑‍⚕️</div>
+        <h3>Jeg er fagperson</h3>
+        <p>Gå direkte til systemet — Case Analyse, dashboard og teknisk indsigt i modellen.</p>
+        <span class="entry-card-link">Åbn systemet →</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="home-mini-demo">
+  <div class="home-mini-demo-inner">
+    <div>
+      <span class="eyebrow" style="color:#7a9ee8;">Prøv det</span>
+      <h2>ETOS i 30 sekunder</h2>
+      <p class="lead">Juster parametrene og se, hvad ETOS ser i beslutningen.</p>
+      <div class="mini-slider-row">
+        <div class="mini-slider-header"><span class="mini-slider-label">Systemets pres</span><span class="mini-slider-val" id="hval1">60</span></div>
+        <input type="range" class="mini-range" id="hslider1" min="0" max="100" value="60" oninput="updateHome()">
+      </div>
+      <div class="mini-slider-row">
+        <div class="mini-slider-header"><span class="mini-slider-label">Menneskelig virkelighed</span><span class="mini-slider-val" id="hval2">75</span></div>
+        <input type="range" class="mini-range" id="hslider2" min="0" max="100" value="75" oninput="updateHome()">
+      </div>
+      <div class="mini-slider-row">
+        <div class="mini-slider-header"><span class="mini-slider-label">Handlingsrum</span><span class="mini-slider-val" id="hval3">40</span></div>
+        <input type="range" class="mini-range" id="hslider3" min="0" max="100" value="40" oninput="updateHome()">
+      </div>
+    </div>
+    <div class="mini-result">
+      <div class="mini-result-mode" id="homeMode">Spændingsfelt</div>
+      <p class="mini-result-insight" id="homeInsight">Flere kræfter trækker i forskellig retning. ETOS registrerer divergens mellem system og virkelighed.</p>
+      <a href="system.html" class="mini-result-link">Se fuld analyse →</a>
+    </div>
+  </div>
+</div>
+
 <div class="features-strip">
   <div class="feature-item">
     <div class="feature-num">01</div>
-    <h3>Synliggør kompleksitet</h3>
-    <p>Mange systemer forsøger at forenkle virkeligheden. ETOS gør det modsatte — kompleksiteten bliver synlig, så den kan håndteres.</p>
+    <h3>Synliggør spændinger</h3>
+    <p>Mange systemer skjuler konflikterne i beslutningsprocessen. ETOS gør dem synlige — så de kan håndteres.</p>
   </div>
   <div class="feature-item">
     <div class="feature-num">02</div>
-    <h3>Konkrete redskaber</h3>
-    <p>Modellen kan anvendes i psykiatri, kommuner, organisationer og AI-systemer — overalt hvor svære beslutninger opstår.</p>
+    <h3>Bruges i praksis</h3>
+    <p>Psykiatri, kommuner, AI-governance og ledelse — overalt hvor mennesker træffer beslutninger i spændingsfelter.</p>
   </div>
   <div class="feature-item">
     <div class="feature-num">03</div>
-    <h3>Åben for dialog</h3>
-    <p>ETOS søger samarbejdspartnere, fagpersoner og investorer til næste skridt.</p>
+    <h3>Åben for samarbejde</h3>
+    <p>ETOS søger pilotpartnere, fagpersoner og investorer. Første skridt er en samtale.</p>
   </div>
 </div>
 
@@ -87,39 +171,58 @@
   <section class="section">
     <div class="section-head">
       <span class="eyebrow">Videre herfra</span>
-      <h2>Vil du arbejde videre med ETOS?</h2>
-      <p class="section-intro">ETOS er under udvikling som pilot og er åbent for dialog med fagpersoner, samarbejdspartnere og presse.</p>
+      <h2>Næste skridt</h2>
     </div>
     <div class="card-grid three">
       <article class="card">
-        <span class="kicker">Samarbejde</span>
-        <h3>Afprøv ETOS i praksis</h3>
-        <p>Se hvordan modellen kan bruges i mindre pilotforløb og konkrete samarbejder.</p>
-        <p><a class="text-link" href="kontakt.html">Gå til samarbejde →</a></p>
+        <span class="kicker">Prøv det</span>
+        <h3>Åbn systemet</h3>
+        <p>Gå direkte ind i ETOS — Case Analyse og live demo venter.</p>
+        <p><a class="text-link" href="system.html">Gå til systemet →</a></p>
       </article>
       <article class="card">
         <span class="kicker">Pilot</span>
-        <h3>Se den aktuelle retning</h3>
-        <p>Læs om pilotspor, videre udvikling og hvordan ETOS kan prøves af i praksis.</p>
-        <p><a class="text-link" href="pilot.html">Gå til pilot →</a></p>
+        <h3>Afprøv i din organisation</h3>
+        <p>Se hvordan ETOS kan bruges i et konkret pilotforløb.</p>
+        <p><a class="text-link" href="pilot.html">Se pilotspor →</a></p>
       </article>
       <article class="card">
         <span class="kicker">Kontakt</span>
         <h3>Tag dialogen videre</h3>
-        <p>Hvis du ser en relevans i dit arbejde, er du velkommen til at tage kontakt.</p>
-        <p><a class="text-link" href="kontakt.html">Gå til kontakt →</a></p>
+        <p>Ser du en relevans? Én besked er nok til at starte.</p>
+        <p><a class="text-link" href="kontakt.html">Skriv til os →</a></p>
       </article>
     </div>
   </section>
 </div>
 
 <div class="cta-strip">
-  <p class="cta-quote">"Vil du arbejde videre med ETOS?"</p>
+  <p class="cta-quote">"ETOS træffer ikke beslutninger — det gør dem synlige."</p>
   <div class="cta-strip-btns">
-    <a href="kontakt.html" class="btn btn-primary">Tag kontakt</a>
-    <a href="pilot.html" class="btn btn-ghost">Se pilotspor</a>
+    <a href="system.html" class="btn btn-primary">Prøv ETOS nu</a>
+    <a href="kontakt.html" class="btn btn-ghost">Kontakt</a>
   </div>
 </div>
+
+<script>
+function updateHome() {
+  const s1 = parseInt(document.getElementById('hslider1').value);
+  const s2 = parseInt(document.getElementById('hslider2').value);
+  const s3 = parseInt(document.getElementById('hslider3').value);
+  document.getElementById('hval1').textContent = s1;
+  document.getElementById('hval2').textContent = s2;
+  document.getElementById('hval3').textContent = s3;
+  const divergens = Math.abs(s1 - s2);
+  const etisk = Math.round(s1*0.5 + (100-s3)*0.3 + (100-s2)*0.2);
+  let mode, insight;
+  if (s3 > 65 && etisk < 35) { mode = 'Handlerum'; insight = 'Godt handlingsrum og lavt etisk pres. Beslutningen kan træffes — men bør dokumenteres.'; }
+  else if (divergens > 55) { mode = 'Høj divergens'; insight = 'Stor afstand mellem systemets logik og den menneskelige virkelighed. Risiko for etisk gæld.'; }
+  else if (etisk > 72) { mode = 'Etisk pres'; insight = 'Høj etisk belastning. Ingen løsning er neutral — konsekvenserne bør gøres eksplicitte.'; }
+  else { mode = 'Spændingsfelt'; insight = 'Flere kræfter trækker i forskellig retning. ETOS registrerer divergens — overblik er vigtigst nu.'; }
+  document.getElementById('homeMode').textContent = mode;
+  document.getElementById('homeInsight').textContent = insight;
+}
+</script>
 
 </body>
 </html>
