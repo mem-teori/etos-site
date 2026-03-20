@@ -202,7 +202,6 @@
     @media (max-width: 860px) {
       .home-hero-v2 { grid-template-columns: 1fr; }
       .home-hero-v2-left { padding: 40px 28px; }
-      .home-hero-v2-right { border-left: none; border-top: 1px solid rgba(0,0,0,0.08); padding: 28px; }
       .indgang-bar { top: 54px; }
       .guided-flow, .system-overview, .kontekst-section { padding: 48px 28px; }
       .flow-steps, .system-trio, .kontekst-grid { grid-template-columns: 1fr; }
@@ -213,13 +212,14 @@
 
     /* === NY HERO MED DEMO ===*/
     .home-hero-v2 {
-      display: grid; grid-template-columns: 1fr 380px;
-      min-height: 460px; background: var(--bg-dark);
+      display: block;
+      min-height: 380px; background: var(--bg-dark);
     }
     .home-hero-v2-left {
-      padding: 52px 48px 48px;
-      display: flex; flex-direction: column; justify-content: center;
-      position: relative; overflow: hidden;
+      padding: 52px 52px 48px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+      max-width: var(--max); margin: 0 auto;
+      position: relative;
     }
     .home-hero-v2-left::before {
       content: ''; position: absolute; top: -60px; right: -60px;
@@ -524,37 +524,7 @@
     </div>
   </div>
 
-  <!-- HØJRE: projektliste -->
-  <div class="home-hero-v2-right">
-    <span class="section-label">Alle projekter</span>
-    <div class="proj-list">
-      <a href="system.html" class="proj-item">
-        <div class="proj-icon" style="background:#1a2040;">🧭</div>
-        <div class="proj-text"><h4>ETOS System</h4><p>Case Analyse, Simulation, Decision Landscape</p></div>
-        <span class="proj-arrow">→</span>
-      </a>
-      <a href="boerneunivers.html" class="proj-item">
-        <div class="proj-icon" style="background:#1a1228;">📖</div>
-        <div class="proj-text"><h4>Børneunivers</h4><p>Børnebøger om at mærke og forstå</p></div>
-        <span class="proj-arrow">→</span>
-      </a>
-      <a href="laering.html" class="proj-item">
-        <div class="proj-icon" style="background:#0d1a2a;">🌐</div>
-        <div class="proj-text"><h4>Lærings-uniVRs</h4><p>Oplevelse før forklaring</p></div>
-        <span class="proj-arrow">→</span>
-      </a>
-      <a href="dirigent-rum.html" class="proj-item">
-        <div class="proj-icon" style="background:#1a1a12;">🎼</div>
-        <div class="proj-text"><h4>Dirigenten</h4><p>Strukturér tanker der ikke kommer i rækkefølge</p></div>
-        <span class="proj-arrow">→</span>
-      </a>
-      <a href="regnskab-program.html" class="proj-item">
-        <div class="proj-icon" style="background:#111520;">📊</div>
-        <div class="proj-text"><h4>Regnskab</h4><p>Overblik som værktøj — ikke byrde</p></div>
-        <span class="proj-arrow">→</span>
-      </a>
-    </div>
-  </div>
+
 
 </section>
 
