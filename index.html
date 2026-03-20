@@ -6,20 +6,184 @@
   <title>ETOS — Beslutninger i komplekse situationer</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    .entry-section { background: var(--bg); padding: 56px 52px 48px; border-bottom: 1px solid var(--line); }
-    .entry-inner { max-width: var(--max); margin: 0 auto; }
-    .entry-label { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; display: block; text-align: center; }
-    .entry-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 720px; margin: 0 auto; }
-    .entry-card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 28px 28px 24px; text-decoration: none; display: block; transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s; }
-    .entry-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
-    .entry-card.citizen:hover { border-color: rgba(78,200,140,0.4); }
-    .entry-card.pro:hover { border-color: rgba(90,126,216,0.4); }
-    .entry-card-icon { font-size: 28px; margin-bottom: 12px; }
-    .entry-card h3 { font-size: 18px; color: var(--ink); margin-bottom: 6px; }
-    .entry-card p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 16px; }
-    .entry-card-link { font-size: 12px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
-    .entry-card.citizen .entry-card-link { color: #3c8c5a; }
-    .entry-card.pro .entry-card-link { color: #4a6ec8; }
+    /* === INDGANG TOGGLE === */
+    .indgang-bar {
+      background: #0d1117;
+      padding: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: sticky; top: 62px; z-index: 40;
+    }
+    .indgang-inner {
+      max-width: var(--max); margin: 0 auto;
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; padding: 12px 40px;
+    }
+    .indgang-label { font-size: 12px; color: rgba(255,255,255,0.3); margin-right: 8px; }
+    .indgang-btn {
+      font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+      padding: 8px 20px; border-radius: 8px; border: 1px solid transparent;
+      cursor: pointer; transition: all 0.2s; text-decoration: none;
+    }
+    .indgang-btn.borger {
+      background: rgba(78,200,140,0.1); border-color: rgba(78,200,140,0.25); color: #4ec88c;
+    }
+    .indgang-btn.borger.active, .indgang-btn.borger:hover {
+      background: rgba(78,200,140,0.18); border-color: rgba(78,200,140,0.5);
+    }
+    .indgang-btn.fagperson {
+      background: rgba(90,126,216,0.1); border-color: rgba(90,126,216,0.25); color: #7a9ee8;
+    }
+    .indgang-btn.fagperson.active, .indgang-btn.fagperson:hover {
+      background: rgba(90,126,216,0.18); border-color: rgba(90,126,216,0.5);
+    }
+
+    /* Vis/skjul indhold baseret på valg */
+    .for-borger   { display: none; }
+    .for-fagperson { display: none; }
+    body.vis-borger   .for-borger   { display: block; }
+    body.vis-fagperson .for-fagperson { display: block; }
+    body.vis-borger   .for-begge   { display: block; }
+    body.vis-fagperson .for-begge  { display: block; }
+    body:not(.vis-borger):not(.vis-fagperson) .for-begge { display: block; }
+
+    /* === GUIDET FLOW === */
+    .guided-flow {
+      background: var(--bg-dark);
+      padding: 64px 52px;
+    }
+    .guided-flow-inner { max-width: var(--max); margin: 0 auto; }
+    .guided-flow h2 { color: var(--sand); margin-bottom: 8px; }
+    .guided-flow .lead { color: rgba(240,235,224,0.45); font-size: 14px; margin-bottom: 40px; }
+    .flow-steps {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+      position: relative;
+    }
+    .flow-steps::before {
+      content: '';
+      position: absolute; top: 28px; left: calc(16.67% + 14px); right: calc(16.67% + 14px);
+      height: 1px; background: rgba(226,136,78,0.2);
+      pointer-events: none;
+    }
+    .flow-step {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(240,235,224,0.08);
+      border-radius: 12px; padding: 24px 20px;
+      text-decoration: none; display: block;
+      transition: border-color 0.15s, background 0.15s;
+      position: relative;
+    }
+    .flow-step:hover { border-color: rgba(226,136,78,0.3); background: rgba(226,136,78,0.05); }
+    .flow-step-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(226,136,78,0.15); border: 1px solid rgba(226,136,78,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 500; color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .flow-step h4 {
+      font-family: 'Playfair Display', serif; font-size: 16px;
+      color: var(--sand); font-weight: 400; margin-bottom: 6px;
+    }
+    .flow-step p { font-size: 13px; color: rgba(240,235,224,0.4); line-height: 1.7; }
+    .flow-step .step-link {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 500; color: var(--accent);
+      margin-top: 14px; opacity: 0.7; transition: opacity 0.15s;
+    }
+    .flow-step:hover .step-link { opacity: 1; }
+    .flow-minutes {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 500; color: var(--accent);
+      background: rgba(226,136,78,0.1); border: 1px solid rgba(226,136,78,0.2);
+      border-radius: 20px; padding: 4px 12px; margin-bottom: 20px;
+    }
+
+    /* === SYSTEM OVERSIGT === */
+    .system-overview {
+      background: var(--bg);
+      padding: 64px 52px;
+    }
+    .system-overview-inner { max-width: var(--max); margin: 0 auto; }
+    .system-overview h2 { color: var(--ink); margin-bottom: 8px; }
+    .system-overview .lead { color: var(--muted); font-size: 14px; margin-bottom: 40px; max-width: 520px; }
+    .system-trio {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    }
+    .trio-card {
+      border-radius: 14px; padding: 28px 24px;
+      text-decoration: none; display: block;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .trio-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .trio-card.etos   { background: #0d1117; border: 1px solid rgba(90,126,216,0.2); }
+    .trio-card.dirig  { background: #1a1a12; border: 1px solid rgba(226,136,78,0.18); }
+    .trio-card.regn   { background: #111520; border: 1px solid rgba(90,126,216,0.15); }
+    .trio-icon { font-size: 26px; margin-bottom: 14px; }
+    .trio-title {
+      font-family: 'Playfair Display', serif; font-size: 20px;
+      font-weight: 400; margin-bottom: 4px;
+    }
+    .trio-card.etos  .trio-title { color: #e8ecfc; }
+    .trio-card.dirig .trio-title { color: #fdf4e8; }
+    .trio-card.regn  .trio-title { color: #eef0fc; }
+    .trio-eq {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 10px; display: block;
+    }
+    .trio-card.etos  .trio-eq { color: #7a9ee8; }
+    .trio-card.dirig .trio-eq { color: var(--accent); }
+    .trio-card.regn  .trio-eq { color: #7a9ee8; }
+    .trio-card p { font-size: 13px; line-height: 1.7; }
+    .trio-card.etos  p { color: rgba(232,236,252,0.45); }
+    .trio-card.dirig p { color: rgba(253,244,232,0.45); }
+    .trio-card.regn  p { color: rgba(238,240,252,0.45); }
+    .trio-link {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 500; margin-top: 16px;
+      opacity: 0.5; transition: opacity 0.15s;
+    }
+    .trio-card:hover .trio-link { opacity: 1; }
+    .trio-card.etos  .trio-link { color: #7a9ee8; }
+    .trio-card.dirig .trio-link { color: var(--accent); }
+    .trio-card.regn  .trio-link { color: #7a9ee8; }
+
+    /* === KONTEKSTER === */
+    .kontekst-section {
+      background: #0d1117;
+      padding: 64px 52px;
+    }
+    .kontekst-inner { max-width: var(--max); margin: 0 auto; }
+    .kontekst-inner h2 { color: #e8ecfc; margin-bottom: 8px; }
+    .kontekst-inner .lead { color: rgba(232,236,252,0.4); font-size: 14px; margin-bottom: 40px; }
+    .kontekst-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    }
+    .kontekst-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px; padding: 28px 24px;
+      text-decoration: none; display: block;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .kontekst-card:hover { border-color: rgba(90,126,216,0.3); background: rgba(90,126,216,0.05); }
+    .kontekst-icon { font-size: 24px; margin-bottom: 14px; }
+    .kontekst-card h4 {
+      font-family: 'Playfair Display', serif; font-size: 17px;
+      color: #e8ecfc; font-weight: 400; margin-bottom: 6px;
+    }
+    .kontekst-tension {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
+      color: var(--accent); margin-bottom: 10px; display: block; font-style: italic;
+    }
+    .kontekst-card p { font-size: 13px; color: rgba(232,236,252,0.4); line-height: 1.7; }
+    .kontekst-card .kontekst-link {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 500; color: #7a9ee8;
+      margin-top: 14px; opacity: 0.5; transition: opacity 0.15s;
+    }
+    .kontekst-card:hover .kontekst-link { opacity: 1; }
+
+    /* MINI DEMO */
     .home-mini-demo { background: #111520; padding: 52px; }
     .home-mini-demo-inner { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
     .home-mini-demo h2 { color: #e8ecfc; margin-bottom: 10px; }
@@ -31,12 +195,15 @@
     input[type=range].mini-range { width: 100%; height: 4px; border-radius: 4px; -webkit-appearance: none; appearance: none; background: rgba(90,126,216,0.2); outline: none; cursor: pointer; }
     input[type=range].mini-range::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: #7a9ee8; cursor: pointer; }
     .mini-result { background: rgba(255,255,255,0.04); border: 1px solid rgba(90,126,216,0.2); border-radius: 12px; padding: 20px; }
-    .mini-result-mode { font-family: 'Playfair Display', serif; font-size: 20px; color: #e8ecfc; margin-bottom: 12px; }
-    .mini-result-insight { font-size: 13px; color: rgba(232,236,252,0.5); line-height: 1.7; margin-bottom: 16px; }
+    .mini-result-mode { font-family: 'Playfair Display', serif; font-size: 22px; color: #e8ecfc; margin-bottom: 6px; }
+    .mini-result-insight { font-size: 13px; color: rgba(232,236,252,0.5); line-height: 1.75; margin-bottom: 16px; }
     .mini-result-link { font-size: 12px; font-weight: 500; color: #7a9ee8; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+
     @media (max-width: 860px) {
-      .entry-section { padding: 40px 28px; }
-      .entry-grid { grid-template-columns: 1fr; }
+      .indgang-bar { top: 54px; }
+      .guided-flow, .system-overview, .kontekst-section { padding: 48px 28px; }
+      .flow-steps, .system-trio, .kontekst-grid { grid-template-columns: 1fr; }
+      .flow-steps::before { display: none; }
       .home-mini-demo { padding: 40px 28px; }
       .home-mini-demo-inner { grid-template-columns: 1fr; gap: 28px; }
     }
@@ -57,6 +224,7 @@
   <a href="kontakt.html" class="nav-cta">Kontakt</a>
 </nav>
 
+<!-- HERO -->
 <section class="home-hero">
   <div class="home-hero-left">
     <div class="hero-tag">
@@ -102,76 +270,216 @@
   </div>
 </section>
 
-<div class="entry-section">
-  <div class="entry-inner">
-    <span class="entry-label">Vælg din indgang</span>
-    <div class="entry-grid">
-      <a href="etos.html" class="entry-card citizen">
-        <div class="entry-card-icon">👤</div>
-        <h3>Jeg er borger</h3>
-        <p>En tilgængelig forklaring af ETOS — hvad det er, og hvorfor det er relevant for dig.</p>
-        <span class="entry-card-link">Start her →</span>
+<!-- VÆLG DIN INDGANG -->
+<div class="indgang-bar">
+  <div class="indgang-inner">
+    <span class="indgang-label">Vælg din indgang:</span>
+    <button class="indgang-btn borger" onclick="setIndgang('borger', this)">👤 Jeg er borger</button>
+    <button class="indgang-btn fagperson" onclick="setIndgang('fagperson', this)">🧑‍⚕️ Jeg er fagperson</button>
+  </div>
+</div>
+
+<!-- GUIDET FLOW -->
+<div class="guided-flow for-begge">
+  <div class="guided-flow-inner">
+    <div class="flow-minutes">
+      <span>⏱</span> Start her · 2 min
+    </div>
+    <h2>Tre trin til at forstå ETOS</h2>
+    <p class="lead">Følg disse trin — og du ved, hvad ETOS er, hvad det kan, og om det er relevant for dig.</p>
+    <div class="flow-steps">
+      <a href="system.html" class="flow-step">
+        <div class="flow-step-num">1</div>
+        <h4>Prøv en ETOS case</h4>
+        <p>Brug de tre sliders og se, hvad ETOS ser i en psykiatrisk beslutning. Ingen forkundskaber nødvendige.</p>
+        <span class="step-link">Åbn case analyse →</span>
       </a>
-      <a href="system.html" class="entry-card pro">
-        <div class="entry-card-icon">🧑‍⚕️</div>
-        <h3>Jeg er fagperson</h3>
-        <p>Gå direkte til systemet — Case Analyse, dashboard og teknisk indsigt i modellen.</p>
-        <span class="entry-card-link">Åbn systemet →</span>
+      <a href="etos.html" class="flow-step">
+        <div class="flow-step-num">2</div>
+        <h4>Se hvad det betyder</h4>
+        <p>Forstå begreberne — divergens, etisk pres, handlingsrum. ETOS oversætter kompleksitet til noget synligt.</p>
+        <span class="step-link">Forstå modellen →</span>
+      </a>
+      <a href="anvendelse.html" class="flow-step">
+        <div class="flow-step-num">3</div>
+        <h4>Se hvor det kan bruges</h4>
+        <p>Psykiatri, kommuner, AI, ledelse — ETOS er relevant overalt, hvor beslutninger ikke har nemme svar.</p>
+        <span class="step-link">Se anvendelse →</span>
       </a>
     </div>
   </div>
 </div>
 
-<div class="home-mini-demo">
-  <div class="home-mini-demo-inner">
-    <div>
-      <span class="eyebrow" style="color:#7a9ee8;">Prøv det</span>
-      <h2>ETOS i 30 sekunder</h2>
-      <p class="lead">Juster parametrene og se, hvad ETOS ser i beslutningen.</p>
-      <div class="mini-slider-row">
-        <div class="mini-slider-header"><span class="mini-slider-label">Systemets pres</span><span class="mini-slider-val" id="hval1">60</span></div>
-        <input type="range" class="mini-range" id="hslider1" min="0" max="100" value="60" oninput="updateHome()">
+<!-- FOR BORGERE -->
+<div class="for-borger">
+  <div class="home-mini-demo">
+    <div class="home-mini-demo-inner">
+      <div>
+        <span class="eyebrow" style="color:#4ec88c;">Til dig som borger</span>
+        <h2>Hvad er ETOS?</h2>
+        <p class="lead">ETOS er et redskab der hjælper med at forstå, hvornår systemet og den menneskelige virkelighed ikke stemmer overens — og hvad man kan gøre ved det.</p>
+        <p style="font-size:14px;color:rgba(232,236,252,0.4);line-height:1.8;margin-bottom:20px;">Prøv det selv — juster de tre parametre og se, hvad ETOS opdager.</p>
+        <div class="mini-slider-row">
+          <div class="mini-slider-header"><span class="mini-slider-label">Systemets pres</span><span class="mini-slider-val" id="bval1">60</span></div>
+          <input type="range" class="mini-range" id="bslider1" min="0" max="100" value="60" oninput="updateBorger()">
+        </div>
+        <div class="mini-slider-row">
+          <div class="mini-slider-header"><span class="mini-slider-label">Din virkelighed</span><span class="mini-slider-val" id="bval2">75</span></div>
+          <input type="range" class="mini-range" id="bslider2" min="0" max="100" value="75" oninput="updateBorger()">
+        </div>
+        <div class="mini-slider-row">
+          <div class="mini-slider-header"><span class="mini-slider-label">Tillid til systemet</span><span class="mini-slider-val" id="bval3">40</span></div>
+          <input type="range" class="mini-range" id="bslider3" min="0" max="100" value="40" oninput="updateBorger()">
+        </div>
       </div>
-      <div class="mini-slider-row">
-        <div class="mini-slider-header"><span class="mini-slider-label">Menneskelig virkelighed</span><span class="mini-slider-val" id="hval2">75</span></div>
-        <input type="range" class="mini-range" id="hslider2" min="0" max="100" value="75" oninput="updateHome()">
+      <div class="mini-result">
+        <div class="mini-result-mode" id="bMode">Spændingsfelt</div>
+        <p class="mini-result-insight" id="bInsight">ETOS registrerer, at dit oplevede pres og systemets logik ikke stemmer overens. Det er ikke din fejl — det er en spænding, der kan gøres synlig.</p>
+        <a href="etos.html" class="mini-result-link">Forstå hvad det betyder →</a>
       </div>
-      <div class="mini-slider-row">
-        <div class="mini-slider-header"><span class="mini-slider-label">Handlingsrum</span><span class="mini-slider-val" id="hval3">40</span></div>
-        <input type="range" class="mini-range" id="hslider3" min="0" max="100" value="40" oninput="updateHome()">
-      </div>
-    </div>
-    <div class="mini-result">
-      <div class="mini-result-mode" id="homeMode">Spændingsfelt</div>
-      <p class="mini-result-insight" id="homeInsight">Flere kræfter trækker i forskellig retning. ETOS registrerer divergens mellem system og virkelighed.</p>
-      <a href="system.html" class="mini-result-link">Se fuld analyse →</a>
     </div>
   </div>
 </div>
 
-<div class="features-strip">
+<!-- FOR FAGPERSONER -->
+<div class="for-fagperson">
+  <div class="home-mini-demo">
+    <div class="home-mini-demo-inner">
+      <div>
+        <span class="eyebrow" style="color:#7a9ee8;">Til dig som fagperson</span>
+        <h2>ETOS som analyseværktøj</h2>
+        <p class="lead">Juster parametrene og se ETOS' realtidsanalyse — Beslutningsmode, Divergens, Etisk pres og Handlingsrum.</p>
+        <div class="mini-slider-row">
+          <div class="mini-slider-header"><span class="mini-slider-label">Systemets risikovurdering</span><span class="mini-slider-val" id="fval1">60</span></div>
+          <input type="range" class="mini-range" id="fslider1" min="0" max="100" value="60" oninput="updateFag()">
+        </div>
+        <div class="mini-slider-row">
+          <div class="mini-slider-header"><span class="mini-slider-label">Patientens / borgerens autonomi</span><span class="mini-slider-val" id="fval2">75</span></div>
+          <input type="range" class="mini-range" id="fslider2" min="0" max="100" value="75" oninput="updateFag()">
+        </div>
+        <div class="mini-slider-row">
+          <div class="mini-slider-header"><span class="mini-slider-label">Relationel tillid</span><span class="mini-slider-val" id="fval3">40</span></div>
+          <input type="range" class="mini-range" id="fslider3" min="0" max="100" value="40" oninput="updateFag()">
+        </div>
+      </div>
+      <div class="mini-result">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:#7a9ee8;margin-bottom:6px;">Beslutningsmode</div>
+        <div class="mini-result-mode" id="fMode">Requires Review</div>
+        <p class="mini-result-insight" id="fInsight">ETOS registrerer spænding mellem moderat autonomi, svag relationel tillid og høj systemisk risikovurdering. Situationen peger mod review frem for hurtig eskalation.</p>
+        <a href="system.html" class="mini-result-link">Åbn fuld systemanalyse →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SYSTEM OVERSIGT: ETOS = Overblik · Dirigent = Handling · Regnskab = Struktur -->
+<div class="system-overview for-begge">
+  <div class="system-overview-inner">
+    <span class="eyebrow">Tre systemer — én tænkning</span>
+    <h2>Hvad bygger vi?</h2>
+    <p class="lead">ETOS, Dirigenten og Regnskab udspringer af samme grundidé — og løser tre forskellige lag af kompleksitet.</p>
+    <div class="system-trio">
+      <a href="system.html" class="trio-card etos">
+        <div class="trio-icon">🧭</div>
+        <div class="trio-title">ETOS</div>
+        <span class="trio-eq">= Overblik</span>
+        <p>Synliggør spændinger i beslutninger. Gør det tydeligt hvornår systemet presser mennesker ind i umulige valg.</p>
+        <span class="trio-link">Se systemet →</span>
+      </a>
+      <a href="dirigent-rum.html" class="trio-card dirig">
+        <div class="trio-icon">🎼</div>
+        <div class="trio-title">Dirigenten</div>
+        <span class="trio-eq">= Handling</span>
+        <p>Oversætter kaos til bevægelse. Et rum for tanker der ikke kommer i rækkefølge — og alligevel fører et sted hen.</p>
+        <span class="trio-link">Åbn Dirigenten →</span>
+      </a>
+      <a href="regnskab-program.html" class="trio-card regn">
+        <div class="trio-icon">📊</div>
+        <div class="trio-title">Regnskab</div>
+        <span class="trio-eq">= Struktur</span>
+        <p>Giver økonomisk overblik uden at kræve revisorlogik. Bygget til dem der bygger noget — ikke til dem der kontrollerer det.</p>
+        <span class="trio-link">Se regnskab →</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- KONTEKSTER: Hvad sælger vi / hvem er det til -->
+<div class="kontekst-section for-begge">
+  <div class="kontekst-inner">
+    <span class="eyebrow" style="color:#7a9ee8;">Anvendelse</span>
+    <h2 style="color:#e8ecfc;">Hvem er ETOS til?</h2>
+    <p class="lead">ETOS kan bruges overalt, hvor mennesker træffer beslutninger i spændingsfeltet mellem regler, omsorg og virkelighed.</p>
+    <div class="kontekst-grid">
+      <a href="anvendelse.html" class="kontekst-card">
+        <div class="kontekst-icon">🏥</div>
+        <h4>Psykiatri</h4>
+        <span class="kontekst-tension">Tvang vs. autonomi</span>
+        <p>Når omsorg og systemlogik trækker i hver sin retning. ETOS gør spændingen synlig — og holder mennesket i centrum.</p>
+        <span class="kontekst-link">Se anvendelse →</span>
+      </a>
+      <a href="anvendelse.html" class="kontekst-card">
+        <div class="kontekst-icon">🏛</div>
+        <h4>Kommuner</h4>
+        <span class="kontekst-tension">Regler vs. virkelighed</span>
+        <p>Anbringelser, sagsbehandling, komplekse borgere. Systemet passer ikke altid — ETOS registrerer, hvornår det ikke gør.</p>
+        <span class="kontekst-link">Se anvendelse →</span>
+      </a>
+      <a href="anvendelse.html" class="kontekst-card">
+        <div class="kontekst-icon">🏢</div>
+        <h4>Virksomheder</h4>
+        <span class="kontekst-tension">Styring vs. mennesker</span>
+        <p>Ledere der træffer svære valg. HR-situationer uden nemme svar. ETOS strukturerer det, der ellers ikke kan sættes i et skema.</p>
+        <span class="kontekst-link">Se anvendelse →</span>
+      </a>
+      <a href="anvendelse.html" class="kontekst-card">
+        <div class="kontekst-icon">🤖</div>
+        <h4>AI Governance</h4>
+        <span class="kontekst-tension">Automatisering vs. ansvar</span>
+        <p>Når algoritmer træffer beslutninger der påvirker mennesker. ETOS sikrer at ansvaret forbliver synligt.</p>
+        <span class="kontekst-link">Se anvendelse →</span>
+      </a>
+      <a href="pilot.html" class="kontekst-card">
+        <div class="kontekst-icon">🎓</div>
+        <h4>Uddannelse</h4>
+        <span class="kontekst-tension">Etik i praksis</span>
+        <p>Som redskab i undervisningen — til at arbejde med virkelige, komplekse beslutninger frem for abstrakt etikteori.</p>
+        <span class="kontekst-link">Se pilotspor →</span>
+      </a>
+      <a href="kontakt.html" class="kontekst-card">
+        <div class="kontekst-icon">🔬</div>
+        <h4>Research</h4>
+        <span class="kontekst-tension">Data vs. indsigt</span>
+        <p>Samling og analyse af beslutningsspor over tid. ETOS som platform for institutionel læring og mønstergenkendelse.</p>
+        <span class="kontekst-link">Tag kontakt →</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="features-strip for-begge">
   <div class="feature-item">
     <div class="feature-num">01</div>
     <h3>Synliggør spændinger</h3>
-    <p>Mange systemer skjuler konflikterne i beslutningsprocessen. ETOS gør dem synlige — så de kan håndteres.</p>
+    <p>Mange systemer skjuler konflikterne. ETOS gør dem synlige — så de kan håndteres.</p>
   </div>
   <div class="feature-item">
     <div class="feature-num">02</div>
     <h3>Bruges i praksis</h3>
-    <p>Psykiatri, kommuner, AI-governance og ledelse — overalt hvor mennesker træffer beslutninger i spændingsfelter.</p>
+    <p>Psykiatri, kommuner, AI og ledelse — overalt hvor beslutninger ikke har nemme svar.</p>
   </div>
   <div class="feature-item">
     <div class="feature-num">03</div>
     <h3>Åben for samarbejde</h3>
-    <p>ETOS søger pilotpartnere, fagpersoner og investorer. Første skridt er en samtale.</p>
+    <p>ETOS søger pilotpartnere og investorer. Første skridt er en samtale.</p>
   </div>
 </div>
 
 <div class="container">
-  <section class="section">
+  <section class="section for-begge">
     <div class="section-head">
-      <span class="eyebrow">Videre herfra</span>
-      <h2>Næste skridt</h2>
+      <span class="eyebrow">Næste skridt</span>
+      <h2>Hvad vil du gøre nu?</h2>
     </div>
     <div class="card-grid three">
       <article class="card">
@@ -196,7 +504,7 @@
   </section>
 </div>
 
-<div class="cta-strip">
+<div class="cta-strip for-begge">
   <p class="cta-quote">"ETOS træffer ikke beslutninger — det gør dem synlige."</p>
   <div class="cta-strip-btns">
     <a href="system.html" class="btn btn-primary">Prøv ETOS nu</a>
@@ -205,22 +513,75 @@
 </div>
 
 <script>
-function updateHome() {
-  const s1 = parseInt(document.getElementById('hslider1').value);
-  const s2 = parseInt(document.getElementById('hslider2').value);
-  const s3 = parseInt(document.getElementById('hslider3').value);
-  document.getElementById('hval1').textContent = s1;
-  document.getElementById('hval2').textContent = s2;
-  document.getElementById('hval3').textContent = s3;
-  const divergens = Math.abs(s1 - s2);
-  const etisk = Math.round(s1*0.5 + (100-s3)*0.3 + (100-s2)*0.2);
+// INDGANG TOGGLE
+function setIndgang(type, btn) {
+  document.body.classList.remove('vis-borger','vis-fagperson');
+  document.body.classList.add('vis-' + type);
+  document.querySelectorAll('.indgang-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  // Scroll til første indhold
+  document.querySelector('.guided-flow, .for-' + type).scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// BORGER MINI DEMO
+function updateBorger() {
+  const s1 = parseInt(document.getElementById('bslider1').value);
+  const s2 = parseInt(document.getElementById('bslider2').value);
+  const s3 = parseInt(document.getElementById('bslider3').value);
+  document.getElementById('bval1').textContent = s1;
+  document.getElementById('bval2').textContent = s2;
+  document.getElementById('bval3').textContent = s3;
+  const div = Math.abs(s1 - s2);
+  const pres = s1 > 66 && s2 > 66;
   let mode, insight;
-  if (s3 > 65 && etisk < 35) { mode = 'Handlerum'; insight = 'Godt handlingsrum og lavt etisk pres. Beslutningen kan træffes — men bør dokumenteres.'; }
-  else if (divergens > 55) { mode = 'Høj divergens'; insight = 'Stor afstand mellem systemets logik og den menneskelige virkelighed. Risiko for etisk gæld.'; }
-  else if (etisk > 72) { mode = 'Etisk pres'; insight = 'Høj etisk belastning. Ingen løsning er neutral — konsekvenserne bør gøres eksplicitte.'; }
-  else { mode = 'Spændingsfelt'; insight = 'Flere kræfter trækker i forskellig retning. ETOS registrerer divergens — overblik er vigtigst nu.'; }
-  document.getElementById('homeMode').textContent = mode;
-  document.getElementById('homeInsight').textContent = insight;
+  if (s3 > 65 && div < 25) {
+    mode = 'God kontakt';
+    insight = 'Systemet og din virkelighed er nogenlunde på samme sted — og der er tillid. Det er et godt udgangspunkt for dialog.';
+  } else if (div > 55) {
+    mode = 'Stor afstand';
+    insight = 'ETOS registrerer, at dit oplevede pres og systemets logik trækker i hver sin retning. Den afstand er reel — og vigtig at gøre synlig.';
+  } else if (s3 < 30) {
+    mode = 'Lav tillid';
+    insight = 'Lav tillid til systemet gør beslutninger sværere — selv når der er handlingsrum. ETOS registrerer tillid som en aktiv faktor.';
+  } else {
+    mode = 'Spændingsfelt';
+    insight = 'ETOS registrerer, at dit oplevede pres og systemets logik ikke helt stemmer overens. Det er ikke din fejl — det er en spænding der kan gøres synlig.';
+  }
+  document.getElementById('bMode').textContent = mode;
+  document.getElementById('bInsight').textContent = insight;
+}
+
+// FAGPERSON MINI DEMO
+function updateFag() {
+  const s1 = parseInt(document.getElementById('fslider1').value);
+  const s2 = parseInt(document.getElementById('fslider2').value);
+  const s3 = parseInt(document.getElementById('fslider3').value);
+  document.getElementById('fval1').textContent = s1;
+  document.getElementById('fval2').textContent = s2;
+  document.getElementById('fval3').textContent = s3;
+  const clamp = v => Math.min(100, Math.max(0, v));
+  const e = clamp(Math.round(s1*0.5 + (100-s3)*0.3 + (100-s2)*0.2));
+  const h = clamp(Math.round(s3*0.5 + s2*0.3 + (100-s1)*0.2));
+  const d = clamp(Math.round(Math.abs(s1-s2)*0.5 + (100-s3)*0.3 + s1*0.2));
+  const rLbl = s1<33?'lav':s1<66?'moderat':'høj';
+  const aLbl = s2<33?'lav':s2<66?'moderat':'høj';
+  const tLbl = s3<33?'svag':s3<66?'moderat':'stærk';
+  let mode, insight;
+  if (h > 60 && e < 33) {
+    mode = 'Normal';
+    insight = `Godt handlingsrum (${h}/100) og lavt etisk pres (${e}/100). Risikovurdering: ${rLbl}. Beslutningen kan træffes — dokumentér begrundelsen.`;
+  } else if (e > 72 || d > 75) {
+    mode = 'Emergency';
+    insight = `Kritisk: etisk pres ${e}/100, divergens ${d}/100. ${rLbl} risikovurdering vs. ${aLbl} autonomi. Supervision anbefales.`;
+  } else if (Math.abs(s1-s2) > 55) {
+    mode = 'Incompatible';
+    insight = `Systemets ${rLbl} risikovurdering (${s1}/100) og ${aLbl} autonomi (${s2}/100) er uforenelige. ${tLbl} tillid. Etisk gæld opstår uanset valg.`;
+  } else {
+    mode = 'Requires Review';
+    insight = `Spænding mellem ${aLbl} autonomi (${s2}/100), ${tLbl} tillid (${s3}/100) og ${rLbl} risikovurdering (${s1}/100). Review anbefales.`;
+  }
+  document.getElementById('fMode').textContent = mode;
+  document.getElementById('fInsight').textContent = insight;
 }
 </script>
 
