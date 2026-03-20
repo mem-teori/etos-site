@@ -121,16 +121,26 @@
       padding: 56px 52px;
       text-align: center;
     }
-    .bankeren-pulse {
-      width: 80px; height: 80px;
+    .bankeren-img-wrap {
+      max-width: 360px; margin: 0 auto 32px;
+      position: relative;
+    }
+    .bankeren-img-wrap::before {
+      content: '';
+      position: absolute; inset: -20px;
       border-radius: 50%;
-      background: radial-gradient(circle at 40% 40%, #d4a0f0, #8040b0);
-      margin: 0 auto 28px;
-      animation: bu-pulse 3s ease-in-out infinite;
+      background: radial-gradient(circle, rgba(160,80,200,0.18), transparent 70%);
+      animation: bu-pulse 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .bankeren-img-wrap img {
+      width: 100%; border-radius: 20px;
+      position: relative; z-index: 1;
+      filter: drop-shadow(0 0 40px rgba(160,80,200,0.3));
     }
     @keyframes bu-pulse {
-      0%,100% { transform: scale(1); opacity: 0.9; box-shadow: 0 0 0 0 rgba(160,80,200,0.3); }
-      50% { transform: scale(1.08); opacity: 1; box-shadow: 0 0 0 16px rgba(160,80,200,0); }
+      0%,100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.04); }
     }
     .bankeren-section h2 { color: #f0e8f8; font-size: 26px; margin-bottom: 12px; }
     .bankeren-section p { color: rgba(240,232,248,0.5); max-width: 440px; margin: 0 auto; font-size: 15px; line-height: 1.8; }
@@ -242,7 +252,9 @@
 
 <!-- BANKEREN -->
 <div class="bankeren-section">
-  <div class="bankeren-pulse"></div>
+  <div class="bankeren-img-wrap">
+    <img src="bankeren.png" alt="Bankeren — tre stemninger">
+  </div>
   <h2>Hvad er "Bankeren"?</h2>
   <p>Bankeren er ikke en figur. Det er det, man mærker indeni — før man har ord for det. En fornemmelse. Et signal. Noget der banker.</p>
 </div>
