@@ -2,109 +2,289 @@
 <html lang="da">
 <head>
   <meta charset="UTF-8">
+  <meta name="google-site-verification" content="N-tI0mRJKKnPVNDB_v0LWIN6QjN9BnB8Zw8DN8ARdF0" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anvendelse — ETOS</title>
+  <title>Anvendelse — ETOS i praksis</title>
+  <meta name="description" content="ETOS bruges overalt hvor mennesker træffer beslutninger i spændingsfeltet mellem værdier, systemer og virkelighed." />
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="style-additions.css">
+  <style>
+    .anv-hero { background: #0d1117; padding: 72px 52px 64px; position: relative; overflow: hidden; }
+    .anv-hero::before { content: ''; position: absolute; top: -80px; right: -80px; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(226,136,78,0.07), transparent 70%); pointer-events: none; }
+    .anv-hero-inner { max-width: 1160px; margin: 0 auto; position: relative; }
+    .anv-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px,4vw,48px); color: #f0ebe0; font-weight: 400; line-height: 1.1; margin-bottom: 14px; }
+    .anv-hero h1 em { font-style: italic; color: var(--accent); }
+    .anv-hero-lead { font-family: 'DM Sans', sans-serif; font-size: 15px; color: rgba(240,235,224,0.5); line-height: 1.8; max-width: 560px; }
+
+    .anv-section { padding: 72px 52px; }
+    .anv-section.light { background: #f5f0e8; }
+    .anv-section.dark  { background: #0d1117; }
+    .anv-section.mid   { background: #1a1a1a; }
+    .anv-section.green { background: #0d1a12; }
+    .anv-inner { max-width: 1160px; margin: 0 auto; }
+
+    .anv-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 36px; }
+    .anv-card { border-radius: 16px; padding: 32px 28px; text-decoration: none; display: block; transition: transform 0.15s; }
+    .anv-card:hover { transform: translateY(-2px); }
+    .anv-card.white { background: #fff; border: 1px solid rgba(0,0,0,0.07); }
+    .anv-card.dk    { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); }
+    .anv-card-icon  { font-size: 28px; margin-bottom: 14px; display: block; }
+    .anv-card-tag   { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 8px; }
+    .anv-card h3    { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 400; margin-bottom: 8px; }
+    .anv-card.white h3 { color: #1a1a1a; }
+    .anv-card.dk    h3 { color: #e8ecfc; }
+    .anv-card-tension { font-family: 'DM Sans', sans-serif; font-size: 11px; font-style: italic; margin-bottom: 10px; display: block; }
+    .anv-card p { font-family: 'DM Sans', sans-serif; font-size: 13px; line-height: 1.75; }
+    .anv-card.white p { color: #888; }
+    .anv-card.dk    p { color: rgba(232,236,252,0.4); }
+    .anv-card-link  { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; margin-top: 14px; display: block; }
+
+    .anv-featured { background: #1E2E1F; border: 1px solid rgba(78,200,140,0.2); border-radius: 20px; padding: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; margin-top: 36px; text-decoration: none; transition: transform 0.15s; }
+    .anv-featured:hover { transform: translateY(-2px); }
+    .anv-featured h3 { font-family: 'Playfair Display', serif; font-size: 26px; color: #f0ebe0; font-weight: 400; line-height: 1.2; margin-bottom: 10px; }
+    .anv-featured h3 em { font-style: italic; color: #4ec88c; }
+    .anv-featured p { font-family: 'DM Sans', sans-serif; font-size: 14px; color: rgba(240,235,224,0.5); line-height: 1.8; margin-bottom: 20px; }
+    .anv-notif { background: #1a1a1a; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden; }
+    .anv-notif-bar { background: #111; padding: 9px 14px; display: flex; justify-content: space-between; }
+    .anv-notif-body { padding: 14px; }
+    .anv-notif-name { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 3px; }
+    .anv-notif-sub  { font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 10px; }
+    .anv-notif-row  { display: flex; justify-content: space-between; margin-bottom: 4px; }
+    .anv-notif-k    { font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(255,255,255,0.3); }
+    .anv-notif-v    { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; }
+    .anv-notif-div  { height: 1px; background: rgba(255,255,255,0.07); margin: 8px 0; }
+    .anv-notif-mode { font-family: 'Playfair Display', serif; font-size: 13px; color: #e07070; margin-bottom: 6px; }
+    .anv-notif-s    { font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(78,200,140,0.75); padding: 5px 10px; background: rgba(78,200,140,0.08); border-radius: 6px; margin-bottom: 4px; }
+
+    @media (max-width: 860px) {
+      .anv-hero, .anv-section { padding: 48px 28px; }
+      .anv-grid { grid-template-columns: 1fr; }
+      .anv-featured { grid-template-columns: 1fr; }
+      .anv-notif { display: none; }
+    }
+  </style>
 </head>
 <body>
 
 <header class="fs-header">
+
   <div class="fs-nav">
-    <a href="index.html" class="fs-logo">ETOS</a>
+    <a href="index.html" class="fs-logo">M.E.M.</a>
     <nav class="fs-links">
-      <a href="mem.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#1a1228;">🔬</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">M.E.M.</span><span class="fs-nav-sub">Grundmodel</span></span>
+
+      <!-- ETOS -->
+      <a href="etos.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Beslutningsmodel</span></span>
       </a>
-      <a href="arkitektur.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#0d1a2a;">🏗</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Arkitektur</span><span class="fs-nav-sub">IDK · ETOS · CDP</span></span>
+
+      <!-- FORLØB -->
+      <a href="forloeb.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a2020;">🔄</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Forløb</span><span class="fs-nav-sub">Pårørende · Ledelse · Psykiatri</span></span>
       </a>
-      <a href="etos-demokrati.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#1a2820;">🗳</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Demokrati</span><span class="fs-nav-sub">Løfter · Ansvar</span></span>
+
+      <!-- PRODUKTER -->
+      <a href="produkter.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1228;">🛍</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Produkter</span><span class="fs-nav-sub">Software · Forløb · Bøger</span></span>
       </a>
-      <a href="system.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#0d1117;">⚙️</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Systemet</span><span class="fs-nav-sub">Case analyse</span></span>
+
+      <!-- PILOT -->
+      <a href="pilot-pakke.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1a0d;">🧪</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Pilot</span><span class="fs-nav-sub">Test det i praksis</span></span>
       </a>
-      <a href="boerneunivers.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#2a1f1a;">📖</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Børneunivers</span><span class="fs-nav-sub">Børnebøger</span></span>
-      </a>
-      <a href="laering.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#0d1a2a;">🌐</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Lærings-uniVRs</span><span class="fs-nav-sub">Oplevelse</span></span>
-      </a>
-      <a href="dirigent-rum.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#1a1a12;">🎼</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Dirigenten</span><span class="fs-nav-sub">Idéer</span></span>
-      </a>
-      <a href="regnskab-program.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#111520;">📊</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Regnskab</span><span class="fs-nav-sub">Økonomi</span></span>
-      </a>
+
+      <!-- MERE dropdown -->
+      <div class="fs-dropdown">
+        <a href="mem.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#0d1117;">✦</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">Mere</span><span class="fs-nav-sub">Teori · Univers · Demokrati</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="mem.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🔬</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">M.E.M.</span><span class="fs-dropdown-item-sub">Grundmodel</span></span>
+          </a>
+          <a href="arkitektur.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🏗</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Arkitektur</span><span class="fs-dropdown-item-sub">IDK · ETOS · CDP</span></span>
+          </a>
+          <a href="etos-demokrati.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2820;">🗳</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Demokrati</span><span class="fs-dropdown-item-sub">Løfter · Ansvar</span></span>
+          </a>
+          <a href="boerneunivers.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#2a1f1a;">🌱</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Universet</span><span class="fs-dropdown-item-sub">Børn · Bankeren · Læring</span></span>
+          </a>
+
+        </div>
+      </div>
+
     </nav>
-    <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
+      <a href="index-en.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">EN</a>
+    </div>
   </div>
 </header>
 
-<div class="page-hero">
-  <div class="page-hero-inner">
-    <span class="page-hero-tag">Anvendelse</span>
-    <h1>Hvor ETOS kan bruges i praksis</h1>
-    <p class="subtitle">ETOS er relevant overalt, hvor mennesker træffer beslutninger i spændingsfeltet mellem regler, omsorg og virkelighed.</p>
+<div class="anv-hero">
+  <div class="anv-hero-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:16px;">Anvendelse</span>
+    <h1>ETOS bruges der<br>hvor det <em>virkelig er svært</em></h1>
+    <p class="anv-hero-lead">Overalt hvor mennesker træffer beslutninger i spændingsfeltet mellem værdier, systemer og virkelighed. Her er de vigtigste kontekster.</p>
   </div>
 </div>
 
-<div class="container">
-  <section class="section">
-    <div class="grid-3">
-      <div class="card">
-        <span class="kicker">Psykiatri</span>
-        <h3>Omsorg og system</h3>
-        <p>Når omsorg, tvang og oplevet virkelighed ikke peger samme vej — og beslutninger skal træffes på et menneskes vegne.</p>
-      </div>
-      <div class="card">
-        <span class="kicker">Kommuner</span>
-        <h3>Styring og behov</h3>
-        <p>Når regler og procedurer møder borgernes komplekse virkelighed, og sagsbehandlere navigerer i gråzoner.</p>
-      </div>
-      <div class="card">
-        <span class="kicker">Organisationer</span>
-        <h3>Kultur og struktur</h3>
-        <p>Når styring, kultur og menneskelige behov skaber spændinger, som ingen enkelt politik kan løse.</p>
-      </div>
+<!-- FORLØB -->
+<div class="anv-section light">
+  <div class="anv-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">Forløb og kurser · Klar nu</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;">Med mennesker i svære situationer</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;margin-top:8px;max-width:560px;line-height:1.75;">Fire forløb der hjælper med at se spændingen tydeligt nok til at handle ansvarligt — ikke løse den, men forstå den.</p>
+    <div class="anv-grid">
+      <a href="paarorende.html" class="anv-card white">
+        <span class="anv-card-icon">💙</span>
+        <span class="anv-card-tag" style="color:#7a9ee8;">Pårørende · 4 moduler</span>
+        <h3>Pårørende til misbrugere</h3>
+        <span class="anv-card-tension" style="color:var(--accent);">Kærlighed vs. grænser · Ansvar vs. skyld</span>
+        <p>Forstå situationen, find din position og træf bedre beslutninger uden at miste dig selv.</p>
+        <span class="anv-card-link" style="color:var(--accent);">Se forløbet →</span>
+      </a>
+      <a href="ledelseskompas.html" class="anv-card white">
+        <span class="anv-card-icon">🧭</span>
+        <span class="anv-card-tag" style="color:var(--accent);">Ledere · 4 moduler</span>
+        <h3>Ledelseskompasset</h3>
+        <span class="anv-card-tension" style="color:var(--accent);">Drift vs. menneske · Økonomi vs. kvalitet</span>
+        <p>Navigér komplekse beslutninger og tag ansvar — også når der ikke er et rigtigt svar.</p>
+        <span class="anv-card-link" style="color:var(--accent);">Se forløbet →</span>
+      </a>
+      <a href="faellesskab.html" class="anv-card white">
+        <span class="anv-card-icon">🤝</span>
+        <span class="anv-card-tag" style="color:#c87ae8;">Skoler · 4 moduler</span>
+        <h3>Fællesskab og mobning</h3>
+        <span class="anv-card-tension" style="color:var(--accent);">Tilhør vs. eksklusion · Gruppe vs. individ</span>
+        <p>Synliggør spændinger i grupper og handle tidligt — fra daginstitution til arbejdsplads.</p>
+        <span class="anv-card-link" style="color:var(--accent);">Se forløbet →</span>
+      </a>
     </div>
-  </section>
+  </div>
+</div>
 
-  <section class="section">
-    <div class="grid-3">
-      <div class="card">
-        <span class="kicker">AI-systemer</span>
-        <h3>Automatisering og ansvar</h3>
-        <p>Når automatisering kræver ansvar, gennemsigtighed og refleksion — og maskinens logik ikke er nok.</p>
-      </div>
-      <div class="card">
-        <span class="kicker">Ledelse</span>
-        <h3>Komplekse valg</h3>
-        <p>Når ledere skal træffe beslutninger, der påvirker mange — og usikkerheden ikke kan elimineres, kun håndteres.</p>
-      </div>
-      <div class="card">
-        <span class="kicker">Uddannelse</span>
-        <h3>Etik i praksis</h3>
-        <p>Som redskab til at undervise i etisk beslutningstagning — med rod i virkelige, komplekse situationer.</p>
-      </div>
+<!-- PSYKIATRI -->
+<div class="anv-section dark">
+  <div class="anv-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:10px;">Psykiatri og socialt arbejde</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#e8ecfc;font-weight:400;">Når alle valg har en pris</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(232,236,252,0.4);margin-top:8px;max-width:560px;line-height:1.75;">I psykiatrien og på plejehjemmet er der ikke altid et godt valg — kun et mere bevidst et. ETOS gør forskellen synlig.</p>
+    <div class="anv-grid">
+      <a href="psykiatri.html" class="anv-card dk">
+        <span class="anv-card-icon">🏥</span>
+        <span class="anv-card-tag" style="color:#4ec88c;">Fagpersoner · 4 moduler</span>
+        <h3>ETOS i psykiatri-praksis</h3>
+        <span class="anv-card-tension" style="color:#4ec88c;">Tvang vs. autonomi · Sikkerhed vs. relation</span>
+        <p>Navigér tvang, omsorg og autonomi. Træf beslutninger der kan stå på mål — og lær af dem bagefter.</p>
+        <span class="anv-card-link" style="color:#4ec88c;">Se forløbet →</span>
+      </a>
+      <a href="etos-omtanke.html" class="anv-card dk" style="border-color:rgba(78,200,140,0.25);">
+        <span class="anv-card-icon">🏠</span>
+        <span class="anv-card-tag" style="color:#4ec88c;">Plejehjem · Prototype klar</span>
+        <h3>ETOS Omtanke</h3>
+        <span class="anv-card-tension" style="color:#4ec88c;">Frihedsbegrænsning vs. sikkerhed</span>
+        <p>Man må ikke låse døren — men man kan forstå situationen. En intelligent vurdering i stedet for en panik-alarm.</p>
+        <span class="anv-card-link" style="color:#4ec88c;">Se prototypen →</span>
+      </a>
+      <a href="arkitektur.html" class="anv-card dk">
+        <span class="anv-card-icon">🏗</span>
+        <span class="anv-card-tag" style="color:#7a9ee8;">Teknisk · TRL 4-5</span>
+        <h3>Den tekniske arkitektur</h3>
+        <span class="anv-card-tension" style="color:#7a9ee8;">9 moduler · IDK · CDP · Learning Loop</span>
+        <p>For dem der vil forstå systemet bag forløbene — motoren, parametrene og beslutningstilstandene.</p>
+        <span class="anv-card-link" style="color:#7a9ee8;">Se arkitekturen →</span>
+      </a>
     </div>
-  </section>
+  </div>
+</div>
 
-  <div class="cta-box">
-    <p>"Klar til at afprøve ETOS?"</p>
-    <div class="cta-btns">
-      <a href="pilot.html" class="btn btn-primary">Se pilotspor</a>
-      <a href="kontakt.html" class="btn btn-ghost">Tag kontakt</a>
+<!-- DEMOKRATI + AI -->
+<div class="anv-section light">
+  <div class="anv-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">Systemer og samfund</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;">Når systemet selv er problemet</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;margin-top:8px;max-width:560px;line-height:1.75;">Demokrati, AI og organisationer — steder hvor spændingen ikke sidder i mennesket, men i strukturen.</p>
+    <div class="anv-grid">
+      <a href="demokrati-valg.html" class="anv-card white" style="border-color:rgba(240,200,80,0.3);background:rgba(240,200,80,0.03);">
+        <span class="anv-card-icon">🗳</span>
+        <span class="anv-card-tag" style="color:#f0c850;">Demokrati · Valg 2026</span>
+        <h3>ETOS som demokratisk infrastruktur</h3>
+        <span class="anv-card-tension" style="color:#f0c850;">Løfter vs. handling · Intention vs. virkelighed</span>
+        <p>Ikke karakterer — strukturel gennemsigtighed. Hvad lovede de? Hvad gennemførte de? Hvad forhindrede dem?</p>
+        <span class="anv-card-link" style="color:#f0c850;">Læs om det →</span>
+      </a>
+      <a href="mem.html" class="anv-card white">
+        <span class="anv-card-icon">🤖</span>
+        <span class="anv-card-tag" style="color:#7a9ee8;">AI Alignment</span>
+        <h3>Governance-drift i AI-systemer</h3>
+        <span class="anv-card-tension" style="color:var(--accent);">Metrics vs. intention · Proxy vs. formål</span>
+        <p>Når AI-systemer optimerer for målet frem for intentionen. M.E.M. giver sprog og diagnostik for governance-drift.</p>
+        <span class="anv-card-link" style="color:#7a9ee8;">Se M.E.M. →</span>
+      </a>
+      <a href="etos-demokrati.html" class="anv-card white">
+        <span class="anv-card-icon">📊</span>
+        <span class="anv-card-tag" style="color:#4ec88c;">Organisationer</span>
+        <h3>KPI-kultur og felt-erosion</h3>
+        <span class="anv-card-tension" style="color:var(--accent);">Tal vs. mennesker · Styring vs. kultur</span>
+        <p>Når målinger løsriver sig fra intentionen og organisationens felt begynder at erodere. M.E.M. diagnosticerer det.</p>
+        <span class="anv-card-link" style="color:#4ec88c;">Se mere →</span>
+      </a>
     </div>
+  </div>
+</div>
+
+<!-- OMTANKE FEATURED -->
+<div class="anv-section dark" style="padding-top:0;">
+  <div class="anv-inner">
+    <a href="etos-omtanke.html" class="anv-featured">
+      <div>
+        <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:12px;">🏠 ETOS Omtanke · Fremhævet</span>
+        <h3>Man må ikke låse døren.<br>Men man kan <em>forstå situationen</em>.</h3>
+        <p>Plejehjem må ikke frihedsberøve borgere med demens — men personalet mangler redskaber. ETOS Omtanke er en fungerende prototype der giver intelligent vurdering i stedet for panik-alarm.</p>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <span style="display:inline-flex;align-items:center;gap:8px;background:#4ec88c;color:#0d1a12;padding:11px 22px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;">Se konceptet →</span>
+          <a href="etos-omtanke-ui.html" onclick="event.stopPropagation()" style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(78,200,140,0.5);text-decoration:none;border-bottom:1px solid rgba(78,200,140,0.25);padding-bottom:1px;">Prøv live-dashboardet</a>
+        </div>
+      </div>
+      <div class="anv-notif">
+        <div class="anv-notif-bar">
+          <span style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,0.3);">ETOS Omtanke</span>
+          <span style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,0.2);">03:18</span>
+        </div>
+        <div class="anv-notif-body">
+          <div class="anv-notif-name">Anna · Stue 12</div>
+          <div class="anv-notif-sub">Natlig bevægelse mod udgang</div>
+          <div class="anv-notif-row"><span class="anv-notif-k">Risiko</span><span class="anv-notif-v" style="color:#e07070;">Høj</span></div>
+          <div class="anv-notif-row"><span class="anv-notif-k">Kapacitet</span><span class="anv-notif-v" style="color:#e07070;">Lav</span></div>
+          <div class="anv-notif-row"><span class="anv-notif-k">Autonomi</span><span class="anv-notif-v" style="color:var(--accent);">Moderat</span></div>
+          <div class="anv-notif-div"></div>
+          <div class="anv-notif-mode">Intervention anbefales</div>
+          <div class="anv-notif-s">→ Gå roligt i møde</div>
+          <div class="anv-notif-s">→ Verbal guidning anbefales</div>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="fs-cta-strip">
+  <p class="fs-cta-quote">"Spændingen er ikke problemet — det er udgangspunktet."</p>
+  <div class="fs-cta-btns">
+    <a href="pilot-pakke.html" class="fs-btn-primary">Start med en pilot →</a>
+    <a href="kontakt.html" class="fs-btn-ghost-dark">Kontakt</a>
   </div>
 </div>
 
