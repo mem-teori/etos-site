@@ -202,14 +202,7 @@
             <span class="fs-dropdown-item-icon" style="background:#2a1f1a;">🌱</span>
             <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Universet</span><span class="fs-dropdown-item-sub">Børn · Bankeren · Læring</span></span>
           </a>
-          <a href="dirigent-rum.html" class="fs-dropdown-item">
-            <span class="fs-dropdown-item-icon" style="background:#1a1a12;">🎼</span>
-            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Dirigenten</span><span class="fs-dropdown-item-sub">Idéer · Projekter</span></span>
-          </a>
-          <a href="regnskab-program.html" class="fs-dropdown-item">
-            <span class="fs-dropdown-item-icon" style="background:#111520;">📊</span>
-            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Regnskab</span><span class="fs-dropdown-item-sub">Økonomi · Overblik</span></span>
-          </a>
+
         </div>
       </div>
 
@@ -230,9 +223,9 @@
       <span class="mem-hero-eyebrow" style="justify-content:center;">M.E.M. · Meaning · Experience · Model</span>
       <h1 style="font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,56px);color:#f0ebe0;font-weight:400;line-height:1.1;letter-spacing:-0.02em;margin-bottom:16px;">Det handler ikke<br>om hvad vi ser —<br>men <em style="font-style:italic;color:#7a9ee8;">hvordan vi ser det</em></h1>
       <p style="font-family:'DM Sans',sans-serif;font-size:16px;color:rgba(240,235,224,0.5);line-height:1.8;margin-bottom:28px;">M.E.M. viser hvordan betydning, oplevelse og systemer skaber de situationer vi står i — og hvorfor de ofte bliver svære.</p>
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-        <a href="mem.html" class="mem-btn-primary">Forstå modellen →</a>
-        <a href="forloeb.html" class="mem-btn-ghost">Se hvordan det bruges</a>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;align-items:center;">
+        <a href="mem.html" class="mem-btn-primary" style="font-size:14px;padding:14px 28px;">Forstå modellen →</a>
+        <a href="forloeb.html" style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,0.4);text-decoration:none;border-bottom:1px solid rgba(240,235,224,0.2);padding-bottom:1px;transition:color 0.15s;" onmouseover="this.style.color='rgba(240,235,224,0.7)'" onmouseout="this.style.color='rgba(240,235,224,0.4)'">Se hvordan det bruges</a>
       </div>
     </div>
 
@@ -268,22 +261,29 @@
 <div class="mini-case">
   <div class="mini-case-inner">
     <div class="mini-case-left">
-      <span class="mini-case-lbl">M.E.M. i praksis — vælg en situation</span>
+      <span class="mini-case-lbl">Vælg en situation</span>
       <div class="mc-tabs">
         <button class="mc-tab active" onclick="switchCase(0,this)">🏥 Psykiatri</button>
         <button class="mc-tab" onclick="switchCase(1,this)">🏛 Kommune</button>
         <button class="mc-tab" onclick="switchCase(2,this)">🏢 Ledelse</button>
       </div>
-      <p class="mc-text" id="mcText">En patient nægter behandling. Systemet vurderer risiko som høj. Patienten ønsker at forblive hjemme.</p>
+      <div style="border-top:1px solid rgba(0,0,0,0.07);padding-top:14px;margin-top:4px;">
+        <span style="font-family:'DM Sans',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#bbb;display:block;margin-bottom:6px;">Situationen</span>
+        <p class="mc-text" id="mcText">En patient nægter behandling. Systemet vurderer risiko som høj. Patienten ønsker at forblive hjemme.</p>
+      </div>
     </div>
     <div class="mini-case-arrow">→</div>
     <div class="mini-case-right">
+      <span style="font-family:'DM Sans',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(240,235,224,0.25);display:block;margin-bottom:8px;">ETOS registrerer</span>
       <div class="mc-tags" id="mcTags">
         <span class="mc-tag r">Høj divergens</span>
         <span class="mc-tag o">Etisk pres</span>
         <span class="mc-tag b">Lav tillid</span>
       </div>
-      <p class="mc-verdict" id="mcVerdict">Systemlogik og menneskelig virkelighed trækker i modsat retning. Etisk gæld opstår uanset valg.</p>
+      <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:12px;margin-top:4px;">
+        <span style="font-family:'DM Sans',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(240,235,224,0.25);display:block;margin-bottom:6px;">Konklusion</span>
+        <p class="mc-verdict" id="mcVerdict">Systemlogik og menneskelig virkelighed trækker i modsat retning. Etisk gæld opstår uanset valg.</p>
+      </div>
       <a href="system.html" class="mc-link">Analysér med ETOS →</a>
     </div>
   </div>
@@ -394,12 +394,12 @@
     <div class="indgange-grid">
       <a href="paarorende.html" class="indgang-card borger">
         <span class="indgang-tag">Personlig indgang</span>
-        <h3>Jeg vil forstå en svær situation jeg selv står i</h3>
+        <h3>Noget er svært.<br>Jeg vil forstå det.</h3>
         <p>For dig der starter fra oplevelsen — og gerne vil finde klarhed og retning uden at miste dig selv.</p>
       </a>
       <a href="forloeb.html" class="indgang-card fagperson">
         <span class="indgang-tag">Faglig indgang</span>
-        <h3>Jeg vil bruge ETOS som redskab i mit arbejde</h3>
+        <h3>Mine beslutninger<br>påvirker mennesker.</h3>
         <p>For fagpersoner, ledere og organisationer der søger et analytisk og refleksivt redskab til komplekse situationer.</p>
       </a>
     </div>
