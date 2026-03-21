@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="google-site-verification" content="N-tI0mRJKKnPVNDB_v0LWIN6QjN9BnB8Zw8DN8ARdF0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ETOS Omtanke — Intelligent omsorg ved demens og bevægelse</title>
+  <meta name="description" content="ETOS Omtanke støtter personale i at håndtere borgere med demens uden unødig frihedsbegrænsning — en vurdering i stedet for en alarm." />
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    /* HERO */
+    .omt-hero {
+      background: linear-gradient(160deg, #0d1a12 0%, #1a2820 60%, #0d1117 100%);
+      padding: 80px 52px 72px; position: relative; overflow: hidden;
+    }
+    .omt-hero::before {
+      content: ''; position: absolute; top: -80px; right: -80px;
+      width: 440px; height: 440px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(78,200,140,0.08), transparent 70%);
+      pointer-events: none;
+    }
+    .omt-hero-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 420px; gap: 64px; align-items: center; position: relative; }
+    .omt-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 48px); color: #f0ebe0; font-weight: 400; line-height: 1.1; margin-bottom: 14px; }
+    .omt-hero h1 em { font-style: italic; color: #4ec88c; }
+    .omt-hero-lead { font-family: 'DM Sans', sans-serif; font-size: 15px; color: rgba(240,235,224,0.5); line-height: 1.8; margin-bottom: 28px; max-width: 460px; }
+    .omt-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(78,200,140,0.1); border: 1px solid rgba(78,200,140,0.25); border-radius: 20px; padding: 7px 16px; font-family: 'DM Sans', sans-serif; font-size: 12px; color: #4ec88c; font-weight: 500; margin-bottom: 20px; }
+    .omt-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ec88c; animation: bpulse 2s ease-in-out infinite; }
+    @keyframes bpulse { 0%,100%{opacity:1}50%{opacity:0.3} }
+    .omt-btns { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .omt-btn-primary { display: inline-flex; align-items: center; gap: 8px; background: #4ec88c; color: #0d1a12; padding: 12px 24px; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; text-decoration: none; transition: background 0.15s; }
+    .omt-btn-primary:hover { background: #3ab07a; }
+    .omt-btn-ghost { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(240,235,224,0.4); text-decoration: none; border-bottom: 1px solid rgba(240,235,224,0.2); padding-bottom: 1px; transition: color 0.15s; }
+    .omt-btn-ghost:hover { color: rgba(240,235,224,0.7); }
+
+    /* NOTIFICATION MOCKUP */
+    .omt-notif {
+      background: #1a1a1a; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px; overflow: hidden;
+    }
+    .omt-notif-header {
+      background: #111; padding: 12px 16px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .omt-notif-app { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.35); }
+    .omt-notif-time { font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(255,255,255,0.25); }
+    .omt-notif-body { padding: 20px; }
+    .omt-notif-title { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+    .omt-notif-sub { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 14px; }
+    .omt-notif-row { display: flex; justify-content: space-between; margin-bottom: 6px; }
+    .omt-notif-key { font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(255,255,255,0.35); }
+    .omt-notif-val { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; }
+    .omt-notif-val.red { color: #e07070; }
+    .omt-notif-val.orange { color: var(--accent); }
+    .omt-notif-val.green { color: #4ec88c; }
+    .omt-notif-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 12px 0; }
+    .omt-notif-status { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .omt-notif-status-dot { width: 8px; height: 8px; border-radius: 50%; background: #e07070; }
+    .omt-notif-status-text { font-family: 'Playfair Display', serif; font-size: 14px; color: #e07070; font-weight: 400; }
+    .omt-notif-suggestions { display: flex; flex-direction: column; gap: 6px; }
+    .omt-notif-suggestion { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(78,200,140,0.8); padding: 7px 12px; background: rgba(78,200,140,0.08); border-radius: 7px; }
+
+    /* VERSUS */
+    .omt-versus { background: #f5f0e8; padding: 72px 52px; }
+    .omt-versus-inner { max-width: 1160px; margin: 0 auto; }
+    .omt-versus-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px; align-items: center; margin-top: 40px; }
+    .omt-versus-card { border-radius: 16px; padding: 32px 28px; }
+    .omt-versus-card.old { background: rgba(224,112,112,0.06); border: 1px solid rgba(224,112,112,0.15); }
+    .omt-versus-card.new { background: rgba(78,200,140,0.06); border: 1px solid rgba(78,200,140,0.2); }
+    .omt-versus-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 14px; }
+    .omt-versus-card.old .omt-versus-label { color: #e07070; }
+    .omt-versus-card.new .omt-versus-label { color: #4ec88c; }
+    .omt-versus-card h3 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 400; margin-bottom: 12px; }
+    .omt-versus-card.old h3 { color: #c85050; }
+    .omt-versus-card.new h3 { color: #2a7a50; }
+    .omt-versus-items { display: flex; flex-direction: column; gap: 8px; }
+    .omt-versus-item { font-family: 'DM Sans', sans-serif; font-size: 13px; line-height: 1.6; padding: 10px 14px; border-radius: 8px; }
+    .omt-versus-card.old .omt-versus-item { color: #8a3030; background: rgba(224,112,112,0.08); }
+    .omt-versus-card.new .omt-versus-item { color: #2a6a40; background: rgba(78,200,140,0.08); }
+    .omt-versus-arrow { font-size: 28px; color: var(--accent); text-align: center; }
+
+    /* SYSTEMET */
+    .omt-system { background: #0d1117; padding: 72px 52px; }
+    .omt-system-inner { max-width: 1160px; margin: 0 auto; }
+    .omt-flow { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; margin-top: 40px; }
+    .omt-flow-step { padding: 32px 28px; position: relative; }
+    .omt-flow-step:not(:last-child)::after { content: '→'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); font-size: 20px; color: rgba(78,200,140,0.3); z-index: 1; }
+    .omt-flow-step.input  { background: rgba(122,158,232,0.06); border: 1px solid rgba(122,158,232,0.12); border-radius: 14px 0 0 14px; }
+    .omt-flow-step.engine { background: rgba(78,200,140,0.06); border: 1px solid rgba(78,200,140,0.15); border-top: 1px solid rgba(78,200,140,0.15); border-bottom: 1px solid rgba(78,200,140,0.15); border-left: none; border-right: none; }
+    .omt-flow-step.output { background: rgba(226,136,78,0.06); border: 1px solid rgba(226,136,78,0.12); border-radius: 0 14px 14px 0; }
+    .omt-flow-tag { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 12px; }
+    .omt-flow-step.input  .omt-flow-tag { color: #7a9ee8; }
+    .omt-flow-step.engine .omt-flow-tag { color: #4ec88c; }
+    .omt-flow-step.output .omt-flow-tag { color: var(--accent); }
+    .omt-flow-step h3 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 400; margin-bottom: 12px; }
+    .omt-flow-step.input  h3 { color: #7a9ee8; }
+    .omt-flow-step.engine h3 { color: #4ec88c; }
+    .omt-flow-step.output h3 { color: var(--accent); }
+    .omt-flow-items { display: flex; flex-direction: column; gap: 6px; }
+    .omt-flow-item { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(232,236,252,0.4); line-height: 1.55; padding: 6px 10px; background: rgba(255,255,255,0.03); border-radius: 6px; }
+
+    /* MEM KOBLING */
+    .omt-mem { background: #1a2820; padding: 64px 52px; }
+    .omt-mem-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 40px; }
+    .omt-mem-card { border-radius: 14px; padding: 28px 24px; }
+    .omt-mem-card.m { background: rgba(122,158,232,0.07); border: 1px solid rgba(122,158,232,0.15); }
+    .omt-mem-card.e { background: rgba(226,136,78,0.07); border: 1px solid rgba(226,136,78,0.15); }
+    .omt-mem-card.mo { background: rgba(78,200,140,0.07); border: 1px solid rgba(78,200,140,0.15); }
+    .omt-mem-letter { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 400; margin-bottom: 8px; }
+    .omt-mem-card.m .omt-mem-letter { color: #7a9ee8; }
+    .omt-mem-card.e .omt-mem-letter { color: var(--accent); }
+    .omt-mem-card.mo .omt-mem-letter { color: #4ec88c; }
+    .omt-mem-card h4 { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+    .omt-mem-card.m h4 { color: #7a9ee8; }
+    .omt-mem-card.e h4 { color: var(--accent); }
+    .omt-mem-card.mo h4 { color: #4ec88c; }
+    .omt-mem-card-context { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(240,235,224,0.6); line-height: 1.7; margin-bottom: 8px; font-style: italic; }
+    .omt-mem-card p { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(240,235,224,0.35); line-height: 1.65; margin: 0; }
+
+    /* UI PREVIEW */
+    .omt-ui { background: #f5f0e8; padding: 72px 52px; }
+    .omt-ui-inner { max-width: 1160px; margin: 0 auto; }
+    .omt-ui-screens { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 40px; }
+    .omt-screen { background: #1a1a1a; border-radius: 16px; overflow: hidden; }
+    .omt-screen-bar { background: #111; padding: 10px 16px; display: flex; align-items: center; gap: 6px; }
+    .omt-screen-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .omt-screen-title { font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(255,255,255,0.3); margin-left: 6px; }
+    .omt-screen-body { padding: 16px; }
+    .omt-event { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; margin-bottom: 8px; }
+    .omt-event.red    { background: rgba(224,112,112,0.12); }
+    .omt-event.orange { background: rgba(226,136,78,0.12); }
+    .omt-event.yellow { background: rgba(240,200,80,0.12); }
+    .omt-event-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .omt-event.red    .omt-event-dot { background: #e07070; }
+    .omt-event.orange .omt-event-dot { background: var(--accent); }
+    .omt-event.yellow .omt-event-dot { background: #f0c850; }
+    .omt-event-text { font-family: 'DM Sans', sans-serif; font-size: 11px; line-height: 1.5; }
+    .omt-event.red    .omt-event-text { color: rgba(224,112,112,0.8); }
+    .omt-event.orange .omt-event-text { color: rgba(226,136,78,0.8); }
+    .omt-event.yellow .omt-event-text { color: rgba(240,200,80,0.8); }
+    .omt-event-time { font-family: 'DM Sans', sans-serif; font-size: 10px; color: rgba(255,255,255,0.2); margin-left: auto; flex-shrink: 0; }
+
+    /* PILOT */
+    .omt-pilot { background: #0d1a12; padding: 64px 52px; }
+    .omt-pilot-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .omt-pilot h2 { font-family: 'Playfair Display', serif; font-size: 26px; color: #f0ebe0; font-weight: 400; margin-bottom: 16px; }
+    .omt-pilot p { font-family: 'DM Sans', sans-serif; font-size: 14px; color: rgba(240,235,224,0.5); line-height: 1.8; margin-bottom: 12px; }
+    .omt-pilot-steps { display: flex; flex-direction: column; gap: 10px; }
+    .omt-pilot-step { display: flex; gap: 14px; align-items: flex-start; padding: 16px 18px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; }
+    .omt-pilot-step-num { font-family: 'Playfair Display', serif; font-size: 22px; color: #4ec88c; opacity: 0.6; font-weight: 400; flex-shrink: 0; line-height: 1; }
+    .omt-pilot-step h4 { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: rgba(240,235,224,0.7); margin-bottom: 3px; }
+    .omt-pilot-step p { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(240,235,224,0.35); line-height: 1.6; margin: 0; }
+    .omt-success { display: flex; flex-direction: column; gap: 10px; }
+    .omt-success-item { padding: 14px 18px; background: rgba(78,200,140,0.06); border: 1px solid rgba(78,200,140,0.12); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(78,200,140,0.7); line-height: 1.6; display: flex; gap: 10px; }
+    .omt-success-item::before { content: '✓'; color: #4ec88c; flex-shrink: 0; }
+
+    /* CTA */
+    .omt-cta { background: #1a2820; padding: 56px 52px; }
+    .omt-cta-inner { max-width: 1160px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+
+    @media (max-width: 860px) {
+      .omt-hero, .omt-versus, .omt-system, .omt-mem, .omt-ui, .omt-pilot, .omt-cta { padding: 48px 28px; }
+      .omt-hero-inner, .omt-pilot-inner { grid-template-columns: 1fr; }
+      .omt-notif { display: none; }
+      .omt-versus-grid { grid-template-columns: 1fr; }
+      .omt-versus-arrow { transform: rotate(90deg); }
+      .omt-flow { grid-template-columns: 1fr; }
+      .omt-flow-step { border-radius: 14px !important; border: 1px solid rgba(255,255,255,0.1) !important; margin-bottom: 8px; }
+      .omt-flow-step::after { display: none; }
+      .omt-mem-inner { grid-template-columns: 1fr; }
+      .omt-ui-screens { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="fs-header">
+
+  <div class="fs-nav">
+    <a href="index.html" class="fs-logo">M.E.M.</a>
+    <nav class="fs-links">
+
+      <!-- ETOS -->
+      <a href="etos.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Beslutningsmodel</span></span>
+      </a>
+
+      <!-- FORLØB -->
+      <a href="forloeb.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a2020;">🔄</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Forløb</span><span class="fs-nav-sub">Pårørende · Ledelse · Psykiatri</span></span>
+      </a>
+
+      <!-- PILOT -->
+      <a href="pilot-pakke.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1a0d;">🧪</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Pilot</span><span class="fs-nav-sub">Test det i praksis</span></span>
+      </a>
+
+      <!-- MERE dropdown -->
+      <div class="fs-dropdown">
+        <a href="mem.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#0d1117;">✦</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">Mere</span><span class="fs-nav-sub">Teori · Univers · Demokrati</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="mem.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🔬</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">M.E.M.</span><span class="fs-dropdown-item-sub">Grundmodel</span></span>
+          </a>
+          <a href="arkitektur.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🏗</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Arkitektur</span><span class="fs-dropdown-item-sub">IDK · ETOS · CDP</span></span>
+          </a>
+          <a href="etos-demokrati.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2820;">🗳</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Demokrati</span><span class="fs-dropdown-item-sub">Løfter · Ansvar</span></span>
+          </a>
+          <a href="boerneunivers.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#2a1f1a;">🌱</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Universet</span><span class="fs-dropdown-item-sub">Børn · Bankeren · Læring</span></span>
+          </a>
+
+        </div>
+      </div>
+
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
+      <a href="index-en.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">EN</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="omt-hero">
+  <div class="omt-hero-inner">
+    <div>
+      <div class="omt-badge"><span class="omt-badge-dot"></span> Prototype V1 · Konceptfase</div>
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:16px;">ETOS Omtanke · Plejehjem og demens</span>
+      <h1>Ikke en alarm.<br>En <em>vurdering</em>.</h1>
+      <p class="omt-hero-lead">ETOS Omtanke støtter personale i at håndtere borgere med demens der bevæger sig mod udgange — med kontekst og forslag i stedet for panik-alarm.</p>
+      <div class="omt-btns">
+        <a href="kontakt.html" class="omt-btn-primary">Tal med os om piloten →</a>
+        <a href="#systemet" class="omt-btn-ghost">Se hvordan det virker ↓</a>
+      </div>
+    </div>
+
+    <div class="omt-notif">
+      <div class="omt-notif-header">
+        <span class="omt-notif-app">ETOS Omtanke</span>
+        <span class="omt-notif-time">03:18</span>
+      </div>
+      <div class="omt-notif-body">
+        <div class="omt-notif-title">Anna · Stue 12</div>
+        <div class="omt-notif-sub">Mulig desorientering — natlig bevægelse mod udgang</div>
+        <div class="omt-notif-row">
+          <span class="omt-notif-key">Risiko</span>
+          <span class="omt-notif-val red">Høj</span>
+        </div>
+        <div class="omt-notif-row">
+          <span class="omt-notif-key">Kapacitet</span>
+          <span class="omt-notif-val red">Lav</span>
+        </div>
+        <div class="omt-notif-row">
+          <span class="omt-notif-key">Autonomi</span>
+          <span class="omt-notif-val orange">Moderat</span>
+        </div>
+        <div class="omt-notif-divider"></div>
+        <div class="omt-notif-status">
+          <div class="omt-notif-status-dot"></div>
+          <div class="omt-notif-status-text">Intervention anbefales</div>
+        </div>
+        <div class="omt-notif-suggestions">
+          <div class="omt-notif-suggestion">→ Gå roligt i møde</div>
+          <div class="omt-notif-suggestion">→ Verbal guidning anbefales</div>
+          <div class="omt-notif-suggestion">→ Undgå konfrontation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VERSUS -->
+<div class="omt-versus">
+  <div class="omt-versus-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">Forskellen</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;">En ny måde at tænke sikkerhed på</h2>
+    <div class="omt-versus-grid">
+      <div class="omt-versus-card old">
+        <span class="omt-versus-label">Traditionel alarm</span>
+        <h3>Dør åbnet</h3>
+        <div class="omt-versus-items">
+          <div class="omt-versus-item">❌ ALARM — DØR ÅBNET</div>
+          <div class="omt-versus-item">Ingen kontekst om borgeren</div>
+          <div class="omt-versus-item">Ingen vurdering af risiko</div>
+          <div class="omt-versus-item">Ingen forslag til handling</div>
+          <div class="omt-versus-item">Alle hændelser behandles ens</div>
+        </div>
+      </div>
+      <div class="omt-versus-arrow">→</div>
+      <div class="omt-versus-card new">
+        <span class="omt-versus-label">ETOS Omtanke</span>
+        <h3>Anna er desorienteret</h3>
+        <div class="omt-versus-items">
+          <div class="omt-versus-item">✓ Borgerprofil og tidspunkt</div>
+          <div class="omt-versus-item">✓ Risikovurdering baseret på kontekst</div>
+          <div class="omt-versus-item">✓ Konkrete handlingsforslag</div>
+          <div class="omt-versus-item">✓ Prioritering — ikke alle alarmer er ens</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SYSTEMET -->
+<div class="omt-system" id="systemet">
+  <div class="omt-system-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:10px;">Systemets opbygning</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#e8ecfc;font-weight:400;margin-bottom:8px;">Input · ETOS-vurdering · Output</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(232,236,252,0.4);max-width:560px;line-height:1.75;">Systemet tager signaler fra sensorer og borgerprofiler — og giver personalet en forståelig vurdering, ikke bare en besked om at noget er sket.</p>
+    <div class="omt-flow">
+      <div class="omt-flow-step input">
+        <span class="omt-flow-tag">Input</span>
+        <h3>Hvad registreres</h3>
+        <div class="omt-flow-items">
+          <div class="omt-flow-item">Bevægelse mod dør (sensor)</div>
+          <div class="omt-flow-item">Dørhåndtag aktiveret</div>
+          <div class="omt-flow-item">Tidspunkt (nat/dag)</div>
+          <div class="omt-flow-item">Borger-ID og profil</div>
+          <div class="omt-flow-item">Demensgrad og mønstre</div>
+          <div class="omt-flow-item">Tidligere episoder</div>
+        </div>
+      </div>
+      <div class="omt-flow-step engine">
+        <span class="omt-flow-tag">ETOS-vurdering</span>
+        <h3>Hvad vurderes</h3>
+        <div class="omt-flow-items">
+          <div class="omt-flow-item">Risiko (situation + profil)</div>
+          <div class="omt-flow-item">Kapacitet (nuværende tilstand)</div>
+          <div class="omt-flow-item">Autonomi (borgerens ret)</div>
+          <div class="omt-flow-item">Kontekst (nat = + risiko)</div>
+          <div class="omt-flow-item">Samlet spændingsscore</div>
+          <div class="omt-flow-item">Prioriteringsniveau</div>
+        </div>
+      </div>
+      <div class="omt-flow-step output">
+        <span class="omt-flow-tag">Output</span>
+        <h3>Hvad personalet ser</h3>
+        <div class="omt-flow-items">
+          <div class="omt-flow-item">Borger og situation</div>
+          <div class="omt-flow-item">Vurdering i plain language</div>
+          <div class="omt-flow-item">ETOS-status og mode</div>
+          <div class="omt-flow-item">Konkrete handlingsforslag</div>
+          <div class="omt-flow-item">Ikke "hvad skete" — men "hvad gør du"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- M.E.M. KOBLING -->
+<div class="omt-mem">
+  <div style="max-width:1160px;margin:0 auto;">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7a9ee8;display:block;margin-bottom:10px;">M.E.M. i plejehjemmet</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#f0ebe0;font-weight:400;margin-bottom:8px;">Spændingen er altid den samme</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,0.4);max-width:560px;line-height:1.75;margin-bottom:0;">ETOS Omtanke er en direkte anvendelse af M.E.M.-teorien. Annas situation rummer præcis den normative spænding M.E.M. er designet til at synliggøre.</p>
+    <div class="omt-mem-inner">
+      <div class="omt-mem-card m">
+        <div class="omt-mem-letter">M</div>
+        <h4>Meaning</h4>
+        <div class="omt-mem-card-context">"Vi vil beskytte Anna og respektere hendes værdighed."</div>
+        <p>Plejehjemmets normative mål — sikkerhed og omsorg — kan ikke begge opnås fuldt ud på samme tid.</p>
+      </div>
+      <div class="omt-mem-card e">
+        <div class="omt-mem-letter">E</div>
+        <h4>Experience</h4>
+        <div class="omt-mem-card-context">"Jeg vil hjem. Hvad er det her sted?"</div>
+        <p>Annas oplevelse midt om natten. Desorientering er ikke ulydighed — det er en menneskelig tilstand.</p>
+      </div>
+      <div class="omt-mem-card mo">
+        <div class="omt-mem-letter">M</div>
+        <h4>Model</h4>
+        <div class="omt-mem-card-context">Lovgivning, procedurer og plejehjemsregler kræver dokumentation og handling.</div>
+        <p>Systemet kræver at personalet handler — men giver dem sjældent kontekst til at handle rigtigt.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- UI PREVIEW -->
+<div class="omt-ui">
+  <div class="omt-ui-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">Interfacet</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">Tre skærme — ét overblik</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;max-width:540px;line-height:1.75;">UI'et er enkelt og funktionelt. Personalet skal ikke lære et nyt system — de skal bare kunne handle rigtigt og hurtigt.</p>
+    <div class="omt-ui-screens">
+      <!-- Skærm 1: Live hændelser -->
+      <div class="omt-screen">
+        <div class="omt-screen-bar">
+          <div class="omt-screen-dot" style="background:#e07070;"></div>
+          <div class="omt-screen-dot" style="background:#f0c850;margin-left:4px;"></div>
+          <div class="omt-screen-dot" style="background:#4ec88c;margin-left:4px;"></div>
+          <span class="omt-screen-title">Live hændelser</span>
+        </div>
+        <div class="omt-screen-body">
+          <div class="omt-event red">
+            <div class="omt-event-dot"></div>
+            <div class="omt-event-text"><strong style="color:rgba(224,112,112,0.9);">Anna · Stue 12</strong><br>Intervention anbefales</div>
+            <div class="omt-event-time">03:18</div>
+          </div>
+          <div class="omt-event orange">
+            <div class="omt-event-dot"></div>
+            <div class="omt-event-text"><strong style="color:rgba(226,136,78,0.9);">Hans · Stue 7</strong><br>Observer situation</div>
+            <div class="omt-event-time">02:44</div>
+          </div>
+          <div class="omt-event yellow">
+            <div class="omt-event-dot"></div>
+            <div class="omt-event-text"><strong style="color:rgba(240,200,80,0.9);">Kirsten · Stue 3</strong><br>Logget — lav prioritet</div>
+            <div class="omt-event-time">01:12</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skærm 2: Borgerkort -->
+      <div class="omt-screen">
+        <div class="omt-screen-bar">
+          <div class="omt-screen-dot" style="background:#333;"></div>
+          <div class="omt-screen-dot" style="background:#333;margin-left:4px;"></div>
+          <div class="omt-screen-dot" style="background:#333;margin-left:4px;"></div>
+          <span class="omt-screen-title">Borgerkort · Anna</span>
+        </div>
+        <div class="omt-screen-body">
+          <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:8px;">Adfærdsprofil</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,255,255,0.55);padding:8px 10px;background:rgba(255,255,255,0.05);border-radius:6px;margin-bottom:6px;">Natlig vandrer — typisk 02–04</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,255,255,0.55);padding:8px 10px;background:rgba(255,255,255,0.05);border-radius:6px;margin-bottom:12px;">Lav kapacitet ved opvågning</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:#4ec88c;margin-bottom:6px;">Hvad virker normalt godt</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(78,200,140,0.7);padding:8px 10px;background:rgba(78,200,140,0.07);border-radius:6px;">Rolig stemme · Nævn hendes navn · Tilbyd te</div>
+        </div>
+      </div>
+
+      <!-- Skærm 3: Hændelseslog -->
+      <div class="omt-screen">
+        <div class="omt-screen-bar">
+          <div class="omt-screen-dot" style="background:#333;"></div>
+          <div class="omt-screen-dot" style="background:#333;margin-left:4px;"></div>
+          <div class="omt-screen-dot" style="background:#333;margin-left:4px;"></div>
+          <span class="omt-screen-title">Hændelseslog</span>
+        </div>
+        <div class="omt-screen-body">
+          <div style="border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:10px;margin-bottom:10px;">
+            <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,0.25);margin-bottom:4px;">I nat · 03:18</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,255,255,0.55);">Verbal guidning · Tilbage i seng 03:24</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:#4ec88c;margin-top:3px;">✓ Ingen konflikt</div>
+          </div>
+          <div style="border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:10px;margin-bottom:10px;">
+            <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,0.25);margin-bottom:4px;">I går · 02:51</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,255,255,0.55);">Observation · Vendte selv tilbage</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:#4ec88c;margin-top:3px;">✓ Selvregulering</div>
+          </div>
+          <div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,0.25);margin-bottom:4px;">Fredag · 03:05</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,255,255,0.55);">Fysisk guidning nødvendig</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:var(--accent);margin-top:3px;">⚡ Notat: urolig aften</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:24px;">
+      <a href="kontakt.html" style="display:inline-flex;align-items:center;gap:8px;background:#1a2820;color:#4ec88c;padding:12px 24px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;text-decoration:none;border:1px solid rgba(78,200,140,0.2);">Se live prototype →</a>
+    </div>
+  </div>
+</div>
+
+<!-- PILOT -->
+<div class="omt-pilot">
+  <div class="omt-pilot-inner">
+    <div>
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:10px;">Pilotplan</span>
+      <h2>Start simpelt.<br>Ét plejehjem.<br>Lær hvad der virker.</h2>
+      <p>V1 er ikke en fuld løsning — det er et læringsredskab. Målet er at finde ud af om ETOS-vurderingen faktisk hjælper personalet til at handle bedre.</p>
+      <p>Ingen cloud. Ingen kompleks hardware. Lokalt setup der kan køre fra dag ét.</p>
+      <div class="omt-pilot-steps">
+        <div class="omt-pilot-step">
+          <div class="omt-pilot-step-num">1</div>
+          <div>
+            <h4>Vælg ét plejehjem, én afdeling</h4>
+            <p>5–10 borgere. Natlige hændelser. Personale der vil prøve noget nyt.</p>
+          </div>
+        </div>
+        <div class="omt-pilot-step">
+          <div class="omt-pilot-step-num">2</div>
+          <div>
+            <h4>Simpelt sensorsetup</h4>
+            <p>Dør- og bevægelsessensorer. Tablet eller telefon. Ingen avanceret infrastruktur.</p>
+          </div>
+        </div>
+        <div class="omt-pilot-step">
+          <div class="omt-pilot-step-num">3</div>
+          <div>
+            <h4>Opbyg borgerprofiler</h4>
+            <p>Kendte mønstre, hvad der virker, demensgrad. Profilen gør systemet klogt.</p>
+          </div>
+        </div>
+        <div class="omt-pilot-step">
+          <div class="omt-pilot-step-num">4</div>
+          <div>
+            <h4>Mål og lær</h4>
+            <p>Færre panik-alarmer? Hurtigere reaktion? Personalet mere trygge? Det er hvad vi tester.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:16px;">Succeskriterier</span>
+      <div class="omt-success">
+        <div class="omt-success-item">Færre panik-alarmer der skaber uro</div>
+        <div class="omt-success-item">Hurtigere og mere præcis reaktion fra personalet</div>
+        <div class="omt-success-item">Personalet føler sig mere trygge i vanskelige situationer</div>
+        <div class="omt-success-item">Færre konflikter med borgere ved udgange</div>
+        <div class="omt-success-item">Mindre behov for fysisk begrænsning</div>
+        <div class="omt-success-item">Bedre dokumentation af hændelsesforløb</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="omt-cta">
+  <div class="omt-cta-inner">
+    <div>
+      <p style="font-family:'Playfair Display',serif;font-size:24px;color:#f0ebe0;font-weight:400;font-style:italic;margin:0 0 6px;">"Det her er ikke bare en prototype. Det er en ny måde at tænke sikkerhed på."</p>
+      <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,0.3);margin:0;">Søger samarbejde med plejehjem, kommuner og teknologipartnere</p>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <a href="kontakt.html" class="omt-btn-primary">Tal med os om piloten →</a>
+      <a href="arkitektur.html" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:rgba(240,235,224,0.45);padding:12px 24px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;border:1px solid rgba(240,235,224,0.12);text-decoration:none;">Se den tekniske arkitektur</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ETOS Omtanke — Live Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d24;
+      --surface2: #22262f;
+      --border: rgba(255,255,255,0.07);
+      --text: rgba(240,235,224,0.85);
+      --muted: rgba(240,235,224,0.35);
+      --green: #4ec88c;
+      --orange: #E2884E;
+      --red: #e07070;
+      --yellow: #f0c850;
+      --blue: #7a9ee8;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* TOP BAR */
+    .topbar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 16px; }
+    .topbar-logo { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--text); }
+    .topbar-logo span { color: var(--green); }
+    .topbar-unit { font-size: 12px; color: var(--muted); }
+    .topbar-right { display: flex; align-items: center; gap: 16px; }
+    .topbar-time { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .topbar-status { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--green); }
+    .topbar-status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.3} }
+
+    /* MAIN LAYOUT */
+    .main { display: grid; grid-template-columns: 320px 1fr 280px; gap: 0; flex: 1; min-height: 0; }
+
+    /* LEFT: Hændelser */
+    .panel { border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
+    .panel-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+    .panel-title { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+    .panel-count { font-size: 11px; color: var(--muted); background: var(--surface2); padding: 2px 8px; border-radius: 10px; }
+    .panel-body { flex: 1; overflow-y: auto; padding: 12px; }
+
+    /* HÆNDELSE KORT */
+    .event-card {
+      border-radius: 10px; padding: 14px 16px; margin-bottom: 8px;
+      cursor: pointer; transition: all 0.15s; border: 1px solid transparent;
+      position: relative;
+    }
+    .event-card:hover { border-color: var(--border); }
+    .event-card.active { border-color: var(--green) !important; background: rgba(78,200,140,0.06) !important; }
+    .event-card.level-red    { background: rgba(224,112,112,0.08); }
+    .event-card.level-orange { background: rgba(226,136,78,0.07); }
+    .event-card.level-yellow { background: rgba(240,200,80,0.06); }
+    .event-card.level-green  { background: rgba(78,200,140,0.05); }
+    .event-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .event-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .level-red    .event-dot { background: var(--red); }
+    .level-orange .event-dot { background: var(--orange); }
+    .level-yellow .event-dot { background: var(--yellow); }
+    .level-green  .event-dot { background: var(--green); }
+    .event-name { font-size: 13px; font-weight: 500; color: var(--text); }
+    .event-time { font-size: 11px; color: var(--muted); margin-left: auto; font-variant-numeric: tabular-nums; }
+    .event-desc { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
+    .event-status { font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 20px; display: inline-block; }
+    .level-red    .event-status { color: var(--red);    background: rgba(224,112,112,0.12); }
+    .level-orange .event-status { color: var(--orange); background: rgba(226,136,78,0.12); }
+    .level-yellow .event-status { color: var(--yellow); background: rgba(240,200,80,0.12); }
+    .level-green  .event-status { color: var(--green);  background: rgba(78,200,140,0.12); }
+
+    /* CENTER: Vurdering */
+    .center-panel { display: flex; flex-direction: column; overflow: hidden; }
+    .center-body { flex: 1; overflow-y: auto; padding: 24px; }
+    .no-selection { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--muted); text-align: center; gap: 12px; }
+    .no-selection-icon { font-size: 48px; opacity: 0.3; }
+    .no-selection p { font-size: 14px; }
+
+    /* VURDERING DETALJE */
+    .detail-header { margin-bottom: 24px; }
+    .detail-name { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--text); font-weight: 400; margin-bottom: 4px; }
+    .detail-meta { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+    .detail-situation { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; margin-bottom: 20px; }
+    .detail-situation-label { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; display: block; }
+    .detail-situation-text { font-size: 14px; color: var(--text); line-height: 1.65; font-style: italic; }
+
+    .detail-scores { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+    .score-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+    .score-label { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; display: block; }
+    .score-bar-wrap { height: 4px; background: rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; margin-bottom: 6px; }
+    .score-bar { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+    .score-val { font-size: 12px; font-weight: 500; }
+    .score-card.risk  .score-bar { background: var(--red); }
+    .score-card.cap   .score-bar { background: var(--orange); }
+    .score-card.aut   .score-bar { background: var(--blue); }
+    .score-card.risk  .score-val { color: var(--red); }
+    .score-card.cap   .score-val { color: var(--orange); }
+    .score-card.aut   .score-val { color: var(--blue); }
+
+    .detail-etos { border-radius: 12px; padding: 18px 20px; margin-bottom: 20px; }
+    .detail-etos.intervention { background: rgba(224,112,112,0.08); border: 1px solid rgba(224,112,112,0.2); border-left: 3px solid var(--red); }
+    .detail-etos.observe      { background: rgba(226,136,78,0.08); border: 1px solid rgba(226,136,78,0.2); border-left: 3px solid var(--orange); }
+    .detail-etos.log          { background: rgba(78,200,140,0.06); border: 1px solid rgba(78,200,140,0.15); border-left: 3px solid var(--green); }
+    .detail-etos-label { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; display: block; }
+    .detail-etos.intervention .detail-etos-label { color: var(--red); }
+    .detail-etos.observe      .detail-etos-label { color: var(--orange); }
+    .detail-etos.log          .detail-etos-label { color: var(--green); }
+    .detail-etos-mode { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 400; }
+    .detail-etos.intervention .detail-etos-mode { color: var(--red); }
+    .detail-etos.observe      .detail-etos-mode { color: var(--orange); }
+    .detail-etos.log          .detail-etos-mode { color: var(--green); }
+
+    .detail-suggestions { margin-bottom: 20px; }
+    .detail-suggestions-label { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; display: block; }
+    .suggestion { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: rgba(78,200,140,0.07); border: 1px solid rgba(78,200,140,0.12); border-radius: 8px; margin-bottom: 8px; font-size: 13px; color: rgba(78,200,140,0.85); }
+    .suggestion::before { content: '→'; color: var(--green); flex-shrink: 0; }
+
+    .detail-actions { display: flex; gap: 10px; }
+    .action-btn { flex: 1; padding: 11px; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; border: none; transition: all 0.15s; }
+    .action-btn.primary { background: var(--green); color: #0d1a12; }
+    .action-btn.primary:hover { background: #3ab07a; }
+    .action-btn.secondary { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
+    .action-btn.secondary:hover { color: var(--text); border-color: rgba(255,255,255,0.15); }
+
+    /* RIGHT: Borgerkort */
+    .right-panel { border-left: 1px solid var(--border); display: flex; flex-direction: column; }
+    .right-body { flex: 1; overflow-y: auto; padding: 16px; }
+    .citizen-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+    .citizen-name { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--text); margin-bottom: 4px; }
+    .citizen-room { font-size: 11px; color: var(--muted); margin-bottom: 12px; }
+    .citizen-tag { display: inline-block; font-size: 10px; padding: 3px 8px; border-radius: 20px; margin-right: 4px; margin-bottom: 6px; }
+    .citizen-tag.night  { background: rgba(122,158,232,0.12); color: var(--blue); }
+    .citizen-tag.high   { background: rgba(224,112,112,0.12); color: var(--red); }
+    .citizen-tag.calm   { background: rgba(78,200,140,0.12); color: var(--green); }
+    .citizen-what-works { font-size: 11px; color: var(--green); margin: 8px 0 4px; display: block; }
+    .citizen-works-text { font-size: 12px; color: rgba(78,200,140,0.65); line-height: 1.55; font-style: italic; }
+
+    /* NEW EVENT ANIMATION */
+    .event-card.new-event { animation: slideIn 0.4s ease; }
+    @keyframes slideIn { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
+
+    @media (max-width: 900px) {
+      .main { grid-template-columns: 1fr; }
+      .right-panel { display: none; }
+      .panel { border-right: none; border-bottom: 1px solid var(--border); max-height: 280px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-logo">ETOS <span>Omtanke</span></div>
+    <div class="topbar-unit">Afdeling Syd · Nattevagt</div>
+  </div>
+  <div class="topbar-right">
+    <div class="topbar-time" id="clock">03:18</div>
+    <div class="topbar-status"><div class="topbar-status-dot"></div> Systemet kører</div>
+    <a href="etos-omtanke.html" style="font-size:11px;color:var(--muted);text-decoration:none;border:1px solid var(--border);padding:4px 10px;border-radius:6px;">← Om projektet</a>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- LEFT: Hændelser -->
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title">Live hændelser</span>
+      <span class="panel-count" id="eventCount">3 aktive</span>
+    </div>
+    <div class="panel-body" id="eventList">
+      <!-- Events injected by JS -->
+    </div>
+  </div>
+
+  <!-- CENTER: Vurdering -->
+  <div class="center-panel">
+    <div class="panel-header">
+      <span class="panel-title">ETOS-vurdering</span>
+    </div>
+    <div class="center-body" id="centerBody">
+      <div class="no-selection">
+        <div class="no-selection-icon">🧭</div>
+        <p>Vælg en hændelse for at se vurderingen</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Borgerkort -->
+  <div class="right-panel">
+    <div class="panel-header">
+      <span class="panel-title">Borgerprofiler</span>
+    </div>
+    <div class="right-body" id="citizenList">
+      <!-- Citizens injected by JS -->
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ===== DATA =====
+const citizens = [
+  {
+    id: 'anna',
+    name: 'Anna',
+    room: 'Stue 12',
+    tags: ['night', 'high'],
+    tagLabels: ['Natlig vandrer', 'Høj risiko'],
+    worksWell: 'Rolig stemme · Nævn hendes navn · Tilbyd te · Lad hende lede vej'
+  },
+  {
+    id: 'hans',
+    name: 'Hans',
+    room: 'Stue 7',
+    tags: ['night', 'calm'],
+    tagLabels: ['Natlig vandrer', 'Oftest rolig'],
+    worksWell: 'Giv ham tid · Spørg om han vil se TV · Musikken virker godt'
+  },
+  {
+    id: 'kirsten',
+    name: 'Kirsten',
+    room: 'Stue 3',
+    tags: ['calm'],
+    tagLabels: ['Sjældne episoder'],
+    worksWell: 'Observer fra afstand · Vender normalt selv tilbage'
+  }
+];
+
+const events = [
+  {
+    id: 1,
+    citizenId: 'anna',
+    level: 'red',
+    time: '03:18',
+    desc: 'Natlig bevægelse mod udgang · Mulig desorientering',
+    status: 'Intervention anbefales',
+    situation: 'Anna bevæger sig mod udgangsdøren. Tidspunkt: 03:18. Dørhåndtaget er aktiveret. Typisk vandretidspunkt for Anna.',
+    scores: { risk: 85, cap: 25, aut: 55 },
+    etos: 'intervention',
+    etosMode: 'Intervention anbefales',
+    suggestions: ['Gå roligt i møde — uden hast', 'Verbal guidning: "Anna, kom lad os gå ind igen"', 'Undgå konfrontation eller fysisk stop', 'Tilbyd te eller noget velkendt']
+  },
+  {
+    id: 2,
+    citizenId: 'hans',
+    level: 'orange',
+    time: '02:44',
+    desc: 'Bevægelse i korridor · Mulig orientering',
+    status: 'Observer situation',
+    situation: 'Hans er i korridoren nær udgangen. Bevæger sig langsomt. Ingen tegn på akut desorientering endnu.',
+    scores: { risk: 45, cap: 60, aut: 70 },
+    etos: 'observe',
+    etosMode: 'Observer — lav-niveauintervention',
+    suggestions: ['Hold øje fra afstand i 2-3 min', 'Spørg roligt om han har brug for noget', 'Undgå at vække ham yderligere']
+  },
+  {
+    id: 3,
+    citizenId: 'kirsten',
+    level: 'yellow',
+    time: '01:12',
+    desc: 'Sensor aktiveret · Lav-prioritet',
+    status: 'Logget — ingen handling',
+    situation: 'Kirsten har aktiveret bevægelsessensor. Typisk mønster: korte ture til toilet og tilbage. Ingen intervention nødvendig.',
+    scores: { risk: 15, cap: 75, aut: 85 },
+    etos: 'log',
+    etosMode: 'Normal — logges',
+    suggestions: ['Ingen handling nødvendig', 'Hændelsen er logget automatisk']
+  }
+];
+
+let selectedId = null;
+
+// ===== RENDER EVENTS =====
+function renderEvents() {
+  const list = document.getElementById('eventList');
+  list.innerHTML = '';
+  events.forEach(ev => {
+    const cit = citizens.find(c => c.id === ev.citizenId);
+    const div = document.createElement('div');
+    div.className = `event-card level-${ev.level}${selectedId === ev.id ? ' active' : ''}`;
+    div.innerHTML = `
+      <div class="event-header">
+        <div class="event-dot"></div>
+        <div class="event-name">${cit.name} · ${cit.room}</div>
+        <div class="event-time">${ev.time}</div>
+      </div>
+      <div class="event-desc">${ev.desc}</div>
+      <span class="event-status">${ev.status}</span>
+    `;
+    div.onclick = () => selectEvent(ev.id);
+    list.appendChild(div);
+  });
+  document.getElementById('eventCount').textContent = events.length + ' aktive';
+}
+
+// ===== RENDER CENTER =====
+function selectEvent(id) {
+  selectedId = id;
+  const ev = events.find(e => e.id === id);
+  const cit = citizens.find(c => c.id === ev.citizenId);
+  renderEvents();
+
+  const scoreLabels = { risk: 'Risiko', cap: 'Kapacitet', aut: 'Autonomi' };
+  const scoreColors = { risk: 'var(--red)', cap: 'var(--orange)', aut: 'var(--blue)' };
+  const scoreTexts = {
+    risk: ['Lav', 'Moderat', 'Høj'],
+    cap:  ['Lav', 'Moderat', 'Høj'],
+    aut:  ['Lav', 'Moderat', 'Høj']
+  };
+  function scoreLabel(key, val) {
+    if (val < 35) return scoreTexts[key][0];
+    if (val < 65) return scoreTexts[key][1];
+    return scoreTexts[key][2];
+  }
+
+  const scores = ['risk','cap','aut'].map(k => `
+    <div class="score-card ${k}">
+      <span class="score-label">${scoreLabels[k]}</span>
+      <div class="score-bar-wrap"><div class="score-bar" style="width:${ev.scores[k]}%"></div></div>
+      <span class="score-val">${scoreLabel(k, ev.scores[k])}</span>
+    </div>
+  `).join('');
+
+  const sugg = ev.suggestions.map(s => `<div class="suggestion">${s}</div>`).join('');
+
+  document.getElementById('centerBody').innerHTML = `
+    <div class="detail-header">
+      <div class="detail-name">${cit.name}</div>
+      <div class="detail-meta">${cit.room} · ${ev.time} · ${ev.desc}</div>
+    </div>
+    <div class="detail-situation">
+      <span class="detail-situation-label">Situationen</span>
+      <div class="detail-situation-text">${ev.situation}</div>
+    </div>
+    <div class="detail-scores">${scores}</div>
+    <div class="detail-etos ${ev.etos}">
+      <span class="detail-etos-label">ETOS-status</span>
+      <div class="detail-etos-mode">${ev.etosMode}</div>
+    </div>
+    <div class="detail-suggestions">
+      <span class="detail-suggestions-label">Handlingsforslag</span>
+      ${sugg}
+    </div>
+    <div class="detail-actions">
+      <button class="action-btn primary" onclick="handleAction(${id}, 'handled')">✓ Håndteret</button>
+      <button class="action-btn secondary" onclick="handleAction(${id}, 'log')">Tilføj notat</button>
+    </div>
+  `;
+}
+
+function handleAction(id, type) {
+  if (type === 'handled') {
+    const idx = events.findIndex(e => e.id === id);
+    if (idx !== -1) {
+      events[idx].level = 'green';
+      events[idx].status = 'Håndteret ✓';
+    }
+    selectedId = null;
+    document.getElementById('centerBody').innerHTML = `
+      <div class="no-selection">
+        <div class="no-selection-icon">✓</div>
+        <p>Hændelsen er markeret som håndteret og logget.</p>
+      </div>
+    `;
+    renderEvents();
+  } else {
+    alert('Notat-funktion klar til pilot-implementering.');
+  }
+}
+
+// ===== RENDER CITIZENS =====
+function renderCitizens() {
+  const list = document.getElementById('citizenList');
+  list.innerHTML = '';
+  citizens.forEach(c => {
+    const div = document.createElement('div');
+    div.className = 'citizen-card';
+    div.innerHTML = `
+      <div class="citizen-name">${c.name}</div>
+      <div class="citizen-room">${c.room}</div>
+      ${c.tags.map((t,i) => `<span class="citizen-tag ${t}">${c.tagLabels[i]}</span>`).join('')}
+      <span class="citizen-what-works">Hvad virker normalt godt</span>
+      <div class="citizen-works-text">${c.worksWell}</div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+// ===== CLOCK =====
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2,'0');
+  const m = String(now.getMinutes()).padStart(2,'0');
+  const s = String(now.getSeconds()).padStart(2,'0');
+  document.getElementById('clock').textContent = `${h}:${m}:${s}`;
+}
+
+// ===== SIMULATE NEW EVENT =====
+let simCount = 0;
+function simulateNewEvent() {
+  simCount++;
+  const newEv = {
+    id: 100 + simCount,
+    citizenId: ['anna','hans','kirsten'][simCount % 3],
+    level: ['orange','yellow','red'][simCount % 3],
+    time: (() => { const n = new Date(); return `${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`; })(),
+    desc: ['Sensor aktiveret · Korridor', 'Bevægelse mod udgang', 'Dør aktiveret · Undersøges'][simCount % 3],
+    status: ['Observer situation', 'Intervention anbefales', 'Logget'][simCount % 3],
+    situation: 'Ny hændelse registreret automatisk af sensorsystem.',
+    scores: { risk: 30 + (simCount * 17) % 60, cap: 40 + (simCount * 13) % 45, aut: 50 + (simCount * 11) % 40 },
+    etos: ['observe','intervention','log'][simCount % 3],
+    etosMode: ['Observer — lav-niveauintervention','Intervention anbefales','Normal — logges'][simCount % 3],
+    suggestions: ['Vurder situationen', 'Følg standard procedure']
+  };
+  events.unshift(newEv);
+  renderEvents();
+  // Briefly highlight
+  setTimeout(() => {
+    const cards = document.querySelectorAll('.event-card');
+    if (cards[0]) cards[0].classList.add('new-event');
+  }, 50);
+}
+
+// ===== INIT =====
+renderEvents();
+renderCitizens();
+updateClock();
+setInterval(updateClock, 1000);
+// Simulate a new event every 45 seconds to show the system is live
+setInterval(simulateNewEvent, 45000);
+
+// Auto-select first event
+setTimeout(() => selectEvent(1), 500);
+</script>
+</body>
+</html>
