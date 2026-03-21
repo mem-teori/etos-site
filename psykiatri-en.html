@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ETOS Psychiatry — Decisioner der påvirker mennesker</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    .psy-hero { background: linear-gradient(160deg, #0d1a2a 0%, #1a2030 60%, #0d1117 100%); padding: 80px 52px 72px; position: relative; overflow: hidden; }
+    .psy-hero::before { content: ''; position: absolute; top: -80px; right: -80px; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(78,200,140,0.07), transparent 70%); pointer-events: none; }
+    .psy-hero-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 400px; gap: 64px; align-items: center; position: relative; }
+    .psy-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 48px); color: #f0ebe0; font-weight: 400; line-height: 1.12; margin-bottom: 16px; }
+    .psy-hero h1 em { font-style: italic; color: #4ec88c; }
+    .psy-hero-lead { font-family: 'DM Sans', sans-serif; font-size: 15px; color: rgba(240,235,224,0.5); line-height: 1.8; margin-bottom: 28px; max-width: 460px; }
+    .psy-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.15s; }
+    .psy-btn-primary { background: #4ec88c; color: #0d1a0d; }
+    .psy-btn-primary:hover { background: #3ab07a; }
+    .psy-btn-ghost { background: transparent; color: rgba(240,235,224,0.55); border: 1px solid rgba(240,235,224,0.15); }
+    .psy-btn-ghost:hover { color: rgba(240,235,224,0.9); border-color: rgba(240,235,224,0.3); }
+
+    /* Case widget */
+    .psy-case-widget { background: rgba(255,255,255,0.04); border: 1px solid rgba(78,200,140,0.15); border-radius: 16px; padding: 28px; }
+    .psy-case-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,235,224,0.3); display: block; margin-bottom: 16px; }
+    .psy-case-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .psy-case-name { font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(240,235,224,0.45); width: 100px; flex-shrink: 0; }
+    .psy-case-bar { flex: 1; height: 5px; background: rgba(255,255,255,0.07); border-radius: 3px; overflow: hidden; }
+    .psy-case-fill { height: 100%; border-radius: 3px; }
+    .psy-case-val { font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(240,235,224,0.35); width: 28px; text-align: right; flex-shrink: 0; }
+    .psy-case-output { margin-top: 16px; padding: 14px 16px; background: rgba(78,200,140,0.06); border-left: 3px solid #4ec88c; border-radius: 0 8px 8px 0; }
+    .psy-case-output p { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(240,235,224,0.5); line-height: 1.7; margin: 0; }
+    .psy-case-output strong { color: #4ec88c; }
+
+    /* Sections */
+    .psy-problem { background: #f5f0e8; padding: 64px 52px; }
+    .psy-problem-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .psy-what { background: #1a2030; padding: 64px 52px; }
+    .psy-what-inner { max-width: 1160px; margin: 0 auto; }
+    .psy-what-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 36px; }
+    .psy-what-card { border-radius: 14px; padding: 28px 24px; }
+    .psy-what-card.not { background: rgba(224,112,112,0.06); border: 1px solid rgba(224,112,112,0.12); }
+    .psy-what-card.is  { background: rgba(78,200,140,0.06); border: 1px solid rgba(78,200,140,0.15); }
+    .psy-what-card.how { background: rgba(122,158,232,0.06); border: 1px solid rgba(122,158,232,0.15); }
+    .psy-what-tag { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 12px; }
+    .psy-what-card.not .psy-what-tag { color: #e07070; }
+    .psy-what-card.is  .psy-what-tag { color: #4ec88c; }
+    .psy-what-card.how .psy-what-tag { color: #7a9ee8; }
+    .psy-what-card h3 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 400; margin-bottom: 10px; }
+    .psy-what-card.not h3 { color: #e07070; }
+    .psy-what-card.is  h3 { color: #4ec88c; }
+    .psy-what-card.how h3 { color: #7a9ee8; }
+    .psy-what-item { font-family: 'DM Sans', sans-serif; font-size: 13px; line-height: 1.6; padding: 8px 12px; border-radius: 7px; margin-bottom: 6px; }
+    .psy-what-card.not .psy-what-item { color: rgba(224,112,112,0.7); background: rgba(224,112,112,0.06); }
+    .psy-what-card.is  .psy-what-item { color: rgba(78,200,140,0.8); background: rgba(78,200,140,0.06); }
+    .psy-what-card.how .psy-what-item { color: rgba(122,158,232,0.8); background: rgba(122,158,232,0.06); }
+    .psy-pitch { margin-top: 36px; text-align: center; padding: 28px; background: rgba(78,200,140,0.06); border: 1px solid rgba(78,200,140,0.15); border-radius: 14px; }
+    .psy-pitch p { font-family: 'Playfair Display', serif; font-size: 20px; color: #e8ecfc; font-style: italic; font-weight: 400; line-height: 1.5; margin: 0; }
+
+    /* Moduler */
+    .psy-modules { background: #f5f0e8; padding: 72px 52px; }
+    .psy-modules-inner { max-width: 1160px; margin: 0 auto; }
+    .psy-mod { background: #fff; border: 1px solid rgba(0,0,0,0.07); border-radius: 16px; overflow: hidden; margin-bottom: 14px; }
+    .psy-mod-header { display: grid; grid-template-columns: 64px 1fr; align-items: center; padding: 24px 28px; cursor: pointer; gap: 20px; transition: background 0.15s; }
+    .psy-mod-header:hover { background: #fdf8f4; }
+    .psy-mod-num { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400; color: #4ec88c; opacity: 0.7; }
+    .psy-mod-head-text h3 { font-family: 'Playfair Display', serif; font-size: 19px; color: #1a1a1a; font-weight: 400; margin-bottom: 2px; }
+    .psy-mod-theme { font-family: 'DM Sans', sans-serif; font-size: 12px; color: #888; font-style: italic; }
+    .psy-mod-body { padding: 0 28px 28px; display: none; }
+    .psy-mod-body.open { display: block; }
+    .psy-mod-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .psy-mod-col-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; display: block; margin-bottom: 10px; }
+    .psy-mod-item { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #666; line-height: 1.6; display: flex; gap: 8px; margin-bottom: 6px; }
+    .psy-mod-item::before { content: '→'; color: #4ec88c; flex-shrink: 0; }
+    .psy-mod-exercise { background: #f0fff8; border: 1px solid rgba(78,200,140,0.15); border-radius: 10px; padding: 18px 20px; }
+    .psy-mod-ex-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #4ec88c; display: block; margin-bottom: 8px; }
+    .psy-mod-ex-title { font-family: 'Playfair Display', serif; font-size: 16px; color: #1a4a2a; font-weight: 400; margin-bottom: 8px; }
+    .psy-mod-ex-desc { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #666; line-height: 1.7; }
+    .psy-mod-output { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .psy-mod-output-tag { font-family: 'DM Sans', sans-serif; font-size: 12px; color: #2a7a50; background: rgba(78,200,140,0.1); padding: 4px 10px; border-radius: 20px; }
+
+    /* Case eksempel */
+    .psy-case-ex { background: #0d1117; padding: 64px 52px; }
+    .psy-case-ex-inner { max-width: 1160px; margin: 0 auto; }
+    .psy-case-ex-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; overflow: hidden; margin-top: 36px; }
+    .psy-case-ex-header { background: #1a2030; padding: 20px 28px; display: flex; justify-content: space-between; align-items: center; }
+    .psy-case-ex-body { padding: 28px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+    .psy-col-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,235,224,0.25); display: block; margin-bottom: 12px; }
+    .psy-item { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(240,235,224,0.5); padding: 10px 14px; background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 8px; line-height: 1.6; }
+    .psy-item.t { color: #e07070; background: rgba(224,112,112,0.08); border-left: 2px solid #e07070; }
+    .psy-item.i { color: var(--accent); background: rgba(226,136,78,0.08); border-left: 2px solid var(--accent); }
+    .psy-item.a { color: #4ec88c; background: rgba(78,200,140,0.08); border-left: 2px solid #4ec88c; }
+    .psy-case-ex-footer { padding: 20px 28px; background: rgba(78,200,140,0.05); border-top: 1px solid rgba(255,255,255,0.05); }
+    .psy-case-ex-footer p { font-family: 'Playfair Display', serif; font-size: 16px; color: rgba(240,235,224,0.6); font-style: italic; line-height: 1.6; margin: 0; }
+    .psy-case-ex-footer strong { color: #4ec88c; font-style: normal; }
+
+    /* Format + CTA */
+    .psy-format { background: #f5f0e8; padding: 64px 52px; }
+    .psy-format-inner { max-width: 1160px; margin: 0 auto; }
+    .psy-format-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 36px; }
+    .psy-format-card { background: #fff; border: 1px solid rgba(0,0,0,0.07); border-radius: 14px; padding: 28px 24px; }
+    .psy-format-icon { font-size: 28px; margin-bottom: 14px; display: block; }
+    .psy-format-card h3 { font-family: 'Playfair Display', serif; font-size: 18px; color: #1a1a1a; font-weight: 400; margin-bottom: 6px; }
+    .psy-format-desc { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #888; line-height: 1.7; margin-bottom: 14px; }
+    .psy-format-detail { font-family: 'DM Sans', sans-serif; font-size: 12px; color: #aaa; }
+    .psy-cta { background: #0d1a12; padding: 64px 52px; }
+    .psy-cta-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+
+    .prob-box { padding: 18px 20px; border-radius: 12px; margin-bottom: 10px; }
+    .prob-box.a { background: rgba(78,200,140,0.06); border: 1px solid rgba(78,200,140,0.12); border-left: 3px solid #4ec88c; }
+    .prob-box.b { background: rgba(122,158,232,0.06); border: 1px solid rgba(122,158,232,0.12); border-left: 3px solid #7a9ee8; }
+    .prob-box.c { background: rgba(224,112,112,0.06); border: 1px solid rgba(224,112,112,0.12); border-left: 3px solid #e07070; }
+    .prob-box p { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #555; line-height: 1.7; margin: 0; }
+
+    @media (max-width: 860px) {
+      .psy-hero, .psy-problem, .psy-what, .psy-modules, .psy-case-ex, .psy-format, .psy-cta { padding: 48px 28px; }
+      .psy-hero-inner, .psy-problem-inner { grid-template-columns: 1fr; }
+      .psy-case-widget { display: none; }
+      .psy-what-grid, .psy-format-grid { grid-template-columns: 1fr; }
+      .psy-mod-cols { grid-template-columns: 1fr; }
+      .psy-case-ex-body { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<header class="fs-header">
+<style>
+  .fs-dropdown { position: relative; }
+  .fs-dropdown-menu {
+    display: none; position: absolute; top: calc(100% + 6px); left: -8px;
+    background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 8px; min-width: 200px; z-index: 999;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+  }
+  .fs-dropdown:hover .fs-dropdown-menu { display: block; }
+  .fs-dropdown-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px; border-radius: 8px; text-decoration: none;
+    transition: background 0.12s;
+  }
+  .fs-dropdown-item:hover { background: rgba(255,255,255,0.07); }
+  .fs-dropdown-item-icon {
+    width: 28px; height: 28px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; flex-shrink: 0;
+  }
+  .fs-dropdown-item-text { display: flex; flex-direction: column; }
+  .fs-dropdown-item-title { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: #fff; line-height: 1.2; }
+  .fs-dropdown-item-sub { font-family: 'DM Sans', sans-serif; font-size: 10px; color: rgba(255,255,255,0.4); line-height: 1.2; }
+  .fs-nav-item-arrow { font-size: 9px; color: rgba(255,255,255,0.25); margin-left: 2px; }
+</style>
+  <div class="fs-nav">
+    <a href="index-en.html" class="fs-logo">M.E.M.</a>
+    <nav class="fs-links">
+
+      <!-- ETOS -->
+      <a href="etos-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Decision model</span></span>
+      </a>
+
+      <!-- FORLØB -->
+      <a href="forloeb-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a2020;">🔄</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Programmes</span><span class="fs-nav-sub">Carers · Leaders · Psychiatry</span></span>
+      </a>
+
+      <!-- PILOT -->
+      <a href="pilot-pakke-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1a0d;">🧪</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Pilot</span><span class="fs-nav-sub">Test it in practice</span></span>
+      </a>
+
+      <!-- MERE dropdown -->
+      <div class="fs-dropdown">
+        <a href="mem-en.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#0d1117;">✦</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">More</span><span class="fs-nav-sub">Theory · Universe · Democracy</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="mem-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🔬</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">M.E.M.</span><span class="fs-dropdown-item-sub">Foundation</span></span>
+          </a>
+          <a href="arkitektur-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🏗</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Architecture</span><span class="fs-dropdown-item-sub">IDK · ETOS · CDP</span></span>
+          </a>
+          <a href="etos-demokrati-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2820;">🗳</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Democracy</span><span class="fs-dropdown-item-sub">Promises · Accountability</span></span>
+          </a>
+          <a href="boerneunivers-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#2a1f1a;">🌱</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Universe</span><span class="fs-dropdown-item-sub">Children · Bankeren · Learning</span></span>
+          </a>
+          <a href="dirigent-rum-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1a12;">🎼</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Dirigenten</span><span class="fs-dropdown-item-sub">Ideas · Projects</span></span>
+          </a>
+          <a href="regnskab-program-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#111520;">📊</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Regnskab</span><span class="fs-dropdown-item-sub">Økonomi · Overblik</span></span>
+          </a>
+        </div>
+      </div>
+
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt-en.html" class="fs-nav-cta">Contact</a>
+      <a href="psykiatri.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">DA</a>
+    </div>
+  </div>
+</header>
+
+<div class="psy-hero">
+  <div class="psy-hero-inner">
+    <div>
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:20px;">ETOS Forløb · Psychiatry og socialt arbejde</span>
+      <h1>Når beslutninger<br>påvirker mennesker —<br><em>ikke bare systemer</em></h1>
+      <p class="psy-hero-lead">When the situation is complex, the problem is not missing rules — but missing overview of tensions. ETOS helps professionals navigate between coercion, care and autonomy.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="#tilmeld" class="psy-btn psy-btn-primary">Try in practice →</a>
+        <a href="#moduler" class="psy-btn psy-btn-ghost">See the programme ↓</a>
+      </div>
+    </div>
+    <div class="psy-case-widget">
+      <span class="psy-case-label">Typical situation — psychiatry</span>
+      <div class="psy-case-row"><span class="psy-case-name">System risk</span><div class="psy-case-bar"><div class="psy-case-fill" style="width:82%;background:linear-gradient(90deg,#e07070,#e2a06a);"></div></div><span class="psy-case-val">82</span></div>
+      <div class="psy-case-row"><span class="psy-case-name">Citizen autonomy</span><div class="psy-case-bar"><div class="psy-case-fill" style="width:78%;background:#7a9ee8;"></div></div><span class="psy-case-val">78</span></div>
+      <div class="psy-case-row"><span class="psy-case-name">Relational trust</span><div class="psy-case-bar"><div class="psy-case-fill" style="width:22%;background:#4ec88c;"></div></div><span class="psy-case-val">22</span></div>
+      <div class="psy-case-row"><span class="psy-case-name">Time pressure</span><div class="psy-case-bar"><div class="psy-case-fill" style="width:70%;background:var(--accent);"></div></div><span class="psy-case-val">70</span></div>
+      <div class="psy-case-output"><p><strong>ETOS:</strong> Action is possible — but relational damage is likely and must be actively managed.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="psy-problem">
+  <div class="psy-problem-inner">
+    <div>
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:10px;">What you know</span>
+      <h2 style="font-family:'Playfair Display',serif;font-size:28px;color:#1a1a1a;font-weight:400;margin-bottom:16px;">You must act — even when there is no good choice.</h2>
+      <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#666;line-height:1.8;margin-bottom:14px;">Professionals in psychiatry and social work face situations daily where all options have a cost. Systemet kræver handling. Borgeren kræver respekt. Og du sidder i midten.</p>
+      <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#666;line-height:1.8;">ETOS is not an alternative to professional expertise — it is a layer on top that makes tensions visible, so decisions can be made more consciously.</p>
+    </div>
+    <div>
+      <div class="prob-box a"><p><strong>Du forstår situationen</strong> — men systemet kræver at den reduceres til en vurdering og en handling.</p></div>
+      <div class="prob-box c"><p><strong>Tvang kan være nødvendig</strong> — men efterlader spor i relationen der skal håndteres aktivt.</p></div>
+      <div class="prob-box b"><p><strong>Alle beslutninger har konsekvenser</strong> — og dem bærer du ofte alene, uden ramme eller sprog.</p></div>
+      <div class="prob-box a"><p><strong>Læringen forsvinder</strong> — fordi der ikke er struktur til at samle op på hvad der virker og hvad der ikke gør.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="psy-what">
+  <div class="psy-what-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:10px;">Positionering</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#e8ecfc;font-weight:400;margin-bottom:8px;">Not an alternative to expertise — but a layer on top.</h2>
+    <div class="psy-what-grid">
+      <div class="psy-what-card not">
+        <span class="psy-what-tag">Not</span>
+        <h3>Treatment</h3>
+        <div class="psy-what-item">Not psykolog eller terapeut</div>
+        <div class="psy-what-item">Not klinisk vejledning</div>
+        <div class="psy-what-item">Not alternativ til faglighed</div>
+      </div>
+      <div class="psy-what-card is">
+        <span class="psy-what-tag">But</span>
+        <h3>Reflection framework</h3>
+        <div class="psy-what-item">Decisionsstøtte</div>
+        <div class="psy-what-item">System understanding</div>
+        <div class="psy-what-item">Structured reflection</div>
+      </div>
+      <div class="psy-what-card how">
+        <span class="psy-what-tag">Gives</span>
+        <h3>Overblik</h3>
+        <div class="psy-what-item">Tensions made visible</div>
+        <div class="psy-what-item">Ethical pressure navngivet</div>
+        <div class="psy-what-item">Decision med bevidst ansvar</div>
+      </div>
+    </div>
+    <div class="psy-pitch"><p>"I help professionals understand and navigate complex decisions — where both people and systems are at stake."</p></div>
+  </div>
+</div>
+
+<div class="psy-modules" id="moduler">
+  <div class="psy-modules-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:10px;">Forløbet</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">Four modules · from tension to learning</h2>
+
+    <div class="psy-mod">
+      <div class="psy-mod-header" onclick="toggleMod(this)">
+        <div class="psy-mod-num">01</div>
+        <div class="psy-mod-head-text"><h3>The tension field</h3><div class="psy-mod-theme">What is actually in conflict?</div></div>
+      </div>
+      <div class="psy-mod-body open">
+        <div class="psy-mod-cols">
+          <div>
+            <span class="psy-mod-col-label">Indhold</span>
+            <div class="psy-mod-item">ETOS introduction — psychiatry version</div>
+            <div class="psy-mod-item">Coercion vs. autonomy</div>
+            <div class="psy-mod-item">Safety vs. relationship</div>
+            <div class="psy-mod-item">Short-term stabilisation vs. long-term trust</div>
+          </div>
+          <div>
+            <div class="psy-mod-exercise">
+              <span class="psy-mod-ex-label">Øvelse</span>
+              <div class="psy-mod-ex-title">👉 "Map the case"</div>
+              <div class="psy-mod-ex-desc">Risiko, Autonomi, Relational trust og Belastning. ETOS viser divergens, etisk pres og handlingsrum.</div>
+            </div>
+            <div class="psy-mod-output"><span class="psy-mod-output-tag">Divergence visible</span><span class="psy-mod-output-tag">Ethical pressure navngivet</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="psy-mod">
+      <div class="psy-mod-header" onclick="toggleMod(this)">
+        <div class="psy-mod-num">02</div>
+        <div class="psy-mod-head-text"><h3>The professional's position</h3><div class="psy-mod-theme">Where do I stand — and what is my responsibility?</div></div>
+      </div>
+      <div class="psy-mod-body">
+        <div class="psy-mod-cols">
+          <div>
+            <span class="psy-mod-col-label">Indhold</span>
+            <div class="psy-mod-item">Responsibility vs. power — the crucial difference</div>
+            <div class="psy-mod-item">Professional expertise vs. system demands</div>
+            <div class="psy-mod-item">Ethical debt from intervention</div>
+          </div>
+          <div>
+            <div class="psy-mod-exercise">
+              <span class="psy-mod-ex-label">Øvelse</span>
+              <div class="psy-mod-ex-title">👉 "My position"</div>
+              <div class="psy-mod-ex-desc">What does the system require? What does the citizen experience? What can I stand behind?</div>
+            </div>
+            <div class="psy-mod-output"><span class="psy-mod-output-tag">Role clarity</span><span class="psy-mod-output-tag">Conscious choice</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="psy-mod">
+      <div class="psy-mod-header" onclick="toggleMod(this)">
+        <div class="psy-mod-num">03</div>
+        <div class="psy-mod-head-text"><h3>Decision</h3><div class="psy-mod-theme">What do we do — and why?</div></div>
+      </div>
+      <div class="psy-mod-body">
+        <div class="psy-mod-cols">
+          <div>
+            <span class="psy-mod-col-label">Indhold</span>
+            <div class="psy-mod-item">Decisionsmode: Stabil · Spændt · Kritisk</div>
+            <div class="psy-mod-item">When coercion may arise</div>
+            <div class="psy-mod-item">When relationship must be prioritised</div>
+          </div>
+          <div>
+            <div class="psy-mod-exercise">
+              <span class="psy-mod-ex-label">Øvelse</span>
+              <div class="psy-mod-ex-title">👉 "Decisionsvalg"</div>
+              <div class="psy-mod-ex-desc">What is the decision? What is the consequence? What is the alternative?</div>
+            </div>
+            <div class="psy-mod-output"><span class="psy-mod-output-tag">Conscious action</span><span class="psy-mod-output-tag">Responsibility placed</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="psy-mod">
+      <div class="psy-mod-header" onclick="toggleMod(this)">
+        <div class="psy-mod-num">04</div>
+        <div class="psy-mod-head-text"><h3>Aftermath og læring</h3><div class="psy-mod-theme">What happens afterwards?</div></div>
+      </div>
+      <div class="psy-mod-body">
+        <div class="psy-mod-cols">
+          <div>
+            <span class="psy-mod-col-label">Indhold</span>
+            <div class="psy-mod-item">Experienced coercion vs. intention</div>
+            <div class="psy-mod-item">Trust after intervention</div>
+            <div class="psy-mod-item">Structured reflection og læring</div>
+          </div>
+          <div>
+            <div class="psy-mod-exercise">
+              <span class="psy-mod-ex-label">Øvelse</span>
+              <div class="psy-mod-ex-title">👉 "Aftermath"</div>
+              <div class="psy-mod-ex-desc">How did the citizen experience it? What needs explaining? What needs repairing?</div>
+            </div>
+            <div class="psy-mod-output"><span class="psy-mod-output-tag">Learning preserved</span><span class="psy-mod-output-tag">Relationship repaired</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="psy-case-ex">
+  <div class="psy-case-ex-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:10px;">Eksempel</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#e8ecfc;font-weight:400;">ETOS in practice — a psychiatric situation</h2>
+    <div class="psy-case-ex-box">
+      <div class="psy-case-ex-header">
+        <span style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:rgba(240,235,224,0.7);">Patient refuses treatment · High risk · Low trust</span>
+        <span style="font-family:'Playfair Display',serif;font-size:14px;color:#4ec88c;">Critical tension</span>
+      </div>
+      <div class="psy-case-ex-body">
+        <div>
+          <span class="psy-col-label">Situationen</span>
+          <div class="psy-item t">Patient refuses medication and treatment</div>
+          <div class="psy-item t">System riskvurdering: høj</div>
+          <div class="psy-item t">Relational trust: meget lav</div>
+        </div>
+        <div>
+          <span class="psy-col-label">ETOS registrerer</span>
+          <div class="psy-item i">High divergence — system demands and citizen will are incompatible</div>
+          <div class="psy-item i">Etisk gæld opstår uanset valg</div>
+          <div class="psy-item i">Action is possible — but with a cost</div>
+        </div>
+        <div>
+          <span class="psy-col-label">Fagpersonens indsigt</span>
+          <div class="psy-item a">Action is necessary — but relational damage must be actively managed</div>
+          <div class="psy-item a">Document the dilemma explicitly</div>
+          <div class="psy-item a">Plan repair of the relationship afterwards</div>
+        </div>
+      </div>
+      <div class="psy-case-ex-footer"><p>"ETOS does not remove the dilemma. It gives the professional <strong>language and structure to act consciously</strong> — and learn from it afterwards."</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="psy-format">
+  <div class="psy-format-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:10px;">Format</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:36px;">Three ways to work with it</h2>
+    <div class="psy-format-grid">
+      <div class="psy-format-card"><span class="psy-format-icon">🏛</span><h3>Workshop</h3><p class="psy-format-desc">Cases from practice. ETOS is used live on real situations from the department's daily work.</p><div class="psy-format-detail">3–4 hours · in person · team</div></div>
+      <div class="psy-format-card"><span class="psy-format-icon">📅</span><h3>Forløb</h3><p class="psy-format-desc">One module per week over four weeks. You work with your own practice and watch the patterns develop.</p><div class="psy-format-detail">4 weeks · online or in person</div></div>
+      <div class="psy-format-card"><span class="psy-format-icon">🏥</span><h3>Institutionspilot</h3><p class="psy-format-desc">Entire departments or teams work with ETOS as a shared language for complex decisions.</p><div class="psy-format-detail">Arranged individually · shared language</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="psy-cta" id="tilmeld">
+  <div class="psy-cta-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:16px;">Start the conversation</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:30px;color:#f0ebe0;font-weight:400;margin-bottom:14px;">Try ETOS in your department</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,0.5);line-height:1.8;margin-bottom:28px;">Start with a no-obligation conversation about your specific practice.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;">
+      <a href="mailto:M.E.M.Teori@gmail.com?subject=ETOS Psychiatry - interesse" class="psy-btn psy-btn-primary">Write to us →</a>
+      <a href="kontakt-en.html" class="psy-btn psy-btn-ghost">Contact page</a>
+    </div>
+    <p style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,0.25);font-style:italic;">Free introductory conversation · no obligation</p>
+  </div>
+</div>
+
+<script>
+function toggleMod(header) {
+  const body = header.nextElementSibling;
+  const isOpen = body.classList.contains('open');
+  document.querySelectorAll('.psy-mod-body').forEach(b => b.classList.remove('open'));
+  if (!isOpen) body.classList.add('open');
+}
+</script>
+
+<!-- PILOT STRIP -->
+<div style="background:#1a1a0d;padding:36px 52px;border-top:1px solid rgba(240,200,80,0.1);">
+  <div style="max-width:1160px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+    <div>
+      <p style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#f0c850;margin-bottom:6px;">● Pilot in progress</p>
+      <p style="font-family:'Playfair Display',serif;font-size:17px;color:#f0ebe0;font-style:italic;margin:0;">Vil du teste det i din virkelige situation? 90 min · gratis · ingen forberedelse.</p>
+    </div>
+    <a href="pilot-pakke-en.html" style="display:inline-flex;align-items:center;gap:8px;background:#f0c850;color:#1a1a0d;padding:11px 22px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;flex-shrink:0;">See the pilot package →</a>
+  </div>
+</div>
+
+</body>
+</html>

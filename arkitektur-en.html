@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Architecture — M.E.M. / ETOS</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    /* HERO */
+    .ark-hero {
+      background: #0d1117;
+      padding: 72px 52px 64px;
+      position: relative; overflow: hidden;
+    }
+    .ark-hero::before {
+      content: ''; position: absolute; top: -100px; right: -100px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(122,158,232,0.06), transparent 70%);
+      pointer-events: none;
+    }
+    .ark-hero::after {
+      content: ''; position: absolute; bottom: -60px; left: 80px;
+      width: 300px; height: 300px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(226,136,78,0.05), transparent 70%);
+      pointer-events: none;
+    }
+    .ark-hero-inner { max-width: 1160px; margin: 0 auto; position: relative; }
+    .ark-hero h1 {
+      font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 50px);
+      color: #f0ebe0; font-weight: 400; line-height: 1.1;
+      letter-spacing: -0.02em; margin-bottom: 16px;
+    }
+    .ark-hero h1 em { font-style: italic; color: #7a9ee8; }
+    .ark-hero-lead {
+      font-family: 'DM Sans', sans-serif; font-size: 15px;
+      color: rgba(240,235,224,0.5); line-height: 1.8;
+      max-width: 580px; margin-bottom: 10px;
+    }
+    .ark-trl {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-top: 20px;
+      background: rgba(122,158,232,0.08); border: 1px solid rgba(122,158,232,0.2);
+      border-radius: 10px; padding: 10px 18px;
+    }
+    .ark-trl-label { font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(240,235,224,0.35); text-transform: uppercase; letter-spacing: 0.08em; }
+    .ark-trl-val { font-family: 'Playfair Display', serif; font-size: 20px; color: #7a9ee8; font-weight: 400; }
+    .ark-trl-desc { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(240,235,224,0.4); }
+
+    /* FUNDAMENT */
+    .ark-foundation { background: #1a1228; padding: 64px 52px; }
+    .ark-foundation-inner { max-width: 1160px; margin: 0 auto; }
+    .ark-section-tag { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 10px; }
+    .ark-h2 { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 400; margin-bottom: 8px; }
+
+    .mem-block {
+      margin-top: 36px; background: rgba(122,158,232,0.06); border: 1px solid rgba(122,158,232,0.15);
+      border-radius: 16px; padding: 36px;
+    }
+    .mem-block-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+    .mem-block-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(122,158,232,0.12); display: flex; align-items: center; justify-content: center; font-size: 22px; }
+    .mem-block-title { font-family: 'Playfair Display', serif; font-size: 20px; color: #e8ecfc; font-weight: 400; }
+    .mem-block-status { font-family: 'DM Sans', sans-serif; font-size: 11px; color: #7a9ee8; margin-top: 2px; }
+    .mem-dims { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .mem-dim {
+      padding: 20px; border-radius: 10px;
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+    .mem-dim.m { background: rgba(122,158,232,0.08); border: 1px solid rgba(122,158,232,0.15); }
+    .mem-dim.e { background: rgba(226,136,78,0.08); border: 1px solid rgba(226,136,78,0.15); }
+    .mem-dim.mo { background: rgba(78,200,140,0.08); border: 1px solid rgba(78,200,140,0.15); }
+    .mem-dim-letter { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 400; line-height: 1; flex-shrink: 0; }
+    .mem-dim.m .mem-dim-letter { color: #7a9ee8; }
+    .mem-dim.e .mem-dim-letter { color: var(--accent); }
+    .mem-dim.mo .mem-dim-letter { color: #4ec88c; }
+    .mem-dim-text h4 { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+    .mem-dim.m .mem-dim-text h4 { color: #7a9ee8; }
+    .mem-dim.e .mem-dim-text h4 { color: var(--accent); }
+    .mem-dim.mo .mem-dim-text h4 { color: #4ec88c; }
+    .mem-dim-text p { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(240,235,224,0.4); line-height: 1.6; margin: 0; }
+
+    /* MOTOR */
+    .ark-motor { background: #0d1a2a; padding: 64px 52px; }
+    .ark-motor-inner { max-width: 1160px; margin: 0 auto; }
+    .idk-block {
+      margin-top: 36px; background: rgba(90,126,216,0.06); border: 1px solid rgba(90,126,216,0.15);
+      border-radius: 16px; padding: 36px;
+    }
+    .idk-states { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 24px 0; }
+    .idk-state { padding: 20px 16px; border-radius: 10px; text-align: center; }
+    .idk-state.normal { background: rgba(78,200,140,0.1); border: 1px solid rgba(78,200,140,0.2); }
+    .idk-state.review { background: rgba(122,158,232,0.1); border: 1px solid rgba(122,158,232,0.2); }
+    .idk-state.emergency { background: rgba(224,112,112,0.1); border: 1px solid rgba(224,112,112,0.2); }
+    .idk-state.incompatible { background: rgba(226,136,78,0.1); border: 1px solid rgba(226,136,78,0.2); }
+    .idk-state-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 400; margin-bottom: 6px; }
+    .idk-state.normal .idk-state-name { color: #4ec88c; }
+    .idk-state.review .idk-state-name { color: #7a9ee8; }
+    .idk-state.emergency .idk-state-name { color: #e07070; }
+    .idk-state.incompatible .idk-state-name { color: #e2a06a; }
+    .idk-state-desc { font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(240,235,224,0.4); line-height: 1.5; }
+    .idk-params { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+    .idk-param { font-family: 'DM Sans', sans-serif; font-size: 11px; padding: 4px 10px; border-radius: 20px; background: rgba(255,255,255,0.05); color: rgba(240,235,224,0.4); border: 1px solid rgba(255,255,255,0.08); }
+
+    /* SOFTWARE */
+    .ark-software { background: #111520; padding: 64px 52px; }
+    .ark-software-inner { max-width: 1160px; margin: 0 auto; }
+    .modules-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 36px; }
+    .module-card {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px; padding: 28px 24px;
+      transition: border-color 0.15s;
+    }
+    .module-card:hover { border-color: rgba(255,255,255,0.15); }
+    .module-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .module-card-name { font-family: 'Playfair Display', serif; font-size: 17px; color: #e8ecfc; font-weight: 400; }
+    .module-status {
+      font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500;
+      padding: 3px 9px; border-radius: 20px;
+    }
+    .status-working { background: rgba(78,200,140,0.12); color: #4ec88c; border: 1px solid rgba(78,200,140,0.2); }
+    .status-early   { background: rgba(122,158,232,0.12); color: #7a9ee8; border: 1px solid rgba(122,158,232,0.2); }
+    .status-concept { background: rgba(226,136,78,0.12); color: #e2a06a; border: 1px solid rgba(226,136,78,0.2); }
+    .module-card-desc { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(232,236,252,0.4); line-height: 1.7; margin-bottom: 14px; }
+    .module-card-highlight {
+      font-family: 'DM Sans', sans-serif; font-size: 12px;
+      color: rgba(232,236,252,0.6); font-style: italic;
+      padding: 8px 12px; background: rgba(255,255,255,0.04); border-radius: 6px;
+    }
+
+    /* GOVERNANCE */
+    .ark-governance { background: #1a1228; padding: 64px 52px; }
+    .ark-governance-inner { max-width: 1160px; margin: 0 auto; }
+    .cdp-block {
+      margin-top: 36px; background: rgba(226,136,78,0.05); border: 1px solid rgba(226,136,78,0.15);
+      border-radius: 16px; padding: 36px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
+    }
+    .cdp-principles { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+    .cdp-principle {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 16px; background: rgba(255,255,255,0.04); border-radius: 8px;
+    }
+    .cdp-principle-icon { font-size: 16px; flex-shrink: 0; }
+    .cdp-principle-text { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(240,235,224,0.6); }
+
+    /* OVERBLIK */
+    .ark-overview { background: #f5f0e8; padding: 64px 52px; }
+    .ark-overview-inner { max-width: 1160px; margin: 0 auto; }
+    .overview-table { width: 100%; margin-top: 36px; border-collapse: separate; border-spacing: 0 8px; }
+    .overview-table th {
+      font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase; color: #888;
+      padding: 8px 20px; text-align: left;
+    }
+    .overview-table td {
+      background: #fff; padding: 16px 20px;
+      font-family: 'DM Sans', sans-serif; font-size: 13px; color: #444;
+      border-top: 1px solid rgba(0,0,0,0.05); border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .overview-table td:first-child { border-left: 1px solid rgba(0,0,0,0.05); border-radius: 10px 0 0 10px; font-weight: 500; color: #1a1a1a; }
+    .overview-table td:last-child { border-right: 1px solid rgba(0,0,0,0.05); border-radius: 0 10px 10px 0; }
+    .ov-status { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; }
+    .ov-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .ov-dot.green { background: #4ec88c; }
+    .ov-dot.blue { background: #7a9ee8; }
+    .ov-dot.orange { background: #e2a06a; }
+
+    /* CTA */
+    .ark-cta { background: #0d1117; padding: 56px 52px; }
+    .ark-cta-inner { max-width: 1160px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+
+    @media (max-width: 860px) {
+      .ark-hero, .ark-foundation, .ark-motor, .ark-software, .ark-governance, .ark-overview, .ark-cta { padding: 48px 28px; }
+      .mem-dims { grid-template-columns: 1fr; }
+      .idk-states { grid-template-columns: repeat(2, 1fr); }
+      .modules-grid { grid-template-columns: 1fr; }
+      .cdp-block { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="fs-header">
+<style>
+  .fs-dropdown { position: relative; }
+  .fs-dropdown-menu {
+    display: none; position: absolute; top: calc(100% + 6px); left: -8px;
+    background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 8px; min-width: 200px; z-index: 999;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+  }
+  .fs-dropdown:hover .fs-dropdown-menu { display: block; }
+  .fs-dropdown-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px; border-radius: 8px; text-decoration: none;
+    transition: background 0.12s;
+  }
+  .fs-dropdown-item:hover { background: rgba(255,255,255,0.07); }
+  .fs-dropdown-item-icon {
+    width: 28px; height: 28px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; flex-shrink: 0;
+  }
+  .fs-dropdown-item-text { display: flex; flex-direction: column; }
+  .fs-dropdown-item-title { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: #fff; line-height: 1.2; }
+  .fs-dropdown-item-sub { font-family: 'DM Sans', sans-serif; font-size: 10px; color: rgba(255,255,255,0.4); line-height: 1.2; }
+  .fs-nav-item-arrow { font-size: 9px; color: rgba(255,255,255,0.25); margin-left: 2px; }
+</style>
+  <div class="fs-nav">
+    <a href="index-en.html" class="fs-logo">M.E.M.</a>
+    <nav class="fs-links">
+
+      <!-- ETOS -->
+      <a href="etos-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Decision model</span></span>
+      </a>
+
+      <!-- FORLØB -->
+      <a href="forloeb-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a2020;">🔄</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Programmes</span><span class="fs-nav-sub">Carers · Leaders · Psychiatry</span></span>
+      </a>
+
+      <!-- PILOT -->
+      <a href="pilot-pakke-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1a0d;">🧪</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Pilot</span><span class="fs-nav-sub">Test it in practice</span></span>
+      </a>
+
+      <!-- MERE dropdown -->
+      <div class="fs-dropdown">
+        <a href="mem-en.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#0d1117;">✦</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">More</span><span class="fs-nav-sub">Theory · Universe · Democracy</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="mem-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🔬</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">M.E.M.</span><span class="fs-dropdown-item-sub">Foundation</span></span>
+          </a>
+          <a href="arkitektur-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🏗</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Architecture</span><span class="fs-dropdown-item-sub">IDK · ETOS · CDP</span></span>
+          </a>
+          <a href="etos-demokrati-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2820;">🗳</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Democracy</span><span class="fs-dropdown-item-sub">Promises · Accountability</span></span>
+          </a>
+          <a href="boerneunivers-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#2a1f1a;">🌱</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Universe</span><span class="fs-dropdown-item-sub">Children · Bankeren · Learning</span></span>
+          </a>
+          <a href="dirigent-rum-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1a12;">🎼</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Dirigenten</span><span class="fs-dropdown-item-sub">Ideas · Projects</span></span>
+          </a>
+          <a href="regnskab-program-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#111520;">📊</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Regnskab</span><span class="fs-dropdown-item-sub">Økonomi · Overblik</span></span>
+          </a>
+        </div>
+      </div>
+
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt-en.html" class="fs-nav-cta">Contact</a>
+      <a href="arkitektur.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">DA</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="ark-hero">
+  <div class="ark-hero-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7a9ee8;display:block;margin-bottom:20px;">Architecture · Beta model status</span>
+    <h1>En modulær arkitektur<br>til <em>normative spændinger</em></h1>
+    <p class="ark-hero-lead">M.E.M. / ETOS is not one system — it is nine interconnected modules that together can identify, structure, analyse and learn from complex decision situations.</p>
+    <div class="ark-trl">
+      <div>
+        <div class="ark-trl-label">Technology Readiness Level</div>
+        <div style="display:flex;align-items:baseline;gap:8px;margin-top:2px;">
+          <span class="ark-trl-val">TRL 3–4</span>
+          <span class="ark-trl-desc">Prototype tested in simulation environment · Not yet in real organisations</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LAG 1: M.E.M. FUNDAMENT -->
+<div class="ark-foundation">
+  <div class="ark-foundation-inner">
+    <span class="ark-section-tag" style="color:#7a9ee8;">Layer 1 · Theoretical foundation</span>
+    <h2 class="ark-h2" style="color:#e8ecfc;">M.E.M. — Meaning, Experience, Model</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(232,236,252,0.45);max-width:580px;line-height:1.75;">Det konceptuelle fundament der beskriver beslutningssituationer som relationer mellem tre lag. Status: <strong style="color:#7a9ee8;">Konceptuel model klar til empirisk test.</strong></p>
+
+    <div class="mem-block">
+      <div class="mem-block-header">
+        <div class="mem-block-icon">🔬</div>
+        <div>
+          <div class="mem-block-title">Three dimensions — one tension</div>
+          <div class="mem-block-status">Next: empirical testing in organisational studies</div>
+        </div>
+      </div>
+      <div class="mem-dims">
+        <div class="mem-dim m">
+          <div class="mem-dim-letter">M</div>
+          <div class="mem-dim-text">
+            <h4>Meaning</h4>
+            <p>Normative værdier systemet søger at beskytte — sikkerhed, autonomi, værdighed, retfærdighed</p>
+          </div>
+        </div>
+        <div class="mem-dim e">
+          <div class="mem-dim-letter">E</div>
+          <div class="mem-dim-text">
+            <h4>Experience</h4>
+            <p>Menneskelig erfaring — moralsk stress, tab af kontrol, usikkerhed, tillid til systemet</p>
+          </div>
+        </div>
+        <div class="mem-dim mo">
+          <div class="mem-dim-letter">M</div>
+          <div class="mem-dim-text">
+            <h4>Model</h4>
+            <p>Institutionelle strukturer — love, procedurer, algoritmer, beslutningsrammer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LAG 2: IDK BESLUTNINGSMOTOR -->
+<div class="ark-motor">
+  <div class="ark-motor-inner">
+    <span class="ark-section-tag" style="color:#4ec88c;">Layer 2 · Decision engine</span>
+    <h2 class="ark-h2" style="color:#e8ecfc;">IDK — Decision Engine</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(232,236,252,0.45);max-width:580px;line-height:1.75;">Structures decisions in situations with normative tension. Classifies into <strong style="color:#4ec88c;">five states</strong> based on six parameters. Also calculates ethical debt as a function of divergence. Status: <strong style="color:#4ec88c;">Working prototype — tested in 1,296 synthetic cases.</strong></p>
+
+    <div class="idk-block">
+      <div class="idk-states" style="grid-template-columns:repeat(5,1fr);">
+        <div class="idk-state normal">
+          <div class="idk-state-name">Normal</div>
+          <div class="idk-state-desc">The decision is in balance</div>
+        </div>
+        <div class="idk-state review">
+          <div class="idk-state-name">Kræver gennemgang</div>
+          <div class="idk-state-desc">Begyndende spænding — anbefales gennemgang</div>
+        </div>
+        <div class="idk-state emergency">
+          <div class="idk-state-name">Emergency</div>
+          <div class="idk-state-desc">Høj spænding — etisk gæld registreres</div>
+        </div>
+        <div class="idk-state incompatible">
+          <div class="idk-state-name">Incompatible</div>
+          <div class="idk-state-desc">Systemet kan ikke opfylde sine egne mål</div>
+        </div>
+        <div class="idk-state" style="background:rgba(180,100,200,0.1);border:1px solid rgba(180,100,200,0.2);">
+          <div class="idk-state-name" style="color:#c87ae8;">Constitutional veto</div>
+          <div class="idk-state-desc">Foundational principles are broken — requires human intervention</div>
+        </div>
+      </div>
+      <p style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,0.3);margin-bottom:8px;">Assesses via these parameters:</p>
+      <div class="idk-params">
+        <span class="idk-param">Coercion</span>
+        <span class="idk-param">Refusal</span>
+        <span class="idk-param">Capacity loss</span>
+        <span class="idk-param">Risk</span>
+        <span class="idk-param">Time sensitivity</span>
+        <span class="idk-param">Advance directive</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;">
+        <div style="background:rgba(255,255,255,0.03);border-radius:8px;padding:12px 14px;">
+          <p style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(240,235,224,0.25);margin-bottom:6px;">Ethical debt</p>
+          <p style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,0.45);line-height:1.6;margin:0;">Calculated as divergence × 0.85. Classified as Low / Moderate / High / Critical.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.03);border-radius:8px;padding:12px 14px;">
+          <p style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(240,235,224,0.25);margin-bottom:6px;">Test result</p>
+          <p style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,0.45);line-height:1.6;margin:0;">1,296 synthetic cases · 23% classified as Emergency · Clear structural patterns.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LAG 3: SOFTWARE MODULER -->
+<div class="ark-software">
+  <div class="ark-software-inner">
+    <span class="ark-section-tag" style="color:var(--accent);">Layer 3 · Software and analysis</span>
+    <h2 class="ark-h2" style="color:#e8ecfc;">ETOS — The software architecture and its modules</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(232,236,252,0.45);max-width:580px;line-height:1.75;">Six modules that implement M.E.M. and IDK in a software environment — from data registration to pattern analysis and visualisation.</p>
+
+    <div class="modules-grid">
+      <div class="module-card">
+        <div class="module-card-header">
+          <span class="module-card-name">ETOS Core System</span>
+          <span class="module-status status-working">Prototype</span>
+        </div>
+        <p class="module-card-desc">Registers decision parameters, classifies situations, logs decisions and analyses patterns over time.</p>
+        <div class="module-card-highlight">Next: stable user interface + data security</div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-card-header">
+          <span class="module-card-name">The Reflection Centre</span>
+          <span class="module-status status-working">Fungerende</span>
+        </div>
+        <p class="module-card-desc">Collects cases, identifies patterns and makes systemic tensions visible. Shifts focus from individual errors to structural conditions.</p>
+        <div class="module-card-highlight">Next: organisation reports + visualisations</div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-card-header">
+          <span class="module-card-name">Scenario Simulator</span>
+          <span class="module-status status-working">Forskningsværktøj</span>
+        </div>
+        <p class="module-card-desc">Generates hypothetical cases and tests the system's logic. Has run 1,296 synthetic scenarios with clear structural patterns.</p>
+        <div class="module-card-highlight">Next: realistic data + sector-specific scenarios</div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-card-header">
+          <span class="module-card-name">Weakpoint Analyzer</span>
+          <span class="module-status status-early">Experimental</span>
+        </div>
+        <p class="module-card-desc">Finds systemic weaknesses in the decision engine. Has identified 22 cases of "low score emergency" and 12 "abrupt transitions".</p>
+        <div class="module-card-highlight">Next: automatic suggestions for improvements</div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-card-header">
+          <span class="module-card-name">Decision Landscape</span>
+          <span class="module-status status-early">Experimental</span>
+        </div>
+        <p class="module-card-desc">Maps how the system responds to different situation types — visualises the decision pattern across parameters.</p>
+        <div class="module-card-highlight">Next: interactive visualisations + policy analysis</div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-card-header">
+          <span class="module-card-name">Learning Loop</span>
+          <span class="module-status status-early">Early prototype</span>
+        </div>
+        <p class="module-card-desc">Lets the system learn from previous decisions — identifies recurring patterns and suggests adjustments to the decision logic.</p>
+        <div class="module-card-highlight">Next: adaptive parameter adjustment</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LAG 4: CDP GOVERNANCE -->
+<div class="ark-governance">
+  <div class="ark-governance-inner">
+    <span class="ark-section-tag" style="color:var(--accent);">Layer 4 · Governance</span>
+    <h2 class="ark-h2" style="color:#e8ecfc;">CDP — Constitutional framework</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(232,236,252,0.45);max-width:580px;line-height:1.75;">CDP ensures the decision system remains transparent, auditable and institutionally accountable. A constitutional layer above the other modules. Status: <strong style="color:var(--accent);">Konceptuel model.</strong></p>
+
+    <div class="cdp-block">
+      <div>
+        <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,0.5);line-height:1.8;margin-bottom:20px;">CDP fungerer som et rammeværk der stiller krav til alle øvrige lag — ikke som et modul der løser specifikke opgaver, men som den institutionelle garanti for at systemet kan bruges ansvarligt.</p>
+        <div class="cdp-principles">
+          <div class="cdp-principle">
+            <span class="cdp-principle-icon">👁</span>
+            <span class="cdp-principle-text"><strong style="color:rgba(240,235,224,0.7);">Transparens</strong> — beslutningslogikken er synlig og forståelig</span>
+          </div>
+          <div class="cdp-principle">
+            <span class="cdp-principle-icon">📋</span>
+            <span class="cdp-principle-text"><strong style="color:rgba(240,235,224,0.7);">Auditabilitet</strong> — alle beslutninger kan efterprøves</span>
+          </div>
+          <div class="cdp-principle">
+            <span class="cdp-principle-icon">🏛</span>
+            <span class="cdp-principle-text"><strong style="color:rgba(240,235,224,0.7);">Institutionelt ansvar</strong> — systemet erstatter ikke menneskelig vurdering</span>
+          </div>
+        </div>
+      </div>
+      <div style="background:rgba(226,136,78,0.06);border:1px solid rgba(226,136,78,0.15);border-radius:14px;padding:28px;">
+        <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:18px;color:rgba(240,235,224,0.6);line-height:1.6;margin:0;">"A system that makes decisions about people must itself be accountable — not hide behind the logic of the algorithm."</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SAMLET OVERBLIK -->
+<div class="ark-overview">
+  <div class="ark-overview-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">Overall status</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;">All nine modules</h2>
+    <table class="overview-table">
+      <thead>
+        <tr>
+          <th>Modul</th>
+          <th>Layer</th>
+          <th>Status</th>
+          <th>Next steps</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>M.E.M.</td>
+          <td>Foundation</td>
+          <td><span class="ov-status"><span class="ov-dot blue"></span>Konceptuel model</span></td>
+          <td>Empirical testing in organisational studies</td>
+        </tr>
+        <tr>
+          <td>IDK</td>
+          <td>Beslutningsmotor</td>
+          <td><span class="ov-status"><span class="ov-dot green"></span>Working prototype</span></td>
+          <td>Parameter calibration + empirical data · 5 tilstande</td>
+        </tr>
+        <tr>
+          <td>ETOS Core System</td>
+          <td>Software</td>
+          <td><span class="ov-status"><span class="ov-dot green"></span>Experimental prototype</span></td>
+          <td>Stable UI + data security</td>
+        </tr>
+        <tr>
+          <td>The Reflection Centre</td>
+          <td>Software</td>
+          <td><span class="ov-status"><span class="ov-dot green"></span>Working analysis module</span></td>
+          <td>Organisation reports + visualisations</td>
+        </tr>
+        <tr>
+          <td>Learning Loop</td>
+          <td>Software</td>
+          <td><span class="ov-status"><span class="ov-dot blue"></span>Early prototype</span></td>
+          <td>Adaptiv parameterjustering</td>
+        </tr>
+        <tr>
+          <td>Scenario Simulator</td>
+          <td>Software</td>
+          <td><span class="ov-status"><span class="ov-dot green"></span>Forskningsværktøj</span></td>
+          <td>Realistic data + sector scenarios</td>
+        </tr>
+        <tr>
+          <td>Weakpoint Analyzer</td>
+          <td>Software</td>
+          <td><span class="ov-status"><span class="ov-dot blue"></span>Experimental</span></td>
+          <td>Automatic improvement suggestions</td>
+        </tr>
+        <tr>
+          <td>Decision Landscape</td>
+          <td>Software</td>
+          <td><span class="ov-status"><span class="ov-dot blue"></span>Experimental</span></td>
+          <td>Interactive visualisations</td>
+        </tr>
+        <tr>
+          <td>CDP</td>
+          <td>Governance</td>
+          <td><span class="ov-status"><span class="ov-dot orange"></span>Konceptuel model</span></td>
+          <td>Integration with ETOS + governance protocols</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="ark-cta">
+  <div class="ark-cta-inner">
+    <div>
+      <p style="font-family:'Playfair Display',serif;font-size:24px;color:#f0ebe0;font-weight:400;font-style:italic;margin:0 0 8px;">"The system is tested. Reality awaits."</p>
+      <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,0.35);margin:0;">TRL 3–4 · Ready for pilot collaboration in real organisations</p>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <a href="kontakt-en.html" class="fs-btn-primary">Become a pilot partner →</a>
+      <a href="mem-en.html" class="fs-btn-ghost-dark">Read the theory</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

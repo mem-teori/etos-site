@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Leadership Compass — ETOS for leaders</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    .led-hero {
+      background: linear-gradient(160deg, #0d1a2a 0%, #1a2030 60%, #0d1117 100%);
+      padding: 80px 52px 72px; position: relative; overflow: hidden;
+    }
+    .led-hero::before {
+      content: ''; position: absolute; top: -80px; right: -80px;
+      width: 440px; height: 440px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(226,136,78,0.07), transparent 70%);
+      pointer-events: none;
+    }
+    .led-hero-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 400px; gap: 64px; align-items: center; position: relative; }
+    .led-tag { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 20px; }
+    .led-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 48px); color: #f0ebe0; font-weight: 400; line-height: 1.12; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .led-hero h1 em { font-style: italic; color: var(--accent); }
+    .led-hero-lead { font-family: 'DM Sans', sans-serif; font-size: 15px; color: rgba(240,235,224,0.5); line-height: 1.8; margin-bottom: 28px; max-width: 460px; }
+    .led-hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+    .led-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.15s; }
+    .led-btn-primary { background: var(--accent); color: #fff; }
+    .led-btn-primary:hover { background: var(--accent-dk); }
+    .led-btn-ghost { background: transparent; color: rgba(240,235,224,0.55); border: 1px solid rgba(240,235,224,0.15); }
+    .led-btn-ghost:hover { color: rgba(240,235,224,0.9); border-color: rgba(240,235,224,0.3); }
+
+    /* SPÆNDINGSKOMPASS */
+    .led-compass {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(226,136,78,0.15);
+      border-radius: 16px; padding: 28px;
+    }
+    .led-compass-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,235,224,0.3); display: block; margin-bottom: 16px; }
+    .led-tensions { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+    .led-tension-pair { display: flex; align-items: center; gap: 8px; }
+    .led-tension-left { font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(240,235,224,0.4); width: 80px; text-align: right; flex-shrink: 0; }
+    .led-tension-right { font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(240,235,224,0.4); width: 80px; flex-shrink: 0; }
+    .led-tension-bar { flex: 1; height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; position: relative; overflow: hidden; }
+    .led-tension-fill { position: absolute; top: 0; height: 100%; border-radius: 3px; }
+    .led-compass-output { padding: 12px 14px; background: rgba(226,136,78,0.06); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; }
+    .led-compass-output p { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(240,235,224,0.5); line-height: 1.7; margin: 0; }
+    .led-compass-output strong { color: var(--accent); }
+
+    /* PROBLEM */
+    .led-problem { background: #f5f0e8; padding: 64px 52px; }
+    .led-problem-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .led-problem h2 { font-family: 'Playfair Display', serif; font-size: 28px; color: #1a1a1a; font-weight: 400; margin-bottom: 16px; }
+    .led-problem p { font-family: 'DM Sans', sans-serif; font-size: 14px; color: #666; line-height: 1.8; margin-bottom: 14px; }
+    .led-prob-boxes { display: flex; flex-direction: column; gap: 10px; }
+    .led-prob-box { padding: 18px 20px; border-radius: 12px; }
+    .led-prob-box.a { background: rgba(226,136,78,0.06); border: 1px solid rgba(226,136,78,0.12); border-left: 3px solid var(--accent); }
+    .led-prob-box.b { background: rgba(122,158,232,0.06); border: 1px solid rgba(122,158,232,0.12); border-left: 3px solid #7a9ee8; }
+    .led-prob-box.c { background: rgba(224,112,112,0.06); border: 1px solid rgba(224,112,112,0.12); border-left: 3px solid #e07070; }
+    .led-prob-box p { font-family: 'DM Sans', sans-serif; font-size: 13px; line-height: 1.7; margin: 0; color: #555; }
+
+    /* HVAD */
+    .led-what { background: #1a2030; padding: 64px 52px; }
+    .led-what-inner { max-width: 1160px; margin: 0 auto; }
+    .led-what-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 36px; }
+    .led-what-card { border-radius: 14px; padding: 28px 24px; }
+    .led-what-card.not { background: rgba(224,112,112,0.06); border: 1px solid rgba(224,112,112,0.12); }
+    .led-what-card.is  { background: rgba(78,200,140,0.06); border: 1px solid rgba(78,200,140,0.15); }
+    .led-what-card.how { background: rgba(226,136,78,0.06); border: 1px solid rgba(226,136,78,0.15); }
+    .led-what-tag { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 12px; }
+    .led-what-card.not .led-what-tag { color: #e07070; }
+    .led-what-card.is  .led-what-tag { color: #4ec88c; }
+    .led-what-card.how .led-what-tag { color: var(--accent); }
+    .led-what-card h3 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 400; margin-bottom: 10px; }
+    .led-what-card.not h3 { color: #e07070; }
+    .led-what-card.is  h3 { color: #4ec88c; }
+    .led-what-card.how h3 { color: var(--accent); }
+    .led-what-items { display: flex; flex-direction: column; gap: 8px; }
+    .led-what-item { font-family: 'DM Sans', sans-serif; font-size: 13px; line-height: 1.6; padding: 8px 12px; border-radius: 7px; }
+    .led-what-card.not .led-what-item { color: rgba(224,112,112,0.7); background: rgba(224,112,112,0.06); }
+    .led-what-card.is  .led-what-item { color: rgba(78,200,140,0.8); background: rgba(78,200,140,0.06); }
+    .led-what-card.how .led-what-item { color: rgba(226,136,78,0.8); background: rgba(226,136,78,0.06); }
+    .led-pitch { margin-top: 36px; text-align: center; padding: 28px; background: rgba(226,136,78,0.06); border: 1px solid rgba(226,136,78,0.15); border-radius: 14px; }
+    .led-pitch p { font-family: 'Playfair Display', serif; font-size: 20px; color: #e8ecfc; font-style: italic; font-weight: 400; line-height: 1.5; margin: 0; }
+
+    /* MODULER */
+    .led-modules { background: #f5f0e8; padding: 72px 52px; }
+    .led-modules-inner { max-width: 1160px; margin: 0 auto; }
+    .led-mod-grid { display: flex; flex-direction: column; gap: 16px; margin-top: 40px; }
+    .led-mod { background: #fff; border: 1px solid rgba(0,0,0,0.07); border-radius: 16px; overflow: hidden; }
+    .led-mod-header { display: grid; grid-template-columns: 64px 1fr; align-items: center; padding: 24px 28px; cursor: pointer; gap: 20px; transition: background 0.15s; }
+    .led-mod-header:hover { background: #fdf8f4; }
+    .led-mod-num { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400; color: var(--accent); opacity: 0.6; }
+    .led-mod-head-text h3 { font-family: 'Playfair Display', serif; font-size: 19px; color: #1a1a1a; font-weight: 400; margin-bottom: 2px; }
+    .led-mod-theme { font-family: 'DM Sans', sans-serif; font-size: 12px; color: #888; font-style: italic; }
+    .led-mod-body { padding: 0 28px 28px; display: none; }
+    .led-mod-body.open { display: block; }
+    .led-mod-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 16px; }
+    .led-mod-col-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; display: block; margin-bottom: 10px; }
+    .led-mod-items { display: flex; flex-direction: column; gap: 7px; }
+    .led-mod-item { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #666; line-height: 1.6; display: flex; gap: 8px; }
+    .led-mod-item::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+    .led-mod-exercise { background: #fff8f0; border: 1px solid rgba(226,136,78,0.15); border-radius: 10px; padding: 18px 20px; }
+    .led-mod-ex-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 8px; }
+    .led-mod-ex-title { font-family: 'Playfair Display', serif; font-size: 16px; color: #6a3a1a; font-weight: 400; margin-bottom: 8px; }
+    .led-mod-ex-desc { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #666; line-height: 1.7; }
+    .led-mod-output { background: #f0fff8; border: 1px solid rgba(78,200,140,0.15); border-radius: 10px; padding: 14px 18px; margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .led-mod-output-tag { font-family: 'DM Sans', sans-serif; font-size: 12px; color: #2a7a50; background: rgba(78,200,140,0.1); padding: 4px 10px; border-radius: 20px; }
+
+    /* CASE */
+    .led-case { background: #0d1117; padding: 64px 52px; }
+    .led-case-inner { max-width: 1160px; margin: 0 auto; }
+    .led-case-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; overflow: hidden; margin-top: 36px; }
+    .led-case-header { background: #1a2030; padding: 20px 28px; display: flex; align-items: center; justify-content: space-between; }
+    .led-case-title { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: rgba(240,235,224,0.7); }
+    .led-case-mode { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--accent); }
+    .led-case-body { padding: 28px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+    .led-case-col-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,235,224,0.25); display: block; margin-bottom: 12px; }
+    .led-case-item { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(240,235,224,0.5); line-height: 1.65; padding: 10px 14px; background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 8px; }
+    .led-case-item.tension { color: #e07070; background: rgba(224,112,112,0.08); border-left: 2px solid #e07070; }
+    .led-case-item.insight { color: var(--accent); background: rgba(226,136,78,0.08); border-left: 2px solid var(--accent); }
+    .led-case-item.action { color: #4ec88c; background: rgba(78,200,140,0.08); border-left: 2px solid #4ec88c; }
+    .led-case-footer { padding: 20px 28px; background: rgba(226,136,78,0.06); border-top: 1px solid rgba(255,255,255,0.05); }
+    .led-case-footer p { font-family: 'Playfair Display', serif; font-size: 16px; color: rgba(240,235,224,0.6); font-style: italic; line-height: 1.6; margin: 0; }
+    .led-case-footer strong { color: var(--accent); font-style: normal; }
+
+    /* FORMAT */
+    .led-format { background: #f5f0e8; padding: 64px 52px; }
+    .led-format-inner { max-width: 1160px; margin: 0 auto; }
+    .led-format-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 36px; }
+    .led-format-card { background: #fff; border: 1px solid rgba(0,0,0,0.07); border-radius: 14px; padding: 28px 24px; }
+    .led-format-icon { font-size: 28px; margin-bottom: 14px; display: block; }
+    .led-format-card h3 { font-family: 'Playfair Display', serif; font-size: 18px; color: #1a1a1a; font-weight: 400; margin-bottom: 6px; }
+    .led-format-desc { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #888; line-height: 1.7; margin-bottom: 14px; }
+    .led-format-detail { font-family: 'DM Sans', sans-serif; font-size: 12px; color: #aaa; }
+
+    /* CTA */
+    .led-cta { background: #1a2030; padding: 72px 52px; }
+    .led-cta-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+    .led-cta h2 { font-family: 'Playfair Display', serif; font-size: 30px; color: #f0ebe0; font-weight: 400; margin-bottom: 14px; }
+    .led-cta p { font-family: 'DM Sans', sans-serif; font-size: 14px; color: rgba(240,235,224,0.5); line-height: 1.8; margin-bottom: 28px; }
+    .led-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+    .led-cta-note { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(240,235,224,0.25); font-style: italic; }
+
+    @media (max-width: 860px) {
+      .led-hero, .led-problem, .led-what, .led-modules, .led-case, .led-format, .led-cta { padding: 48px 28px; }
+      .led-hero-inner, .led-problem-inner { grid-template-columns: 1fr; }
+      .led-compass { display: none; }
+      .led-what-grid, .led-format-grid { grid-template-columns: 1fr; }
+      .led-mod-cols { grid-template-columns: 1fr; }
+      .led-case-body { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="fs-header">
+<style>
+  .fs-dropdown { position: relative; }
+  .fs-dropdown-menu {
+    display: none; position: absolute; top: calc(100% + 6px); left: -8px;
+    background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 8px; min-width: 200px; z-index: 999;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+  }
+  .fs-dropdown:hover .fs-dropdown-menu { display: block; }
+  .fs-dropdown-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px; border-radius: 8px; text-decoration: none;
+    transition: background 0.12s;
+  }
+  .fs-dropdown-item:hover { background: rgba(255,255,255,0.07); }
+  .fs-dropdown-item-icon {
+    width: 28px; height: 28px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; flex-shrink: 0;
+  }
+  .fs-dropdown-item-text { display: flex; flex-direction: column; }
+  .fs-dropdown-item-title { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: #fff; line-height: 1.2; }
+  .fs-dropdown-item-sub { font-family: 'DM Sans', sans-serif; font-size: 10px; color: rgba(255,255,255,0.4); line-height: 1.2; }
+  .fs-nav-item-arrow { font-size: 9px; color: rgba(255,255,255,0.25); margin-left: 2px; }
+</style>
+  <div class="fs-nav">
+    <a href="index-en.html" class="fs-logo">M.E.M.</a>
+    <nav class="fs-links">
+
+      <!-- ETOS -->
+      <a href="etos-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Decision model</span></span>
+      </a>
+
+      <!-- FORLØB -->
+      <a href="forloeb-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a2020;">🔄</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Programmes</span><span class="fs-nav-sub">Carers · Leaders · Psychiatry</span></span>
+      </a>
+
+      <!-- PILOT -->
+      <a href="pilot-pakke-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1a0d;">🧪</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Pilot</span><span class="fs-nav-sub">Test it in practice</span></span>
+      </a>
+
+      <!-- MERE dropdown -->
+      <div class="fs-dropdown">
+        <a href="mem-en.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#0d1117;">✦</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">More</span><span class="fs-nav-sub">Theory · Universe · Democracy</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="mem-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🔬</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">M.E.M.</span><span class="fs-dropdown-item-sub">Foundation</span></span>
+          </a>
+          <a href="arkitektur-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🏗</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Architecture</span><span class="fs-dropdown-item-sub">IDK · ETOS · CDP</span></span>
+          </a>
+          <a href="etos-demokrati-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2820;">🗳</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Democracy</span><span class="fs-dropdown-item-sub">Promises · Accountability</span></span>
+          </a>
+          <a href="boerneunivers-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#2a1f1a;">🌱</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Universe</span><span class="fs-dropdown-item-sub">Children · Bankeren · Learning</span></span>
+          </a>
+          <a href="dirigent-rum-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1a12;">🎼</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Dirigenten</span><span class="fs-dropdown-item-sub">Ideas · Projects</span></span>
+          </a>
+          <a href="regnskab-program-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#111520;">📊</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Regnskab</span><span class="fs-dropdown-item-sub">Economy · Overblik</span></span>
+          </a>
+        </div>
+      </div>
+
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt-en.html" class="fs-nav-cta">Contact</a>
+      <a href="ledelseskompas.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">DA</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="led-hero">
+  <div class="led-hero-inner">
+    <div>
+      <span class="led-tag">The Leadership Compass · ETOS for leaders</span>
+      <h1>Når der ikke findes<br>et <em>rigtigt svar</em></h1>
+      <p class="led-hero-lead">Leadership is not about finding the right answer — but understanding the tension and taking responsibility for the choice. The Leadership Compass helps you navigate complex decisions without losing direction.</p>
+      <div class="led-hero-btns">
+        <a href="#tilmeld" class="led-btn led-btn-primary">Try it in your organisation →</a>
+        <a href="#moduler" class="led-btn led-btn-ghost">See the programme ↓</a>
+      </div>
+    </div>
+
+    <div class="led-compass">
+      <span class="led-compass-label">Typical leadership tensions</span>
+      <div class="led-tensions">
+        <div class="led-tension-pair">
+          <span class="led-tension-left">Operations</span>
+          <div class="led-tension-bar"><div class="led-tension-fill" style="left:0;width:75%;background:linear-gradient(90deg,rgba(226,136,78,0.6),rgba(226,136,78,0.2));"></div></div>
+          <span class="led-tension-right">People</span>
+        </div>
+        <div class="led-tension-pair">
+          <span class="led-tension-left">Economy</span>
+          <div class="led-tension-bar"><div class="led-tension-fill" style="left:0;width:80%;background:linear-gradient(90deg,rgba(224,112,112,0.6),rgba(224,112,112,0.2));"></div></div>
+          <span class="led-tension-right">Quality</span>
+        </div>
+        <div class="led-tension-pair">
+          <span class="led-tension-left">Speed</span>
+          <div class="led-tension-bar"><div class="led-tension-fill" style="left:0;width:65%;background:linear-gradient(90deg,rgba(122,158,232,0.6),rgba(122,158,232,0.2));"></div></div>
+          <span class="led-tension-right">Relationship</span>
+        </div>
+        <div class="led-tension-pair">
+          <span class="led-tension-left">Rules</span>
+          <div class="led-tension-bar"><div class="led-tension-fill" style="left:0;width:70%;background:linear-gradient(90deg,rgba(78,200,140,0.5),rgba(78,200,140,0.15));"></div></div>
+          <span class="led-tension-right">Reality</span>
+        </div>
+      </div>
+      <div class="led-compass-output">
+        <p><strong>ETOS registrerer:</strong> Høj divergens på tværs af alle fire spændingspar. Beslutningen kan ikke optimere alle hensyn — én vinder, resten betaler prisen.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<div class="led-problem">
+  <div class="led-problem-inner">
+    <div>
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">What you know</span>
+      <h2>Du skal træffe beslutninger uden klare svar.<br>Alle løsninger<br>har en pris.</h2>
+      <p>Leaders face situations daily where no solution is perfect. Systemet kræver handling, menneskerne kræver hensyntagen, og ressourcerne rækker ikke til begge dele.</p>
+      <p>The Leadership Compass is not here to give you the answer. It is here to make the tension visible — and help you make a conscious choice rather than a reactive one.</p>
+    </div>
+    <div class="led-prob-boxes">
+      <div class="led-prob-box a">
+        <p><strong>Du skal handle hurtigt</strong> — men hurtige beslutninger i komplekse situationer efterlader spor i relationer og tillid.</p>
+      </div>
+      <div class="led-prob-box b">
+        <p><strong>Systemet kræver ét</strong> — menneskene kræver noget andet. Du sidder i midten og ingen forstår dit dilemma.</p>
+      </div>
+      <div class="led-prob-box c">
+        <p><strong>Du tager ansvar</strong> — men ved ikke præcis hvad der er dit ansvar og hvad der tilhører systemet.</p>
+      </div>
+      <div class="led-prob-box b">
+        <p><strong>Beslutningen er truffet</strong> — men efterreaktionen håndterer du alene, uden ramme eller sprog.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HVAD ER DET -->
+<div class="led-what">
+  <div class="led-what-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">What the Leadership Compass is</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#e8ecfc;font-weight:400;margin-bottom:8px;">Not a consulting model. But a reflection framework.</h2>
+    <div class="led-what-grid">
+      <div class="led-what-card not">
+        <span class="led-what-tag">Not</span>
+        <h3>Classic consultant</h3>
+        <div class="led-what-items">
+          <div class="led-what-item">Not ekstern ekspert med løsningen</div>
+          <div class="led-what-item">Not "ledelsesguru" med modeller</div>
+          <div class="led-what-item">Not coaching med fast program</div>
+        </div>
+      </div>
+      <div class="led-what-card is">
+        <span class="led-what-tag">But</span>
+        <h3>Decision architect</h3>
+        <div class="led-what-items">
+          <div class="led-what-item">Decision architect</div>
+          <div class="led-what-item">Reflection facilitator</div>
+          <div class="led-what-item">System understander</div>
+        </div>
+      </div>
+      <div class="led-what-card how">
+        <span class="led-what-tag">Gives</span>
+        <h3>Clarity and direction</h3>
+        <div class="led-what-items">
+          <div class="led-what-item">Tension made visible</div>
+          <div class="led-what-item">Your position clarified</div>
+          <div class="led-what-item">Decision with conscious responsibility</div>
+        </div>
+      </div>
+    </div>
+    <div class="led-pitch">
+      <p>"I help leaders understand complex decisions and take responsibility for them — even when there is no right answer."</p>
+    </div>
+  </div>
+</div>
+
+<!-- MODULER -->
+<div class="led-modules" id="moduler">
+  <div class="led-modules-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">Forløbet</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">Four modules · four perspectives</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;max-width:540px;line-height:1.75;">Klik på et modul for at se indhold og øvelse.</p>
+    <div class="led-mod-grid">
+
+      <div class="led-mod">
+        <div class="led-mod-header" onclick="toggleMod(this)">
+          <div class="led-mod-num">01</div>
+          <div class="led-mod-head-text">
+            <h3>Spændingsfeltet</h3>
+            <div class="led-mod-theme">What kind of situation is this really?</div>
+          </div>
+        </div>
+        <div class="led-mod-body">
+          <div class="led-mod-cols">
+            <div>
+              <span class="led-mod-col-label">Indhold</span>
+              <div class="led-mod-items">
+                <div class="led-mod-item">ETOS introduction — leader version</div>
+                <div class="led-mod-item">Operations vs. menneske</div>
+                <div class="led-mod-item">Economy vs. kvalitet</div>
+                <div class="led-mod-item">Speed vs. relation · Rules vs. virkelighed</div>
+              </div>
+            </div>
+            <div>
+              <div class="led-mod-exercise">
+                <span class="led-mod-ex-label">Øvelse</span>
+                <div class="led-mod-ex-title">👉 "Map your case"</div>
+                <div class="led-mod-ex-desc">Du kortlægger en konkret situation: Organisatorisk risiko, Peoplelig påvirkning, Relationshipel tillid og Tidspres. ETOS viser divergens, etisk pres og handlingsrum.</div>
+              </div>
+              <div class="led-mod-output">
+                <span class="led-mod-output-tag">Divergence made visible</span>
+                <span class="led-mod-output-tag">Ethical pressure named</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="led-mod">
+        <div class="led-mod-header" onclick="toggleMod(this)">
+          <div class="led-mod-num">02</div>
+          <div class="led-mod-head-text">
+            <h3>The leader's position</h3>
+            <div class="led-mod-theme">Where do I stand in this?</div>
+          </div>
+        </div>
+        <div class="led-mod-body">
+          <div class="led-mod-cols">
+            <div>
+              <span class="led-mod-col-label">Indhold</span>
+              <div class="led-mod-items">
+                <div class="led-mod-item">Responsibility vs. control — the crucial difference</div>
+                <div class="led-mod-item">The system's role vs. the leader's role</div>
+                <div class="led-mod-item">Ethical debt in organisations</div>
+              </div>
+            </div>
+            <div>
+              <div class="led-mod-exercise">
+                <span class="led-mod-ex-label">Øvelse</span>
+                <div class="led-mod-ex-title">👉 "My position"</div>
+                <div class="led-mod-ex-desc">Three questions: What does the system expect? What do the people experience? Where am I in the middle? Klarlæg din faktiske position.</div>
+              </div>
+              <div class="led-mod-output">
+                <span class="led-mod-output-tag">Clear role understanding</span>
+                <span class="led-mod-output-tag">Conscious position</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="led-mod">
+        <div class="led-mod-header" onclick="toggleMod(this)">
+          <div class="led-mod-num">03</div>
+          <div class="led-mod-head-text">
+            <h3>Beslutning</h3>
+            <div class="led-mod-theme">What do I do — and why?</div>
+          </div>
+        </div>
+        <div class="led-mod-body">
+          <div class="led-mod-cols">
+            <div>
+              <span class="led-mod-col-label">Indhold</span>
+              <div class="led-mod-items">
+                <div class="led-mod-item">Decision mode: Stable · Tense · Critical</div>
+                <div class="led-mod-item">When to act — when to wait</div>
+                <div class="led-mod-item">Making choices you can stand by</div>
+              </div>
+            </div>
+            <div>
+              <div class="led-mod-exercise">
+                <span class="led-mod-ex-label">Øvelse</span>
+                <div class="led-mod-ex-title">👉 "Decision choice"</div>
+                <div class="led-mod-ex-desc">Three questions: What is my decision? What is the consequence? What am I willing to stand behind? Det tredje spørgsmål er det vigtigste.</div>
+              </div>
+              <div class="led-mod-output">
+                <span class="led-mod-output-tag">Conscious decision</span>
+                <span class="led-mod-output-tag">Responsibility placed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="led-mod">
+        <div class="led-mod-header" onclick="toggleMod(this)">
+          <div class="led-mod-num">04</div>
+          <div class="led-mod-head-text">
+            <h3>Communication and aftermath</h3>
+            <div class="led-mod-theme">What happens afterwards?</div>
+          </div>
+        </div>
+        <div class="led-mod-body">
+          <div class="led-mod-cols">
+            <div>
+              <span class="led-mod-col-label">Indhold</span>
+              <div class="led-mod-items">
+                <div class="led-mod-item">How decisions are experienced by others</div>
+                <div class="led-mod-item">Trust after a difficult decision</div>
+                <div class="led-mod-item">Repair of relationships</div>
+              </div>
+            </div>
+            <div>
+              <div class="led-mod-exercise">
+                <span class="led-mod-ex-label">Øvelse</span>
+                <div class="led-mod-ex-title">👉 "Aftermath"</div>
+                <div class="led-mod-ex-desc">Three questions: Who is affected? What needs explaining? What needs rebuilding? Beslutningen er truffet — nu handler det om det der kommer efter.</div>
+              </div>
+              <div class="led-mod-output">
+                <span class="led-mod-output-tag">Communication plan</span>
+                <span class="led-mod-output-tag">Relationshiper bevaret</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- CASE -->
+<div class="led-case">
+  <div class="led-case-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">Eksempel</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#e8ecfc;font-weight:400;margin-bottom:8px;">ETOS in practice — a leadership situation</h2>
+    <div class="led-case-box">
+      <div class="led-case-header">
+        <span class="led-case-title">Situation: Medarbejder i mistrivsel · Operationsspres højt</span>
+        <span class="led-case-mode">Requires review</span>
+      </div>
+      <div class="led-case-body">
+        <div>
+          <span class="led-case-col-label">Situationen</span>
+          <div class="led-case-item tension">Employee shows signs of struggling and burnout</div>
+          <div class="led-case-item tension">Operationsen kræver fuld bemanding denne uge</div>
+          <div class="led-case-item tension">The system has no buffer</div>
+        </div>
+        <div>
+          <span class="led-case-col-label">ETOS registrerer</span>
+          <div class="led-case-item insight">High divergence — human considerations and operational considerations cannot both be met</div>
+          <div class="led-case-item insight">Etisk gæld opstår uanset valg</div>
+          <div class="led-case-item insight">Room for action: limited but present</div>
+        </div>
+        <div>
+          <span class="led-case-col-label">Lederens indsigt</span>
+          <div class="led-case-item action">I cannot optimise — I must prioritise</div>
+          <div class="led-case-item action">I choose the employee and accept the consequence</div>
+          <div class="led-case-item action">I document the dilemma explicitly</div>
+        </div>
+      </div>
+      <div class="led-case-footer">
+        <p>"The Leadership Compass does not help the leader avoid the difficult choice. It helps with <strong>making it consciously</strong> — and standing by it afterwards."</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FORMAT -->
+<div class="led-format">
+  <div class="led-format-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">Format</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">Three ways to work with it</h2>
+    <div class="led-format-grid">
+      <div class="led-format-card">
+        <span class="led-format-icon">🏛</span>
+        <h3>Workshop</h3>
+        <p class="led-format-desc">All four modules in one day with concrete case work. ETOS is used live on real situations from participants' daily work.</p>
+        <div class="led-format-detail">3–4 hours · in person · group of leaders</div>
+      </div>
+      <div class="led-format-card">
+        <span class="led-format-icon">📅</span>
+        <h3>Leadership programme</h3>
+        <p class="led-format-desc">One module per week over four weeks. You work with your own case throughout the programme and watch it develop.</p>
+        <div class="led-format-detail">4 weeks · online or in person · individual or group</div>
+      </div>
+      <div class="led-format-card">
+        <span class="led-format-icon">🏢</span>
+        <h3>Organisation pilot</h3>
+        <p class="led-format-desc">Several leaders work with ETOS as a shared language. Creates an organisation that can talk about difficult decisions in a structured way.</p>
+        <div class="led-format-detail">Arranged individually · shared language in the organisation</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="led-cta" id="tilmeld">
+  <div class="led-cta-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:16px;">Start the conversation</span>
+    <h2>Try the Leadership Compass</h2>
+    <p>The programme is available as workshop, individual programme or organisation pilot. Start with a no-obligation conversation about your specific situation.</p>
+    <div class="led-cta-btns">
+      <a href="mailto:M.E.M.Teori@gmail.com?subject=Ledelseskompasset - interesse" class="led-btn led-btn-primary">Write to us →</a>
+      <a href="kontakt-en.html" class="led-btn led-btn-ghost">Contact page</a>
+    </div>
+    <p class="led-cta-note">Free introductory conversation · no obligation · tailored to your organisation</p>
+  </div>
+</div>
+
+<script>
+function toggleMod(header) {
+  const body = header.nextElementSibling;
+  const isOpen = body.classList.contains('open');
+  document.querySelectorAll('.led-mod-body').forEach(b => b.classList.remove('open'));
+  if (!isOpen) body.classList.add('open');
+}
+document.addEventListener('DOMContentLoaded', () => {
+  const first = document.querySelector('.led-mod-body');
+  if (first) first.classList.add('open');
+});
+</script>
+
+
+<!-- PILOT STRIP -->
+<div style="background:#1a1a0d;padding:36px 52px;border-top:1px solid rgba(240,200,80,0.1);">
+  <div style="max-width:1160px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+    <div>
+      <p style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#f0c850;margin-bottom:6px;">● Pilot in progress</p>
+      <p style="font-family:'Playfair Display',serif;font-size:17px;color:#f0ebe0;font-style:italic;margin:0;">Vil du teste det i din virkelige situation? 90 min · gratis · ingen forberedelse.</p>
+    </div>
+    <a href="pilot-pakke-en.html" style="display:inline-flex;align-items:center;gap:8px;background:#f0c850;color:#1a1a0d;padding:11px 22px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;flex-shrink:0;">See the pilot package →</a>
+  </div>
+</div>
+
+</body>
+</html>

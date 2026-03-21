@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ETOS Community — When communities create distance</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    .fael-hero { background: linear-gradient(160deg, #1a0d2a 0%, #2a1a20 60%, #0d1117 100%); padding: 80px 52px 72px; position: relative; overflow: hidden; }
+    .fael-hero::before { content: ''; position: absolute; top: -80px; right: -80px; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(200,122,232,0.07), transparent 70%); pointer-events: none; }
+    .fael-hero-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 400px; gap: 64px; align-items: center; position: relative; }
+    .fael-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 48px); color: #f0ebe0; font-weight: 400; line-height: 1.12; margin-bottom: 16px; }
+    .fael-hero h1 em { font-style: italic; color: #c87ae8; }
+    .fael-hero-lead { font-family: 'DM Sans', sans-serif; font-size: 15px; color: rgba(240,235,224,0.5); line-height: 1.8; margin-bottom: 28px; max-width: 460px; }
+    .fael-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.15s; }
+    .fael-btn-primary { background: #c87ae8; color: #fff; }
+    .fael-btn-primary:hover { background: #b060d0; }
+    .fael-btn-ghost { background: transparent; color: rgba(240,235,224,0.55); border: 1px solid rgba(240,235,224,0.15); }
+    .fael-btn-ghost:hover { color: rgba(240,235,224,0.9); border-color: rgba(240,235,224,0.3); }
+
+    /* Paradigme widget */
+    .fael-paradigme { background: rgba(255,255,255,0.04); border: 1px solid rgba(200,122,232,0.15); border-radius: 16px; padding: 28px; }
+    .fael-p-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,235,224,0.3); display: block; margin-bottom: 16px; }
+    .fael-p-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: center; margin-bottom: 10px; }
+    .fael-p-from { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(224,112,112,0.7); padding: 8px 12px; background: rgba(224,112,112,0.08); border-radius: 6px; text-align: center; }
+    .fael-p-arrow { font-size: 14px; color: rgba(200,122,232,0.4); text-align: center; }
+    .fael-p-to { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(200,122,232,0.8); padding: 8px 12px; background: rgba(200,122,232,0.08); border-radius: 6px; text-align: center; }
+    .fael-p-output { margin-top: 14px; padding: 12px 14px; background: rgba(200,122,232,0.06); border-left: 3px solid #c87ae8; border-radius: 0 8px 8px 0; }
+    .fael-p-output p { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(240,235,224,0.5); line-height: 1.7; margin: 0; }
+    .fael-p-output strong { color: #c87ae8; }
+
+    /* Sektioner */
+    .fael-problem { background: #f5f0e8; padding: 64px 52px; }
+    .fael-problem-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+
+    /* Versioner */
+    .fael-versions { background: #1a1228; padding: 64px 52px; }
+    .fael-versions-inner { max-width: 1160px; margin: 0 auto; }
+    .fael-ver-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 36px; }
+    .fael-ver-card { border-radius: 14px; padding: 28px 24px; }
+    .fael-ver-card.a { background: rgba(200,122,232,0.07); border: 1px solid rgba(200,122,232,0.2); }
+    .fael-ver-card.b { background: rgba(122,158,232,0.07); border: 1px solid rgba(122,158,232,0.2); }
+    .fael-ver-card.c { background: rgba(226,136,78,0.07); border: 1px solid rgba(226,136,78,0.2); }
+    .fael-ver-age { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400; margin-bottom: 4px; }
+    .fael-ver-card.a .fael-ver-age { color: #c87ae8; }
+    .fael-ver-card.b .fael-ver-age { color: #7a9ee8; }
+    .fael-ver-card.c .fael-ver-age { color: var(--accent); }
+    .fael-ver-focus { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; display: block; }
+    .fael-ver-card.a .fael-ver-focus { color: #c87ae8; }
+    .fael-ver-card.b .fael-ver-focus { color: #7a9ee8; }
+    .fael-ver-card.c .fael-ver-focus { color: var(--accent); }
+    .fael-ver-card h3 { font-family: 'Playfair Display', serif; font-size: 17px; color: #f0ebe0; font-weight: 400; margin-bottom: 8px; }
+    .fael-ver-card p { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(240,235,224,0.45); line-height: 1.7; margin: 0; }
+
+    /* Moduler */
+    .fael-modules { background: #f5f0e8; padding: 72px 52px; }
+    .fael-modules-inner { max-width: 1160px; margin: 0 auto; }
+    .fael-mod { background: #fff; border: 1px solid rgba(0,0,0,0.07); border-radius: 16px; overflow: hidden; margin-bottom: 14px; }
+    .fael-mod-header { display: grid; grid-template-columns: 64px 1fr; align-items: center; padding: 24px 28px; cursor: pointer; gap: 20px; transition: background 0.15s; }
+    .fael-mod-header:hover { background: #fdf8f4; }
+    .fael-mod-num { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400; color: #c87ae8; opacity: 0.7; }
+    .fael-mod-head-text h3 { font-family: 'Playfair Display', serif; font-size: 19px; color: #1a1a1a; font-weight: 400; margin-bottom: 2px; }
+    .fael-mod-theme { font-family: 'DM Sans', sans-serif; font-size: 12px; color: #888; font-style: italic; }
+    .fael-mod-body { padding: 0 28px 28px; display: none; }
+    .fael-mod-body.open { display: block; }
+    .fael-mod-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .fael-mod-col-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; display: block; margin-bottom: 10px; }
+    .fael-mod-item { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #666; line-height: 1.6; display: flex; gap: 8px; margin-bottom: 6px; }
+    .fael-mod-item::before { content: '→'; color: #c87ae8; flex-shrink: 0; }
+    .fael-mod-exercise { background: #f8f0ff; border: 1px solid rgba(200,122,232,0.15); border-radius: 10px; padding: 18px 20px; }
+    .fael-mod-ex-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #c87ae8; display: block; margin-bottom: 8px; }
+    .fael-mod-ex-title { font-family: 'Playfair Display', serif; font-size: 16px; color: #3a1a5a; font-weight: 400; margin-bottom: 8px; }
+    .fael-mod-ex-desc { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #666; line-height: 1.7; }
+    .fael-mod-output { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .fael-mod-output-tag { font-family: 'DM Sans', sans-serif; font-size: 12px; color: #6a2a9a; background: rgba(200,122,232,0.1); padding: 4px 10px; border-radius: 20px; }
+
+    /* Case */
+    .fael-case { background: #0d1117; padding: 64px 52px; }
+    .fael-case-inner { max-width: 1160px; margin: 0 auto; }
+    .fael-case-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; overflow: hidden; margin-top: 36px; }
+    .fael-case-header { background: #1a1228; padding: 20px 28px; display: flex; justify-content: space-between; align-items: center; }
+    .fael-case-body { padding: 28px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+    .fael-col-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,235,224,0.25); display: block; margin-bottom: 12px; }
+    .fael-item { font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 14px; background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 8px; line-height: 1.6; }
+    .fael-item.t { color: #e07070; background: rgba(224,112,112,0.08); border-left: 2px solid #e07070; }
+    .fael-item.i { color: #c87ae8; background: rgba(200,122,232,0.08); border-left: 2px solid #c87ae8; }
+    .fael-item.a { color: #4ec88c; background: rgba(78,200,140,0.08); border-left: 2px solid #4ec88c; }
+    .fael-case-footer { padding: 20px 28px; background: rgba(200,122,232,0.05); border-top: 1px solid rgba(255,255,255,0.05); }
+    .fael-case-footer p { font-family: 'Playfair Display', serif; font-size: 16px; color: rgba(240,235,224,0.6); font-style: italic; line-height: 1.6; margin: 0; }
+    .fael-case-footer strong { color: #c87ae8; font-style: normal; }
+
+    /* Format + CTA */
+    .fael-format { background: #f5f0e8; padding: 64px 52px; }
+    .fael-format-inner { max-width: 1160px; margin: 0 auto; }
+    .fael-format-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 36px; }
+    .fael-format-card { background: #fff; border: 1px solid rgba(0,0,0,0.07); border-radius: 14px; padding: 28px 24px; }
+    .fael-format-icon { font-size: 28px; margin-bottom: 14px; display: block; }
+    .fael-format-card h3 { font-family: 'Playfair Display', serif; font-size: 18px; color: #1a1a1a; font-weight: 400; margin-bottom: 6px; }
+    .fael-format-desc { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #888; line-height: 1.7; margin-bottom: 14px; }
+    .fael-format-detail { font-family: 'DM Sans', sans-serif; font-size: 12px; color: #aaa; }
+    .fael-cta { background: #1a1228; padding: 64px 52px; }
+    .fael-cta-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+
+    .fprob-box { padding: 18px 20px; border-radius: 12px; margin-bottom: 10px; }
+    .fprob-box.a { background: rgba(200,122,232,0.06); border: 1px solid rgba(200,122,232,0.12); border-left: 3px solid #c87ae8; }
+    .fprob-box.b { background: rgba(122,158,232,0.06); border: 1px solid rgba(122,158,232,0.12); border-left: 3px solid #7a9ee8; }
+    .fprob-box.c { background: rgba(224,112,112,0.06); border: 1px solid rgba(224,112,112,0.12); border-left: 3px solid #e07070; }
+    .fprob-box p { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #555; line-height: 1.7; margin: 0; }
+
+    @media (max-width: 860px) {
+      .fael-hero, .fael-problem, .fael-versions, .fael-modules, .fael-case, .fael-format, .fael-cta { padding: 48px 28px; }
+      .fael-hero-inner, .fael-problem-inner { grid-template-columns: 1fr; }
+      .fael-paradigme { display: none; }
+      .fael-ver-grid, .fael-format-grid { grid-template-columns: 1fr; }
+      .fael-mod-cols { grid-template-columns: 1fr; }
+      .fael-case-body { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<header class="fs-header">
+<style>
+  .fs-dropdown { position: relative; }
+  .fs-dropdown-menu {
+    display: none; position: absolute; top: calc(100% + 6px); left: -8px;
+    background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 8px; min-width: 200px; z-index: 999;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+  }
+  .fs-dropdown:hover .fs-dropdown-menu { display: block; }
+  .fs-dropdown-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px; border-radius: 8px; text-decoration: none;
+    transition: background 0.12s;
+  }
+  .fs-dropdown-item:hover { background: rgba(255,255,255,0.07); }
+  .fs-dropdown-item-icon {
+    width: 28px; height: 28px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; flex-shrink: 0;
+  }
+  .fs-dropdown-item-text { display: flex; flex-direction: column; }
+  .fs-dropdown-item-title { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: #fff; line-height: 1.2; }
+  .fs-dropdown-item-sub { font-family: 'DM Sans', sans-serif; font-size: 10px; color: rgba(255,255,255,0.4); line-height: 1.2; }
+  .fs-nav-item-arrow { font-size: 9px; color: rgba(255,255,255,0.25); margin-left: 2px; }
+</style>
+  <div class="fs-nav">
+    <a href="index-en.html" class="fs-logo">M.E.M.</a>
+    <nav class="fs-links">
+
+      <!-- ETOS -->
+      <a href="etos-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Decision model</span></span>
+      </a>
+
+      <!-- FORLØB -->
+      <a href="forloeb-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a2020;">🔄</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Programmes</span><span class="fs-nav-sub">Carers · Leaders · Psychiatry</span></span>
+      </a>
+
+      <!-- PILOT -->
+      <a href="pilot-pakke-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1a0d;">🧪</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Pilot</span><span class="fs-nav-sub">Test it in practice</span></span>
+      </a>
+
+      <!-- MERE dropdown -->
+      <div class="fs-dropdown">
+        <a href="mem-en.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#0d1117;">✦</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">More</span><span class="fs-nav-sub">Theory · Universe · Democracy</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="mem-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🔬</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">M.E.M.</span><span class="fs-dropdown-item-sub">Foundation</span></span>
+          </a>
+          <a href="arkitektur-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🏗</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Architecture</span><span class="fs-dropdown-item-sub">IDK · ETOS · CDP</span></span>
+          </a>
+          <a href="etos-demokrati-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2820;">🗳</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Democracy</span><span class="fs-dropdown-item-sub">Promises · Accountability</span></span>
+          </a>
+          <a href="boerneunivers-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#2a1f1a;">🌱</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Universe</span><span class="fs-dropdown-item-sub">Children · Bankeren · Learning</span></span>
+          </a>
+          <a href="dirigent-rum-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1a12;">🎼</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Dirigenten</span><span class="fs-dropdown-item-sub">Ideas · Projects</span></span>
+          </a>
+          <a href="regnskab-program-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#111520;">📊</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Regnskab</span><span class="fs-dropdown-item-sub">Økonomi · Overblik</span></span>
+          </a>
+        </div>
+      </div>
+
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt-en.html" class="fs-nav-cta">Contact</a>
+      <a href="faellesskab.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">DA</a>
+    </div>
+  </div>
+</header>
+
+<div class="fael-hero">
+  <div class="fael-hero-inner">
+    <div>
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#c87ae8;display:block;margin-bottom:20px;">ETOS Programme · Community and bullying</span>
+      <h1>Når fællesskaber<br><em>skaber afstand</em></h1>
+      <p class="fael-hero-lead">Bullying is not an individual problem — it is a tension problem in the community. ETOS helps schools, institutions and workplaces see tensions early and act precisely.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="#tilmeld" class="fael-btn fael-btn-primary">Try it in your institution →</a>
+        <a href="#moduler" class="fael-btn fael-btn-ghost">Se forløbet ↓</a>
+      </div>
+    </div>
+    <div class="fael-paradigme">
+      <span class="fael-p-label">The paradigm shift</span>
+      <div class="fael-p-row">
+        <div class="fael-p-from">Who did what?</div>
+        <div class="fael-p-arrow">→</div>
+        <div class="fael-p-to">What is out of balance?</div>
+      </div>
+      <div class="fael-p-row">
+        <div class="fael-p-from">Individual blame</div>
+        <div class="fael-p-arrow">→</div>
+        <div class="fael-p-to">Structural tension</div>
+      </div>
+      <div class="fael-p-row">
+        <div class="fael-p-from">Sanction and rule</div>
+        <div class="fael-p-arrow">→</div>
+        <div class="fael-p-to">Understanding and design</div>
+      </div>
+      <div class="fael-p-row">
+        <div class="fael-p-from">Reactive intervention</div>
+        <div class="fael-p-arrow">→</div>
+        <div class="fael-p-to">Early visibility</div>
+      </div>
+      <div class="fael-p-output"><p><strong>ETOS:</strong> Problemet er ikke én elev — men fællesskabets spændingsfelt.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="fael-problem">
+  <div class="fael-problem-inner">
+    <div>
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#c87ae8;display:block;margin-bottom:10px;">What you know</span>
+      <h2 style="font-family:'Playfair Display',serif;font-size:28px;color:#1a1a1a;font-weight:400;margin-bottom:16px;">It is not always clear who is doing something wrong. But someone is still left out.</h2>
+      <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#666;line-height:1.8;margin-bottom:14px;">Bullying and exclusion are rarely simple or black-and-white. Det opstår i mødet mellem relationer, roller og strukturer — og kan ikke løses med regler og sanktioner alene.</p>
+      <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#666;line-height:1.8;">ETOS gives schools, institutions and workplaces a shared language for what is happening — and tools to act early and precisely.</p>
+    </div>
+    <div>
+      <div class="fprob-box a"><p><strong>Nogen holder nogen udenfor</strong> — men ingen "mobber direkte". Det er svært at handle på noget man ikke kan sætte ord på.</p></div>
+      <div class="fprob-box c"><p><strong>I reagerer for sent</strong> — fordi spændingerne ikke er synlige nok til at udløse handling, inden skaden er sket.</p></div>
+      <div class="fprob-box b"><p><strong>I taler om individer</strong> — men problemet sidder i fællesskabet. Indsatsen rammer forkert.</p></div>
+      <div class="fprob-box a"><p><strong>Det gentager sig</strong> — fordi kulturen ikke ændres, kun adfærden korrigeres midlertidigt.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="fael-versions">
+  <div class="fael-versions-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#c87ae8;display:block;margin-bottom:10px;">Versioning</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#f0ebe0;font-weight:400;margin-bottom:8px;">Same model — different complexity</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,0.4);max-width:540px;line-height:1.75;">The ETOS model is adapted to age and context. Grundlogikken er den samme — sproglag og øvelser skaleres.</p>
+    <div class="fael-ver-grid">
+      <div class="fael-ver-card a">
+        <div class="fael-ver-age">0–5</div>
+        <span class="fael-ver-focus">Nursery · Safety</span>
+        <h3>Atmosphere and sensation</h3>
+        <p>Very visual. Bankeren is used as a shared emotional language. Farver = stemning i gruppen. Pædagogen spørger: "Hvordan er du i dag?" — barnet peger.</p>
+      </div>
+      <div class="fael-ver-card b">
+        <div class="fael-ver-age">6–16</div>
+        <span class="fael-ver-focus">School · Relationships</span>
+        <h3>Roles and group dynamics</h3>
+        <p>Social roles are made visible without locking in. Hvem er i centrum? Hvem er på kanten? Fokus på dynamik — ikke skyld.</p>
+      </div>
+      <div class="fael-ver-card c">
+        <div class="fael-ver-age">Adult</div>
+        <span class="fael-ver-focus">Workplace · Culture</span>
+        <h3>Power and invisible hierarchies</h3>
+        <p>Focus on cultural tensions and invisible power structures. Hvem definerer normen? Hvem ekskluderes stille?</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fael-modules" id="moduler">
+  <div class="fael-modules-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#c87ae8;display:block;margin-bottom:10px;">Forløbet</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">Four modules · from visibility to culture</h2>
+
+    <div class="fael-mod">
+      <div class="fael-mod-header" onclick="toggleMod(this)">
+        <div class="fael-mod-num">01</div>
+        <div class="fael-mod-head-text"><h3>See the tension</h3><div class="fael-mod-theme">What is actually going on?</div></div>
+      </div>
+      <div class="fael-mod-body open">
+        <div class="fael-mod-cols">
+          <div>
+            <span class="fael-mod-col-label">Indhold</span>
+            <div class="fael-mod-item">Belonging vs. exclusion</div>
+            <div class="fael-mod-item">Status vs. safety</div>
+            <div class="fael-mod-item">Group vs. individual</div>
+            <div class="fael-mod-item">Visible vs. invisible behaviour</div>
+          </div>
+          <div>
+            <div class="fael-mod-exercise">
+              <span class="fael-mod-ex-label">Øvelse</span>
+              <div class="fael-mod-ex-title">👉 "Map the group"</div>
+              <div class="fael-mod-ex-desc">Who is at the centre? Who is on the edge? Where is the tension greatest? Not blame — but structure.</div>
+            </div>
+            <div class="fael-mod-output"><span class="fael-mod-output-tag">Patterns made visible</span><span class="fael-mod-output-tag">Not blame — structure</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fael-mod">
+      <div class="fael-mod-header" onclick="toggleMod(this)">
+        <div class="fael-mod-num">02</div>
+        <div class="fael-mod-head-text"><h3>Positions in the community</h3><div class="fael-mod-theme">Who does what — and why?</div></div>
+      </div>
+      <div class="fael-mod-body">
+        <div class="fael-mod-cols">
+          <div>
+            <span class="fael-mod-col-label">Indhold</span>
+            <div class="fael-mod-item">The excluded · The dominant</div>
+            <div class="fael-mod-item">The quiet · The follower</div>
+            <div class="fael-mod-item">Roles without locking in</div>
+          </div>
+          <div>
+            <div class="fael-mod-exercise">
+              <span class="fael-mod-ex-label">Øvelse</span>
+              <div class="fael-mod-ex-title">👉 "Position map"</div>
+              <div class="fael-mod-ex-desc">Where do children/employees move? Who changes position? Understanding dynamics — not labelling.</div>
+            </div>
+            <div class="fael-mod-output"><span class="fael-mod-output-tag">Dynamics understood</span><span class="fael-mod-output-tag">Less labelling</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fael-mod">
+      <div class="fael-mod-header" onclick="toggleMod(this)">
+        <div class="fael-mod-num">03</div>
+        <div class="fael-mod-head-text"><h3>Intervention</h3><div class="fael-mod-theme">What do we do — and when?</div></div>
+      </div>
+      <div class="fael-mod-body">
+        <div class="fael-mod-cols">
+          <div>
+            <span class="fael-mod-col-label">Indhold</span>
+            <div class="fael-mod-item">When to step in</div>
+            <div class="fael-mod-item">When to observe</div>
+            <div class="fael-mod-item">When to change structure</div>
+          </div>
+          <div>
+            <div class="fael-mod-exercise">
+              <span class="fael-mod-ex-label">Øvelse</span>
+              <div class="fael-mod-ex-title">👉 "Action"</div>
+              <div class="fael-mod-ex-desc">What do we change in the space? Who do we support? What do we stop?</div>
+            </div>
+            <div class="fael-mod-output"><span class="fael-mod-output-tag">Precise action</span><span class="fael-mod-output-tag">Right timing</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fael-mod">
+      <div class="fael-mod-header" onclick="toggleMod(this)">
+        <div class="fael-mod-num">04</div>
+        <div class="fael-mod-head-text"><h3>Culture and prevention</h3><div class="fael-mod-theme">How do we avoid it again?</div></div>
+      </div>
+      <div class="fael-mod-body">
+        <div class="fael-mod-cols">
+          <div>
+            <span class="fael-mod-col-label">Indhold</span>
+            <div class="fael-mod-item">Community design</div>
+            <div class="fael-mod-item">Safety vs. hierarchy</div>
+            <div class="fael-mod-item">Language and norms that hold</div>
+          </div>
+          <div>
+            <div class="fael-mod-exercise">
+              <span class="fael-mod-ex-label">Øvelse</span>
+              <div class="fael-mod-ex-title">👉 "New community"</div>
+              <div class="fael-mod-ex-desc">What must be clear? What do we not accept? What do we want to build?</div>
+            </div>
+            <div class="fael-mod-output"><span class="fael-mod-output-tag">Culture changed</span><span class="fael-mod-output-tag">Prevention built in</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fael-case">
+  <div class="fael-case-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#c87ae8;display:block;margin-bottom:10px;">Eksempel</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#e8ecfc;font-weight:400;">ETOS in practice — a school situation</h2>
+    <div class="fael-case-box">
+      <div class="fael-case-header">
+        <span style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:rgba(240,235,224,0.7);">One pupil is excluded · No one "directly bullies" · Year 6</span>
+        <span style="font-family:'Playfair Display',serif;font-size:14px;color:#c87ae8;">High social divergence</span>
+      </div>
+      <div class="fael-case-body">
+        <div>
+          <span class="fael-col-label">Situationen</span>
+          <div class="fael-item t">Pupil is not invited into groups</div>
+          <div class="fael-item t">No direct incidents to address</div>
+          <div class="fael-item t">The teacher knows something is wrong — but what?</div>
+        </div>
+        <div>
+          <span class="fael-col-label">ETOS registrerer</span>
+          <div class="fael-item i">High social divergence i gruppen</div>
+          <div class="fael-item i">Low relational trust towards the excluded pupil</div>
+          <div class="fael-item i">The problem is the community's structure — not one pupil</div>
+        </div>
+        <div>
+          <span class="fael-col-label">Lærerens indsigt</span>
+          <div class="fael-item a">Change the structure — not the pupil</div>
+          <div class="fael-item a">Redesign the group composition</div>
+          <div class="fael-item a">Create situations that increase trust</div>
+        </div>
+      </div>
+      <div class="fael-case-footer"><p>"ETOS shows that <strong>the problem is not one pupil — but the community</strong>. That changes what you address."</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="fael-format">
+  <div class="fael-format-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#c87ae8;display:block;margin-bottom:10px;">Format</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:36px;">Three ways to work with it</h2>
+    <div class="fael-format-grid">
+      <div class="fael-format-card"><span class="fael-format-icon">🏫</span><h3>Workshop</h3><p class="fael-format-desc">For teachers, educators or leaders. Concrete case work with ETOS live.</p><div class="fael-format-detail">3–4 hours · in person · team</div></div>
+      <div class="fael-format-card"><span class="fael-format-icon">📅</span><h3>School programme</h3><p class="fael-format-desc">Four weeks with one module per week. Work with your own class, group or department.</p><div class="fael-format-detail">4 weeks · online or in person</div></div>
+      <div class="fael-format-card"><span class="fael-format-icon">🏛</span><h3>Institution pilot</h3><p class="fael-format-desc">The whole school or department works with ETOS. Creates shared language and early intervention.</p><div class="fael-format-detail">Municipality agreement · whole institution</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="fael-cta" id="tilmeld">
+  <div class="fael-cta-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#c87ae8;display:block;margin-bottom:16px;">Tag dialogen</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:30px;color:#f0ebe0;font-weight:400;margin-bottom:14px;">Try ETOS in your institution</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,0.5);line-height:1.8;margin-bottom:28px;">Start with a no-obligation conversation about your specific situation and context.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;">
+      <a href="mailto:M.E.M.Teori@gmail.com?subject=ETOS Faellesskab - interesse" class="fael-btn fael-btn-primary">Write to us →</a>
+      <a href="kontakt-en.html" class="fael-btn fael-btn-ghost">Contact page</a>
+    </div>
+    <p style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,0.25);font-style:italic;">Free introductory conversation · no obligation · tilpasses jeres kontekst</p>
+  </div>
+</div>
+
+<script>
+function toggleMod(header) {
+  const body = header.nextElementSibling;
+  const isOpen = body.classList.contains('open');
+  document.querySelectorAll('.fael-mod-body').forEach(b => b.classList.remove('open'));
+  if (!isOpen) body.classList.add('open');
+}
+</script>
+
+<!-- PILOT STRIP -->
+<div style="background:#1a1a0d;padding:36px 52px;border-top:1px solid rgba(240,200,80,0.1);">
+  <div style="max-width:1160px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+    <div>
+      <p style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#f0c850;margin-bottom:6px;">● Pilot in progress</p>
+      <p style="font-family:'Playfair Display',serif;font-size:17px;color:#f0ebe0;font-style:italic;margin:0;">Vil du teste det i din virkelige situation? 90 min · gratis · ingen forberedelse.</p>
+    </div>
+    <a href="pilot-pakke-en.html" style="display:inline-flex;align-items:center;gap:8px;background:#f0c850;color:#1a1a0d;padding:11px 22px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;flex-shrink:0;">See the pilot package →</a>
+  </div>
+</div>
+
+</body>
+</html>

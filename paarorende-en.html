@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carers — ETOS programme</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    /* HERO */
+    .paa-hero {
+      background: linear-gradient(160deg, #1a1228 0%, #1e2030 60%, #0d1117 100%);
+      padding: 80px 52px 72px; position: relative; overflow: hidden;
+    }
+    .paa-hero::before {
+      content: ''; position: absolute; top: -80px; right: -80px;
+      width: 440px; height: 440px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(122,158,232,0.07), transparent 70%);
+      pointer-events: none;
+    }
+    .paa-hero-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 400px; gap: 64px; align-items: center; position: relative; }
+    .paa-tag { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #7a9ee8; display: block; margin-bottom: 20px; }
+    .paa-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 48px); color: #f0ebe0; font-weight: 400; line-height: 1.12; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .paa-hero h1 em { font-style: italic; color: #7a9ee8; }
+    .paa-hero-lead { font-family: 'DM Sans', sans-serif; font-size: 15px; color: rgba(240,235,224,0.5); line-height: 1.8; margin-bottom: 28px; max-width: 460px; }
+    .paa-hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+    .paa-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.15s; }
+    .paa-btn-primary { background: #7a9ee8; color: #fff; }
+    .paa-btn-primary:hover { background: #5a7ed0; }
+    .paa-btn-ghost { background: transparent; color: rgba(240,235,224,0.55); border: 1px solid rgba(240,235,224,0.15); }
+    .paa-btn-ghost:hover { color: rgba(240,235,224,0.9); border-color: rgba(240,235,224,0.3); }
+
+    /* TENSION WIDGET */
+    .paa-tension-box {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(122,158,232,0.15);
+      border-radius: 16px; padding: 28px;
+    }
+    .paa-tension-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,235,224,0.3); display: block; margin-bottom: 16px; }
+    .paa-tension-row { margin-bottom: 14px; }
+    .paa-tension-name { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(240,235,224,0.55); display: flex; justify-content: space-between; margin-bottom: 6px; }
+    .paa-tension-bar { height: 4px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; }
+    .paa-tension-fill { height: 100%; border-radius: 4px; }
+    .paa-tension-output { margin-top: 16px; padding: 14px 16px; background: rgba(122,158,232,0.06); border-left: 3px solid #7a9ee8; border-radius: 0 8px 8px 0; }
+    .paa-tension-output p { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(240,235,224,0.5); line-height: 1.7; margin: 0; }
+    .paa-tension-output strong { color: rgba(240,235,224,0.8); font-weight: 500; }
+
+    /* PROBLEM */
+    .paa-problem { background: #f5f0e8; padding: 64px 52px; }
+    .paa-problem-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .paa-problem h2 { font-family: 'Playfair Display', serif; font-size: 28px; color: #1a1a1a; font-weight: 400; margin-bottom: 16px; }
+    .paa-problem p { font-family: 'DM Sans', sans-serif; font-size: 14px; color: #666; line-height: 1.8; margin-bottom: 14px; }
+    .paa-problem-boxes { display: flex; flex-direction: column; gap: 10px; }
+    .paa-prob-box { padding: 18px 20px; border-radius: 12px; display: flex; gap: 14px; align-items: flex-start; }
+    .paa-prob-box.a { background: rgba(224,112,112,0.06); border: 1px solid rgba(224,112,112,0.12); border-left: 3px solid #e07070; }
+    .paa-prob-box.b { background: rgba(226,136,78,0.06); border: 1px solid rgba(226,136,78,0.12); border-left: 3px solid var(--accent); }
+    .paa-prob-box.c { background: rgba(122,158,232,0.06); border: 1px solid rgba(122,158,232,0.12); border-left: 3px solid #7a9ee8; }
+    .paa-prob-box p { font-family: 'DM Sans', sans-serif; font-size: 13px; line-height: 1.7; margin: 0; }
+    .paa-prob-box.a p { color: #7a3030; }
+    .paa-prob-box.b p { color: #6a3a1a; }
+    .paa-prob-box.c p { color: #2a3a6a; }
+
+    /* HVAD ER ETOS HER */
+    .paa-what { background: #1e2030; padding: 64px 52px; }
+    .paa-what-inner { max-width: 1160px; margin: 0 auto; }
+    .paa-what-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 36px; }
+    .paa-what-card { border-radius: 14px; padding: 28px 24px; }
+    .paa-what-card.not { background: rgba(224,112,112,0.06); border: 1px solid rgba(224,112,112,0.12); }
+    .paa-what-card.is  { background: rgba(78,200,140,0.06); border: 1px solid rgba(78,200,140,0.15); }
+    .paa-what-card.how { background: rgba(122,158,232,0.06); border: 1px solid rgba(122,158,232,0.15); }
+    .paa-what-tag { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 12px; }
+    .paa-what-card.not .paa-what-tag { color: #e07070; }
+    .paa-what-card.is  .paa-what-tag { color: #4ec88c; }
+    .paa-what-card.how .paa-what-tag { color: #7a9ee8; }
+    .paa-what-card h3 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 400; margin-bottom: 10px; }
+    .paa-what-card.not h3 { color: #e07070; }
+    .paa-what-card.is  h3 { color: #4ec88c; }
+    .paa-what-card.how h3 { color: #7a9ee8; }
+    .paa-what-items { display: flex; flex-direction: column; gap: 8px; }
+    .paa-what-item { font-family: 'DM Sans', sans-serif; font-size: 13px; line-height: 1.6; padding: 8px 12px; border-radius: 7px; }
+    .paa-what-card.not .paa-what-item { color: rgba(224,112,112,0.7); background: rgba(224,112,112,0.06); }
+    .paa-what-card.is  .paa-what-item { color: rgba(78,200,140,0.8); background: rgba(78,200,140,0.06); }
+    .paa-what-card.how .paa-what-item { color: rgba(122,158,232,0.8); background: rgba(122,158,232,0.06); }
+    .paa-pitch {
+      margin-top: 36px; text-align: center;
+      padding: 28px; background: rgba(122,158,232,0.06); border: 1px solid rgba(122,158,232,0.15); border-radius: 14px;
+    }
+    .paa-pitch p { font-family: 'Playfair Display', serif; font-size: 20px; color: #e8ecfc; font-style: italic; font-weight: 400; line-height: 1.5; margin: 0; }
+
+    /* MODULER */
+    .paa-modules { background: #f5f0e8; padding: 72px 52px; }
+    .paa-modules-inner { max-width: 1160px; margin: 0 auto; }
+    .paa-mod-grid { display: flex; flex-direction: column; gap: 16px; margin-top: 40px; }
+    .paa-mod { background: #fff; border: 1px solid rgba(0,0,0,0.07); border-radius: 16px; overflow: hidden; }
+    .paa-mod-header { display: grid; grid-template-columns: 64px 1fr; align-items: center; padding: 24px 28px; cursor: pointer; gap: 20px; transition: background 0.15s; }
+    .paa-mod-header:hover { background: #fdf8f4; }
+    .paa-mod-num { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400; color: var(--accent); opacity: 0.6; }
+    .paa-mod-head-text h3 { font-family: 'Playfair Display', serif; font-size: 19px; color: #1a1a1a; font-weight: 400; margin-bottom: 2px; }
+    .paa-mod-theme { font-family: 'DM Sans', sans-serif; font-size: 12px; color: #888; font-style: italic; }
+    .paa-mod-body { padding: 0 28px 28px; display: none; }
+    .paa-mod-body.open { display: block; }
+    .paa-mod-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 20px; }
+    .paa-mod-col-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; display: block; margin-bottom: 10px; }
+    .paa-mod-items { display: flex; flex-direction: column; gap: 7px; }
+    .paa-mod-item { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #666; line-height: 1.6; display: flex; gap: 8px; }
+    .paa-mod-item::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+    .paa-mod-exercise { background: #f8f4ff; border: 1px solid rgba(122,158,232,0.15); border-radius: 10px; padding: 18px 20px; margin-top: 16px; }
+    .paa-mod-ex-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #7a9ee8; display: block; margin-bottom: 8px; }
+    .paa-mod-ex-title { font-family: 'Playfair Display', serif; font-size: 16px; color: #2a3a6a; font-weight: 400; margin-bottom: 8px; }
+    .paa-mod-ex-desc { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #666; line-height: 1.7; }
+    .paa-mod-output { background: #f0fff8; border: 1px solid rgba(78,200,140,0.15); border-radius: 10px; padding: 14px 18px; margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .paa-mod-output-tag { font-family: 'DM Sans', sans-serif; font-size: 12px; color: #2a7a50; background: rgba(78,200,140,0.1); padding: 4px 10px; border-radius: 20px; }
+
+    /* BANKEREN I FORLØBET */
+    .paa-bankeren { background: #1a1228; padding: 64px 52px; }
+    .paa-bankeren-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .paa-bankeren h2 { font-family: 'Playfair Display', serif; font-size: 26px; color: #f0ebe0; font-weight: 400; margin-bottom: 14px; }
+    .paa-bankeren p { font-family: 'DM Sans', sans-serif; font-size: 14px; color: rgba(240,235,224,0.5); line-height: 1.8; margin-bottom: 12px; }
+    .paa-bank-example { background: rgba(200,122,232,0.07); border: 1px solid rgba(200,122,232,0.2); border-radius: 14px; padding: 28px; }
+    .paa-bank-ex-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #c87ae8; display: block; margin-bottom: 12px; }
+    .paa-bank-dialog { display: flex; flex-direction: column; gap: 10px; }
+    .paa-bank-line { font-family: 'DM Sans', sans-serif; font-size: 13px; line-height: 1.65; padding: 10px 14px; border-radius: 8px; }
+    .paa-bank-line.person { background: rgba(255,255,255,0.05); color: rgba(240,235,224,0.6); }
+    .paa-bank-line.bankeren { background: rgba(200,122,232,0.1); color: #c87ae8; font-style: italic; }
+    .paa-bank-line.result { background: rgba(78,200,140,0.08); color: #4ec88c; }
+
+    /* FORMAT */
+    .paa-format { background: #f5f0e8; padding: 64px 52px; }
+    .paa-format-inner { max-width: 1160px; margin: 0 auto; }
+    .paa-format-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 36px; }
+    .paa-format-card { background: #fff; border: 1px solid rgba(0,0,0,0.07); border-radius: 14px; padding: 28px 24px; }
+    .paa-format-icon { font-size: 28px; margin-bottom: 14px; display: block; }
+    .paa-format-card h3 { font-family: 'Playfair Display', serif; font-size: 18px; color: #1a1a1a; font-weight: 400; margin-bottom: 6px; }
+    .paa-format-desc { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #888; line-height: 1.7; margin-bottom: 14px; }
+    .paa-format-detail { font-family: 'DM Sans', sans-serif; font-size: 12px; color: #aaa; }
+
+    /* CTA */
+    .paa-cta { background: #1e2030; padding: 72px 52px; }
+    .paa-cta-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+    .paa-cta h2 { font-family: 'Playfair Display', serif; font-size: 30px; color: #f0ebe0; font-weight: 400; margin-bottom: 14px; }
+    .paa-cta p { font-family: 'DM Sans', sans-serif; font-size: 14px; color: rgba(240,235,224,0.5); line-height: 1.8; margin-bottom: 28px; }
+    .paa-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+    .paa-cta-note { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(240,235,224,0.25); font-style: italic; }
+
+    @media (max-width: 860px) {
+      .paa-hero { padding: 48px 28px; }
+      .paa-hero-inner { grid-template-columns: 1fr; }
+      .paa-tension-box { display: none; }
+      .paa-problem { padding: 48px 28px; }
+      .paa-problem-inner { grid-template-columns: 1fr; }
+      .paa-what { padding: 48px 28px; }
+      .paa-what-grid { grid-template-columns: 1fr; }
+      .paa-modules { padding: 48px 28px; }
+      .paa-mod-cols { grid-template-columns: 1fr; }
+      .paa-bankeren { padding: 48px 28px; }
+      .paa-bankeren-inner { grid-template-columns: 1fr; }
+      .paa-format { padding: 48px 28px; }
+      .paa-format-grid { grid-template-columns: 1fr; }
+      .paa-cta { padding: 48px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="fs-header">
+<style>
+  .fs-dropdown { position: relative; }
+  .fs-dropdown-menu {
+    display: none; position: absolute; top: calc(100% + 6px); left: -8px;
+    background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 8px; min-width: 200px; z-index: 999;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+  }
+  .fs-dropdown:hover .fs-dropdown-menu { display: block; }
+  .fs-dropdown-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px; border-radius: 8px; text-decoration: none;
+    transition: background 0.12s;
+  }
+  .fs-dropdown-item:hover { background: rgba(255,255,255,0.07); }
+  .fs-dropdown-item-icon {
+    width: 28px; height: 28px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; flex-shrink: 0;
+  }
+  .fs-dropdown-item-text { display: flex; flex-direction: column; }
+  .fs-dropdown-item-title { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: #fff; line-height: 1.2; }
+  .fs-dropdown-item-sub { font-family: 'DM Sans', sans-serif; font-size: 10px; color: rgba(255,255,255,0.4); line-height: 1.2; }
+  .fs-nav-item-arrow { font-size: 9px; color: rgba(255,255,255,0.25); margin-left: 2px; }
+</style>
+  <div class="fs-nav">
+    <a href="index-en.html" class="fs-logo">M.E.M.</a>
+    <nav class="fs-links">
+
+      <!-- ETOS -->
+      <a href="etos-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Decision model</span></span>
+      </a>
+
+      <!-- FORLØB -->
+      <a href="forloeb-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a2020;">🔄</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Programmes</span><span class="fs-nav-sub">Carers · Leaders · Psychiatry</span></span>
+      </a>
+
+      <!-- PILOT -->
+      <a href="pilot-pakke-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1a0d;">🧪</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Pilot</span><span class="fs-nav-sub">Test it in practice</span></span>
+      </a>
+
+      <!-- MERE dropdown -->
+      <div class="fs-dropdown">
+        <a href="mem-en.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#0d1117;">✦</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">More</span><span class="fs-nav-sub">Theory · Universe · Democracy</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="mem-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🔬</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">M.E.M.</span><span class="fs-dropdown-item-sub">Foundation</span></span>
+          </a>
+          <a href="arkitektur-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🏗</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Architecture</span><span class="fs-dropdown-item-sub">IDK · ETOS · CDP</span></span>
+          </a>
+          <a href="etos-demokrati-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2820;">🗳</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Democracy</span><span class="fs-dropdown-item-sub">Promises · Accountability</span></span>
+          </a>
+          <a href="boerneunivers-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#2a1f1a;">🌱</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Universe</span><span class="fs-dropdown-item-sub">Children · Bankeren · Learning</span></span>
+          </a>
+          <a href="dirigent-rum-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1a12;">🎼</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Dirigenten</span><span class="fs-dropdown-item-sub">Ideas · Projects</span></span>
+          </a>
+          <a href="regnskab-program-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#111520;">📊</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Regnskab</span><span class="fs-dropdown-item-sub">Økonomi · Overblik</span></span>
+          </a>
+        </div>
+      </div>
+
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt-en.html" class="fs-nav-cta">Contact</a>
+      <a href="paarorende.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">DA</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="paa-hero">
+  <div class="paa-hero-inner">
+    <div>
+      <span class="paa-tag">ETOS Programme · Pårørende til misbrugere</span>
+      <h1>Når du står tæt på<br>et menneske<br><em>i misbrug</em></h1>
+      <p class="paa-hero-lead">You cannot control the addiction. But you can understand the tensions — and act differently within them. ETOS helps you find your own position without losing yourself.</p>
+      <div class="paa-hero-btns">
+        <a href="#tilmeld" class="paa-btn paa-btn-primary">Join the pilot programme →</a>
+        <a href="#moduler" class="paa-btn paa-btn-ghost">See the programme ↓</a>
+      </div>
+    </div>
+
+    <div class="paa-tension-box">
+      <span class="paa-tension-label">Typical tension field — carers</span>
+      <div class="paa-tension-row">
+        <div class="paa-tension-name"><span>Care for the other</span><span style="color:#e07070;">Høj</span></div>
+        <div class="paa-tension-bar"><div class="paa-tension-fill" style="width:85%;background:linear-gradient(90deg,#e07070,#e2a06a);"></div></div>
+      </div>
+      <div class="paa-tension-row">
+        <div class="paa-tension-name"><span>Self-protection</span><span style="color:#7a9ee8;">Lav</span></div>
+        <div class="paa-tension-bar"><div class="paa-tension-fill" style="width:22%;background:#7a9ee8;"></div></div>
+      </div>
+      <div class="paa-tension-row">
+        <div class="paa-tension-name"><span>Room for action</span><span style="color:#e2a06a;">Begrænset</span></div>
+        <div class="paa-tension-bar"><div class="paa-tension-fill" style="width:35%;background:var(--accent);"></div></div>
+      </div>
+      <div class="paa-tension-row">
+        <div class="paa-tension-name"><span>Relational trust</span><span style="color:#4ec88c;">Moderat</span></div>
+        <div class="paa-tension-bar"><div class="paa-tension-fill" style="width:55%;background:#4ec88c;"></div></div>
+      </div>
+      <div class="paa-tension-output">
+        <p><strong>ETOS registrerer:</strong> Høj omsorg kombineret med lav selvbeskyttelse skaber etisk gæld — ikke over for misbrugeren, men over for dig selv.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEMET -->
+<div class="paa-problem">
+  <div class="paa-problem-inner">
+    <div>
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">What you know</span>
+      <h2>Du prøver at hjælpe.<br>Det virker ikke.<br>Du mister dig selv.</h2>
+      <p>Carers of people with addiction find themselves in one of the most complex tension fields that exists. Der er ikke nogen rigtig løsning — kun valg der alle har en pris.</p>
+      <p>ETOS is not here to give you the answer. It is here to make the tension visible — so you can act with more clarity.</p>
+    </div>
+    <div class="paa-problem-boxes">
+      <div class="paa-prob-box a">
+        <p><strong>Du prøver at hjælpe</strong> — men hjælpen giver ikke resultat. Det føles som om du gør alt forkert.</p>
+      </div>
+      <div class="paa-prob-box b">
+        <p><strong>Du føler ansvar</strong> — men kan ikke afgøre hvad der er dit ansvar og hvad der ikke er.</p>
+      </div>
+      <div class="paa-prob-box a">
+        <p><strong>Du elsker vedkommende</strong> — men du er ved at miste dig selv i processen.</p>
+      </div>
+      <div class="paa-prob-box c">
+        <p><strong>Du ved ikke hvornår</strong> du skal holde fast, hvornår du skal give slip — og hvornår du skal gå.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HVAD ER ETOS HER -->
+<div class="paa-what">
+  <div class="paa-what-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7a9ee8;display:block;margin-bottom:10px;">What ETOS is in this context</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#e8ecfc;font-weight:400;margin-bottom:8px;">Not therapy. Not a solution. But overview and direction.</h2>
+    <div class="paa-what-grid">
+      <div class="paa-what-card not">
+        <span class="paa-what-tag">ETOS is not</span>
+        <h3>Treatment</h3>
+        <div class="paa-what-items">
+          <div class="paa-what-item">Not therapy or psychological help</div>
+          <div class="paa-what-item">Not treatment of the addiction</div>
+          <div class="paa-what-item">Not a solution to the relationship</div>
+        </div>
+      </div>
+      <div class="paa-what-card is">
+        <span class="paa-what-tag">ETOS er</span>
+        <h3>Guidance</h3>
+        <div class="paa-what-items">
+          <div class="paa-what-item">Systemic guide</div>
+          <div class="paa-what-item">Decision support</div>
+          <div class="paa-what-item">Reflection framework</div>
+        </div>
+      </div>
+      <div class="paa-what-card how">
+        <span class="paa-what-tag">ETOS gives</span>
+        <h3>Clarity</h3>
+        <div class="paa-what-items">
+          <div class="paa-what-item">Overview of the tensions</div>
+          <div class="paa-what-item">Your own position made visible</div>
+          <div class="paa-what-item">Decisions with more direction</div>
+        </div>
+      </div>
+    </div>
+    <div class="paa-pitch">
+      <p>"I help carers understand complex situations and find their own direction — without losing themselves."</p>
+    </div>
+  </div>
+</div>
+
+<!-- MODULER -->
+<div class="paa-modules" id="moduler">
+  <div class="paa-modules-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">Programmeet</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">Four modules · four steps</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;max-width:540px;line-height:1.75;">Klik på et modul for at se indhold og øvelse.</p>
+    <div class="paa-mod-grid">
+
+      <div class="paa-mod">
+        <div class="paa-mod-header" onclick="toggleMod(this)">
+          <div class="paa-mod-num">01</div>
+          <div class="paa-mod-head-text">
+            <h3>Understand the situation</h3>
+            <div class="paa-mod-theme">What is actually happening?</div>
+          </div>
+        </div>
+        <div class="paa-mod-body">
+          <div class="paa-mod-cols">
+            <div>
+              <span class="paa-mod-col-label">Indhold</span>
+              <div class="paa-mod-items">
+                <div class="paa-mod-item">Introduction to ETOS — simple and concrete</div>
+                <div class="paa-mod-item">Helping vs. protecting yourself</div>
+                <div class="paa-mod-item">Love vs. boundaries</div>
+                <div class="paa-mod-item">Hope vs. reality</div>
+              </div>
+            </div>
+            <div>
+              <div class="paa-mod-exercise">
+                <span class="paa-mod-ex-label">Øvelse</span>
+                <div class="paa-mod-ex-title">👉 "Your situation"</div>
+                <div class="paa-mod-ex-desc">Du udfylder tre sliders: Risiko, Relational trust og Egen belastning. ETOS viser dig dit aktuelle spændingsfelt.</div>
+              </div>
+              <div class="paa-mod-output">
+                <span class="paa-mod-output-tag">Clarity over situationen</span>
+                <span class="paa-mod-output-tag">Named tension</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="paa-mod">
+        <div class="paa-mod-header" onclick="toggleMod(this)">
+          <div class="paa-mod-num">02</div>
+          <div class="paa-mod-head-text">
+            <h3>See yourself</h3>
+            <div class="paa-mod-theme">Where do I stand?</div>
+          </div>
+        </div>
+        <div class="paa-mod-body">
+          <div class="paa-mod-cols">
+            <div>
+              <span class="paa-mod-col-label">Indhold</span>
+              <div class="paa-mod-items">
+                <div class="paa-mod-item">Responsibility vs. guilt — the important difference</div>
+                <div class="paa-mod-item">What is mine — what is not mine</div>
+                <div class="paa-mod-item">Ethical debt: what you owe yourself</div>
+              </div>
+            </div>
+            <div>
+              <div class="paa-mod-exercise">
+                <span class="paa-mod-ex-label">Øvelse</span>
+                <div class="paa-mod-ex-title">👉 "My responsibility"</div>
+                <div class="paa-mod-ex-desc">Three columns: What I can influence · What I cannot · What I think I should be able to. The separation is liberating.</div>
+              </div>
+              <div class="paa-mod-output">
+                <span class="paa-mod-output-tag">Clarity</span>
+                <span class="paa-mod-output-tag">Relief</span>
+                <span class="paa-mod-output-tag">Realism</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="paa-mod">
+        <div class="paa-mod-header" onclick="toggleMod(this)">
+          <div class="paa-mod-num">03</div>
+          <div class="paa-mod-head-text">
+            <h3>Beslutninger</h3>
+            <div class="paa-mod-theme">What do I do now?</div>
+          </div>
+        </div>
+        <div class="paa-mod-body">
+          <div class="paa-mod-cols">
+            <div>
+              <span class="paa-mod-col-label">Indhold</span>
+              <div class="paa-mod-items">
+                <div class="paa-mod-item">ETOS as a decision tool in practice</div>
+                <div class="paa-mod-item">When to act — and when to stop</div>
+                <div class="paa-mod-item">Setting boundaries without giving up the relationship</div>
+              </div>
+            </div>
+            <div>
+              <div class="paa-mod-exercise">
+                <span class="paa-mod-ex-label">Øvelse</span>
+                <div class="paa-mod-ex-title">👉 "Next steps"</div>
+                <div class="paa-mod-ex-desc">What is one action? What is one boundary? What is one thing you stop? Three concrete answers — not plans, but steps.</div>
+              </div>
+              <div class="paa-mod-output">
+                <span class="paa-mod-output-tag">Concrete action</span>
+                <span class="paa-mod-output-tag">A boundary set</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="paa-mod">
+        <div class="paa-mod-header" onclick="toggleMod(this)">
+          <div class="paa-mod-num">04</div>
+          <div class="paa-mod-head-text">
+            <h3>Relationship and future</h3>
+            <div class="paa-mod-theme">How do I live with this?</div>
+          </div>
+        </div>
+        <div class="paa-mod-body">
+          <div class="paa-mod-cols">
+            <div>
+              <span class="paa-mod-col-label">Indhold</span>
+              <div class="paa-mod-items">
+                <div class="paa-mod-item">Relationship without control — what it requires</div>
+                <div class="paa-mod-item">Acceptance without giving up</div>
+                <div class="paa-mod-item">Rebuilding your own life alongside</div>
+              </div>
+            </div>
+            <div>
+              <div class="paa-mod-exercise">
+                <span class="paa-mod-ex-label">Øvelse</span>
+                <div class="paa-mod-ex-title">👉 "My life alongside"</div>
+                <div class="paa-mod-ex-desc">What gives me energy? What have I lost? What do I want to rebuild? Three answers that point forward — not back.</div>
+              </div>
+              <div class="paa-mod-output">
+                <span class="paa-mod-output-tag">Own life visible</span>
+                <span class="paa-mod-output-tag">Direction forward</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- BANKEREN -->
+<div class="paa-bankeren">
+  <div class="paa-bankeren-inner">
+    <div>
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#c87ae8;display:block;margin-bottom:10px;">Optional element</span>
+      <h2>Bankeren in the programme</h2>
+      <p>For carers who know Bankeren from the children's universe — or who simply need to feel something before talking about it — Bankeren is a quiet tool in the programme.</p>
+      <p>Ikke obligatorisk. But stærkt i de samtaler hvor ord ikke er nok til at starte.</p>
+      <a href="bankeren-produkt-en.html" style="display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:#c87ae8;text-decoration:none;margin-top:8px;">See the Bankeren product →</a>
+    </div>
+    <div class="paa-bank-example">
+      <span class="paa-bank-ex-label">Example from a session</span>
+      <div class="paa-bank-dialog">
+        <div class="paa-bank-line person">Participant: "I don't know what I feel. It's just... heavy."</div>
+        <div class="paa-bank-line bankeren">→ Chooses purple colour on Bankeren</div>
+        <div class="paa-bank-line person">"Purple. That fits. It is something inward."</div>
+        <div class="paa-bank-line result">The conversation starts from there — from what was felt, not what was explained.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FORMAT -->
+<div class="paa-format">
+  <div class="paa-format-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">Format</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">Three ways to participate</h2>
+    <div class="paa-format-grid">
+      <div class="paa-format-card">
+        <span class="paa-format-icon">🏛</span>
+        <h3>Workshop</h3>
+        <p class="paa-format-desc">All four modules in one day. Intensive and concrete. Suitable for groups who know each other.</p>
+        <div class="paa-format-detail">3–4 hours · in person · small groups</div>
+      </div>
+      <div class="paa-format-card">
+        <span class="paa-format-icon">📅</span>
+        <h3>Programme</h3>
+        <p class="paa-format-desc">One module per week over four weeks. Time to let the insights land and work in everyday life.</p>
+        <div class="paa-format-detail">4 weeks · online or in person · group or solo</div>
+      </div>
+      <div class="paa-format-card">
+        <span class="paa-format-icon">🤝</span>
+        <h3>1:1 counselling</h3>
+        <p class="paa-format-desc">ETOS as a conversation tool in individual sessions. Most flexible and personally adapted.</p>
+        <div class="paa-format-detail">Arranged individually · online or in person</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="paa-cta" id="tilmeld">
+  <div class="paa-cta-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7a9ee8;display:block;margin-bottom:16px;">Pilot programme</span>
+    <h2>Take the first step</h2>
+    <p>Programmeet er i pilotfase og er åbent for de første deltagere. Du kan starte med en gratis introduktionssnak på 30 minutter — ingen forpligtelse, ingen dagsorden.</p>
+    <div class="paa-cta-btns">
+      <a href="mailto:M.E.M.Teori@gmail.com?subject=Pårørende forløb - interesse" class="paa-btn paa-btn-primary">Write to us →</a>
+      <a href="kontakt-en.html" class="paa-btn paa-btn-ghost">Contact page</a>
+    </div>
+    <p class="paa-cta-note">Free introductory conversation · 30 min · no obligation</p>
+  </div>
+</div>
+
+<script>
+function toggleMod(header) {
+  const body = header.nextElementSibling;
+  const isOpen = body.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.paa-mod-body').forEach(b => b.classList.remove('open'));
+  // Open this one if it was closed
+  if (!isOpen) body.classList.add('open');
+}
+// Open first module by default
+document.addEventListener('DOMContentLoaded', () => {
+  const first = document.querySelector('.paa-mod-body');
+  if (first) first.classList.add('open');
+});
+</script>
+
+
+<!-- PILOT STRIP -->
+<div style="background:#1a1a0d;padding:36px 52px;border-top:1px solid rgba(240,200,80,0.1);">
+  <div style="max-width:1160px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+    <div>
+      <p style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#f0c850;margin-bottom:6px;">● Pilot in progress</p>
+      <p style="font-family:'Playfair Display',serif;font-size:17px;color:#f0ebe0;font-style:italic;margin:0;">Vil du teste det i din virkelige situation? 90 min · gratis · ingen forberedelse.</p>
+    </div>
+    <a href="pilot-pakke-en.html" style="display:inline-flex;align-items:center;gap:8px;background:#f0c850;color:#1a1a0d;padding:11px 22px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;flex-shrink:0;">See the pilot package →</a>
+  </div>
+</div>
+
+</body>
+</html>
