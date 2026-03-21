@@ -3,100 +3,402 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ETOS-modellen</title>
+  <title>ETOS — M.E.M. anvendt på beslutninger</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="style-additions.css">
+  <style>
+    .etos-hero { background: #1E2E1F; padding: 80px 52px 72px; position: relative; overflow: hidden; }
+    .etos-hero::before { content: ''; position: absolute; top: -80px; right: -80px; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(226,136,78,0.08), transparent 70%); pointer-events: none; }
+    .etos-hero-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; position: relative; }
+    .etos-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 48px); color: #f0ebe0; font-weight: 400; line-height: 1.12; margin-bottom: 8px; }
+    .etos-hero h1 em { font-style: italic; color: var(--accent); }
+    .etos-kicker { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: var(--accent); letter-spacing: 0.06em; display: block; margin-bottom: 16px; }
+    .etos-hero-lead { font-family: 'DM Sans', sans-serif; font-size: 15px; color: rgba(240,235,224,0.5); line-height: 1.8; margin-bottom: 28px; }
+    .etos-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.15s; }
+    .etos-btn-primary { background: var(--accent); color: #fff; }
+    .etos-btn-primary:hover { background: var(--accent-dk); }
+    .etos-btn-ghost { background: transparent; color: rgba(240,235,224,0.55); border: 1px solid rgba(240,235,224,0.15); }
+    .etos-btn-ghost:hover { color: rgba(240,235,224,0.9); border-color: rgba(240,235,224,0.3); }
+
+    /* Fundament */
+    .etos-mem-strip { background: #0d1117; padding: 56px 52px; }
+    .etos-mem-strip-inner { max-width: 1160px; margin: 0 auto; }
+    .etos-mem-flow { display: flex; align-items: center; gap: 0; margin-top: 28px; }
+    .etos-mem-node { flex: 1; text-align: center; padding: 20px 16px; border-radius: 12px; }
+    .etos-mem-node.m { background: rgba(122,158,232,0.08); border: 1px solid rgba(122,158,232,0.15); }
+    .etos-mem-node.e { background: rgba(226,136,78,0.08); border: 1px solid rgba(226,136,78,0.15); }
+    .etos-mem-node.mo { background: rgba(78,200,140,0.08); border: 1px solid rgba(78,200,140,0.15); }
+    .etos-mem-node.etos { background: rgba(226,136,78,0.12); border: 2px solid rgba(226,136,78,0.3); }
+    .etos-mem-letter { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 400; margin-bottom: 4px; }
+    .etos-mem-node.m .etos-mem-letter { color: #7a9ee8; }
+    .etos-mem-node.e .etos-mem-letter { color: var(--accent); }
+    .etos-mem-node.mo .etos-mem-letter { color: #4ec88c; }
+    .etos-mem-node.etos .etos-mem-letter { color: var(--accent); font-size: 20px; }
+    .etos-mem-node-name { font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(240,235,224,0.4); }
+    .etos-mem-arrow { font-size: 18px; color: rgba(226,136,78,0.3); padding: 0 8px; flex-shrink: 0; }
+
+    /* Sådan virker det */
+    .etos-how { background: #f5f0e8; padding: 72px 52px; }
+    .etos-how-inner { max-width: 1160px; margin: 0 auto; }
+    .etos-how-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; margin-top: 36px; border: 1px solid rgba(0,0,0,0.08); border-radius: 16px; overflow: hidden; }
+    .etos-how-step { padding: 36px 28px; border-right: 1px solid rgba(0,0,0,0.08); background: #fff; }
+    .etos-how-step:last-child { border-right: none; }
+    .etos-how-num { font-family: 'Playfair Display', serif; font-size: 36px; color: var(--accent); opacity: 0.4; font-weight: 400; margin-bottom: 12px; }
+    .etos-how-step h3 { font-family: 'Playfair Display', serif; font-size: 18px; color: #1a1a1a; font-weight: 400; margin-bottom: 8px; }
+    .etos-how-step p { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #888; line-height: 1.75; margin-bottom: 12px; }
+    .etos-how-items { display: flex; flex-direction: column; gap: 5px; }
+    .etos-how-item { font-family: 'DM Sans', sans-serif; font-size: 12px; color: #aaa; padding: 5px 10px; background: #f8f4f0; border-radius: 6px; }
+
+    /* Case */
+    .etos-case { background: #0d1117; padding: 72px 52px; }
+    .etos-case-inner { max-width: 1160px; margin: 0 auto; }
+    .etos-case-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; overflow: hidden; margin-top: 36px; }
+    .etos-case-header { background: #1E2E1F; padding: 20px 28px; display: flex; justify-content: space-between; align-items: center; }
+    .etos-case-body { padding: 28px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+    .etos-col-lbl { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,235,224,0.25); display: block; margin-bottom: 12px; }
+    .etos-case-item { font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 14px; background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 8px; line-height: 1.6; }
+    .etos-case-item.t { color: #e07070; background: rgba(224,112,112,0.08); border-left: 2px solid #e07070; }
+    .etos-case-item.a { color: var(--accent); background: rgba(226,136,78,0.08); border-left: 2px solid var(--accent); }
+    .etos-case-item.g { color: #4ec88c; background: rgba(78,200,140,0.08); border-left: 2px solid #4ec88c; }
+    .etos-case-footer { padding: 20px 28px; background: rgba(226,136,78,0.05); border-top: 1px solid rgba(255,255,255,0.05); }
+    .etos-case-footer p { font-family: 'Playfair Display', serif; font-size: 16px; color: rgba(240,235,224,0.6); font-style: italic; margin: 0; line-height: 1.6; }
+    .etos-case-footer strong { color: var(--accent); font-style: normal; }
+
+    /* Tilstande */
+    .etos-modes { background: #f5f0e8; padding: 72px 52px; }
+    .etos-modes-inner { max-width: 1160px; margin: 0 auto; }
+    .etos-modes-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 10px; margin-top: 36px; }
+    .etos-mode-card { border-radius: 12px; padding: 20px 16px; text-align: center; }
+    .etos-mode-card.n { background: rgba(78,200,140,0.08); border: 1px solid rgba(78,200,140,0.2); }
+    .etos-mode-card.r { background: rgba(122,158,232,0.08); border: 1px solid rgba(122,158,232,0.2); }
+    .etos-mode-card.e2 { background: rgba(224,112,112,0.08); border: 1px solid rgba(224,112,112,0.2); }
+    .etos-mode-card.i { background: rgba(226,136,78,0.08); border: 1px solid rgba(226,136,78,0.2); }
+    .etos-mode-card.v { background: rgba(200,122,232,0.08); border: 1px solid rgba(200,122,232,0.2); }
+    .etos-mode-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 400; margin-bottom: 6px; }
+    .etos-mode-card.n .etos-mode-name { color: #4ec88c; }
+    .etos-mode-card.r .etos-mode-name { color: #7a9ee8; }
+    .etos-mode-card.e2 .etos-mode-name { color: #e07070; }
+    .etos-mode-card.i .etos-mode-name { color: var(--accent); }
+    .etos-mode-card.v .etos-mode-name { color: #c87ae8; }
+    .etos-mode-desc { font-family: 'DM Sans', sans-serif; font-size: 11px; color: #888; line-height: 1.55; }
+
+    /* Hero right side — stilised tension visual */
+    .etos-hero-visual { display: flex; flex-direction: column; gap: 10px; }
+    .etos-tension { background: rgba(255,255,255,0.04); border: 1px solid rgba(226,136,78,0.12); border-radius: 12px; padding: 16px 20px; }
+    .etos-tension-lbl { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(240,235,224,0.25); margin-bottom: 10px; display: block; }
+    .etos-tension-pair { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .etos-tension-pair:last-child { margin-bottom: 0; }
+    .etos-t-left { font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(240,235,224,0.45); width: 80px; text-align: right; flex-shrink: 0; }
+    .etos-t-right { font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(240,235,224,0.45); width: 80px; flex-shrink: 0; }
+    .etos-t-bar { flex: 1; height: 5px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; position: relative; }
+    .etos-t-fill { position: absolute; top: 0; height: 100%; border-radius: 3px; }
+    .etos-tension-output { margin-top: 12px; padding: 10px 14px; background: rgba(226,136,78,0.07); border-left: 3px solid var(--accent); border-radius: 0 7px 7px 0; font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(240,235,224,0.5); line-height: 1.65; }
+    .etos-tension-output strong { color: var(--accent); }
+
+    @media (max-width: 860px) {
+      .etos-hero, .etos-mem-strip, .etos-how, .etos-case, .etos-modes { padding: 48px 28px; }
+      .etos-hero-inner { grid-template-columns: 1fr; }
+      .etos-hero-visual { display: none; }
+      .etos-how-grid { grid-template-columns: 1fr; }
+      .etos-case-body { grid-template-columns: 1fr; }
+      .etos-modes-grid { grid-template-columns: repeat(2,1fr); }
+      .etos-mem-flow { flex-wrap: wrap; gap: 8px; }
+      .etos-mem-arrow { display: none; }
+    }
+  </style>
 </head>
 <body>
 
 <header class="fs-header">
+<style>
+  .fs-dropdown { position: relative; }
+  .fs-dropdown-menu {
+    display: none; position: absolute; top: calc(100% + 6px); left: -8px;
+    background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 8px; min-width: 200px; z-index: 999;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+  }
+  .fs-dropdown:hover .fs-dropdown-menu { display: block; }
+  .fs-dropdown-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px; border-radius: 8px; text-decoration: none;
+    transition: background 0.12s;
+  }
+  .fs-dropdown-item:hover { background: rgba(255,255,255,0.07); }
+  .fs-dropdown-item-icon {
+    width: 28px; height: 28px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; flex-shrink: 0;
+  }
+  .fs-dropdown-item-text { display: flex; flex-direction: column; }
+  .fs-dropdown-item-title { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: #fff; line-height: 1.2; }
+  .fs-dropdown-item-sub { font-family: 'DM Sans', sans-serif; font-size: 10px; color: rgba(255,255,255,0.4); line-height: 1.2; }
+  .fs-nav-item-arrow { font-size: 9px; color: rgba(255,255,255,0.25); margin-left: 2px; }
+</style>
   <div class="fs-nav">
     <a href="index.html" class="fs-logo">ETOS</a>
     <nav class="fs-links">
-      <a href="mem.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#1a1228;">🔬</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">M.E.M.</span><span class="fs-nav-sub">Grundmodel</span></span>
+
+      <!-- TEORI dropdown -->
+      <div class="fs-dropdown">
+        <a href="mem.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#1a1228;">🔬</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">Teori</span><span class="fs-nav-sub">M.E.M. · Arkitektur</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="mem.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🔬</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">M.E.M.</span><span class="fs-dropdown-item-sub">Grundmodel</span></span>
+          </a>
+          <a href="arkitektur.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🏗</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Arkitektur</span><span class="fs-dropdown-item-sub">IDK · ETOS · CDP</span></span>
+          </a>
+        </div>
+      </div>
+
+      <!-- FORLØB hub -->
+      <a href="forloeb.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a2020;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Forløb</span><span class="fs-nav-sub">Pårørende · Ledelse</span></span>
       </a>
-      <a href="arkitektur.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#0d1a2a;">🏗</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Arkitektur</span><span class="fs-nav-sub">IDK · ETOS · CDP</span></span>
-      </a>
+
+      <!-- DEMOKRATI standalone -->
       <a href="etos-demokrati.html" class="fs-nav-item">
         <span class="fs-nav-icon" style="background:#1a2820;">🗳</span>
         <span class="fs-nav-text"><span class="fs-nav-title">Demokrati</span><span class="fs-nav-sub">Løfter · Ansvar</span></span>
       </a>
+
+      <!-- SYSTEMET standalone -->
       <a href="system.html" class="fs-nav-item">
         <span class="fs-nav-icon" style="background:#0d1117;">⚙️</span>
         <span class="fs-nav-text"><span class="fs-nav-title">Systemet</span><span class="fs-nav-sub">Case analyse</span></span>
       </a>
-      <a href="boerneunivers.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#2a1f1a;">📖</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Børneunivers</span><span class="fs-nav-sub">Børnebøger</span></span>
-      </a>
-      <a href="laering.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#0d1a2a;">🌐</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Lærings-uniVRs</span><span class="fs-nav-sub">Oplevelse</span></span>
-      </a>
-      <a href="dirigent-rum.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#1a1a12;">🎼</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Dirigenten</span><span class="fs-nav-sub">Idéer</span></span>
-      </a>
-      <a href="regnskab-program.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#111520;">📊</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Regnskab</span><span class="fs-nav-sub">Økonomi</span></span>
-      </a>
+
+      <!-- UNIVERSET dropdown -->
+      <div class="fs-dropdown">
+        <a href="boerneunivers.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#2a1f1a;">🌱</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">Universet</span><span class="fs-nav-sub">Børn · Læring · Bankeren</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="boerneunivers.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#2a1f1a;">📖</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Børneunivers</span><span class="fs-dropdown-item-sub">Børnebøger</span></span>
+          </a>
+          <a href="laering.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🌐</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Lærings-uniVRs</span><span class="fs-dropdown-item-sub">Oplevelse · Læring</span></span>
+          </a>
+          <a href="bankeren-produkt.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🧸</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Bankeren</span><span class="fs-dropdown-item-sub">Lampe · Bamse</span></span>
+          </a>
+        </div>
+      </div>
+
+      <!-- VÆRKTØJER dropdown -->
+      <div class="fs-dropdown">
+        <a href="dirigent-rum.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#1a1a12;">🛠</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">Værktøjer</span><span class="fs-nav-sub">Dirigenten · Regnskab</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="dirigent-rum.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1a12;">🎼</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Dirigenten</span><span class="fs-dropdown-item-sub">Idéer · Projekter</span></span>
+          </a>
+          <a href="regnskab-program.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#111520;">📊</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Regnskab</span><span class="fs-dropdown-item-sub">Økonomi · Overblik</span></span>
+          </a>
+        </div>
+      </div>
+
     </nav>
-    <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
+      <a href="index-en.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">EN</a>
+    </div>
   </div>
 </header>
 
-<div class="page-hero">
-  <div class="page-hero-inner">
-    <span class="page-hero-tag">ETOS-modellen</span>
-    <h1>Rammen omkring beslutninger, refleksion og læring</h1>
-    <p class="subtitle">ETOS gør det muligt at synliggøre konflikter mellem intention, system og oplevet virkelighed.</p>
+<!-- HERO -->
+<div class="etos-hero">
+  <div class="etos-hero-inner">
+    <div>
+      <span class="etos-kicker">ETOS — M.E.M. anvendt på beslutninger</span>
+      <h1>Synliggør spændingen.<br>Forstå valget.<br><em>Tag ansvar for det.</em></h1>
+      <p class="etos-hero-lead">ETOS er M.E.M. anvendt på beslutninger. Det gør spændinger synlige og hjælper med at træffe valg i situationer, hvor der ikke findes ét rigtigt svar.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="system.html" class="etos-btn etos-btn-primary">Prøv ETOS nu →</a>
+        <a href="arkitektur.html" class="etos-btn etos-btn-ghost">Se arkitekturen</a>
+      </div>
+    </div>
+    <div class="etos-hero-visual">
+      <div class="etos-tension">
+        <span class="etos-tension-lbl">Eksempel — psykiatri</span>
+        <div class="etos-tension-pair">
+          <span class="etos-t-left">Systemkrav</span>
+          <div class="etos-t-bar"><div class="etos-t-fill" style="width:82%;background:linear-gradient(90deg,#e07070,#e2a06a);"></div></div>
+          <span class="etos-t-right">Autonomi</span>
+        </div>
+        <div class="etos-tension-pair">
+          <span class="etos-t-left">Sikkerhed</span>
+          <div class="etos-t-bar"><div class="etos-t-fill" style="width:70%;background:var(--accent);"></div></div>
+          <span class="etos-t-right">Relation</span>
+        </div>
+        <div class="etos-tension-pair">
+          <span class="etos-t-left">Handling</span>
+          <div class="etos-t-bar"><div class="etos-t-fill" style="width:35%;background:#7a9ee8;"></div></div>
+          <span class="etos-t-right">Tillid</span>
+        </div>
+        <div class="etos-tension-output"><strong>Kritisk spænding</strong> — handling er mulig, men relationel skade er sandsynlig og skal håndteres aktivt.</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:16px 20px;">
+        <p style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,0.35);margin:0 0 4px;">Fem tilstande:</p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span style="font-family:'DM Sans',sans-serif;font-size:11px;padding:3px 8px;border-radius:20px;background:rgba(78,200,140,0.1);color:#4ec88c;">Normal</span>
+          <span style="font-family:'DM Sans',sans-serif;font-size:11px;padding:3px 8px;border-radius:20px;background:rgba(122,158,232,0.1);color:#7a9ee8;">Kræver vurdering</span>
+          <span style="font-family:'DM Sans',sans-serif;font-size:11px;padding:3px 8px;border-radius:20px;background:rgba(224,112,112,0.1);color:#e07070;">Nødtilstand</span>
+          <span style="font-family:'DM Sans',sans-serif;font-size:11px;padding:3px 8px;border-radius:20px;background:rgba(226,136,78,0.1);color:var(--accent);">Uforeneligt</span>
+          <span style="font-family:'DM Sans',sans-serif;font-size:11px;padding:3px 8px;border-radius:20px;background:rgba(200,122,232,0.1);color:#c87ae8;">Grundlovsveto</span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="container">
-  <section class="section">
-    <div class="content card">
-      <p>ETOS er strukturen omkring beslutningsprocessen. Den gør det muligt at synliggøre konflikter mellem intention, system og oplevet virkelighed.</p>
-      <p>Systemet er udviklet som en måde at arbejde med komplekse beslutninger uden at skjule spændingerne i processen.</p>
-      <p>I stedet for at levere et svar, skaber ETOS en ramme, der tillader modsætninger at eksistere — og arbejdes med.</p>
+<!-- M.E.M. FUNDAMENT -->
+<div class="etos-mem-strip">
+  <div class="etos-mem-strip-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7a9ee8;display:block;margin-bottom:10px;">Fundamentet</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:22px;color:#e8ecfc;font-weight:400;">ETOS bygger på M.E.M. — de tre lag skaber spændingen</h2>
+    <div class="etos-mem-flow">
+      <div class="etos-mem-node m">
+        <div class="etos-mem-letter">M</div>
+        <div class="etos-mem-node-name">Meaning<br>Normative værdier</div>
+      </div>
+      <div class="etos-mem-arrow">+</div>
+      <div class="etos-mem-node e">
+        <div class="etos-mem-letter">E</div>
+        <div class="etos-mem-node-name">Experience<br>Menneskelig erfaring</div>
+      </div>
+      <div class="etos-mem-arrow">+</div>
+      <div class="etos-mem-node mo">
+        <div class="etos-mem-letter">M</div>
+        <div class="etos-mem-node-name">Model<br>Systemets struktur</div>
+      </div>
+      <div class="etos-mem-arrow">→</div>
+      <div class="etos-mem-node etos">
+        <div class="etos-mem-letter">ETOS</div>
+        <div class="etos-mem-node-name">Spændingen<br>synliggjort</div>
+      </div>
     </div>
-  </section>
+  </div>
+</div>
 
-  <section class="section">
-    <div class="section-head">
-      <span class="eyebrow">Modellens kerne</span>
-      <h2>Sådan virker ETOS</h2>
+<!-- SÅDAN VIRKER DET -->
+<div class="etos-how">
+  <div class="etos-how-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">Processen</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;">Forstå · Se eksempel · Prøv</h2>
+    <div class="etos-how-grid">
+      <div class="etos-how-step">
+        <div class="etos-how-num">01</div>
+        <h3>Input</h3>
+        <p>Du beskriver situationen via seks parametre der fanger spændingen præcist.</p>
+        <div class="etos-how-items">
+          <div class="etos-how-item">Tvang og afvisning</div>
+          <div class="etos-how-item">Kapacitetstab og risiko</div>
+          <div class="etos-how-item">Tidsfølsomhed</div>
+          <div class="etos-how-item">Forhåndsdirektiv</div>
+        </div>
+      </div>
+      <div class="etos-how-step">
+        <div class="etos-how-num">02</div>
+        <h3>Analyse</h3>
+        <p>ETOS beregner divergens, etisk pres og handlingsrum — og klassificerer situationen.</p>
+        <div class="etos-how-items">
+          <div class="etos-how-item">Divergens (afstand)</div>
+          <div class="etos-how-item">Etisk gæld</div>
+          <div class="etos-how-item">Beslutningsmode</div>
+        </div>
+      </div>
+      <div class="etos-how-step">
+        <div class="etos-how-num">03</div>
+        <h3>Output</h3>
+        <p>Du får en menneskelig forklaring og en konkret anbefaling — ikke et svar, men retning.</p>
+        <div class="etos-how-items">
+          <div class="etos-how-item">Tilstand navngivet</div>
+          <div class="etos-how-item">Forklaring på dansk</div>
+          <div class="etos-how-item">Næste skridt</div>
+        </div>
+      </div>
     </div>
-    <div class="grid-3">
-      <div class="card">
-        <span class="kicker">Synliggørelse</span>
-        <h3>Gør konflikter tydelige</h3>
-        <p>ETOS bringer de underliggende spændinger op til overfladen — frem for at lade dem forblive usynlige drivkræfter.</p>
-      </div>
-      <div class="card">
-        <span class="kicker">Refleksion</span>
-        <h3>Skaber rum til at tænke</h3>
-        <p>Modellen inviterer til at undersøge, hvad der er på spil — hvem der berøres, og hvilke værdier der er i konflikt.</p>
-      </div>
-      <div class="card">
-        <span class="kicker">Læring</span>
-        <h3>Bygger viden over tid</h3>
-        <p>Hvert forløb med ETOS efterlader spor — så organisationer kan lære af deres beslutninger og mønstre.</p>
-      </div>
-    </div>
-  </section>
+  </div>
+</div>
 
-  <div class="cta-box">
-    <p>"Se hvordan ETOS bruges i praksis"</p>
-    <div class="cta-btns">
-      <a href="anvendelse.html" class="btn btn-primary">Se anvendelse</a>
-      <a href="pilot.html" class="btn btn-ghost">Pilotspor</a>
+<!-- CASE -->
+<div class="etos-case">
+  <div class="etos-case-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">Eksempel</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#e8ecfc;font-weight:400;">ETOS i praksis — en reel situation</h2>
+    <div class="etos-case-box">
+      <div class="etos-case-header">
+        <span style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:rgba(240,235,224,0.7);">Patient nægter behandling · Høj risiko · Lav tillid</span>
+        <span style="font-family:'Playfair Display',serif;font-size:14px;color:var(--accent);">Kritisk spænding</span>
+      </div>
+      <div class="etos-case-body">
+        <div>
+          <span class="etos-col-lbl">Situationen</span>
+          <div class="etos-case-item t">Patient afviser medicinering</div>
+          <div class="etos-case-item t">Systemets risikovurdering: høj</div>
+          <div class="etos-case-item t">Relationel tillid: meget lav</div>
+        </div>
+        <div>
+          <span class="etos-col-lbl">ETOS registrerer</span>
+          <div class="etos-case-item a">Høj divergens — M og E trækker i modsat retning</div>
+          <div class="etos-case-item a">Etisk gæld opstår uanset valg</div>
+          <div class="etos-case-item a">Handlingsrum: begrænset</div>
+        </div>
+        <div>
+          <span class="etos-col-lbl">ETOS anbefaler</span>
+          <div class="etos-case-item g">Handling er mulig — med bevidst pris</div>
+          <div class="etos-case-item g">Dokumentér dilemmaet eksplicit</div>
+          <div class="etos-case-item g">Planlæg reparation af relationen</div>
+        </div>
+      </div>
+      <div class="etos-case-footer"><p>"ETOS fjerner ikke dilemmaet. Det giver <strong>sprog og struktur</strong> til at handle bevidst — og lære af det bagefter."</p></div>
     </div>
+  </div>
+</div>
+
+<!-- FEM TILSTANDE -->
+<div class="etos-modes">
+  <div class="etos-modes-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">Klassifikation</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">Fem tilstande</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;max-width:540px;line-height:1.75;margin-bottom:0;">ETOS klassificerer enhver situation i én af fem tilstande — fra normal til grundlovsveto.</p>
+    <div class="etos-modes-grid">
+      <div class="etos-mode-card n"><div class="etos-mode-name">Normal</div><div class="etos-mode-desc">Beslutningen er i balance — handle med tillid</div></div>
+      <div class="etos-mode-card r"><div class="etos-mode-name">Kræver vurdering</div><div class="etos-mode-desc">Spændinger er til stede — bevidst refleksion nødvendig</div></div>
+      <div class="etos-mode-card e2"><div class="etos-mode-name">Nødtilstand</div><div class="etos-mode-desc">Høj spænding — etisk gæld registreres</div></div>
+      <div class="etos-mode-card i"><div class="etos-mode-name">Uforeneligt</div><div class="etos-mode-desc">Systemet kan ikke opfylde sine egne mål</div></div>
+      <div class="etos-mode-card v"><div class="etos-mode-name">Grundlovsveto</div><div class="etos-mode-desc">Grundlæggende principper brydes — kræver menneskelig intervention</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="fs-cta-strip">
+  <p class="fs-cta-quote">"ETOS træffer ikke beslutninger — det gør dem synlige."</p>
+  <div class="fs-cta-btns">
+    <a href="system.html" class="fs-btn-primary">Prøv ETOS nu</a>
+    <a href="forloeb.html" class="fs-btn-ghost-dark">Se forløbene</a>
   </div>
 </div>
 
