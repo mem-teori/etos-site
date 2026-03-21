@@ -299,9 +299,13 @@
         <span class="fs-nav-icon" style="background:#1a1228;">🔬</span>
         <span class="fs-nav-text"><span class="fs-nav-title">M.E.M.</span><span class="fs-nav-sub">Grundmodel</span></span>
       </a>
-      <a href="etos.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#1a2040;">🧭</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Beslutningsmodel</span></span>
+      <a href="arkitektur.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#0d1a2a;">🏗</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Arkitektur</span><span class="fs-nav-sub">IDK · ETOS · CDP</span></span>
+      </a>
+      <a href="etos-demokrati.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a2820;">🗳</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Demokrati</span><span class="fs-nav-sub">Løfter · Ansvar</span></span>
       </a>
       <a href="system.html" class="fs-nav-item">
         <span class="fs-nav-icon" style="background:#0d1117;">⚙️</span>
@@ -350,10 +354,13 @@
       <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(226,136,78,0.1);border:1px solid rgba(226,136,78,0.25);border-radius:20px;padding:6px 14px;font-size:12px;color:var(--accent);font-weight:500;">
         ✅ Klar til test nu
       </div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(122,158,232,0.1);border:1px solid rgba(122,158,232,0.25);border-radius:20px;padding:6px 14px;font-size:12px;color:#7a9ee8;font-weight:500;">
+        🔓 Åben for tidlige brugere
+      </div>
     </div>
 
     <div class="dir-hero-btns">
-      <a href="kontakt.html" class="btn btn-primary" style="font-size:14px;padding:12px 24px;">Prøv Dirigent beta →</a>
+      <a href="#demo" class="btn btn-primary" style="font-size:14px;padding:12px 24px;">Prøv det selv nu →</a>
       <a href="#hvordan" class="btn btn-ghost" style="font-size:13px;">Hvordan det virker</a>
     </div>
   </div>
@@ -510,9 +517,9 @@
 
 <!-- CTA -->
 <div class="cta-strip">
-  <p class="cta-quote">"Første version er bygget simpelt. Men den er bygget ærligt."</p>
+  <p class="cta-quote">"Det er ikke et system til at styre dig. Det er et system til at følge dig."</p>
   <div class="cta-strip-btns">
-    <a href="kontakt.html" class="btn btn-primary">Bliv med fra starten</a>
+    <a href="kontakt.html" class="btn btn-primary">Bliv tidlig bruger →</a>
     <a href="mailto:M.E.M.Teori@gmail.com" class="btn btn-ghost">Skriv direkte</a>
   </div>
 </div>
@@ -542,40 +549,46 @@ function landTanke() {
 
 function analyserTanke(tekst) {
   const t = tekst.toLowerCase();
+  const ord = t.split(' ').length;
 
-  // Projekt-gæt
   let projekt = 'Løs idé';
-  let projektFarve = 'demo-tag-project';
-  if (t.match(/barn|børn|skole|lær|elev|undervise/)) { projekt = 'Børneunivers'; }
-  else if (t.match(/musik|sang|lyd|rytme|tone/)) { projekt = 'Kreativt spor'; }
-  else if (t.match(/penge|økonomi|budget|regnskab|faktura/)) { projekt = 'Regnskab'; }
-  else if (t.match(/kemi|fysik|vr|minecraft|videnskab|natur/)) { projekt = 'Lærings-uniVRs'; }
-  else if (t.match(/beslut|etik|system|regl|konflik/)) { projekt = 'ETOS'; }
-  else if (t.match(/ide|tanke|projekt|plan|bygge|skabe/)) { projekt = 'Nyt projekt?'; }
+  if (t.match(/barn|børn|skole|lær|elev|undervise|bog|historie/)) projekt = 'Børneunivers';
+  else if (t.match(/penge|økonomi|budget|regnskab|faktura|skat/)) projekt = 'Regnskab';
+  else if (t.match(/kemi|fysik|vr|minecraft|videnskab|natur/)) projekt = 'Lærings-uniVRs';
+  else if (t.match(/beslut|etik|system|regl|konflik|dilemma/)) projekt = 'ETOS';
+  else if (t.match(/ide|tanke|projekt|plan|bygge|skabe|app|produkt/)) projekt = 'Nyt projekt?';
 
-  // Type
   let type = 'Tanke';
-  if (t.match(/\?/)) type = 'Spørgsmål';
-  else if (t.match(/vil|skal|bør|burde|måske|prøve/)) type = 'Intention';
+  if (tekst.includes('?')) type = 'Spørgsmål';
+  else if (t.match(/vil |skal |bør |burde |måske |prøv/)) type = 'Intention';
   else if (t.match(/hvad hvis|forestil|tænk hvis/)) type = 'Vision';
-  else if (t.match(/problem|svært|frustrerende|bøvlet/)) type = 'Udfordring';
-  else if (t.match(/fedt|god|virker|sejt|elsker/)) type = 'Energi';
+  else if (t.match(/problem|svært|frustr|bøvl|virker ikke/)) type = 'Udfordring';
+  else if (t.match(/fedt|god ide|virker|elsker|perfekt/)) type = 'Energi';
+  else if (ord > 20) type = 'Kompleks tanke';
 
-  // Stemning
   let stemning = 'Neutral';
-  if (t.match(/glad|fedt|spændt|glæd|ja|perfekt|elsker/)) stemning = 'Høj energi';
-  else if (t.match(/træt|svært|tung|bøvl|frustr|ikke/)) stemning = 'Modstand';
+  if (t.match(/glad|fedt|spændt|glæd|perfekt|elsker/)) stemning = 'Høj energi';
+  else if (t.match(/træt|svært|tung|bøvl|frustr/)) stemning = 'Modstand';
   else if (t.match(/rolig|stille|måske|tænker|overvejer/)) stemning = 'Refleksiv';
-  else if (t.match(/\?|hvad|hvordan|hvorfor|hvem/)) stemning = 'Nysgerrig';
+  else if (tekst.includes('?')) stemning = 'Nysgerrig';
+  else if (ord > 30) stemning = 'Mange lag';
 
-  // Forslag
-  const forslag = [
-    `<strong>Projekt:</strong> Denne tanke ligner noget der hører til under "${projekt}".`,
-    `<strong>Næste skridt:</strong> Lad den ligge i 24 timer — eller skriv tre ord mere om, hvad der er interessant ved den.`,
-    `<strong>Mønster:</strong> Du skriver oftest om det der giver energi, ikke det der kræver noget. Det er information.`
-  ];
+  let forslag;
+  if (type === 'Spørgsmål') {
+    forslag = '<strong>Dirigenten ser et åbent spørgsmål.</strong> Spørgsmål er ofte mere værdifulde end svar. Lad dette stå ubesvaret et øjeblik — hvad sker der, hvis du bare holder fast i det?';
+  } else if (type === 'Udfordring') {
+    forslag = '<strong>Der er noget der trækker modstand.</strong> Dirigenten registrerer friktion. Skriv én sætning mere om hvad der er svært — ikke for at løse det, men for at se det tydeligere.';
+  } else if (type === 'Vision') {
+    forslag = '<strong>Du tænker fremad.</strong> Visioner er portalerne til nye projekter. Hvad ville det første konkrete skridt være — selv det mindste?';
+  } else if (type === 'Intention') {
+    forslag = '<strong>En intention er en halv beslutning.</strong> Tanken hører sandsynligvis til under "' + projekt + '". Hvad holder dig — er det ressourcer, tid, eller noget du endnu ikke forstår?';
+  } else if (type === 'Energi') {
+    forslag = '<strong>Her er noget der giver liv.</strong> Høj energi er et signal værd at tage seriøst. Skriv to-tre ord om hvad der præcist tænder dig — det er den del Dirigenten vil huske.';
+  } else {
+    forslag = '<strong>Tanken er landet.</strong> Dirigenten placerer den foreløbigt under "' + projekt + '". Lad den ligge i 24 timer — eller skriv tre ord mere om hvad der er interessant ved den.';
+  }
 
-  return { projekt, type, stemning, forslag: forslag[Math.floor(Math.random() * forslag.length)] };
+  return { projekt, type, stemning, forslag };
 }
 
 function visDemoResultat(r) {
