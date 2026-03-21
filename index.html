@@ -47,7 +47,7 @@
       background: radial-gradient(circle, rgba(122,158,232,0.06), transparent 70%);
       pointer-events: none;
     }
-    .mem-hero-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; position: relative; }
+    .mem-hero-inner { max-width: 1160px; margin: 0 auto; position: relative; }
     .mem-hero-left { }
     .mem-hero-eyebrow { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #7a9ee8; display: block; margin-bottom: 20px; }
     .mem-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 50px); color: #f0ebe0; font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 16px; }
@@ -153,31 +153,7 @@
 <body>
 
 <header class="fs-header">
-<style>
-  .fs-dropdown { position: relative; }
-  .fs-dropdown-menu {
-    display: none; position: absolute; top: calc(100% + 6px); left: -8px;
-    background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 12px; padding: 8px; min-width: 200px; z-index: 999;
-    box-shadow: 0 12px 36px rgba(0,0,0,0.4);
-  }
-  .fs-dropdown:hover .fs-dropdown-menu { display: block; }
-  .fs-dropdown-item {
-    display: flex; align-items: center; gap: 10px;
-    padding: 9px 12px; border-radius: 8px; text-decoration: none;
-    transition: background 0.12s;
-  }
-  .fs-dropdown-item:hover { background: rgba(255,255,255,0.07); }
-  .fs-dropdown-item-icon {
-    width: 28px; height: 28px; border-radius: 7px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 13px; flex-shrink: 0;
-  }
-  .fs-dropdown-item-text { display: flex; flex-direction: column; }
-  .fs-dropdown-item-title { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: #fff; line-height: 1.2; }
-  .fs-dropdown-item-sub { font-family: 'DM Sans', sans-serif; font-size: 10px; color: rgba(255,255,255,0.4); line-height: 1.2; }
-  .fs-nav-item-arrow { font-size: 9px; color: rgba(255,255,255,0.25); margin-left: 2px; }
-</style>
+
   <div class="fs-nav">
     <a href="index.html" class="fs-logo">M.E.M.</a>
     <nav class="fs-links">
@@ -245,42 +221,44 @@
 
 <!-- 1. HERO — M.E.M. SOM FUNDAMENT -->
 <section class="mem-hero">
-  <div class="mem-hero-inner">
-    <div class="mem-hero-left">
-      <span class="mem-hero-eyebrow">M.E.M. · Meaning · Experience · Model</span>
-      <h1>Det handler ikke<br>om hvad vi ser —<br>men <em>hvordan vi ser det</em></h1>
-      <p class="mem-hero-lead">M.E.M. viser hvordan betydning, oplevelse og systemer skaber de situationer vi står i — og hvorfor de ofte bliver svære.</p>
-      <div class="mem-hero-btns">
+  <div style="max-width:1160px;margin:0 auto;position:relative;">
+
+    <!-- Tekst — centreret øverst -->
+    <div style="text-align:center;max-width:680px;margin:0 auto 52px;">
+      <span class="mem-hero-eyebrow" style="justify-content:center;">M.E.M. · Meaning · Experience · Model</span>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,56px);color:#f0ebe0;font-weight:400;line-height:1.1;letter-spacing:-0.02em;margin-bottom:16px;">Det handler ikke<br>om hvad vi ser —<br>men <em style="font-style:italic;color:#7a9ee8;">hvordan vi ser det</em></h1>
+      <p style="font-family:'DM Sans',sans-serif;font-size:16px;color:rgba(240,235,224,0.5);line-height:1.8;margin-bottom:28px;">M.E.M. viser hvordan betydning, oplevelse og systemer skaber de situationer vi står i — og hvorfor de ofte bliver svære.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
         <a href="mem.html" class="mem-btn-primary">Forstå modellen →</a>
         <a href="forloeb.html" class="mem-btn-ghost">Se hvordan det bruges</a>
       </div>
     </div>
-    <div class="mem-dims">
-      <div class="mem-dim-card m">
-        <div class="mem-dim-letter">M</div>
-        <div class="mem-dim-text">
-          <h4>Meaning — Betydning</h4>
-          <p>De normative værdier der giver retning. Hvad vi siger vi vil. Hvad systemet er sat i verden for.</p>
-          <div class="mem-dim-tension">↕ spænding med oplevelse og model</div>
+
+    <!-- Tre kort — under teksten i en række -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <div class="mem-dim-card m" style="flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
+          <div class="mem-dim-letter">M</div>
+          <h4 style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:#7a9ee8;margin:0;">Meaning — Betydning</h4>
         </div>
+        <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,0.4);line-height:1.65;margin:0;">De normative værdier der giver retning. Hvad vi siger vi vil. Hvad systemet er sat i verden for.</p>
       </div>
-      <div class="mem-dim-card e">
-        <div class="mem-dim-letter">E</div>
-        <div class="mem-dim-text">
-          <h4>Experience — Oplevelse</h4>
-          <p>Den menneskelige erfaring. Hvad der faktisk sker for det menneske der er i situationen.</p>
-          <div class="mem-dim-tension">↕ spænding med betydning og model</div>
+      <div class="mem-dim-card e" style="flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
+          <div class="mem-dim-letter">E</div>
+          <h4 style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--accent);margin:0;">Experience — Oplevelse</h4>
         </div>
+        <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,0.4);line-height:1.65;margin:0;">Den menneskelige erfaring. Hvad der faktisk sker for det menneske der er i situationen.</p>
       </div>
-      <div class="mem-dim-card mo">
-        <div class="mem-dim-letter">M</div>
-        <div class="mem-dim-text">
-          <h4>Model — Systemet</h4>
-          <p>De institutionelle strukturer. Regler, procedurer, algoritmer — det der former hvad der er muligt.</p>
-          <div class="mem-dim-tension">↕ spænding med betydning og oplevelse</div>
+      <div class="mem-dim-card mo" style="flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
+          <div class="mem-dim-letter">M</div>
+          <h4 style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:#4ec88c;margin:0;">Model — Systemet</h4>
         </div>
+        <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,0.4);line-height:1.65;margin:0;">De institutionelle strukturer. Regler, procedurer, algoritmer — det der former hvad der er muligt.</p>
       </div>
     </div>
+
   </div>
 </section>
 
