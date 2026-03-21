@@ -2,12 +2,14 @@
 <html lang="da">
 <head>
   <meta charset="UTF-8">
+  <meta name="google-site-verification" content="N-tI0mRJKKnPVNDB_v0LWIN6QjN9BnB8Zw8DN8ARdF0" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ETOS — Beslutninger i komplekse situationer</title>
+  <title>M.E.M. — Betydning, oplevelse og model</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="style-additions.css">
   <style>
-    /* Demo sliders */
+    /* DEMO (bevares fra gammel forside) */
     .demo-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(240,235,224,0.1); border-radius: 14px; padding: 24px; }
     .demo-invite { font-size: 12px; font-style: italic; color: rgba(240,235,224,0.35); line-height: 1.6; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.06); }
     .demo-slider { margin-bottom: 14px; }
@@ -15,13 +17,18 @@
     .demo-slider-label { font-size: 12px; color: rgba(240,235,224,0.55); font-family: 'DM Sans', sans-serif; }
     .demo-slider-val { font-size: 12px; font-weight: 500; color: #7a9ee8; font-family: 'DM Sans', sans-serif; }
     .demo-scale { display: flex; justify-content: space-between; font-size: 10px; color: rgba(240,235,224,0.2); margin-top: 4px; font-family: 'DM Sans', sans-serif; }
+    .demo-hint { font-size: 11px; color: rgba(240,235,224,0.22); font-style: italic; margin-top: 3px; font-family: 'DM Sans', sans-serif; transition: color 0.2s; line-height: 1.4; }
+    .demo-hint.active { color: rgba(240,235,224,0.45); }
     input[type=range].demo-range { width: 100%; height: 4px; border-radius: 4px; -webkit-appearance: none; appearance: none; background: rgba(90,126,216,0.25); outline: none; cursor: pointer; }
     input[type=range].demo-range::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: #7a9ee8; cursor: pointer; }
     .demo-result { margin-top: 16px; padding: 14px 16px; background: rgba(255,255,255,0.04); border-left: 3px solid #E2884E; border-radius: 0 8px 8px 0; }
     .demo-mode-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
     .demo-mode-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(240,235,224,0.3); font-family: 'DM Sans', sans-serif; }
     .demo-mode-value { font-family: 'Playfair Display', serif; font-size: 16px; color: #E2884E; }
-    .demo-insight { font-size: 12px; color: rgba(240,235,224,0.5); line-height: 1.7; margin-bottom: 10px; font-family: 'DM Sans', sans-serif; }
+    .demo-insight { font-size: 12px; color: rgba(240,235,224,0.5); line-height: 1.7; margin-bottom: 8px; font-family: 'DM Sans', sans-serif; }
+    .demo-recommendation { margin-top: 8px; padding: 10px 12px; background: rgba(255,255,255,0.03); border-radius: 6px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .demo-rec-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(240,235,224,0.2); font-family: 'DM Sans', sans-serif; margin-bottom: 4px; display: block; }
+    .demo-rec-text { font-size: 11px; color: rgba(240,235,224,0.4); line-height: 1.65; font-family: 'DM Sans', sans-serif; font-style: italic; }
     .demo-link { font-size: 11px; font-weight: 500; color: #7a9ee8; text-decoration: none; font-family: 'DM Sans', sans-serif; }
     .demo-toggle { display: flex; gap: 6px; margin-top: 12px; }
     .demo-tog-btn { font-family: 'DM Sans', sans-serif; font-size: 11px; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.12); background: transparent; color: rgba(255,255,255,0.45); cursor: pointer; transition: all 0.15s; }
@@ -30,7 +37,90 @@
     .demo-result.pulse { animation: dpulse 0.4s ease; }
     @keyframes dpulse { 0%{box-shadow:0 0 0 0 rgba(226,136,78,0.4)} 50%{box-shadow:0 0 0 8px rgba(226,136,78,0)} 100%{box-shadow:0 0 0 0 rgba(226,136,78,0)} }
 
-    /* Mini-case */
+    /* M.E.M. HERO */
+    .mem-hero {
+      background: #0d1117; padding: 80px 52px 72px;
+      position: relative; overflow: hidden;
+    }
+    .mem-hero::before {
+      content: ''; position: absolute; top: -100px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(122,158,232,0.06), transparent 70%);
+      pointer-events: none;
+    }
+    .mem-hero-inner { max-width: 1160px; margin: 0 auto; position: relative; }
+    .mem-hero-left { }
+    .mem-hero-eyebrow { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #7a9ee8; display: block; margin-bottom: 20px; }
+    .mem-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 50px); color: #f0ebe0; font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .mem-hero h1 em { font-style: italic; color: #7a9ee8; }
+    .mem-hero-lead { font-family: 'DM Sans', sans-serif; font-size: 15px; color: rgba(240,235,224,0.5); line-height: 1.8; margin-bottom: 28px; }
+    .mem-hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+    .mem-btn-primary { display: inline-flex; align-items: center; gap: 8px; background: #7a9ee8; color: #0d1117; padding: 12px 24px; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; text-decoration: none; transition: background 0.15s; }
+    .mem-btn-primary:hover { background: #5a7ed0; }
+    .mem-btn-ghost { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: rgba(240,235,224,0.55); padding: 12px 24px; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 13px; border: 1px solid rgba(240,235,224,0.15); text-decoration: none; transition: all 0.15s; }
+    .mem-btn-ghost:hover { color: rgba(240,235,224,0.9); border-color: rgba(240,235,224,0.3); }
+
+    /* M.E.M. DIMENSION CARDS */
+    .mem-dims { display: flex; flex-direction: column; gap: 10px; }
+    .mem-dim-card { border-radius: 12px; padding: 18px 20px; display: flex; gap: 16px; align-items: flex-start; transition: transform 0.15s; }
+    .mem-dim-card:hover { transform: translateX(4px); }
+    .mem-dim-card.m { background: rgba(122,158,232,0.08); border: 1px solid rgba(122,158,232,0.18); }
+    .mem-dim-card.e { background: rgba(226,136,78,0.08); border: 1px solid rgba(226,136,78,0.18); }
+    .mem-dim-card.mo { background: rgba(78,200,140,0.08); border: 1px solid rgba(78,200,140,0.18); }
+    .mem-dim-letter { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400; line-height: 1; flex-shrink: 0; width: 36px; }
+    .mem-dim-card.m .mem-dim-letter { color: #7a9ee8; }
+    .mem-dim-card.e .mem-dim-letter { color: var(--accent); }
+    .mem-dim-card.mo .mem-dim-letter { color: #4ec88c; }
+    .mem-dim-text h4 { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+    .mem-dim-card.m .mem-dim-text h4 { color: #7a9ee8; }
+    .mem-dim-card.e .mem-dim-text h4 { color: var(--accent); }
+    .mem-dim-card.mo .mem-dim-text h4 { color: #4ec88c; }
+    .mem-dim-text p { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(240,235,224,0.4); line-height: 1.6; margin: 0; }
+    .mem-dim-tension { font-family: 'DM Sans', sans-serif; font-size: 11px; font-style: italic; color: rgba(240,235,224,0.25); margin-top: 4px; }
+
+    /* EKSEMPEL SEKTION */
+    .section-light { background: #f5f0e8; padding: 72px 52px; }
+    .section-dark { background: #0d1117; padding: 72px 52px; color: #e8ecfc; }
+    .section-mid { background: #1a1a1a; padding: 72px 52px; color: #e8ecfc; }
+    .section-inner { max-width: 1160px; margin: 0 auto; }
+    .section-eyebrow { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 10px; }
+    .section-h2 { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400; margin-bottom: 8px; }
+    .section-lead { font-family: 'DM Sans', sans-serif; font-size: 14px; line-height: 1.8; max-width: 560px; margin-bottom: 36px; }
+
+    /* ETOS SEKTION */
+    .etos-block { background: #1E2E1F; padding: 72px 52px; }
+    .etos-block-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .etos-left h2 { font-family: 'Playfair Display', serif; font-size: 28px; color: #f0ebe0; font-weight: 400; line-height: 1.2; margin-bottom: 12px; }
+    .etos-left h2 em { font-style: italic; color: var(--accent); }
+    .etos-left p { font-family: 'DM Sans', sans-serif; font-size: 14px; color: rgba(240,235,224,0.5); line-height: 1.8; margin-bottom: 20px; }
+
+    /* SYSTEM OVERBLIK */
+    .sys-overview { background: #f5f0e8; padding: 72px 52px; }
+    .sys-overview-inner { max-width: 1160px; margin: 0 auto; }
+    .sys-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-top: 36px; }
+    .sys-card { background: #fff; border: 1px solid rgba(0,0,0,0.07); border-radius: 14px; padding: 28px 24px; text-decoration: none; display: block; transition: transform 0.15s, box-shadow 0.15s; }
+    .sys-card:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.07); }
+    .sys-card-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+    .sys-card-tag { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 6px; }
+    .sys-card h3 { font-family: 'Playfair Display', serif; font-size: 17px; color: #1a1a1a; font-weight: 400; margin-bottom: 6px; }
+    .sys-card p { font-family: 'DM Sans', sans-serif; font-size: 12px; color: #888; line-height: 1.65; margin: 0; }
+
+    /* INDGANGE */
+    .indgange { background: #0d1117; padding: 64px 52px; }
+    .indgange-inner { max-width: 1160px; margin: 0 auto; }
+    .indgange-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 36px; }
+    .indgang-card { border-radius: 16px; padding: 32px 28px; text-decoration: none; display: block; transition: transform 0.15s; }
+    .indgang-card:hover { transform: translateY(-2px); }
+    .indgang-card.borger { background: rgba(78,200,140,0.07); border: 1px solid rgba(78,200,140,0.15); }
+    .indgang-card.fagperson { background: rgba(122,158,232,0.07); border: 1px solid rgba(122,158,232,0.15); }
+    .indgang-tag { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 10px; }
+    .indgang-card.borger .indgang-tag { color: #4ec88c; }
+    .indgang-card.fagperson .indgang-tag { color: #7a9ee8; }
+    .indgang-card h3 { font-family: 'Playfair Display', serif; font-size: 20px; color: #f0ebe0; font-weight: 400; margin-bottom: 8px; }
+    .indgang-card p { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(240,235,224,0.45); line-height: 1.7; margin: 0; }
+
+    /* MINI-CASE (bevaret) */
     .mini-case { background: #f5f0e8; border-bottom: 1px solid rgba(0,0,0,0.07); }
     .mini-case-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 32px 1fr; align-items: center; }
     .mini-case-left { padding: 24px 32px; }
@@ -49,174 +139,136 @@
     .mc-verdict { font-size: 13px; color: rgba(240,235,224,0.55); line-height: 1.7; margin-bottom: 10px; transition: opacity 0.18s; font-family: 'DM Sans', sans-serif; }
     .mc-link { font-size: 12px; font-weight: 500; color: #E2884E; text-decoration: none; font-family: 'DM Sans', sans-serif; }
 
-    /* Projekt forskel */
-    .proj-diff { background: #fff; padding: 48px 52px; border-top: 1px solid rgba(0,0,0,0.07); }
-    .proj-diff-inner { max-width: 1160px; margin: 0 auto; }
-    .proj-diff-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-top: 24px; }
-    .proj-diff-card { padding: 20px; background: #f8f8f8; border-radius: 12px; }
-    .proj-diff-tag { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; font-family: 'DM Sans', sans-serif; }
-    .proj-diff-title { font-size: 14px; font-weight: 500; color: #1A1A1A; margin-bottom: 4px; font-family: 'DM Sans', sans-serif; }
-    .proj-diff-desc { font-size: 13px; color: #888; line-height: 1.6; font-family: 'DM Sans', sans-serif; }
-
-    /* Kontekster */
-    .kontekst { background: #0d1117; padding: 64px 52px; }
-    .kontekst-inner { max-width: 1160px; margin: 0 auto; }
-    .kontekst-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 32px; }
-    .kontekst-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 28px 24px; text-decoration: none; display: block; transition: border-color 0.15s; }
-    .kontekst-card:hover { border-color: rgba(90,126,216,0.3); }
-    .kontekst-icon { font-size: 22px; margin-bottom: 12px; }
-    .kontekst-title { font-family: 'Playfair Display', serif; font-size: 17px; color: #e8ecfc; font-weight: 400; margin-bottom: 5px; }
-    .kontekst-tension { font-size: 11px; color: #E2884E; font-style: italic; margin-bottom: 8px; display: block; font-family: 'DM Sans', sans-serif; }
-    .kontekst-desc { font-size: 13px; color: rgba(232,236,252,0.4); line-height: 1.7; font-family: 'DM Sans', sans-serif; }
-
     @media (max-width: 860px) {
-      .fs-hero-left {
-  background: #1E2E1F;
-  padding: 56px 52px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: center;
-  max-width: 1160px;
-  margin: 0 auto;
-  box-sizing: border-box;
-}
+      .mem-hero { padding: 48px 28px; }
+      .mem-hero-inner { grid-template-columns: 1fr; }
+      .etos-block { padding: 48px 28px; }
+      .etos-block-inner { grid-template-columns: 1fr; }
+      .section-light, .section-dark, .section-mid, .sys-overview, .indgange { padding: 48px 28px; }
+      .sys-grid { grid-template-columns: repeat(2,1fr); }
+      .indgange-grid { grid-template-columns: 1fr; }
       .mini-case-inner { grid-template-columns: 1fr; }
       .mini-case-arrow { display: none; }
-      .proj-diff-grid { grid-template-columns: 1fr 1fr; }
-      .kontekst-grid { grid-template-columns: 1fr; }
-      .proj-diff { padding: 40px 28px; }
-      .kontekst { padding: 48px 28px; }
     }
-    @media (max-width: 560px) {
-      .proj-diff-grid { grid-template-columns: 1fr; }
-    }
-
-    /* NAV MED IKONER */
-    .fs-header { background: #0d1117 !important; border-bottom: 1px solid rgba(255,255,255,0.07) !important; }
-    .fs-logo { color: #ffffff !important; }
-    .fs-nav { gap: 4px !important; padding: 10px 40px !important; min-height: 68px !important; }
-    .fs-links { gap: 2px !important; }
-    .fs-links a { color: rgba(255,255,255,0.6) !important; }
-    .fs-links a:hover { color: #ffffff !important; }
-    .fs-nav-cta { background: #1E2E1F !important; flex-shrink: 0; margin-left: 8px; }
-    .fs-nav-item {
-      display: flex !important; align-items: center; gap: 8px;
-      text-decoration: none; padding: 5px 8px;
-      border-radius: 10px; transition: background 0.15s;
-    }
-    .fs-nav-item:hover { background: rgba(255,255,255,0.06); }
-    .fs-nav-icon {
-      width: 26px; height: 26px; border-radius: 6px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 13px; flex-shrink: 0;
-    }
-    .fs-nav-text { display: flex; flex-direction: column; }
-    .fs-nav-title { font-size: 12px; font-weight: 500; color: #ffffff; line-height: 1.2; font-family: 'DM Sans', sans-serif; }
-    .fs-nav-sub   { font-size: 10px; color: rgba(255,255,255,0.45); line-height: 1.2; font-family: 'DM Sans', sans-serif; }
-
-    /* Override style-additions.css grid layout */
-    .fs-hero { display: block !important; }
-    .fs-hero-right { display: none !important; }
-    .fs-hero-left { grid-template-columns: 1fr 1fr !important; }
   </style>
 </head>
 <body>
 
-<!-- NAVIGATION -->
 <header class="fs-header">
+
   <div class="fs-nav">
-    <span class="fs-logo">ETOS</span>
+    <a href="index.html" class="fs-logo">M.E.M.</a>
     <nav class="fs-links">
+
+      <!-- ETOS -->
       <a href="etos.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#1a2040;">🧭</span>
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
         <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Beslutningsmodel</span></span>
       </a>
-      <a href="system.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#0d1117;">⚙️</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Systemet</span><span class="fs-nav-sub">Case analyse</span></span>
+
+      <!-- FORLØB -->
+      <a href="forloeb.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a2020;">🔄</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Forløb</span><span class="fs-nav-sub">Pårørende · Ledelse · Psykiatri</span></span>
       </a>
-      <a href="boerneunivers.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#2a1f1a;">📖</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Børneunivers</span><span class="fs-nav-sub">Børnebøger</span></span>
+
+      <!-- PILOT -->
+      <a href="pilot-pakke.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1a0d;">🧪</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Pilot</span><span class="fs-nav-sub">Test det i praksis</span></span>
       </a>
-      <a href="laering.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#0d1a2a;">🌐</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Lærings-uniVRs</span><span class="fs-nav-sub">Oplevelse</span></span>
-      </a>
-      <a href="dirigent-rum.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#1a1a12;">🎼</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Dirigenten</span><span class="fs-nav-sub">Idéer</span></span>
-      </a>
-      <a href="regnskab-program.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#111520;">📊</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Regnskab</span><span class="fs-nav-sub">Økonomi</span></span>
-      </a>
+
+      <!-- MERE dropdown -->
+      <div class="fs-dropdown">
+        <a href="mem.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#0d1117;">✦</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">Mere</span><span class="fs-nav-sub">Teori · Univers · Demokrati</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="mem.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🔬</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">M.E.M.</span><span class="fs-dropdown-item-sub">Grundmodel</span></span>
+          </a>
+          <a href="arkitektur.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🏗</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Arkitektur</span><span class="fs-dropdown-item-sub">IDK · ETOS · CDP</span></span>
+          </a>
+          <a href="etos-demokrati.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2820;">🗳</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Demokrati</span><span class="fs-dropdown-item-sub">Løfter · Ansvar</span></span>
+          </a>
+          <a href="boerneunivers.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#2a1f1a;">🌱</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Universet</span><span class="fs-dropdown-item-sub">Børn · Bankeren · Læring</span></span>
+          </a>
+          <a href="dirigent-rum.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1a12;">🎼</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Dirigenten</span><span class="fs-dropdown-item-sub">Idéer · Projekter</span></span>
+          </a>
+          <a href="regnskab-program.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#111520;">📊</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Regnskab</span><span class="fs-dropdown-item-sub">Økonomi · Overblik</span></span>
+          </a>
+        </div>
+      </div>
+
     </nav>
-    <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
+      <a href="index-en.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">EN</a>
+    </div>
   </div>
 </header>
 
-<!-- HERO -->
-<section style="background:#1E2E1F;display:block;padding-bottom:48px;">
-  <div style="background:#1E2E1F;padding:56px 52px 0;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;max-width:1160px;margin:0 auto;position:relative;">
-    <div class="fs-hero-text">
-      <div class="fs-tag">
-        <span class="fs-tag-dot"></span>
-        Under udvikling · Åben for samarbejde
+<!-- 1. HERO — M.E.M. SOM FUNDAMENT -->
+<section class="mem-hero">
+  <div style="max-width:1160px;margin:0 auto;position:relative;">
+
+    <!-- Tekst — centreret øverst -->
+    <div style="text-align:center;max-width:680px;margin:0 auto 52px;">
+      <span class="mem-hero-eyebrow" style="justify-content:center;">M.E.M. · Meaning · Experience · Model</span>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,56px);color:#f0ebe0;font-weight:400;line-height:1.1;letter-spacing:-0.02em;margin-bottom:16px;">Det handler ikke<br>om hvad vi ser —<br>men <em style="font-style:italic;color:#7a9ee8;">hvordan vi ser det</em></h1>
+      <p style="font-family:'DM Sans',sans-serif;font-size:16px;color:rgba(240,235,224,0.5);line-height:1.8;margin-bottom:28px;">M.E.M. viser hvordan betydning, oplevelse og systemer skaber de situationer vi står i — og hvorfor de ofte bliver svære.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="mem.html" class="mem-btn-primary">Forstå modellen →</a>
+        <a href="forloeb.html" class="mem-btn-ghost">Se hvordan det bruges</a>
       </div>
-      <h1 class="fs-h1">Når systemer presser<br>mennesker ind i<br><em>umulige valg</em></h1>
-      <p class="fs-lead">ETOS gør spændinger synlige — et redskab til beslutninger der ikke har nemme svar.</p>
     </div>
 
-    <div class="demo-box">
-      <p class="demo-invite">Forestil dig en svær situation — juster og se hvad ETOS opdager.</p>
-      <div class="demo-slider">
-        <div class="demo-slider-header">
-          <span class="demo-slider-label" id="lbl1">Systemets risikovurdering</span>
-          <span class="demo-slider-val"><span id="v1">60</span> / 100</span>
+    <!-- Tre kort — under teksten i en række -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <div class="mem-dim-card m" style="flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
+          <div class="mem-dim-letter">M</div>
+          <h4 style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:#7a9ee8;margin:0;">Meaning — Betydning</h4>
         </div>
-        <input type="range" class="demo-range" id="s1" min="0" max="100" value="60" oninput="demoUpdate()">
-        <div class="demo-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
+        <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,0.4);line-height:1.65;margin:0;">De normative værdier der giver retning. Hvad vi siger vi vil. Hvad systemet er sat i verden for.</p>
       </div>
-      <div class="demo-slider">
-        <div class="demo-slider-header">
-          <span class="demo-slider-label" id="lbl2">Patientens autonomi</span>
-          <span class="demo-slider-val"><span id="v2">75</span> / 100</span>
+      <div class="mem-dim-card e" style="flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
+          <div class="mem-dim-letter">E</div>
+          <h4 style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--accent);margin:0;">Experience — Oplevelse</h4>
         </div>
-        <input type="range" class="demo-range" id="s2" min="0" max="100" value="75" oninput="demoUpdate()">
-        <div class="demo-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
+        <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,0.4);line-height:1.65;margin:0;">Den menneskelige erfaring. Hvad der faktisk sker for det menneske der er i situationen.</p>
       </div>
-      <div class="demo-slider">
-        <div class="demo-slider-header">
-          <span class="demo-slider-label" id="lbl3">Relationel tillid</span>
-          <span class="demo-slider-val"><span id="v3">40</span> / 100</span>
+      <div class="mem-dim-card mo" style="flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
+          <div class="mem-dim-letter">M</div>
+          <h4 style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:#4ec88c;margin:0;">Model — Systemet</h4>
         </div>
-        <input type="range" class="demo-range" id="s3" min="0" max="100" value="40" oninput="demoUpdate()">
-        <div class="demo-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
-      </div>
-      <div class="demo-result" id="demoResult">
-        <div class="demo-mode-row">
-          <span class="demo-mode-label">Beslutningsmode</span>
-          <span class="demo-mode-value" id="dMode">Requires Review</span>
-        </div>
-        <p class="demo-insight" id="dInsight">Spænding mellem høj autonomi, moderat tillid og stigende risikovurdering. Review anbefales frem for hurtig eskalation.</p>
-        <a href="system.html" class="demo-link">Se fuld analyse →</a>
-      </div>
-      <div class="demo-toggle">
-        <button class="demo-tog-btn" onclick="setTog('b',this)">👤 Borger</button>
-        <button class="demo-tog-btn af" onclick="setTog('f',this)">🧑‍⚕️ Fagperson</button>
+        <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,0.4);line-height:1.65;margin:0;">De institutionelle strukturer. Regler, procedurer, algoritmer — det der former hvad der er muligt.</p>
       </div>
     </div>
+
   </div>
-
 </section>
 
-<!-- MINI-CASE -->
+<!-- 2. KONKRET EKSEMPEL — MINI-CASE -->
 <div class="mini-case">
   <div class="mini-case-inner">
     <div class="mini-case-left">
-      <span class="mini-case-lbl">Forstå ETOS på 5 sekunder</span>
+      <span class="mini-case-lbl">M.E.M. i praksis — vælg en situation</span>
       <div class="mc-tabs">
         <button class="mc-tab active" onclick="switchCase(0,this)">🏥 Psykiatri</button>
         <button class="mc-tab" onclick="switchCase(1,this)">🏛 Kommune</button>
@@ -232,59 +284,141 @@
         <span class="mc-tag b">Lav tillid</span>
       </div>
       <p class="mc-verdict" id="mcVerdict">Systemlogik og menneskelig virkelighed trækker i modsat retning. Etisk gæld opstår uanset valg.</p>
-      <a href="system.html" class="mc-link">Prøv selv med sliders →</a>
+      <a href="system.html" class="mc-link">Analysér med ETOS →</a>
     </div>
   </div>
 </div>
 
-<!-- KONTEKSTER -->
-<div class="kontekst">
-  <div class="kontekst-inner">
-    <span style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7a9ee8;font-family:'DM Sans',sans-serif;">Anvendelse</span>
-    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#e8ecfc;font-weight:400;margin-top:8px;">Hvem er ETOS til?</h2>
-    <div class="kontekst-grid">
-      <a href="anvendelse.html" class="kontekst-card">
-        <div class="kontekst-icon">🏥</div>
-        <div class="kontekst-title">Psykiatri</div>
-        <span class="kontekst-tension">Tvang vs. autonomi</span>
-        <p class="kontekst-desc">Når omsorg og systemlogik trækker i hver sin retning.</p>
+<!-- 3. ETOS — ANALYSEVÆRKTØJET -->
+<div class="etos-block">
+  <div class="etos-block-inner">
+    <div class="etos-left">
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:16px;">ETOS — M.E.M. i praksis</span>
+      <h2>Når systemer presser<br>mennesker ind i<br><em>umulige valg</em></h2>
+      <p style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:var(--accent);letter-spacing:0.05em;margin-bottom:8px;">ETOS er M.E.M. anvendt på beslutninger.</p><p>Det gør spændinger synlige, klassificerer situationer og hjælper med at træffe beslutninger der kan stå på mål.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="system.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;padding:11px 22px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;text-decoration:none;">Prøv ETOS nu →</a>
+        <a href="arkitektur.html" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:rgba(240,235,224,0.55);padding:11px 22px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;border:1px solid rgba(240,235,224,0.15);text-decoration:none;">Se arkitekturen</a>
+      </div>
+    </div>
+    <div class="demo-box">
+      <p class="demo-invite">Forestil dig en svær situation — juster og se hvad ETOS opdager.</p>
+      <div class="demo-slider">
+        <div class="demo-slider-header">
+          <span class="demo-slider-label" id="lbl1">Systemets risikovurdering</span>
+          <span class="demo-slider-val"><span id="v1">60</span> / 100</span>
+        </div>
+        <input type="range" class="demo-range" id="s1" min="0" max="100" value="60" oninput="demoUpdate()">
+        <div class="demo-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
+        <p class="demo-hint" id="hint1">Høj risiko øger systemets behov for handling</p>
+      </div>
+      <div class="demo-slider">
+        <div class="demo-slider-header">
+          <span class="demo-slider-label" id="lbl2">Patientens autonomi</span>
+          <span class="demo-slider-val"><span id="v2">75</span> / 100</span>
+        </div>
+        <input type="range" class="demo-range" id="s2" min="0" max="100" value="75" oninput="demoUpdate()">
+        <div class="demo-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
+        <p class="demo-hint" id="hint2">Høj autonomi styrker individets ret til eget valg</p>
+      </div>
+      <div class="demo-slider">
+        <div class="demo-slider-header">
+          <span class="demo-slider-label" id="lbl3">Relationel tillid</span>
+          <span class="demo-slider-val"><span id="v3">40</span> / 100</span>
+        </div>
+        <input type="range" class="demo-range" id="s3" min="0" max="100" value="40" oninput="demoUpdate()">
+        <div class="demo-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
+        <p class="demo-hint" id="hint3">Lav tillid øger risikoen for modstand mod beslutningen</p>
+      </div>
+      <div class="demo-result" id="demoResult">
+        <div class="demo-mode-row">
+          <span class="demo-mode-label">Beslutningsmode</span>
+          <span class="demo-mode-value" id="dMode">Kræver vurdering</span>
+        </div>
+        <p class="demo-insight" id="dInsight">Spænding mellem høj autonomi, moderat tillid og stigende risikovurdering.</p>
+        <div class="demo-recommendation">
+          <span class="demo-rec-label">Hvad det betyder</span>
+          <p class="demo-rec-text" id="dRec">Sænk tempoet, forklar beslutningen og styrk relationen før handling.</p>
+        </div>
+        <a href="system.html" class="demo-link">Se fuld analyse →</a>
+      </div>
+      <div class="demo-toggle">
+        <button class="demo-tog-btn" onclick="setTog('b',this)">👤 Borger</button>
+        <button class="demo-tog-btn af" onclick="setTog('f',this)">🧑‍⚕️ Fagperson</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. ÉN MODEL — FLERE ANVENDELSER -->
+<div class="sys-overview">
+  <div class="sys-overview-inner">
+    <span class="section-eyebrow" style="color:var(--accent);">Systemet</span>
+    <h2 class="section-h2" style="color:#1a1a1a;">Én model — flere anvendelser</h2>
+    <p class="section-lead" style="color:#888;">M.E.M. er fundamentet. Alt det øvrige udspringer af den samme grundforståelse — og kan bruges uafhængigt eller i kombination.</p>
+    <div class="sys-grid">
+      <a href="etos.html" class="sys-card">
+        <span class="sys-card-icon">🧭</span>
+        <span class="sys-card-tag">Analyse</span>
+        <h3>ETOS</h3>
+        <p>Forstår og klassificerer komplekse beslutninger — synliggør etisk pres og handlingsrum.</p>
       </a>
-      <a href="anvendelse.html" class="kontekst-card">
-        <div class="kontekst-icon">🏛</div>
-        <div class="kontekst-title">Kommuner</div>
-        <span class="kontekst-tension">Regler vs. virkelighed</span>
-        <p class="kontekst-desc">Anbringelser og sagsbehandling — hvor reglerne ikke altid passer.</p>
+      <a href="forloeb.html" class="sys-card">
+        <span class="sys-card-icon">🔄</span>
+        <span class="sys-card-tag">Forløb</span>
+        <h3>Forløbene</h3>
+        <p>Pårørende, ledere, psykiatri og fællesskaber — ETOS i praksis med mennesker.</p>
       </a>
-      <a href="anvendelse.html" class="kontekst-card">
-        <div class="kontekst-icon">🏢</div>
-        <div class="kontekst-title">Virksomheder</div>
-        <span class="kontekst-tension">Styring vs. mennesker</span>
-        <p class="kontekst-desc">Ledere der træffer svære valg uden nemme svar.</p>
+      <a href="dirigent-rum.html" class="sys-card">
+        <span class="sys-card-icon">🎼</span>
+        <span class="sys-card-tag">Struktur</span>
+        <h3>Dirigenten</h3>
+        <p>Skaber overblik og struktur for tanker der kommer for hurtigt — et personligt OS.</p>
+      </a>
+      <a href="boerneunivers.html" class="sys-card">
+        <span class="sys-card-icon">🧸</span>
+        <span class="sys-card-tag">Sansning</span>
+        <h3>Bankeren</h3>
+        <p>Gør følelser sanselige — børneunivers og fysisk produkt der starter der sproget ikke er.</p>
       </a>
     </div>
   </div>
 </div>
 
-<!-- FEATURES -->
-<div class="fs-features">
-  <div class="fs-feature">
-    <div class="fs-feature-num">01</div>
-    <h3>Synliggør spændinger</h3>
-    <p>Konflikterne i beslutningsprocessen gøres synlige — så de kan håndteres frem for skjules.</p>
-  </div>
-  <div class="fs-feature">
-    <div class="fs-feature-num">02</div>
-    <h3>Bruges i praksis</h3>
-    <p>Psykiatri, kommuner, AI og ledelse — overalt hvor beslutninger ikke har nemme svar.</p>
-  </div>
-  <div class="fs-feature">
-    <div class="fs-feature-num">03</div>
-    <h3>Åben for samarbejde</h3>
-    <p>ETOS søger pilotpartnere og investorer. Første skridt er en samtale.</p>
+<!-- 5. INDGANGE -->
+<div class="indgange">
+  <div class="indgange-inner">
+    <span class="section-eyebrow" style="color:#7a9ee8;">Vælg din indgang</span>
+    <h2 class="section-h2" style="color:#e8ecfc;">To veje ind</h2>
+    <p class="section-lead" style="color:rgba(232,236,252,0.45);">Du behøver ikke starte samme sted. Vælg den indgang der passer til dig.</p>
+    <div class="indgange-grid">
+      <a href="paarorende.html" class="indgang-card borger">
+        <span class="indgang-tag">Personlig indgang</span>
+        <h3>Jeg vil forstå en svær situation jeg selv står i</h3>
+        <p>For dig der starter fra oplevelsen — og gerne vil finde klarhed og retning uden at miste dig selv.</p>
+      </a>
+      <a href="forloeb.html" class="indgang-card fagperson">
+        <span class="indgang-tag">Faglig indgang</span>
+        <h3>Jeg vil bruge ETOS som redskab i mit arbejde</h3>
+        <p>For fagpersoner, ledere og organisationer der søger et analytisk og refleksivt redskab til komplekse situationer.</p>
+      </a>
+    </div>
   </div>
 </div>
 
-<!-- CTA -->
+<!-- 6. PILOT-STRIP -->
+<div style="background:#1a1a0d;padding:48px 52px;border-top:1px solid rgba(240,200,80,0.1);">
+  <div style="max-width:1160px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;">
+    <div>
+      <p style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#f0c850;margin-bottom:8px;">● Pilot i gang</p>
+      <p style="font-family:'Playfair Display',serif;font-size:20px;color:#f0ebe0;font-style:italic;margin:0 0 4px;">Vil du teste ETOS i din virkelige situation?</p>
+      <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,0.35);margin:0;">90 minutter · ingen forberedelse · gratis</p>
+    </div>
+    <a href="pilot-pakke.html" style="display:inline-flex;align-items:center;gap:8px;background:#f0c850;color:#1a1a0d;padding:12px 24px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;">Deltag i pilot →</a>
+  </div>
+</div>
+
+<!-- 7. CTA -->
 <div class="fs-cta-strip">
   <p class="fs-cta-quote">"ETOS træffer ikke beslutninger — det gør dem synlige."</p>
   <div class="fs-cta-btns">
@@ -312,6 +446,17 @@ function switchCase(i,btn){
   document.querySelectorAll(".mc-tab").forEach(b=>b.classList.remove("active"));
   btn.classList.add("active");
 }
+
+function setTog(type,btn){
+  window._tog=type;
+  document.querySelectorAll(".demo-tog-btn").forEach(b=>b.classList.remove("ab","af"));
+  btn.classList.add(type==="b"?"ab":"af");
+  document.getElementById("lbl1").textContent=type==="b"?"Systemets pres på dig":"Systemets risikovurdering";
+  document.getElementById("lbl2").textContent=type==="b"?"Din virkelighed":"Patientens autonomi";
+  document.getElementById("lbl3").textContent=type==="b"?"Tillid til systemet":"Relationel tillid";
+  demoUpdate();
+}
+
 function demoUpdate(){
   const s1=+document.getElementById("s1").value,s2=+document.getElementById("s2").value,s3=+document.getElementById("s3").value;
   document.getElementById("v1").textContent=s1;document.getElementById("v2").textContent=s2;document.getElementById("v3").textContent=s3;
@@ -322,18 +467,57 @@ function demoUpdate(){
   const rL=s1<33?"lav":s1<66?"moderat":"høj";
   const aL=s2<33?"lav":s2<66?"moderat":"høj";
   const tL=s3<33?"svag":s3<66?"moderat":"stærk";
-  let mode,color,insight;
-  if(h>60&&e<33){mode="Normal";color="#4ec88c";insight=`Lavt etisk pres (${e}/100), godt handlingsrum (${h}/100). Risikovurdering ${rL}. Beslutningen kan træffes.`;}
-  else if(e>72||d>75){mode="Emergency";color="#e07070";insight=`Kritisk: pres ${e}/100, divergens ${d}/100. ${rL} risiko mod ${aL} autonomi. Supervision anbefales.`;}
-  else if(Math.abs(s1-s2)>55){mode="Incompatible";color="#e2a06a";insight=`${rL} risikovurdering (${s1}/100) og ${aL} autonomi (${s2}/100) er uforenelige. ${tL} tillid.`;}
-  else{mode="Requires Review";color="#7a9ee8";insight=`${aL} autonomi (${s2}/100), ${tL} tillid (${s3}/100), ${rL} risikovurdering (${s1}/100). Review anbefales.`;}
+
+  // Slider hints — aktivér den mest pressede
+  const h1=document.getElementById("hint1"),h2=document.getElementById("hint2"),h3=document.getElementById("hint3");
+  if(h1&&h2&&h3){
+    h1.classList.toggle("active", s1>60);
+    h2.classList.toggle("active", s2>60);
+    h3.classList.toggle("active", s3<40);
+    if(window._tog==="b"){
+      h1.textContent=s1>66?"Systemet vil handle — det presser på":"Systemets pres er håndterbart lige nu";
+      h2.textContent=s2>66?"Din virkelighed vejer tungt i denne beslutning":"Din virkelighed er kun delvist hørt";
+      h3.textContent=s3<33?"Lav tillid gør det svært at acceptere en beslutning":"Tilliden bærer noget af byrden";
+    } else {
+      h1.textContent=s1>66?"Høj risiko øger systemets behov for handling":"Risikoniveauet er moderat — der er rum til dialog";
+      h2.textContent=s2>66?"Høj autonomi styrker individets ret til eget valg":"Begrænset autonomi — systemet vejer tungt";
+      h3.textContent=s3<33?"Lav tillid øger risikoen for modstand mod beslutningen":"Tilliden understøtter en bæredygtig beslutning";
+    }
+  }
+
+  let mode,color,insight,rec;
+  if(h>60&&e<33){
+    mode="Normal"; color="#4ec88c";
+    insight="Systemets vurdering og menneskets virkelighed peger i samme retning. Der er etisk plads til at handle.";
+    rec="Dokumentér begrundelsen. Involvér den berørte i beslutningen så vidt muligt.";
+  } else if(e>72||d>75){
+    mode="Kritisk spænding"; color="#e07070";
+    insight="Der er stor afstand mellem systemets krav og den menneskelige virkelighed. Enhver beslutning bærer en etisk pris.";
+    rec="Søg supervision. Lad ikke tidspres erstatte etisk refleksion. Dokumentér dilemmaet eksplicit.";
+  } else if(Math.abs(s1-s2)>55){
+    mode="Uforenelige hensyn"; color="#e2a06a";
+    insight="Systemets logik og individets behov kan ikke forenes i denne situation. Der opstår etisk gæld uanset valg.";
+    rec="Anerkend konflikten åbent. Ingen løsning er perfekt — vælg den der skader mindst og forklar hvorfor.";
+  } else {
+    mode="Kræver vurdering"; color="#7a9ee8";
+    insight="Situationen rummer spændinger der ikke kan håndteres med rutine alene. En bevidst vurdering er nødvendig.";
+    rec="Sænk tempoet. Forklar beslutningen til den berørte. Styrk relationen før og efter handling.";
+  }
+
   const prev=document.getElementById("dMode").textContent;
   document.getElementById("dMode").textContent=mode;
   document.getElementById("dMode").style.color=color;
   document.getElementById("dInsight").textContent=insight;
-  if(prev!==mode){const r=document.getElementById("demoResult");r.classList.remove("pulse");void r.offsetWidth;r.classList.add("pulse");r.style.borderLeftColor=color;}
+  const recEl=document.getElementById("dRec");
+  if(recEl) recEl.textContent=rec;
+  if(prev!==mode){
+    const r=document.getElementById("demoResult");
+    r.classList.remove("pulse");void r.offsetWidth;r.classList.add("pulse");
+    r.style.borderLeftColor=color;
+  }
 }
 function setTog(type,btn){
+  window._tog=type;
   document.querySelectorAll(".demo-tog-btn").forEach(b=>b.classList.remove("ab","af"));
   btn.classList.add(type==="b"?"ab":"af");
   document.getElementById("lbl1").textContent=type==="b"?"Systemets pres på dig":"Systemets risikovurdering";
