@@ -235,3 +235,126 @@
 @media (max-width: 640px) {
   .fs-nav-text { display: none; }
 }
+
+/* ============================================
+   CSS POLISH — spacing, typography, buttons
+   ============================================ */
+
+/* ---- SPACING SYSTEM ---- */
+.mem-hero       { padding: 88px 52px 80px; }
+.mini-case      { /* inherits */ }
+.etos-block     { padding: 80px 52px; }
+.sys-overview   { padding: 80px 52px; }
+.indgange       { padding: 80px 52px; }
+
+/* ---- TYPOGRAPHY SYSTEM ---- */
+/* h1 — hero only */
+.mem-hero h1,
+.eh h1,
+.e-h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+/* h2 — section titles */
+.section-h2,
+.etos-left h2,
+h2 {
+  letter-spacing: -0.01em;
+}
+
+/* Micro labels */
+.eyebrow,
+.e-eyebrow,
+.section-eyebrow,
+.mem-hero-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* ---- BUTTON SYSTEM ---- */
+/* Primary */
+.fs-btn-primary,
+.mem-btn-primary,
+.e-btn-p,
+.eh-btn-p,
+.omt-btn-primary,
+.dv-btn-primary {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: all 0.15s ease;
+}
+
+/* Hover lift on primary buttons */
+.fs-btn-primary:hover,
+.mem-btn-primary:hover,
+.e-btn-p:hover,
+.eh-btn-p:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+
+/* ---- CARD SYSTEM ---- */
+/* Consistent border radius */
+.sys-card,
+.prod-card,
+.anv-card,
+.indgang-card,
+.em-card,
+.ec-case,
+.e-out-card {
+  border-radius: 14px;
+}
+
+/* Consistent hover */
+.sys-card:hover,
+.prod-card:hover,
+.anv-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+  transition: all 0.15s ease;
+}
+
+/* ---- PRODUCT STATUS BADGES ---- */
+.prod-status {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ---- NAVIGATION ACTIVE STATE ---- */
+.fs-nav-item:focus-within,
+.fs-nav-item:focus {
+  background: rgba(255,255,255,0.08);
+  outline: none;
+}
+
+/* ---- MOBILE RHYTHM ---- */
+@media (max-width: 860px) {
+  .mem-hero       { padding: 56px 28px 48px; }
+  .sys-overview   { padding: 52px 28px; }
+  .indgange       { padding: 52px 28px; }
+  .etos-block     { padding: 52px 28px; }
+
+  /* More vertical space between sections on mobile */
+  section + section,
+  div.anv-section + div.anv-section {
+    margin-top: 0;
+  }
+}
+
+/* ---- LINK UNDERLINE STYLE ---- */
+a.text-link {
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+  opacity: 0.6;
+  transition: opacity 0.15s;
+}
+a.text-link:hover { opacity: 1; }
