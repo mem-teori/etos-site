@@ -292,43 +292,119 @@
 <body>
 
 <header class="fs-header">
+<style>
+  .fs-dropdown { position: relative; }
+  .fs-dropdown-menu {
+    display: none; position: absolute; top: calc(100% + 6px); left: -8px;
+    background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 8px; min-width: 200px; z-index: 999;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+  }
+  .fs-dropdown:hover .fs-dropdown-menu { display: block; }
+  .fs-dropdown-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px; border-radius: 8px; text-decoration: none;
+    transition: background 0.12s;
+  }
+  .fs-dropdown-item:hover { background: rgba(255,255,255,0.07); }
+  .fs-dropdown-item-icon {
+    width: 28px; height: 28px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; flex-shrink: 0;
+  }
+  .fs-dropdown-item-text { display: flex; flex-direction: column; }
+  .fs-dropdown-item-title { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: #fff; line-height: 1.2; }
+  .fs-dropdown-item-sub { font-family: 'DM Sans', sans-serif; font-size: 10px; color: rgba(255,255,255,0.4); line-height: 1.2; }
+  .fs-nav-item-arrow { font-size: 9px; color: rgba(255,255,255,0.25); margin-left: 2px; }
+</style>
   <div class="fs-nav">
     <a href="index.html" class="fs-logo">ETOS</a>
     <nav class="fs-links">
-      <a href="mem.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#1a1228;">🔬</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">M.E.M.</span><span class="fs-nav-sub">Grundmodel</span></span>
+
+      <!-- TEORI dropdown -->
+      <div class="fs-dropdown">
+        <a href="mem.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#1a1228;">🔬</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">Teori</span><span class="fs-nav-sub">M.E.M. · Arkitektur</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="mem.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🔬</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">M.E.M.</span><span class="fs-dropdown-item-sub">Grundmodel</span></span>
+          </a>
+          <a href="arkitektur.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🏗</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Arkitektur</span><span class="fs-dropdown-item-sub">IDK · ETOS · CDP</span></span>
+          </a>
+        </div>
+      </div>
+
+      <!-- FORLØB hub -->
+      <a href="forloeb.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a2020;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Forløb</span><span class="fs-nav-sub">Pårørende · Ledelse</span></span>
       </a>
-      <a href="arkitektur.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#0d1a2a;">🏗</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Arkitektur</span><span class="fs-nav-sub">IDK · ETOS · CDP</span></span>
-      </a>
+
+      <!-- DEMOKRATI standalone -->
       <a href="etos-demokrati.html" class="fs-nav-item">
         <span class="fs-nav-icon" style="background:#1a2820;">🗳</span>
         <span class="fs-nav-text"><span class="fs-nav-title">Demokrati</span><span class="fs-nav-sub">Løfter · Ansvar</span></span>
       </a>
+
+      <!-- SYSTEMET standalone -->
       <a href="system.html" class="fs-nav-item">
         <span class="fs-nav-icon" style="background:#0d1117;">⚙️</span>
         <span class="fs-nav-text"><span class="fs-nav-title">Systemet</span><span class="fs-nav-sub">Case analyse</span></span>
       </a>
-      <a href="boerneunivers.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#2a1f1a;">📖</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Børneunivers</span><span class="fs-nav-sub">Børnebøger</span></span>
-      </a>
-      <a href="laering.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#0d1a2a;">🌐</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Lærings-uniVRs</span><span class="fs-nav-sub">Oplevelse</span></span>
-      </a>
-      <a href="dirigent-rum.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#1a1a12;">🎼</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Dirigenten</span><span class="fs-nav-sub">Idéer</span></span>
-      </a>
-      <a href="regnskab-program.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#111520;">📊</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Regnskab</span><span class="fs-nav-sub">Økonomi</span></span>
-      </a>
+
+      <!-- UNIVERSET dropdown -->
+      <div class="fs-dropdown">
+        <a href="boerneunivers.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#2a1f1a;">🌱</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">Universet</span><span class="fs-nav-sub">Børn · Læring · Bankeren</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="boerneunivers.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#2a1f1a;">📖</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Børneunivers</span><span class="fs-dropdown-item-sub">Børnebøger</span></span>
+          </a>
+          <a href="laering.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🌐</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Lærings-uniVRs</span><span class="fs-dropdown-item-sub">Oplevelse · Læring</span></span>
+          </a>
+          <a href="bankeren-produkt.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🧸</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Bankeren</span><span class="fs-dropdown-item-sub">Lampe · Bamse</span></span>
+          </a>
+        </div>
+      </div>
+
+      <!-- VÆRKTØJER dropdown -->
+      <div class="fs-dropdown">
+        <a href="dirigent-rum.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#1a1a12;">🛠</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">Værktøjer</span><span class="fs-nav-sub">Dirigenten · Regnskab</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="dirigent-rum.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1a12;">🎼</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Dirigenten</span><span class="fs-dropdown-item-sub">Idéer · Projekter</span></span>
+          </a>
+          <a href="regnskab-program.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#111520;">📊</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Regnskab</span><span class="fs-dropdown-item-sub">Økonomi · Overblik</span></span>
+          </a>
+        </div>
+      </div>
+
     </nav>
-    <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
+      <a href="index-en.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">EN</a>
+    </div>
   </div>
 </header>
 
