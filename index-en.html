@@ -1,228 +1,356 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ETOS – making complex decisions legible</title>
-  <meta name="description" content="ETOS makes tensions visible between intention, system, action and lived reality." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ETOS — Decisions in complex situations</title>
+  <meta name="description" content="ETOS makes tensions visible between values, human experience and institutional systems. A framework for decisions that have no easy answers." />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://mem-teori.github.io/etos-site/index-en.html" />
   <link rel="alternate" hreflang="da" href="https://mem-teori.github.io/etos-site/" />
   <link rel="alternate" hreflang="en" href="https://mem-teori.github.io/etos-site/index-en.html" />
-  <link rel="alternate" hreflang="de" href="https://mem-teori.github.io/etos-site/index-de.html" />
-  <link rel="alternate" hreflang="x-default" href="https://mem-teori.github.io/etos-site/" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    .demo-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(240,235,224,0.1); border-radius: 14px; padding: 24px; }
+    .demo-invite { font-size: 12px; font-style: italic; color: rgba(240,235,224,0.35); line-height: 1.6; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .demo-slider { margin-bottom: 14px; }
+    .demo-slider-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+    .demo-slider-label { font-size: 12px; color: rgba(240,235,224,0.55); font-family: 'DM Sans', sans-serif; }
+    .demo-slider-val { font-size: 12px; font-weight: 500; color: #7a9ee8; font-family: 'DM Sans', sans-serif; }
+    .demo-scale { display: flex; justify-content: space-between; font-size: 10px; color: rgba(240,235,224,0.2); margin-top: 4px; font-family: 'DM Sans', sans-serif; }
+    .demo-hint { font-size: 11px; color: rgba(240,235,224,0.22); font-style: italic; margin-top: 3px; font-family: 'DM Sans', sans-serif; transition: color 0.2s; line-height: 1.4; }
+    .demo-hint.active { color: rgba(240,235,224,0.45); }
+    input[type=range].demo-range { width: 100%; height: 4px; border-radius: 4px; -webkit-appearance: none; appearance: none; background: rgba(90,126,216,0.25); outline: none; cursor: pointer; }
+    input[type=range].demo-range::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: #7a9ee8; cursor: pointer; }
+    .demo-result { margin-top: 16px; padding: 14px 16px; background: rgba(255,255,255,0.04); border-left: 3px solid #E2884E; border-radius: 0 8px 8px 0; }
+    .demo-mode-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+    .demo-mode-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(240,235,224,0.3); font-family: 'DM Sans', sans-serif; }
+    .demo-mode-value { font-family: 'Playfair Display', serif; font-size: 16px; color: #E2884E; }
+    .demo-insight { font-size: 12px; color: rgba(240,235,224,0.5); line-height: 1.7; margin-bottom: 8px; font-family: 'DM Sans', sans-serif; }
+    .demo-recommendation { margin-top: 8px; padding: 10px 12px; background: rgba(255,255,255,0.03); border-radius: 6px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .demo-rec-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(240,235,224,0.2); font-family: 'DM Sans', sans-serif; margin-bottom: 4px; display: block; }
+    .demo-rec-text { font-size: 11px; color: rgba(240,235,224,0.4); line-height: 1.65; font-family: 'DM Sans', sans-serif; font-style: italic; }
+    .demo-link { font-size: 11px; font-weight: 500; color: #7a9ee8; text-decoration: none; font-family: 'DM Sans', sans-serif; }
+    .demo-toggle { display: flex; gap: 6px; margin-top: 12px; }
+    .demo-tog-btn { font-family: 'DM Sans', sans-serif; font-size: 11px; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.12); background: transparent; color: rgba(255,255,255,0.45); cursor: pointer; transition: all 0.15s; }
+    .demo-tog-btn.ab { background: rgba(78,200,140,0.12); border-color: rgba(78,200,140,0.35); color: #4ec88c; }
+    .demo-tog-btn.af { background: rgba(90,126,216,0.12); border-color: rgba(90,126,216,0.35); color: #7a9ee8; }
+    .demo-result.pulse { animation: dpulse 0.4s ease; }
+    @keyframes dpulse { 0%{box-shadow:0 0 0 0 rgba(226,136,78,0.4)} 50%{box-shadow:0 0 0 8px rgba(226,136,78,0)} 100%{box-shadow:0 0 0 0 rgba(226,136,78,0)} }
+
+    .mini-case { background: #f5f0e8; border-bottom: 1px solid rgba(0,0,0,0.07); }
+    .mini-case-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 32px 1fr; align-items: center; }
+    .mini-case-left { padding: 24px 32px; }
+    .mini-case-lbl { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #888; display: block; margin-bottom: 10px; font-family: 'DM Sans', sans-serif; }
+    .mc-tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+    .mc-tab { font-family: 'DM Sans', sans-serif; font-size: 12px; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(0,0,0,0.1); background: #fff; color: #888; cursor: pointer; transition: all 0.15s; }
+    .mc-tab.active { background: #E2884E; border-color: #E2884E; color: #fff; font-weight: 500; }
+    .mc-text { font-size: 14px; color: #444; line-height: 1.7; font-style: italic; transition: opacity 0.18s; font-family: 'DM Sans', sans-serif; }
+    .mini-case-arrow { text-align: center; font-size: 20px; color: #E2884E; opacity: 0.6; }
+    .mini-case-right { padding: 24px 32px; background: #1E2E1F; }
+    .mc-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; transition: opacity 0.18s; }
+    .mc-tag { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; }
+    .mc-tag.r { background: rgba(224,112,112,0.15); color: #e07070; border: 1px solid rgba(224,112,112,0.2); }
+    .mc-tag.o { background: rgba(226,136,78,0.15); color: #e2a06a; border: 1px solid rgba(226,136,78,0.2); }
+    .mc-tag.b { background: rgba(90,126,216,0.15); color: #7a9ee8; border: 1px solid rgba(90,126,216,0.2); }
+    .mc-verdict { font-size: 13px; color: rgba(240,235,224,0.55); line-height: 1.7; margin-bottom: 10px; transition: opacity 0.18s; font-family: 'DM Sans', sans-serif; }
+    .mc-link { font-size: 12px; font-weight: 500; color: #E2884E; text-decoration: none; font-family: 'DM Sans', sans-serif; }
+
+    .kontekst { background: #0d1117; padding: 64px 52px; }
+    .kontekst-inner { max-width: 1160px; margin: 0 auto; }
+    .kontekst-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 32px; }
+    .kontekst-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 28px 24px; text-decoration: none; display: block; transition: border-color 0.15s; }
+    .kontekst-card:hover { border-color: rgba(90,126,216,0.3); }
+    .kontekst-icon { font-size: 22px; margin-bottom: 12px; }
+    .kontekst-title { font-family: 'Playfair Display', serif; font-size: 17px; color: #e8ecfc; font-weight: 400; margin-bottom: 5px; }
+    .kontekst-tension { font-size: 11px; color: #E2884E; font-style: italic; margin-bottom: 8px; display: block; font-family: 'DM Sans', sans-serif; }
+    .kontekst-desc { font-size: 13px; color: rgba(232,236,252,0.4); line-height: 1.7; font-family: 'DM Sans', sans-serif; }
+
+    /* Override for dark nav */
+    .fs-header { background: #0d1117 !important; border-bottom: 1px solid rgba(255,255,255,0.07) !important; }
+    .fs-logo { color: #ffffff !important; }
+    .fs-nav { gap: 4px !important; padding: 10px 40px !important; min-height: 68px !important; }
+    .fs-links { gap: 2px !important; }
+    .fs-links a { color: rgba(255,255,255,0.6) !important; }
+    .fs-nav-cta { background: #1E2E1F !important; flex-shrink: 0; margin-left: 8px; }
+    .fs-nav-item { display: flex !important; align-items: center; gap: 8px; text-decoration: none; padding: 5px 8px; border-radius: 10px; transition: background 0.15s; }
+    .fs-nav-item:hover { background: rgba(255,255,255,0.06); }
+    .fs-nav-icon { width: 26px; height: 26px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+    .fs-nav-text { display: flex; flex-direction: column; }
+    .fs-nav-title { font-size: 12px; font-weight: 500; color: #ffffff; line-height: 1.2; font-family: 'DM Sans', sans-serif; }
+    .fs-nav-sub { font-size: 10px; color: rgba(255,255,255,0.45); line-height: 1.2; font-family: 'DM Sans', sans-serif; }
+
+    /* Lang switch */
+    .lang-bar { background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 6px 40px; display: flex; justify-content: flex-end; gap: 12px; }
+    .lang-bar a { font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(255,255,255,0.35); text-decoration: none; padding: 3px 8px; border-radius: 4px; transition: all 0.15s; }
+    .lang-bar a:hover { color: rgba(255,255,255,0.7); }
+    .lang-bar a.active { color: #fff; background: rgba(255,255,255,0.08); }
+
+    @media (max-width: 860px) {
+      .mini-case-inner { grid-template-columns: 1fr; }
+      .mini-case-arrow { display: none; }
+      .kontekst { padding: 48px 28px; }
+      .kontekst-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container nav-wrap">
-      <a class="brand" href="index.html">
-        <span class="brand-mark">M.E.M.</span>
-        <span class="brand-lockup">
-          <span class="brand-text">ETOS</span>
-          <span class="brand-sub">pilot prototype</span>
-        </span>
+
+<header class="fs-header">
+  <div class="fs-nav">
+    <a href="index.html" class="fs-logo">ETOS</a>
+    <nav class="fs-links">
+      <a href="mem.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1228;">🔬</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">M.E.M.</span><span class="fs-nav-sub">Foundation</span></span>
       </a>
+      <a href="arkitektur.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#0d1a2a;">🏗</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Architecture</span><span class="fs-nav-sub">IDK · ETOS · CDP</span></span>
+      </a>
+      <a href="etos-demokrati.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a2820;">🗳</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Democracy</span><span class="fs-nav-sub">Promises · Accountability</span></span>
+      </a>
+      <a href="system.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#0d1117;">⚙️</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">The System</span><span class="fs-nav-sub">Case analysis</span></span>
+      </a>
+      <a href="boerneunivers.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#2a1f1a;">📖</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Children's Universe</span><span class="fs-nav-sub">Books</span></span>
+      </a>
+      <a href="dirigent-rum.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1a12;">🎼</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Dirigenten</span><span class="fs-nav-sub">Ideas</span></span>
+      </a>
+      <a href="regnskab-program.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#111520;">📊</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Accounts</span><span class="fs-nav-sub">Economy</span></span>
+      </a>
+    </nav>
+    <a href="kontakt.html" class="fs-nav-cta">Contact</a>
+  </div>
+</header>
 
-      <div class="utility-bar">
-        <nav class="nav">
-          <a href="index-en.html" class="active">Home</a>
-          <a href="om-en.html">Start here</a>
-          <a href="etos-en.html">ETOS</a>
-          <a href="anvendelse-en.html">Use cases</a>
-          <a href="research-en.html">Research</a>
-          <a href="samarbejde-en.html">Collaboration</a>
-        </nav>
+<div class="lang-bar" style="background:#0d1117;">
+  <a href="index.html">DA</a>
+  <a href="index-en.html" class="active">EN</a>
+</div>
 
-        <div class="lang-switch">
-          <span class="lang-note">DA / EN / DE</span>
-          <a href="index.html">DA</a>
-          <a href="index-en.html" class="active">EN</a>
-          <a href="index-de.html">DE</a>
+<!-- HERO -->
+<section style="background:#1E2E1F;display:block;padding-bottom:48px;">
+  <div style="padding:56px 52px 0;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;max-width:1160px;margin:0 auto;position:relative;">
+    <div>
+      <div class="fs-tag">
+        <span class="fs-tag-dot"></span>
+        In development · Open for collaboration
+      </div>
+      <h1 class="fs-h1">When systems push<br>people into<br><em>impossible choices</em></h1>
+      <p class="fs-lead">ETOS makes tensions visible — a framework for decisions that have no easy answers.</p>
+    </div>
+
+    <div class="demo-box">
+      <p class="demo-invite">Imagine a difficult situation — adjust and see what ETOS detects.</p>
+      <div class="demo-slider">
+        <div class="demo-slider-header">
+          <span class="demo-slider-label" id="lbl1">System's risk assessment</span>
+          <span class="demo-slider-val"><span id="v1">60</span> / 100</span>
         </div>
+        <input type="range" class="demo-range" id="s1" min="0" max="100" value="60" oninput="demoUpdate()">
+        <div class="demo-scale"><span>Low</span><span>Moderate</span><span>High</span></div>
+        <p class="demo-hint" id="hint1">High risk increases the system's need for action</p>
+      </div>
+      <div class="demo-slider">
+        <div class="demo-slider-header">
+          <span class="demo-slider-label" id="lbl2">Patient's autonomy</span>
+          <span class="demo-slider-val"><span id="v2">75</span> / 100</span>
+        </div>
+        <input type="range" class="demo-range" id="s2" min="0" max="100" value="75" oninput="demoUpdate()">
+        <div class="demo-scale"><span>Low</span><span>Moderate</span><span>High</span></div>
+        <p class="demo-hint" id="hint2">High autonomy strengthens the individual's right to choose</p>
+      </div>
+      <div class="demo-slider">
+        <div class="demo-slider-header">
+          <span class="demo-slider-label" id="lbl3">Relational trust</span>
+          <span class="demo-slider-val"><span id="v3">40</span> / 100</span>
+        </div>
+        <input type="range" class="demo-range" id="s3" min="0" max="100" value="40" oninput="demoUpdate()">
+        <div class="demo-scale"><span>Low</span><span>Moderate</span><span>High</span></div>
+        <p class="demo-hint" id="hint3">Low trust increases the risk of resistance to the decision</p>
+      </div>
+      <div class="demo-result" id="demoResult">
+        <div class="demo-mode-row">
+          <span class="demo-mode-label">Decision mode</span>
+          <span class="demo-mode-value" id="dMode">Requires Review</span>
+        </div>
+        <p class="demo-insight" id="dInsight">Tension between high autonomy, moderate trust and rising risk assessment. Review recommended over rapid escalation.</p>
+        <div class="demo-recommendation">
+          <span class="demo-rec-label">What this means</span>
+          <p class="demo-rec-text" id="dRec">Slow down. Explain the decision to the person involved. Strengthen the relationship before and after action.</p>
+        </div>
+        <a href="system.html" class="demo-link">See full analysis →</a>
+      </div>
+      <div class="demo-toggle">
+        <button class="demo-tog-btn" onclick="setTog('b',this)">👤 Citizen</button>
+        <button class="demo-tog-btn af" onclick="setTog('f',this)">🧑‍⚕️ Professional</button>
       </div>
     </div>
-  </header>
+  </div>
+</section>
 
-  <main>
-    <section class="hero landing-hero">
-      <div class="container hero-grid">
-        <div>
-          <p class="eyebrow">Calm · sharp · usable</p>
-          <h1>ETOS makes complex decisions legible.</h1>
-          <p class="lead">
-            When people, systems and reality no longer align, ETOS helps
-            make tensions visible — so responsibility, learning and direction become possible.
-          </p>
-
-          <div class="actions">
-            <a class="btn btn-primary" href="om-en.html">Start here</a>
-            <a class="btn btn-secondary" href="anvendelse-en.html">See use cases</a>
-          </div>
-
-          <div class="start-strip">
-            <a class="start-here" href="om-en.html">New here? Start here →</a>
-            <span class="start-copy">Short explanation first. Depth afterwards.</span>
-          </div>
-
-          <p class="mini-note">
-            ETOS is part of the broader M.E.M. theory family and is being developed as a pilot prototype.
-          </p>
-
-          <div class="aha-line">
-            Most systems do not fail because they are wrong — but because they cannot handle reality.
-          </div>
-        </div>
-
-        <aside class="surface hero-panel">
-          <div class="signal-badge">Pilot prototype · in development</div>
-          <h3>From experience to structure</h3>
-          <p class="muted">
-            ETOS brings together what is often split apart: intention, system,
-            action and lived reality.
-          </p>
-
-          <div class="model-grid enhanced">
-            <div class="model-cell pulse">
-              <strong>Meaning</strong>
-              <span class="muted">What gives direction?</span>
-            </div>
-            <div class="model-cell pulse delay-1">
-              <strong>Experience</strong>
-              <span class="muted">How is it felt?</span>
-            </div>
-            <div class="model-cell pulse delay-2">
-              <strong>Model</strong>
-              <span class="muted">What shapes the system?</span>
-            </div>
-            <div class="model-cell pulse delay-3">
-              <strong>ETOS</strong>
-              <span class="muted">Where tension becomes visible</span>
-            </div>
-          </div>
-        </aside>
+<!-- MINI-CASE -->
+<div class="mini-case">
+  <div class="mini-case-inner">
+    <div class="mini-case-left">
+      <span class="mini-case-lbl">Understand ETOS in 5 seconds</span>
+      <div class="mc-tabs">
+        <button class="mc-tab active" onclick="switchCase(0,this)">🏥 Psychiatry</button>
+        <button class="mc-tab" onclick="switchCase(1,this)">🏛 Government</button>
+        <button class="mc-tab" onclick="switchCase(2,this)">🤖 AI</button>
       </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">Choose your entry</p>
-          <h2>Two clear ways in</h2>
-          <p class="section-intro">
-            You do not have to start in the same place. Choose the entry that matches your perspective.
-          </p>
-        </div>
-
-        <div class="entry-highlight">
-          <article class="card entry-card">
-            <span class="kicker">Human entry</span>
-            <h3>I want to understand why something felt wrong.</h3>
-            <p>
-              For visitors who start from experience, consequence and the need
-              to name a rupture.
-            </p>
-            <p><a class="text-link" href="borger-en.html">Go to citizen entry →</a></p>
-          </article>
-
-          <article class="card entry-card">
-            <span class="kicker">Professional entry</span>
-            <h3>I want to use ETOS as an analytical and learning framework.</h3>
-            <p>
-              For visitors coming from practice, research, governance
-              or development who want a more structured view.
-            </p>
-            <p><a class="text-link" href="fagperson-en.html">Go to professional entry →</a></p>
-          </article>
-        </div>
+      <p class="mc-text" id="mcText">A patient refuses treatment. The system assesses risk as high. The patient wants to remain at home.</p>
+    </div>
+    <div class="mini-case-arrow">→</div>
+    <div class="mini-case-right">
+      <div class="mc-tags" id="mcTags">
+        <span class="mc-tag r">High divergence</span>
+        <span class="mc-tag o">Ethical pressure</span>
+        <span class="mc-tag b">Low trust</span>
       </div>
-    </section>
+      <p class="mc-verdict" id="mcVerdict">System logic and human reality pull in opposite directions. Ethical debt arises regardless of the decision.</p>
+      <a href="system.html" class="mc-link">Try with sliders →</a>
+    </div>
+  </div>
+</div>
 
-    <section class="section alt">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">The essentials first</p>
-          <h2>In 5 seconds</h2>
-          <p class="section-intro">
-            What ETOS is, where it can be used, and why it matters now.
-          </p>
-        </div>
+<!-- WHO IS IT FOR -->
+<div class="kontekst">
+  <div class="kontekst-inner">
+    <span style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7a9ee8;font-family:'DM Sans',sans-serif;">Applications</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#e8ecfc;font-weight:400;margin-top:8px;">Who is ETOS for?</h2>
+    <div class="kontekst-grid">
+      <a href="anvendelse.html" class="kontekst-card">
+        <div class="kontekst-icon">🏥</div>
+        <div class="kontekst-title">Psychiatry</div>
+        <span class="kontekst-tension">Coercion vs. autonomy</span>
+        <p class="kontekst-desc">When care and system logic pull in opposite directions.</p>
+      </a>
+      <a href="etos-demokrati.html" class="kontekst-card">
+        <div class="kontekst-icon">🗳</div>
+        <div class="kontekst-title">Democracy</div>
+        <span class="kontekst-tension">Promises vs. action</span>
+        <p class="kontekst-desc">A report on what parties promised — and what they actually delivered.</p>
+      </a>
+      <a href="anvendelse.html" class="kontekst-card">
+        <div class="kontekst-icon">🤖</div>
+        <div class="kontekst-title">AI Governance</div>
+        <span class="kontekst-tension">Metrics vs. intention</span>
+        <p class="kontekst-desc">When proxy goals drift from the original purpose. Governance-drift made visible.</p>
+      </a>
+    </div>
+  </div>
+</div>
 
-        <div class="card-grid three">
-          <article class="card">
-            <span class="kicker">What is ETOS?</span>
-            <h3>A framework for seeing what usually gets lost.</h3>
-            <p>
-              ETOS makes visible the points where intention, system
-              and human experience no longer align.
-            </p>
-          </article>
+<!-- FEATURES -->
+<div class="fs-features">
+  <div class="fs-feature">
+    <div class="fs-feature-num">01</div>
+    <h3>Makes tensions visible</h3>
+    <p>Conflicts in decision processes become visible — so they can be handled rather than hidden.</p>
+  </div>
+  <div class="fs-feature">
+    <div class="fs-feature-num">02</div>
+    <h3>Used in practice</h3>
+    <p>Psychiatry, government, AI and leadership — wherever decisions have no easy answers.</p>
+  </div>
+  <div class="fs-feature">
+    <div class="fs-feature-num">03</div>
+    <h3>Open for collaboration</h3>
+    <p>ETOS is seeking pilot partners and investors. The first step is a conversation.</p>
+  </div>
+</div>
 
-          <article class="card">
-            <span class="kicker">Where is it used?</span>
-            <h3>Where decisions have real human consequences.</h3>
-            <p>
-              Psychiatry, democracy, AI governance, public administration
-              and other fields where decisions are felt in reality.
-            </p>
-          </article>
+<div class="fs-cta-strip">
+  <p class="fs-cta-quote">"ETOS does not make decisions — it makes them visible."</p>
+  <div class="fs-cta-btns">
+    <a href="system.html" class="fs-btn-primary">Try ETOS now</a>
+    <a href="kontakt.html" class="fs-btn-ghost-dark">Contact</a>
+  </div>
+</div>
 
-          <article class="card">
-            <span class="kicker">Why now?</span>
-            <h3>Because systems are getting stronger — while learning lags behind.</h3>
-            <p>
-              More decisions are made through rules, procedures and technology,
-              while responsibility and consequence often fall between layers.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section public-cta-section">
-      <div class="container">
-        <div class="section-head narrow">
-          <p class="eyebrow">Continue from here</p>
-          <h2>Would you like to work further with ETOS?</h2>
-          <p class="section-intro">
-            ETOS is being developed as a pilot, and we are open to dialogue
-            with professionals, collaborators and the press.
-          </p>
-        </div>
-
-        <div class="card-grid three">
-          <article class="card">
-            <span class="kicker">Collaboration</span>
-            <h3>Define a pilot track or a dialogue.</h3>
-            <p>
-              The collaboration page gathers the professional entry point
-              for pilots, testing and further dialogue.
-            </p>
-            <p><a class="text-link" href="samarbejde-en.html">Go to collaboration →</a></p>
-          </article>
-
-          <article class="card">
-            <span class="kicker">Press</span>
-            <h3>Get a clear and precise entry into the topic.</h3>
-            <p>
-              The press page gathers the short angle, relevance and fast way in
-              for media and communicators.
-            </p>
-            <p><a class="text-link" href="presse-en.html">Go to press →</a></p>
-          </article>
-
-          <article class="card">
-            <span class="kicker">Contact</span>
-            <h3>A clear next step.</h3>
-            <p>
-              When someone is ready to reach out, the next step should be simple,
-              calm and visible.
-            </p>
-            <p><a class="text-link" href="kontakt-en.html">Go to contact →</a></p>
-          </article>
-        </div>
-      </div>
-    </section>
-  </main>
+<script>
+const cases = [
+  {text:"A patient refuses treatment. The system assesses risk as high. The patient wants to remain at home.",tags:[{c:"r",t:"High divergence"},{c:"o",t:"Ethical pressure"},{c:"b",t:"Low trust"}],verdict:"System logic and human reality pull in opposite directions. Ethical debt arises regardless of the decision."},
+  {text:"A family is assessed for removal of children. The parents cooperate. The child wants to stay home.",tags:[{c:"o",t:"System conflict"},{c:"r",t:"Ethical pressure"},{c:"b",t:"Moderate trust"}],verdict:"Rules and relationships pull in different directions. ETOS registers what is at stake for all parties."},
+  {text:"An AI model scores high on helpfulness metrics — but gives sycophantic answers to avoid conflict.",tags:[{c:"o",t:"Governance drift"},{c:"r",t:"Proxy misalignment"},{c:"b",t:"Low transparency"}],verdict:"The metric and the intention have separated. The system optimises for the score, not the purpose."}
+];
+function switchCase(i,btn){
+  const c=cases[i];
+  const t=document.getElementById("mcText"),tg=document.getElementById("mcTags"),v=document.getElementById("mcVerdict");
+  t.style.opacity="0";tg.style.opacity="0";v.style.opacity="0";
+  setTimeout(()=>{
+    t.textContent=c.text;
+    tg.innerHTML=c.tags.map(x=>`<span class="mc-tag ${x.c}">${x.t}</span>`).join("");
+    v.textContent=c.verdict;
+    t.style.opacity="1";tg.style.opacity="1";v.style.opacity="1";
+  },180);
+  document.querySelectorAll(".mc-tab").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+}
+function demoUpdate(){
+  const s1=+document.getElementById("s1").value,s2=+document.getElementById("s2").value,s3=+document.getElementById("s3").value;
+  document.getElementById("v1").textContent=s1;document.getElementById("v2").textContent=s2;document.getElementById("v3").textContent=s3;
+  const clamp=v=>Math.min(100,Math.max(0,v));
+  const e=clamp(Math.round(s1*.5+(100-s3)*.3+(100-s2)*.2));
+  const h=clamp(Math.round(s3*.5+s2*.3+(100-s1)*.2));
+  const d=clamp(Math.round(Math.abs(s1-s2)*.5+(100-s3)*.3+s1*.2));
+  const h1=document.getElementById("hint1"),h2=document.getElementById("hint2"),h3=document.getElementById("hint3");
+  if(h1&&h2&&h3){
+    h1.classList.toggle("active",s1>60);
+    h2.classList.toggle("active",s2>60);
+    h3.classList.toggle("active",s3<40);
+  }
+  let mode,color,insight,rec;
+  if(h>60&&e<33){
+    mode="Normal";color="#4ec88c";
+    insight="The system's assessment and the human reality point in the same direction. There is ethical space to act.";
+    rec="Document the reasoning. Involve the affected person in the decision as far as possible.";
+  } else if(e>72||d>75){
+    mode="Critical tension";color="#e07070";
+    insight="There is a large gap between the system's requirements and the human reality. Any decision carries an ethical cost.";
+    rec="Seek supervision. Do not let time pressure replace ethical reflection. Document the dilemma explicitly.";
+  } else if(Math.abs(s1-s2)>55){
+    mode="Incompatible interests";color="#e2a06a";
+    insight="The system's logic and the individual's needs cannot be reconciled in this situation. Ethical debt arises regardless of choice.";
+    rec="Acknowledge the conflict openly. No solution is perfect — choose the one that causes least harm and explain why.";
+  } else {
+    mode="Requires Review";color="#7a9ee8";
+    insight="The situation contains tensions that cannot be handled by routine alone. A conscious assessment is necessary.";
+    rec="Slow down. Explain the decision to the person involved. Strengthen the relationship before and after action.";
+  }
+  const prev=document.getElementById("dMode").textContent;
+  document.getElementById("dMode").textContent=mode;
+  document.getElementById("dMode").style.color=color;
+  document.getElementById("dInsight").textContent=insight;
+  const recEl=document.getElementById("dRec");
+  if(recEl) recEl.textContent=rec;
+  if(prev!==mode){const r=document.getElementById("demoResult");r.classList.remove("pulse");void r.offsetWidth;r.classList.add("pulse");r.style.borderLeftColor=color;}
+}
+function setTog(type,btn){
+  window._tog=type;
+  document.querySelectorAll(".demo-tog-btn").forEach(b=>b.classList.remove("ab","af"));
+  btn.classList.add(type==="b"?"ab":"af");
+  document.getElementById("lbl1").textContent=type==="b"?"System pressure on you":"System's risk assessment";
+  document.getElementById("lbl2").textContent=type==="b"?"Your reality":"Patient's autonomy";
+  document.getElementById("lbl3").textContent=type==="b"?"Trust in the system":"Relational trust";
+  demoUpdate();
+}
+document.addEventListener("DOMContentLoaded",()=>{
+  ["mcText","mcTags","mcVerdict"].forEach(id=>{const el=document.getElementById(id);if(el)el.style.transition="opacity 0.18s ease";});
+  demoUpdate();
+});
+</script>
 </body>
 </html>
