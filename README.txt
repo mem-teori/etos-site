@@ -1,21 +1,11 @@
-ETOS V11 samlet pakke
+ETOS v9.4 mix
 
-Indhold:
-- index.html
-- om.html
-- etos.html
-- anvendelse.html
-- pilot.html
-- kontakt.html
-- dirigent.html
-- regnskab.html
-- sandbox.html
-- boerneboeger.html
-- style.css
+Entry points:
+- index.html (DA)
+- index-en.html (EN)
+- index-de.html (DE)
+- international.html / international-en.html / international-de.html
 
-For at sandbox.html virker korrekt, skal disse billeder uploades i samme mappe som HTML-filerne:
-- vandmolekyle.png
-- minecraft.png
-
-For boerneboeger.html bruges en direkte absolut URL til bankeren.png.
-Hvis du vil gøre den lokal senere, så upload bankeren.png i samme mappe og skift img src.
+This version uses a mix strategy:
+- public-facing front pages keep a stronger personal/public voice
+- international pages use a more neutral/professional tone

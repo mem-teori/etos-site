@@ -1,501 +1,61 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8">
-  <meta name="google-site-verification" content="N-tI0mRJKKnPVNDB_v0LWIN6QjN9BnB8Zw8DN8ARdF0" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ETOS — M.E.M. anvendt på beslutninger</title>
-  <meta name="description" content="ETOS gør spændinger mellem værdier, menneskelig erfaring og systemkrav synlige — så de kan forstås og håndteres." />
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="style-additions.css">
-  <style>
-    section { padding: 80px 52px; }
-    .e-inner { max-width: 1160px; margin: 0 auto; }
-    .e-eyebrow { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 14px; }
-    .e-h1 { font-family: 'Playfair Display', serif; font-size: clamp(40px, 5vw, 64px); font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 10px; }
-    .e-subtitle { font-family: 'Playfair Display', serif; font-size: clamp(20px, 2.5vw, 28px); font-weight: 400; font-style: italic; margin-bottom: 20px; }
-    .e-lead { font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.8; margin-bottom: 32px; max-width: 560px; }
-    .e-btns { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-    .e-btn-p { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; padding: 14px 28px; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.15s; }
-    .e-btn-p:hover { background: #d4743a; }
-    .e-btn-s { font-family: 'DM Sans', sans-serif; font-size: 14px; color: rgba(240,235,224,0.45); text-decoration: none; border-bottom: 1px solid rgba(240,235,224,0.2); padding-bottom: 2px; transition: color 0.15s; }
-    .e-btn-s:hover { color: rgba(240,235,224,0.75); }
-
-    /* HERO */
-    .e-hero { background: #1E2E1F; position: relative; overflow: hidden; }
-    .e-hero::before { content: ''; position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(226,136,78,0.07), transparent 70%); pointer-events: none; }
-    .e-hero .e-inner { display: grid; grid-template-columns: 1fr 400px; gap: 64px; align-items: center; position: relative; }
-    .e-h1 { color: #f0ebe0; }
-    .e-subtitle { color: var(--accent); }
-    .e-lead { color: rgba(240,235,224,0.55); }
-
-    /* FORSTÅ */
-    .e-forst { background: #f5f0e8; }
-    .e-forst h2 { font-family: 'Playfair Display', serif; font-size: 28px; color: #1a1a1a; font-weight: 400; margin-bottom: 16px; }
-    .e-forst p { font-family: 'DM Sans', sans-serif; font-size: 15px; color: #555; line-height: 1.85; margin-bottom: 14px; max-width: 640px; }
-    .e-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; max-width: 480px; }
-    .e-list li { font-family: 'DM Sans', sans-serif; font-size: 15px; color: #333; padding: 12px 18px; background: #fff; border: 1px solid rgba(0,0,0,0.08); border-left: 3px solid var(--accent); border-radius: 0 9px 9px 0; }
-
-    /* FLOW */
-    .e-flow { background: #0d1117; }
-    .e-flow h2 { font-family: 'Playfair Display', serif; font-size: 28px; color: #e8ecfc; font-weight: 400; margin-bottom: 8px; }
-    .e-flow-sub { font-family: 'DM Sans', sans-serif; font-size: 14px; color: rgba(232,236,252,0.4); margin-bottom: 40px; }
-    .e-flow-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; overflow: hidden; }
-    .e-flow-step { padding: 32px 28px; border-right: 1px solid rgba(255,255,255,0.07); }
-    .e-flow-step:last-child { border-right: none; }
-    .e-flow-num { font-family: 'Playfair Display', serif; font-size: 36px; color: var(--accent); opacity: 0.35; font-weight: 400; line-height: 1; margin-bottom: 14px; }
-    .e-flow-step h3 { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; color: #e8ecfc; margin-bottom: 8px; }
-    .e-flow-step p { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(232,236,252,0.4); line-height: 1.7; margin: 0; }
-
-    /* EKSEMPEL */
-    .e-ex { background: #f5f0e8; }
-    .e-ex h2 { font-family: 'Playfair Display', serif; font-size: 28px; color: #1a1a1a; font-weight: 400; margin-bottom: 8px; }
-    .e-ex-sub { font-family: 'DM Sans', sans-serif; font-size: 14px; color: #888; margin-bottom: 32px; }
-    .e-case { background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 16px; overflow: hidden; }
-    .e-case-header { background: #1E2E1F; padding: 18px 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-    .e-case-body { padding: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-    .e-case-col-lbl { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #bbb; display: block; margin-bottom: 12px; }
-    .e-case-item { font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 14px; border-radius: 8px; margin-bottom: 8px; line-height: 1.6; }
-    .e-case-item.sit { color: #555; background: #f8f8f8; }
-    .e-case-item.red { color: #8a3030; background: rgba(224,112,112,0.08); border-left: 2px solid #e07070; }
-    .e-case-item.ora { color: #6a3a1a; background: rgba(226,136,78,0.08); border-left: 2px solid var(--accent); }
-    .e-case-item.grn { color: #2a6a40; background: rgba(78,200,140,0.08); border-left: 2px solid #4ec88c; }
-    .e-case-tags { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0 12px; }
-    .e-case-tag { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; padding: 5px 12px; border-radius: 20px; }
-    .e-case-conclusion { font-family: 'Playfair Display', serif; font-size: 15px; color: #555; font-style: italic; line-height: 1.65; padding: 16px 20px; background: rgba(226,136,78,0.04); border-top: 1px solid rgba(0,0,0,0.06); margin: 0; }
-
-    /* DEMO */
-    .e-demo { background: #1E2E1F; }
-    .e-demo h2 { font-family: 'Playfair Display', serif; font-size: 28px; color: #f0ebe0; font-weight: 400; margin-bottom: 8px; }
-    .e-demo-sub { font-family: 'DM Sans', sans-serif; font-size: 14px; color: rgba(240,235,224,0.4); margin-bottom: 36px; }
-    .e-demo-wrap { display: grid; grid-template-columns: 1fr 420px; gap: 48px; align-items: start; }
-    .e-demo-left h3 { font-family: 'Playfair Display', serif; font-size: 20px; color: #f0ebe0; font-weight: 400; margin-bottom: 10px; }
-    .e-demo-left p { font-family: 'DM Sans', sans-serif; font-size: 14px; color: rgba(240,235,224,0.45); line-height: 1.8; margin-bottom: 20px; }
-
-    /* DEMO BOX (reused from index) */
-    .demo-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(240,235,224,0.1); border-radius: 14px; padding: 24px; }
-    .demo-invite { font-size: 12px; font-style: italic; color: rgba(240,235,224,0.35); line-height: 1.6; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.06); }
-    .demo-slider { margin-bottom: 14px; }
-    .demo-slider-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
-    .demo-slider-label { font-size: 12px; color: rgba(240,235,224,0.55); font-family: 'DM Sans', sans-serif; }
-    .demo-slider-val { font-size: 12px; font-weight: 500; color: #7a9ee8; font-family: 'DM Sans', sans-serif; }
-    .demo-scale { display: flex; justify-content: space-between; font-size: 10px; color: rgba(240,235,224,0.2); margin-top: 4px; font-family: 'DM Sans', sans-serif; }
-    .demo-hint { font-size: 11px; color: rgba(240,235,224,0.22); font-style: italic; margin-top: 3px; font-family: 'DM Sans', sans-serif; transition: color 0.2s; line-height: 1.4; }
-    .demo-hint.active { color: rgba(240,235,224,0.45); }
-    input[type=range].demo-range { width: 100%; height: 4px; border-radius: 4px; -webkit-appearance: none; appearance: none; background: rgba(90,126,216,0.25); outline: none; cursor: pointer; }
-    input[type=range].demo-range::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: #7a9ee8; cursor: pointer; }
-    .demo-result { margin-top: 16px; padding: 14px 16px; background: rgba(255,255,255,0.04); border-left: 3px solid #E2884E; border-radius: 0 8px 8px 0; }
-    .demo-mode-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
-    .demo-mode-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(240,235,224,0.3); font-family: 'DM Sans', sans-serif; }
-    .demo-mode-value { font-family: 'Playfair Display', serif; font-size: 16px; color: #E2884E; }
-    .demo-insight { font-size: 12px; color: rgba(240,235,224,0.5); line-height: 1.7; margin-bottom: 8px; font-family: 'DM Sans', sans-serif; }
-    .demo-recommendation { margin-top: 8px; padding: 10px 12px; background: rgba(255,255,255,0.03); border-radius: 6px; border-top: 1px solid rgba(255,255,255,0.06); }
-    .demo-rec-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(240,235,224,0.2); font-family: 'DM Sans', sans-serif; margin-bottom: 4px; display: block; }
-    .demo-rec-text { font-size: 11px; color: rgba(240,235,224,0.4); line-height: 1.65; font-family: 'DM Sans', sans-serif; font-style: italic; }
-    .demo-link { font-size: 11px; font-weight: 500; color: #7a9ee8; text-decoration: none; font-family: 'DM Sans', sans-serif; }
-    .demo-toggle { display: flex; gap: 6px; margin-top: 12px; }
-    .demo-tog-btn { font-family: 'DM Sans', sans-serif; font-size: 11px; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.12); background: transparent; color: rgba(255,255,255,0.45); cursor: pointer; transition: all 0.15s; }
-    .demo-tog-btn.ab { background: rgba(78,200,140,0.12); border-color: rgba(78,200,140,0.35); color: #4ec88c; }
-    .demo-tog-btn.af { background: rgba(90,126,216,0.12); border-color: rgba(90,126,216,0.35); color: #7a9ee8; }
-    .demo-result.pulse { animation: dpulse 0.4s ease; }
-    @keyframes dpulse { 0%{box-shadow:0 0 0 0 rgba(226,136,78,0.4)} 50%{box-shadow:0 0 0 8px rgba(226,136,78,0)} 100%{box-shadow:0 0 0 0 rgba(226,136,78,0)} }
-
-    /* OUTPUT */
-    .e-out { background: #f5f0e8; }
-    .e-out h2 { font-family: 'Playfair Display', serif; font-size: 28px; color: #1a1a1a; font-weight: 400; margin-bottom: 32px; }
-    .e-out-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
-    .e-out-card { background: #fff; border: 1px solid rgba(0,0,0,0.09); border-radius: 14px; padding: 28px 24px; }
-    .e-out-icon { font-size: 28px; margin-bottom: 12px; display: block; }
-    .e-out-card h3 { font-family: 'Playfair Display', serif; font-size: 17px; color: #1a1a1a; font-weight: 400; margin-bottom: 8px; }
-    .e-out-card p { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #666; line-height: 1.7; margin: 0; }
-
-    /* CTA */
-    .e-cta { background: #1E2E1F; }
-    .e-cta h2 { font-family: 'Playfair Display', serif; font-size: 28px; color: #f0ebe0; font-weight: 400; margin-bottom: 10px; }
-    .e-cta p { font-family: 'DM Sans', sans-serif; font-size: 15px; color: rgba(240,235,224,0.5); line-height: 1.8; margin-bottom: 28px; max-width: 480px; }
-
-    @media (max-width: 860px) {
-      section { padding: 52px 28px; }
-      .e-hero .e-inner { grid-template-columns: 1fr; }
-      .e-hero-visual { display: none; }
-      .e-flow-grid { grid-template-columns: repeat(2,1fr); }
-      .e-case-body { grid-template-columns: 1fr; }
-      .e-demo-wrap { grid-template-columns: 1fr; }
-      .e-out-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ETOS som hub</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<header class="fs-header">
-
-  <div class="fs-nav">
-    <a href="index.html" class="fs-logo">M.E.M.</a>
-    <nav class="fs-links">
-
-      <!-- ETOS -->
-      <a href="etos.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Beslutningsmodel</span></span>
-      </a>
-
-      <!-- PRODUKTER -->
-      <a href="produkter.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#1a1228;">🛍</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Produkter</span><span class="fs-nav-sub">Software · Forløb · Bøger</span></span>
-      </a>
-
-      <!-- PILOT -->
-      <a href="pilot-pakke.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#1a1a0d;">🧪</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Pilot</span><span class="fs-nav-sub">Test det i praksis</span></span>
-      </a>
-
-      <!-- MERE dropdown -->
-      <div class="fs-dropdown">
-        <a href="mem.html" class="fs-nav-item">
-          <span class="fs-nav-icon" style="background:#0d1117;">✦</span>
-          <span class="fs-nav-text"><span class="fs-nav-title">Mere</span><span class="fs-nav-sub">Teori · Univers · Demokrati</span></span>
-          <span class="fs-nav-item-arrow">▾</span>
-        </a>
-        <div class="fs-dropdown-menu">
-          <a href="forloeb.html" class="fs-dropdown-item">
-            <span class="fs-dropdown-item-icon" style="background:#1a2020;">🔄</span>
-            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Forløb</span><span class="fs-dropdown-item-sub">Pårørende · Ledelse · Psykiatri</span></span>
-          </a>
-          <a href="mem.html" class="fs-dropdown-item">
-            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🔬</span>
-            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">M.E.M.</span><span class="fs-dropdown-item-sub">Grundmodel</span></span>
-          </a>
-          <a href="arkitektur.html" class="fs-dropdown-item">
-            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🏗</span>
-            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Arkitektur</span><span class="fs-dropdown-item-sub">IDK · ETOS · CDP</span></span>
-          </a>
-          <a href="etos-demokrati.html" class="fs-dropdown-item">
-            <span class="fs-dropdown-item-icon" style="background:#1a2820;">🗳</span>
-            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Demokrati</span><span class="fs-dropdown-item-sub">Løfter · Ansvar</span></span>
-          </a>
-          <a href="boerneunivers.html" class="fs-dropdown-item">
-            <span class="fs-dropdown-item-icon" style="background:#2a1f1a;">🌱</span>
-            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Universet</span><span class="fs-dropdown-item-sub">Børn · Bankeren · Læring</span></span>
-          </a>
-
+<header class="site">
+  <div class="container navbar">
+    <div class="brand">M.E.M. Teori / ETOS<small>Democratic reflection, governance and learning</small></div>
+    <nav class="navlinks">
+      <a href="index.html">Forside</a>
+      <div class="dropdown">
+        <button class="dropbtn">ETOS ▾</button>
+        <div class="dropdown-content">
+          <a href="etos.html">ETOS som hub</a>
+          <a href="anvendelse.html">Anvendelser</a>
+          <a href="etos-psykiatri.html">Psykiatri</a>
+          <a href="etos-demokrati.html">Demokrati</a>
+          <a href="etos-ai.html">AI-Governance</a>
+          <a href="etos-kommune.html">Kommunal styring</a>
         </div>
       </div>
-
+      <a href="samarbejde.html">Samarbejde</a>
+      <a href="presse.html">Presse</a>
+      <a href="pilotprojekt.html">Pilotprojekt</a>
+      <a href="international.html">International</a>
+      <a href="mem.html">M.E.M.</a>
+      <a href="reflektionscenter.html">Reflektionscenter</a>
+      <a href="kontakt.html">Kontakt</a>
     </nav>
-    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
-      <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
-      <a href="index-en.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">EN</a>
-    </div>
   </div>
 </header>
 
-<!-- 1. HERO -->
-<section class="e-hero">
-  <div class="e-inner">
-    <div>
-      <span class="e-eyebrow" style="color:var(--accent);">System · Beslutningsstøtte</span>
-      <h1 class="e-h1">ETOS</h1>
-      <p class="e-subtitle">M.E.M. anvendt på beslutninger</p>
-      <p class="e-lead">ETOS gør spændinger mellem værdier, menneskelig erfaring og systemkrav synlige — så de kan forstås og håndteres.</p>
-      <div class="e-btns">
-        <a href="#demo" class="e-btn-p">Prøv ETOS →</a>
-        <a href="#eksempel" class="e-btn-s">Se eksempel</a>
-      </div>
-    </div>
-    <div class="e-hero-visual">
-      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:24px;">
-        <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(240,235,224,0.25);display:block;margin-bottom:16px;">Eksempel — psykiatri</span>
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-          <span style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(240,235,224,0.45);width:80px;">Systemkrav</span>
-          <div style="flex:1;height:4px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;"><div style="width:82%;height:100%;background:linear-gradient(90deg,#e07070,#e2a06a);border-radius:4px;"></div></div>
-          <span style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(240,235,224,0.45);text-align:right;width:60px;">Autonomi</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-          <span style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(240,235,224,0.45);width:80px;">Sikkerhed</span>
-          <div style="flex:1;height:4px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;"><div style="width:70%;height:100%;background:var(--accent);border-radius:4px;"></div></div>
-          <span style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(240,235,224,0.45);text-align:right;width:60px;">Relation</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
-          <span style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(240,235,224,0.45);width:80px;">Handling</span>
-          <div style="flex:1;height:4px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;"><div style="width:35%;height:100%;background:#7a9ee8;border-radius:4px;"></div></div>
-          <span style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(240,235,224,0.45);text-align:right;width:60px;">Tillid</span>
-        </div>
-        <div style="padding:12px 14px;background:rgba(226,136,78,0.07);border-left:2px solid var(--accent);border-radius:0 8px 8px 0;font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,0.5);line-height:1.6;"><strong style="color:var(--accent);font-weight:500;">Kritisk spænding</strong> — handling er mulig, men med en bevidst pris.</div>
-      </div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;padding:14px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;">
-        <span style="font-family:'DM Sans',sans-serif;font-size:10px;color:rgba(240,235,224,0.25);width:100%;display:block;margin-bottom:6px;">Fem tilstande:</span>
-        <span style="font-family:'DM Sans',sans-serif;font-size:11px;padding:3px 9px;border-radius:20px;background:rgba(78,200,140,0.1);color:#4ec88c;">Normal</span>
-        <span style="font-family:'DM Sans',sans-serif;font-size:11px;padding:3px 9px;border-radius:20px;background:rgba(122,158,232,0.1);color:#7a9ee8;">Kræver vurdering</span>
-        <span style="font-family:'DM Sans',sans-serif;font-size:11px;padding:3px 9px;border-radius:20px;background:rgba(224,112,112,0.1);color:#e07070;">Nødtilstand</span>
-        <span style="font-family:'DM Sans',sans-serif;font-size:11px;padding:3px 9px;border-radius:20px;background:rgba(226,136,78,0.1);color:var(--accent);">Uforeneligt</span>
-        <span style="font-family:'DM Sans',sans-serif;font-size:11px;padding:3px 9px;border-radius:20px;background:rgba(200,122,232,0.1);color:#c87ae8;">Grundlovsveto</span>
-      </div>
+
+<div class="lang-switch-wrap">
+  <div class="container">
+    <div class="lang-switch">
+      <span>Vælg sprog</span>
+      <a class="lang-pill active" href="etos.html">DA</a><a class="lang-pill" href="etos-en.html">EN</a><a class="lang-pill" href="etos-de.html">DE</a>
     </div>
   </div>
-</section>
+</div>
 
-<!-- 2. FORSTÅ -->
-<section class="e-forst">
-  <div class="e-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;">
-    <div>
-      <span class="e-eyebrow" style="color:var(--accent);">Hvad gør ETOS?</span>
-      <h2>Overblik før handling</h2>
-      <p>Når beslutninger bliver svære, skyldes det sjældent mangel på regler — men at forskellige hensyn trækker i hver sin retning.</p>
-      <p>ETOS hjælper med at se spændingen tydeligt nok til at handle ansvarligt.</p>
-    </div>
-    <div style="padding-top:8px;">
-      <ul class="e-list">
-        <li>Gør spændinger synlige — ikke bare mærkbare</li>
-        <li>Skaber overblik før handling — ikke panik</li>
-        <li>Giver retning — ikke et svar</li>
-        <li>Bygger læring over tid — ikke bare punktvurdering</li>
-      </ul>
-    </div>
-  </div>
-</section>
 
-<!-- 3. SÅDAN VIRKER DET -->
-<section class="e-flow">
-  <div class="e-inner">
-    <span class="e-eyebrow" style="color:#4ec88c;">Processen</span>
-    <h2>Sådan virker det</h2>
-    <p class="e-flow-sub">Fire trin fra situation til beslutning — og videre til læring.</p>
-    <div class="e-flow-grid">
-      <div class="e-flow-step">
-        <div class="e-flow-num">1</div>
-        <h3>Situation</h3>
-        <p>Du beskriver en konkret situation — hvad er på spil, hvem er involveret, hvad trækker i hvilken retning.</p>
-      </div>
-      <div class="e-flow-step">
-        <div class="e-flow-num">2</div>
-        <h3>Analyse</h3>
-        <p>ETOS synliggør spændinger og konflikter. Beregner divergens, etisk pres og handlingsrum.</p>
-      </div>
-      <div class="e-flow-step">
-        <div class="e-flow-num">3</div>
-        <h3>Overblik</h3>
-        <p>Du ser hvad der trækker i hver retning — og hvilken tilstand situationen er i. Ikke et svar, men klarhed.</p>
-      </div>
-      <div class="e-flow-step">
-        <div class="e-flow-num">4</div>
-        <h3>Beslutning</h3>
-        <p>Du handler med større bevidsthed. Situationen logges. Mønstre opstår. Du lærer over tid.</p>
-      </div>
-    </div>
-  </div>
-</section>
+<main><section class="hero"><div class="container two-col">
+<div class="reveal"><span class="eyebrow">ETOS som hub</span><h1>En refleksiv arkitektur for systemer, der skal kunne lære af egne spændinger.</h1><p class="lead">ETOS samler de spor, hvor spændinger mellem intention, handling, effekt og oplevet virkelighed bliver afgørende for ansvar, læring og legitimitet.</p></div>
+<div class="card padded reveal"><span class="eyebrow">Kerne</span><p class="lead">ETOS gør spændinger synlige mellem Meaning, Model, Reality og Experience.</p></div>
+</div></section></main>
 
-<!-- 4. EKSEMPEL -->
-<section class="e-ex" id="eksempel">
-  <div class="e-inner">
-    <span class="e-eyebrow" style="color:var(--accent);">Konkret eksempel</span>
-    <h2>Psykiatri — en reel situation</h2>
-    <p class="e-ex-sub">Alle hensyn er reelle. Ingen løsning er perfekt. ETOS gør spændingen synlig.</p>
-    <div class="e-case">
-      <div class="e-case-header">
-        <span style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:rgba(240,235,224,0.7);">Patient nægter behandling · Høj risiko · Lav tillid</span>
-        <span style="font-family:'Playfair Display',serif;font-size:14px;color:#e07070;">Kritisk spænding</span>
-      </div>
-      <div class="e-case-body">
-        <div>
-          <span class="e-case-col-lbl">Situationen</span>
-          <div class="e-case-item sit">Patient nægter medicinering og behandling</div>
-          <div class="e-case-item sit">Systemets risikovurdering: høj</div>
-          <div class="e-case-item sit">Relationel tillid: meget lav</div>
-          <div class="e-case-tags">
-            <span class="e-case-tag" style="background:rgba(224,112,112,0.1);color:#e07070;">Høj divergens</span>
-            <span class="e-case-tag" style="background:rgba(226,136,78,0.1);color:var(--accent);">Etisk pres</span>
-            <span class="e-case-tag" style="background:rgba(122,158,232,0.1);color:#7a9ee8;">Lav tillid</span>
-          </div>
-        </div>
-        <div>
-          <span class="e-case-col-lbl">ETOS anbefaler</span>
-          <div class="e-case-item grn">Handling er mulig — med bevidst pris</div>
-          <div class="e-case-item grn">Dokumentér dilemmaet eksplicit</div>
-          <div class="e-case-item grn">Planlæg reparation af relationen bagefter</div>
-          <div class="e-case-item ora">Etisk gæld opstår uanset valg — anerkend det</div>
-        </div>
-      </div>
-      <p class="e-case-conclusion"><strong style="font-style:normal;color:var(--accent);">ETOS fjerner ikke dilemmaet.</strong> Det giver sprog og struktur til at handle bevidst — og lære af det bagefter.</p>
-    </div>
-  </div>
-</section>
 
-<!-- 5. LIVE DEMO -->
-<section class="e-demo" id="demo">
-  <div class="e-inner">
-    <span class="e-eyebrow" style="color:var(--accent);">Live demo</span>
-    <h2>Prøv ETOS</h2>
-    <p class="e-demo-sub">Juster parametrene og se hvordan spændingen i situationen ændrer sig i realtid.</p>
-    <div class="e-demo-wrap">
-      <div class="e-demo-left">
-        <h3>Din situation</h3>
-        <p>Brug sliderne til at beskrive en situation. ETOS beregner spænding og klassificerer situationen i én af fem tilstande.</p>
-        <p>Du behøver ikke kende teorien. Start bare med det du mærker.</p>
-        <a href="system.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(226,136,78,0.1);color:var(--accent);padding:11px 20px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;text-decoration:none;border:1px solid rgba(226,136,78,0.2);">Åbn fuld analyse →</a>
-      </div>
-      <div class="demo-box">
-      <p class="demo-invite">Forestil dig en svær situation — juster og se hvad ETOS opdager.</p>
-      <div class="demo-slider">
-        <div class="demo-slider-header">
-          <span class="demo-slider-label" id="lbl1">Systemets risikovurdering</span>
-          <span class="demo-slider-val"><span id="v1">60</span> / 100</span>
-        </div>
-        <input type="range" class="demo-range" id="s1" min="0" max="100" value="60" oninput="demoUpdate()">
-        <div class="demo-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
-        <p class="demo-hint" id="hint1">Høj risiko øger systemets behov for handling</p>
-      </div>
-      <div class="demo-slider">
-        <div class="demo-slider-header">
-          <span class="demo-slider-label" id="lbl2">Patientens autonomi</span>
-          <span class="demo-slider-val"><span id="v2">75</span> / 100</span>
-        </div>
-        <input type="range" class="demo-range" id="s2" min="0" max="100" value="75" oninput="demoUpdate()">
-        <div class="demo-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
-        <p class="demo-hint" id="hint2">Høj autonomi styrker individets ret til eget valg</p>
-      </div>
-      <div class="demo-slider">
-        <div class="demo-slider-header">
-          <span class="demo-slider-label" id="lbl3">Relationel tillid</span>
-          <span class="demo-slider-val"><span id="v3">40</span> / 100</span>
-        </div>
-        <input type="range" class="demo-range" id="s3" min="0" max="100" value="40" oninput="demoUpdate()">
-        <div class="demo-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
-        <p class="demo-hint" id="hint3">Lav tillid øger risikoen for modstand mod beslutningen</p>
-      </div>
-      <div class="demo-result" id="demoResult">
-        <div class="demo-mode-row">
-          <span class="demo-mode-label">Beslutningsmode</span>
-          <span class="demo-mode-value" id="dMode">Kræver vurdering</span>
-        </div>
-        <p class="demo-insight" id="dInsight">Spænding mellem høj autonomi, moderat tillid og stigende risikovurdering.</p>
-        <div class="demo-recommendation">
-          <span class="demo-rec-label">Hvad det betyder</span>
-          <p class="demo-rec-text" id="dRec">Sænk tempoet, forklar beslutningen og styrk relationen før handling.</p>
-        </div>
-        <a href="system.html" class="demo-link" style="font-size:11px;opacity:0.7;">Se fuld analyse →</a>
-      </div>
-      <div class="demo-toggle">
-        <button class="demo-tog-btn" onclick="setTog('b',this)">👤 Borger</button>
-        <button class="demo-tog-btn af" onclick="setTog('f',this)">🧑‍⚕️ Fagperson</button>
-      </div>
-    </div>
-  </div>
-    </div>
-  </div>
-</section>
+<footer>
+  <div class="container">M.E.M. Teori — ETOS, koncept, struktur og tekster af Maria Edlenborg Mortensen. Kontakt: <a href="mailto:M.E.M.Teori@gmail.com">M.E.M.Teori@gmail.com</a></div>
+</footer>
+<script src="script.js"></script>
 
-<!-- 6. HVAD FÅR DU UD AF DET -->
-<section class="e-out">
-  <div class="e-inner">
-    <span class="e-eyebrow" style="color:var(--accent);">Hvad får du ud af det?</span>
-    <h2>Ikke et svar — men klarhed</h2>
-    <div class="e-out-grid">
-      <div class="e-out-card">
-        <span class="e-out-icon">🔍</span>
-        <h3>Overblik i komplekse situationer</h3>
-        <p>Når alt føles svært og uoverskueligt, giver ETOS et sprog for hvad der faktisk er på spil.</p>
-      </div>
-      <div class="e-out-card">
-        <span class="e-out-icon">⚖️</span>
-        <h3>Klarhed før handling</h3>
-        <p>I stedet for at handle reaktivt, ser du spændingen tydeligt — og kan vælge mere bevidst.</p>
-      </div>
-      <div class="e-out-card">
-        <span class="e-out-icon">📈</span>
-        <h3>Bedre beslutninger over tid</h3>
-        <p>ETOS lærer af mønstre. Jo flere situationer du analyserer, jo skarpere bliver overblikket.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 7. CTA -->
-<section class="e-cta">
-  <div class="e-inner">
-    <span class="e-eyebrow" style="color:#4ec88c;">Afprøv i praksis</span>
-    <h2>Klar til at bruge det?</h2>
-    <p>ETOS kan bruges individuelt, i teams og i organisationer. Start med en gratis pilot på 90 minutter — ingen forberedelse nødvendig.</p>
-    <div class="e-btns">
-      <a href="pilot-pakke.html" class="e-btn-p">Deltag i pilot →</a>
-      <a href="kontakt.html" class="e-btn-s">Kontakt</a>
-    </div>
-  </div>
-</section>
-
-<script>
-function demoUpdate(){
-  const s1=+document.getElementById("s1").value,s2=+document.getElementById("s2").value,s3=+document.getElementById("s3").value;
-  document.getElementById("v1").textContent=s1;document.getElementById("v2").textContent=s2;document.getElementById("v3").textContent=s3;
-  const clamp=v=>Math.min(100,Math.max(0,v));
-  const e=clamp(Math.round(s1*.5+(100-s3)*.3+(100-s2)*.2));
-  const h=clamp(Math.round(s3*.5+s2*.3+(100-s1)*.2));
-  const d=clamp(Math.round(Math.abs(s1-s2)*.5+(100-s3)*.3+s1*.2));
-  const rL=s1<33?"lav":s1<66?"moderat":"høj";
-  const aL=s2<33?"lav":s2<66?"moderat":"høj";
-  const tL=s3<33?"svag":s3<66?"moderat":"stærk";
-
-  // Slider hints — aktivér den mest pressede
-  const h1=document.getElementById("hint1"),h2=document.getElementById("hint2"),h3=document.getElementById("hint3");
-  if(h1&&h2&&h3){
-    h1.classList.toggle("active", s1>60);
-    h2.classList.toggle("active", s2>60);
-    h3.classList.toggle("active", s3<40);
-    if(window._tog==="b"){
-      h1.textContent=s1>66?"Systemet vil handle — det presser på":"Systemets pres er håndterbart lige nu";
-      h2.textContent=s2>66?"Din virkelighed vejer tungt i denne beslutning":"Din virkelighed er kun delvist hørt";
-      h3.textContent=s3<33?"Lav tillid gør det svært at acceptere en beslutning":"Tilliden bærer noget af byrden";
-    } else {
-      h1.textContent=s1>66?"Høj risiko øger systemets behov for handling":"Risikoniveauet er moderat — der er rum til dialog";
-      h2.textContent=s2>66?"Høj autonomi styrker individets ret til eget valg":"Begrænset autonomi — systemet vejer tungt";
-      h3.textContent=s3<33?"Lav tillid øger risikoen for modstand mod beslutningen":"Tilliden understøtter en bæredygtig beslutning";
-    }
-  }
-
-  let mode,color,insight,rec;
-  if(h>60&&e<33){
-    mode="Normal"; color="#4ec88c";
-    insight="Systemets vurdering og menneskets virkelighed peger i samme retning. Der er etisk plads til at handle.";
-    rec="Dokumentér begrundelsen. Involvér den berørte i beslutningen så vidt muligt.";
-  } else if(e>72||d>75){
-    mode="Kritisk spænding"; color="#e07070";
-    insight="Der er stor afstand mellem systemets krav og den menneskelige virkelighed. Enhver beslutning bærer en etisk pris.";
-    rec="Søg supervision. Lad ikke tidspres erstatte etisk refleksion. Dokumentér dilemmaet eksplicit.";
-  } else if(Math.abs(s1-s2)>55){
-    mode="Uforenelige hensyn"; color="#e2a06a";
-    insight="Systemets logik og individets behov kan ikke forenes i denne situation. Der opstår etisk gæld uanset valg.";
-    rec="Anerkend konflikten åbent. Ingen løsning er perfekt — vælg den der skader mindst og forklar hvorfor.";
-  } else {
-    mode="Kræver vurdering"; color="#7a9ee8";
-    insight="Flere hensyn trækker i forskellige retninger. Her er overblik vigtigere end hurtig handling.";
-    rec="Sænk tempoet. Forklar beslutningen til den berørte. Styrk relationen før og efter handling.";
-  }
-
-  const prev=document.getElementById("dMode").textContent;
-  document.getElementById("dMode").textContent=mode;
-  document.getElementById("dMode").style.color=color;
-  document.getElementById("dInsight").textContent=insight;
-  const recEl=document.getElementById("dRec");
-  if(recEl) recEl.textContent=rec;
-  if(prev!==mode){
-    const r=document.getElementById("demoResult");
-    r.classList.remove("pulse");void r.offsetWidth;r.classList.add("pulse");
-    r.style.borderLeftColor=color;
-  }
-}
-function setTog(type,btn){
-  window._tog=type;
-  document.querySelectorAll(".demo-tog-btn").forEach(b=>b.classList.remove("ab","af"));
-  btn.classList.add(type==="b"?"ab":"af");
-  document.getElementById("lbl1").textContent=type==="b"?"Systemets pres på dig":"Systemets risikovurdering";
-  document.getElementById("lbl2").textContent=type==="b"?"Din virkelighed":"Patientens autonomi";
-  document.getElementById("lbl3").textContent=type==="b"?"Tillid til systemet":"Relationel tillid";
-  demoUpdate();
-}
-document.addEventListener("DOMContentLoaded",()=>{
-  ["mcText","mcTags","mcVerdict"].forEach(id=>{const el=document.getElementById(id);if(el)el.style.transition="opacity 0.18s ease";});
-</script>
 </body>
 </html>
