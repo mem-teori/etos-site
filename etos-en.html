@@ -1,58 +1,501 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ETOS hub</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="google-site-verification" content="N-tI0mRJKKnPVNDB_v0LWIN6QjN9BnB8Zw8DN8ARdF0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ETOS — M.E.M. applied to decisions</title>
+  <meta name="description" content="ETOS makes tensions between values, human experience and system demands visible — so they can be understood and handled." />
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    section { padding: 80px 52px; }
+    .e-inner { max-width: 1160px; margin: 0 auto; }
+    .e-eyebrow { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 14px; }
+    .e-h1 { font-family: 'Playfair Display', serif; font-size: clamp(40px, 5vw, 64px); font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 10px; }
+    .e-subtitle { font-family: 'Playfair Display', serif; font-size: clamp(20px, 2.5vw, 28px); font-weight: 400; font-style: italic; margin-bottom: 20px; }
+    .e-lead { font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.8; margin-bottom: 32px; max-width: 560px; }
+    .e-btns { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .e-btn-p { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; padding: 14px 28px; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.15s; }
+    .e-btn-p:hover { background: #d4743a; }
+    .e-btn-s { font-family: 'DM Sans', sans-serif; font-size: 14px; color: rgba(240,235,224,0.45); text-decoration: none; border-bottom: 1px solid rgba(240,235,224,0.2); padding-bottom: 2px; transition: color 0.15s; }
+    .e-btn-s:hover { color: rgba(240,235,224,0.75); }
+
+    /* HERO */
+    .e-hero { background: #1E2E1F; position: relative; overflow: hidden; }
+    .e-hero::before { content: ''; position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(226,136,78,0.07), transparent 70%); pointer-events: none; }
+    .e-hero .e-inner { display: grid; grid-template-columns: 1fr 400px; gap: 64px; align-items: center; position: relative; }
+    .e-h1 { color: #f0ebe0; }
+    .e-subtitle { color: var(--accent); }
+    .e-lead { color: rgba(240,235,224,0.55); }
+
+    /* FORSTÅ */
+    .e-forst { background: #f5f0e8; }
+    .e-forst h2 { font-family: 'Playfair Display', serif; font-size: 28px; color: #1a1a1a; font-weight: 400; margin-bottom: 16px; }
+    .e-forst p { font-family: 'DM Sans', sans-serif; font-size: 15px; color: #555; line-height: 1.85; margin-bottom: 14px; max-width: 640px; }
+    .e-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; max-width: 480px; }
+    .e-list li { font-family: 'DM Sans', sans-serif; font-size: 15px; color: #333; padding: 12px 18px; background: #fff; border: 1px solid rgba(0,0,0,0.08); border-left: 3px solid var(--accent); border-radius: 0 9px 9px 0; }
+
+    /* FLOW */
+    .e-flow { background: #0d1117; }
+    .e-flow h2 { font-family: 'Playfair Display', serif; font-size: 28px; color: #e8ecfc; font-weight: 400; margin-bottom: 8px; }
+    .e-flow-sub { font-family: 'DM Sans', sans-serif; font-size: 14px; color: rgba(232,236,252,0.4); margin-bottom: 40px; }
+    .e-flow-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; overflow: hidden; }
+    .e-flow-step { padding: 32px 28px; border-right: 1px solid rgba(255,255,255,0.07); }
+    .e-flow-step:last-child { border-right: none; }
+    .e-flow-num { font-family: 'Playfair Display', serif; font-size: 36px; color: var(--accent); opacity: 0.35; font-weight: 400; line-height: 1; margin-bottom: 14px; }
+    .e-flow-step h3 { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; color: #e8ecfc; margin-bottom: 8px; }
+    .e-flow-step p { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(232,236,252,0.4); line-height: 1.7; margin: 0; }
+
+    /* EKSEMPEL */
+    .e-ex { background: #f5f0e8; }
+    .e-ex h2 { font-family: 'Playfair Display', serif; font-size: 28px; color: #1a1a1a; font-weight: 400; margin-bottom: 8px; }
+    .e-ex-sub { font-family: 'DM Sans', sans-serif; font-size: 14px; color: #888; margin-bottom: 32px; }
+    .e-case { background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 16px; overflow: hidden; }
+    .e-case-header { background: #1E2E1F; padding: 18px 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .e-case-body { padding: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .e-case-col-lbl { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #bbb; display: block; margin-bottom: 12px; }
+    .e-case-item { font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 14px; border-radius: 8px; margin-bottom: 8px; line-height: 1.6; }
+    .e-case-item.sit { color: #555; background: #f8f8f8; }
+    .e-case-item.red { color: #8a3030; background: rgba(224,112,112,0.08); border-left: 2px solid #e07070; }
+    .e-case-item.ora { color: #6a3a1a; background: rgba(226,136,78,0.08); border-left: 2px solid var(--accent); }
+    .e-case-item.grn { color: #2a6a40; background: rgba(78,200,140,0.08); border-left: 2px solid #4ec88c; }
+    .e-case-tags { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0 12px; }
+    .e-case-tag { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; padding: 5px 12px; border-radius: 20px; }
+    .e-case-conclusion { font-family: 'Playfair Display', serif; font-size: 15px; color: #555; font-style: italic; line-height: 1.65; padding: 16px 20px; background: rgba(226,136,78,0.04); border-top: 1px solid rgba(0,0,0,0.06); margin: 0; }
+
+    /* DEMO */
+    .e-demo { background: #1E2E1F; }
+    .e-demo h2 { font-family: 'Playfair Display', serif; font-size: 28px; color: #f0ebe0; font-weight: 400; margin-bottom: 8px; }
+    .e-demo-sub { font-family: 'DM Sans', sans-serif; font-size: 14px; color: rgba(240,235,224,0.4); margin-bottom: 36px; }
+    .e-demo-wrap { display: grid; grid-template-columns: 1fr 420px; gap: 48px; align-items: start; }
+    .e-demo-left h3 { font-family: 'Playfair Display', serif; font-size: 20px; color: #f0ebe0; font-weight: 400; margin-bottom: 10px; }
+    .e-demo-left p { font-family: 'DM Sans', sans-serif; font-size: 14px; color: rgba(240,235,224,0.45); line-height: 1.8; margin-bottom: 20px; }
+
+    /* DEMO BOX (reused from index) */
+    .demo-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(240,235,224,0.1); border-radius: 14px; padding: 24px; }
+    .demo-invite { font-size: 12px; font-style: italic; color: rgba(240,235,224,0.35); line-height: 1.6; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .demo-slider { margin-bottom: 14px; }
+    .demo-slider-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+    .demo-slider-label { font-size: 12px; color: rgba(240,235,224,0.55); font-family: 'DM Sans', sans-serif; }
+    .demo-slider-val { font-size: 12px; font-weight: 500; color: #7a9ee8; font-family: 'DM Sans', sans-serif; }
+    .demo-scale { display: flex; justify-content: space-between; font-size: 10px; color: rgba(240,235,224,0.2); margin-top: 4px; font-family: 'DM Sans', sans-serif; }
+    .demo-hint { font-size: 11px; color: rgba(240,235,224,0.22); font-style: italic; margin-top: 3px; font-family: 'DM Sans', sans-serif; transition: color 0.2s; line-height: 1.4; }
+    .demo-hint.active { color: rgba(240,235,224,0.45); }
+    input[type=range].demo-range { width: 100%; height: 4px; border-radius: 4px; -webkit-appearance: none; appearance: none; background: rgba(90,126,216,0.25); outline: none; cursor: pointer; }
+    input[type=range].demo-range::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: #7a9ee8; cursor: pointer; }
+    .demo-result { margin-top: 16px; padding: 14px 16px; background: rgba(255,255,255,0.04); border-left: 3px solid #E2884E; border-radius: 0 8px 8px 0; }
+    .demo-mode-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+    .demo-mode-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(240,235,224,0.3); font-family: 'DM Sans', sans-serif; }
+    .demo-mode-value { font-family: 'Playfair Display', serif; font-size: 16px; color: #E2884E; }
+    .demo-insight { font-size: 12px; color: rgba(240,235,224,0.5); line-height: 1.7; margin-bottom: 8px; font-family: 'DM Sans', sans-serif; }
+    .demo-recommendation { margin-top: 8px; padding: 10px 12px; background: rgba(255,255,255,0.03); border-radius: 6px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .demo-rec-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(240,235,224,0.2); font-family: 'DM Sans', sans-serif; margin-bottom: 4px; display: block; }
+    .demo-rec-text { font-size: 11px; color: rgba(240,235,224,0.4); line-height: 1.65; font-family: 'DM Sans', sans-serif; font-style: italic; }
+    .demo-link { font-size: 11px; font-weight: 500; color: #7a9ee8; text-decoration: none; font-family: 'DM Sans', sans-serif; }
+    .demo-toggle { display: flex; gap: 6px; margin-top: 12px; }
+    .demo-tog-btn { font-family: 'DM Sans', sans-serif; font-size: 11px; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.12); background: transparent; color: rgba(255,255,255,0.45); cursor: pointer; transition: all 0.15s; }
+    .demo-tog-btn.ab { background: rgba(78,200,140,0.12); border-color: rgba(78,200,140,0.35); color: #4ec88c; }
+    .demo-tog-btn.af { background: rgba(90,126,216,0.12); border-color: rgba(90,126,216,0.35); color: #7a9ee8; }
+    .demo-result.pulse { animation: dpulse 0.4s ease; }
+    @keyframes dpulse { 0%{box-shadow:0 0 0 0 rgba(226,136,78,0.4)} 50%{box-shadow:0 0 0 8px rgba(226,136,78,0)} 100%{box-shadow:0 0 0 0 rgba(226,136,78,0)} }
+
+    /* OUTPUT */
+    .e-out { background: #f5f0e8; }
+    .e-out h2 { font-family: 'Playfair Display', serif; font-size: 28px; color: #1a1a1a; font-weight: 400; margin-bottom: 32px; }
+    .e-out-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .e-out-card { background: #fff; border: 1px solid rgba(0,0,0,0.09); border-radius: 14px; padding: 28px 24px; }
+    .e-out-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+    .e-out-card h3 { font-family: 'Playfair Display', serif; font-size: 17px; color: #1a1a1a; font-weight: 400; margin-bottom: 8px; }
+    .e-out-card p { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #666; line-height: 1.7; margin: 0; }
+
+    /* CTA */
+    .e-cta { background: #1E2E1F; }
+    .e-cta h2 { font-family: 'Playfair Display', serif; font-size: 28px; color: #f0ebe0; font-weight: 400; margin-bottom: 10px; }
+    .e-cta p { font-family: 'DM Sans', sans-serif; font-size: 15px; color: rgba(240,235,224,0.5); line-height: 1.8; margin-bottom: 28px; max-width: 480px; }
+
+    @media (max-width: 860px) {
+      section { padding: 52px 28px; }
+      .e-hero .e-inner { grid-template-columns: 1fr; }
+      .e-hero-visual { display: none; }
+      .e-flow-grid { grid-template-columns: repeat(2,1fr); }
+      .e-case-body { grid-template-columns: 1fr; }
+      .e-demo-wrap { grid-template-columns: 1fr; }
+      .e-out-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-<header class="site">
-  <div class="container navbar">
-    <div class="brand">M.E.M. Teori / ETOS<small>Democratic reflection, governance and learning</small></div>
-    <nav class="navlinks">
-      <a href="index-en.html">Home</a>
-      <div class="dropdown">
-        <button class="dropbtn">ETOS ▾</button>
-        <div class="dropdown-content">
-          <a href="etos-en.html">ETOS hub</a>
-          <a href="anvendelse-en.html">Applications</a>
-          <a href="etos-psykiatri-en.html">Psychiatry</a>
-          <a href="etos-demokrati-en.html">Democracy</a>
-          <a href="etos-ai-en.html">AI Governance</a>
-          <a href="etos-kommune-en.html">Municipal governance</a>
+<header class="fs-header">
+
+  <div class="fs-nav">
+    <a href="index-en.html" class="fs-logo">M.E.M.</a>
+    <nav class="fs-links">
+
+      <!-- ETOS -->
+      <a href="etos-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Decision model</span></span>
+      </a>
+
+      <!-- PRODUKTER -->
+      <a href="produkter-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1228;">🛍</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Products</span><span class="fs-nav-sub">Software · Programmes · Books</span></span>
+      </a>
+
+      <!-- PILOT -->
+      <a href="pilot-pakke-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1a0d;">🧪</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Pilot</span><span class="fs-nav-sub">Test it in practice</span></span>
+      </a>
+
+      <!-- MERE dropdown -->
+      <div class="fs-dropdown">
+        <a href="mem-en.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#0d1117;">✦</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">More</span><span class="fs-nav-sub">Theory · Universe · Democracy</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="forloeb-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2020;">🔄</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Programmes</span><span class="fs-dropdown-item-sub">Carers · Leaders · Psychiatry</span></span>
+          </a>
+          <a href="mem-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🔬</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">M.E.M.</span><span class="fs-dropdown-item-sub">Foundation</span></span>
+          </a>
+          <a href="arkitektur-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🏗</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Architecture</span><span class="fs-dropdown-item-sub">IDK · ETOS · CDP</span></span>
+          </a>
+          <a href="etos-demokrati-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2820;">🗳</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Democracy</span><span class="fs-dropdown-item-sub">Promises · Accountability</span></span>
+          </a>
+          <a href="boerneunivers.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#2a1f1a;">🌱</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Universe</span><span class="fs-dropdown-item-sub">Children · Bankeren · Learning</span></span>
+          </a>
+
         </div>
       </div>
-      <a href="samarbejde-en.html">Collaboration</a>
-      <a href="presse-en.html">Press</a>
-      <a href="pilotprojekt-en.html">Pilot project</a>
-      <a href="international-en.html">International</a>
-      <a href="mem-en.html">M.E.M.</a>
-      <a href="reflektionscenter-en.html">Reflection Center</a>
-      <a href="kontakt-en.html">Contact</a>
+
     </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt-en.html" class="fs-nav-cta">Contact</a>
+      <a href="etos.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">DA</a>
+    </div>
   </div>
 </header>
 
-
-<div class="lang-switch-wrap">
-  <div class="container">
-    <div class="lang-switch">
-      <span>Choose language</span>
-      <a class="lang-pill" href="etos.html">DA</a><a class="lang-pill active" href="etos-en.html">EN</a><a class="lang-pill" href="etos-de.html">DE</a>
+<!-- 1. HERO -->
+<section class="e-hero">
+  <div class="e-inner">
+    <div>
+      <span class="e-eyebrow" style="color:var(--accent);">System · Decision support</span>
+      <h1 class="e-h1">ETOS</h1>
+      <p class="e-subtitle">M.E.M. applied to decisions</p>
+      <p class="e-lead">ETOS makes tensions between values, human experience and system demands visible — so they can be understood and handled.</p>
+      <div class="e-btns">
+        <a href="#demo" class="e-btn-p">Try ETOS →</a>
+        <a href="#eksempel" class="e-btn-s">See example</a>
+      </div>
+    </div>
+    <div class="e-hero-visual">
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:24px;">
+        <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(240,235,224,0.25);display:block;margin-bottom:16px;">Example — psychiatry</span>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+          <span style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(240,235,224,0.45);width:80px;">System demands</span>
+          <div style="flex:1;height:4px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;"><div style="width:82%;height:100%;background:linear-gradient(90deg,#e07070,#e2a06a);border-radius:4px;"></div></div>
+          <span style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(240,235,224,0.45);text-align:right;width:60px;">Autonomi</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+          <span style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(240,235,224,0.45);width:80px;">Safety</span>
+          <div style="flex:1;height:4px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;"><div style="width:70%;height:100%;background:var(--accent);border-radius:4px;"></div></div>
+          <span style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(240,235,224,0.45);text-align:right;width:60px;">Relation</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+          <span style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(240,235,224,0.45);width:80px;">Action</span>
+          <div style="flex:1;height:4px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;"><div style="width:35%;height:100%;background:#7a9ee8;border-radius:4px;"></div></div>
+          <span style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(240,235,224,0.45);text-align:right;width:60px;">Trust</span>
+        </div>
+        <div style="padding:12px 14px;background:rgba(226,136,78,0.07);border-left:2px solid var(--accent);border-radius:0 8px 8px 0;font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,0.5);line-height:1.6;"><strong style="color:var(--accent);font-weight:500;">Critical tension</strong> — action is possible, but at a conscious cost.</div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;padding:14px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;">
+        <span style="font-family:'DM Sans',sans-serif;font-size:10px;color:rgba(240,235,224,0.25);width:100%;display:block;margin-bottom:6px;">Five states:</span>
+        <span style="font-family:'DM Sans',sans-serif;font-size:11px;padding:3px 9px;border-radius:20px;background:rgba(78,200,140,0.1);color:#4ec88c;">Normal</span>
+        <span style="font-family:'DM Sans',sans-serif;font-size:11px;padding:3px 9px;border-radius:20px;background:rgba(122,158,232,0.1);color:#7a9ee8;">Requires review</span>
+        <span style="font-family:'DM Sans',sans-serif;font-size:11px;padding:3px 9px;border-radius:20px;background:rgba(224,112,112,0.1);color:#e07070;">Emergency</span>
+        <span style="font-family:'DM Sans',sans-serif;font-size:11px;padding:3px 9px;border-radius:20px;background:rgba(226,136,78,0.1);color:var(--accent);">Incompatible</span>
+        <span style="font-family:'DM Sans',sans-serif;font-size:11px;padding:3px 9px;border-radius:20px;background:rgba(200,122,232,0.1);color:#c87ae8;">Constitutional veto</span>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
+<!-- 2. FORSTÅ -->
+<section class="e-forst">
+  <div class="e-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;">
+    <div>
+      <span class="e-eyebrow" style="color:var(--accent);">What does ETOS do?</span>
+      <h2>Overview before action</h2>
+      <p>When decisions become difficult, it is rarely due to a lack of rules — but because different considerations pull in different directions.</p>
+      <p>ETOS helps you see the tension clearly enough to act responsibly.</p>
+    </div>
+    <div style="padding-top:8px;">
+      <ul class="e-list">
+        <li>Makes tensions visible — not just felt</li>
+        <li>Creates overview before action — not panic</li>
+        <li>Gives direction — not an answer</li>
+        <li>Builds learning over time — not just point-in-time assessment</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-<main><section class="hero"><div class="container two-col"><div class="reveal"><span class="eyebrow">ETOS hub</span><h1>A reflective architecture for systems that must be able to learn from their own tensions.</h1><p class="lead">ETOS gathers the domains where tensions between intention, action, effect and lived reality become decisive for responsibility, learning and legitimacy.</p></div><div class="card padded reveal"><span class="eyebrow">Core</span><p class="lead">ETOS makes visible the tensions between Meaning, Model, Reality and Experience.</p></div></div></section></main>
+<!-- 3. SÅDAN VIRKER DET -->
+<section class="e-flow">
+  <div class="e-inner">
+    <span class="e-eyebrow" style="color:#4ec88c;">The process</span>
+    <h2>How it works</h2>
+    <p class="e-flow-sub">Four steps from situation to decision — and on to learning.</p>
+    <div class="e-flow-grid">
+      <div class="e-flow-step">
+        <div class="e-flow-num">1</div>
+        <h3>Situation</h3>
+        <p>You describe a concrete situation — what is at stake, who is involved, what pulls in which direction.</p>
+      </div>
+      <div class="e-flow-step">
+        <div class="e-flow-num">2</div>
+        <h3>Analysis</h3>
+        <p>ETOS makes tensions and conflicts visible. Calculates divergence, ethical pressure and room for action.</p>
+      </div>
+      <div class="e-flow-step">
+        <div class="e-flow-num">3</div>
+        <h3>Overview</h3>
+        <p>You see what pulls in each direction — and which state the situation is in. Not an answer, but clarity.</p>
+      </div>
+      <div class="e-flow-step">
+        <div class="e-flow-num">4</div>
+        <h3>Decision</h3>
+        <p>You act with greater awareness. The situation is logged. Patterns emerge. You learn over time.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- 4. EKSEMPEL -->
+<section class="e-ex" id="eksempel">
+  <div class="e-inner">
+    <span class="e-eyebrow" style="color:var(--accent);">Concrete example</span>
+    <h2>Psychiatry — a real situation</h2>
+    <p class="e-ex-sub">All considerations are real. No solution is perfect. ETOS makes the tension visible.</p>
+    <div class="e-case">
+      <div class="e-case-header">
+        <span style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:rgba(240,235,224,0.7);">Patient refuses treatment · High risk · Low trust</span>
+        <span style="font-family:'Playfair Display',serif;font-size:14px;color:#e07070;">Critical tension</span>
+      </div>
+      <div class="e-case-body">
+        <div>
+          <span class="e-case-col-lbl">The situation</span>
+          <div class="e-case-item sit">Patient refuses medication and treatment</div>
+          <div class="e-case-item sit">System risk assessment: high</div>
+          <div class="e-case-item sit">Relational trust: very low</div>
+          <div class="e-case-tags">
+            <span class="e-case-tag" style="background:rgba(224,112,112,0.1);color:#e07070;">High divergence</span>
+            <span class="e-case-tag" style="background:rgba(226,136,78,0.1);color:var(--accent);">Ethical pressure</span>
+            <span class="e-case-tag" style="background:rgba(122,158,232,0.1);color:#7a9ee8;">Low trust</span>
+          </div>
+        </div>
+        <div>
+          <span class="e-case-col-lbl">ETOS recommends</span>
+          <div class="e-case-item grn">Action is possible — with a conscious cost</div>
+          <div class="e-case-item grn">Document the dilemma explicitly</div>
+          <div class="e-case-item grn">Plan repair of the relationship afterwards</div>
+          <div class="e-case-item ora">Ethical debt arises regardless of choice — acknowledge it</div>
+        </div>
+      </div>
+      <p class="e-case-conclusion"><strong style="font-style:normal;color:var(--accent);">ETOS does not remove the dilemma.</strong> It gives language and structure to act consciously — and learn from it afterwards.</p>
+    </div>
+  </div>
+</section>
 
-<footer>
-  <div class="container">M.E.M. Theory — ETOS, concept, structure and texts by Maria Edlenborg Mortensen. Contact: <a href="mailto:M.E.M.Teori@gmail.com">M.E.M.Teori@gmail.com</a></div>
-</footer>
-<script src="script.js"></script>
+<!-- 5. LIVE DEMO -->
+<section class="e-demo" id="demo">
+  <div class="e-inner">
+    <span class="e-eyebrow" style="color:var(--accent);">Live demo</span>
+    <h2>Try ETOS</h2>
+    <p class="e-demo-sub">Adjust the parameters and see how the tension changes in real time.</p>
+    <div class="e-demo-wrap">
+      <div class="e-demo-left">
+        <h3>Your situation</h3>
+        <p>Use the sliders to describe a situation. ETOS calculates tension and classifies it into one of five states.</p>
+        <p>You do not need to know the theory. Start with what you feel.</p>
+        <a href="system.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(226,136,78,0.1);color:var(--accent);padding:11px 20px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;text-decoration:none;border:1px solid rgba(226,136,78,0.2);">Open full analysis →</a>
+      </div>
+      <div class="demo-box">
+      <p class="demo-invite">Imagine a difficult situation — adjust the sliders and see what ETOS detects.</p>
+      <div class="demo-slider">
+        <div class="demo-slider-header">
+          <span class="demo-slider-label" id="lbl1">System risk assessment</span>
+          <span class="demo-slider-val"><span id="v1">60</span> / 100</span>
+        </div>
+        <input type="range" class="demo-range" id="s1" min="0" max="100" value="60" oninput="demoUpdate()">
+        <div class="demo-scale"><span>Low</span><span>Moderate</span><span>High</span></div>
+        <p class="demo-hint" id="hint1">High risk increases the system’s perceived need to act</p>
+      </div>
+      <div class="demo-slider">
+        <div class="demo-slider-header">
+          <span class="demo-slider-label" id="lbl2">Patient autonomy</span>
+          <span class="demo-slider-val"><span id="v2">75</span> / 100</span>
+        </div>
+        <input type="range" class="demo-range" id="s2" min="0" max="100" value="75" oninput="demoUpdate()">
+        <div class="demo-scale"><span>Low</span><span>Moderate</span><span>High</span></div>
+        <p class="demo-hint" id="hint2">High autonomy strengthens the individual’s right to choose</p>
+      </div>
+      <div class="demo-slider">
+        <div class="demo-slider-header">
+          <span class="demo-slider-label" id="lbl3">Relational trust</span>
+          <span class="demo-slider-val"><span id="v3">40</span> / 100</span>
+        </div>
+        <input type="range" class="demo-range" id="s3" min="0" max="100" value="40" oninput="demoUpdate()">
+        <div class="demo-scale"><span>Low</span><span>Moderate</span><span>High</span></div>
+        <p class="demo-hint" id="hint3">Low trust increases the risk of resistance to the decision</p>
+      </div>
+      <div class="demo-result" id="demoResult">
+        <div class="demo-mode-row">
+          <span class="demo-mode-label">Decision mode</span>
+          <span class="demo-mode-value" id="dMode">Requires review</span>
+        </div>
+        <p class="demo-insight" id="dInsight">Tension between high autonomy, moderate trust and rising risk assessment.</p>
+        <div class="demo-recommendation">
+          <span class="demo-rec-label">What it means</span>
+          <p class="demo-rec-text" id="dRec">Slow the pace, explain the decision and strengthen the relationship before acting.</p>
+        </div>
+        <a href="system.html" class="demo-link" style="font-size:11px;opacity:0.7;">View full analysis →</a>
+      </div>
+      <div class="demo-toggle">
+        <button class="demo-tog-btn" onclick="setTog('b',this)">👤 Citizen</button>
+        <button class="demo-tog-btn af" onclick="setTog('f',this)">🧑‍⚕️ Professional</button>
+      </div>
+    </div>
+  </div>
+    </div>
+  </div>
+</section>
 
+<!-- 6. HVAD FÅR DU UD AF DET -->
+<section class="e-out">
+  <div class="e-inner">
+    <span class="e-eyebrow" style="color:var(--accent);">What do you get out of it?</span>
+    <h2>Not an answer — but clarity</h2>
+    <div class="e-out-grid">
+      <div class="e-out-card">
+        <span class="e-out-icon">🔍</span>
+        <h3>Overview in complex situations</h3>
+        <p>When everything feels difficult and overwhelming, ETOS gives language for what is actually at stake.</p>
+      </div>
+      <div class="e-out-card">
+        <span class="e-out-icon">⚖️</span>
+        <h3>Clarity before action</h3>
+        <p>Instead of acting reactively, you see the tension clearly — and can choose more consciously.</p>
+      </div>
+      <div class="e-out-card">
+        <span class="e-out-icon">📈</span>
+        <h3>Better decisions over time</h3>
+        <p>ETOS learns from patterns. The more situations you analyze, the clearer the picture becomes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. CTA -->
+<section class="e-cta">
+  <div class="e-inner">
+    <span class="e-eyebrow" style="color:#4ec88c;">Try it in practice</span>
+    <h2>Ready to use it?</h2>
+    <p>ETOS can be used individually, in teams and in organizations. Start with a free pilot of 90 minutes — no preparation needed.</p>
+    <div class="e-btns">
+      <a href="pilot-pakke-en.html" class="e-btn-p">Join the pilot →</a>
+      <a href="kontakt-en.html" class="e-btn-s">Contact</a>
+    </div>
+  </div>
+</section>
+
+<script>
+function demoUpdate(){
+  const s1=+document.getElementById("s1").value,s2=+document.getElementById("s2").value,s3=+document.getElementById("s3").value;
+  document.getElementById("v1").textContent=s1;document.getElementById("v2").textContent=s2;document.getElementById("v3").textContent=s3;
+  const clamp=v=>Math.min(100,Math.max(0,v));
+  const e=clamp(Math.round(s1*.5+(100-s3)*.3+(100-s2)*.2));
+  const h=clamp(Math.round(s3*.5+s2*.3+(100-s1)*.2));
+  const d=clamp(Math.round(Math.abs(s1-s2)*.5+(100-s3)*.3+s1*.2));
+  const rL=s1<33?"low":s1<66?"moderate":"high";
+  const aL=s2<33?"low":s2<66?"moderate":"high";
+  const tL=s3<33?"weak":s3<66?"moderate":"strong";
+
+  // Slider hints — activate the most pressured one
+  const h1=document.getElementById("hint1"),h2=document.getElementById("hint2"),h3=document.getElementById("hint3");
+  if(h1&&h2&&h3){
+    h1.classList.toggle("active", s1>60);
+    h2.classList.toggle("active", s2>60);
+    h3.classList.toggle("active", s3<40);
+    if(window._tog==="b"){
+      h1.textContent=s1>66?"The system wants to act — the pressure is rising":"The system pressure is manageable right now";
+      h2.textContent=s2>66?"Your lived reality carries significant weight in this decision":"Your lived reality is only partly being heard";
+      h3.textContent=s3<33?"Low trust makes it difficult to accept a decision":"Trust is carrying part of the burden";
+    } else {
+      h1.textContent=s1>66?"High risk increases the system’s perceived need to act":"Risk is moderate — there is room for dialogue";
+      h2.textContent=s2>66?"High autonomy strengthens the individual’s right to choose":"Limited autonomy — the system weighs heavily";
+      h3.textContent=s3<33?"Low trust increases the risk of resistance to the decision":"Trust supports a sustainable decision";
+    }
+  }
+
+  let mode,color,insight,rec;
+  if(h>60&&e<33){
+    mode="Normal"; color="#4ec88c";
+    insight="The system’s assessment and the person’s lived reality point in the same direction. There is ethical room to act.";
+    rec="Document the reasoning. Involve the affected person in the decision as far as possible.";
+  } else if(e>72||d>75){
+    mode="Critical tension"; color="#e07070";
+    insight="There is a wide gap between the system’s demands and human reality. Every decision carries an ethical cost.";
+    rec="Seek supervision. Do not let time pressure replace ethical reflection. Document the dilemma explicitly.";
+  } else if(Math.abs(s1-s2)>55){
+    mode="Incompatible considerations"; color="#e2a06a";
+    insight="The system’s logic and the individual’s needs cannot be fully reconciled in this situation. Ethical debt arises whatever you choose.";
+    rec="Acknowledge the conflict openly. No solution is perfect — choose the one that does the least harm and explain why.";
+  } else {
+    mode="Requires review"; color="#7a9ee8";
+    insight="Several considerations pull in different directions. Here, overview matters more than quick action.";
+    rec="Slow the pace. Explain the decision to the person affected. Strengthen the relationship before and after acting.";
+  }
+
+  const prev=document.getElementById("dMode").textContent;
+  document.getElementById("dMode").textContent=mode;
+  document.getElementById("dMode").style.color=color;
+  document.getElementById("dInsight").textContent=insight;
+  const recEl=document.getElementById("dRec");
+  if(recEl) recEl.textContent=rec;
+  if(prev!==mode){
+    const r=document.getElementById("demoResult");
+    r.classList.remove("pulse");void r.offsetWidth;r.classList.add("pulse");
+    r.style.borderLeftColor=color;
+  }
+}
+function setTog(type,btn){
+  window._tog=type;
+  document.querySelectorAll(".demo-tog-btn").forEach(b=>b.classList.remove("ab","af"));
+  btn.classList.add(type==="b"?"ab":"af");
+  document.getElementById("lbl1").textContent=type==="b"?"The system’s pressure on you":"System risk assessment";
+  document.getElementById("lbl2").textContent=type==="b"?"Your lived reality":"Patient autonomy";
+  document.getElementById("lbl3").textContent=type==="b"?"Trust in the system":"Relational trust";
+  demoUpdate();
+}
+document.addEventListener("DOMContentLoaded",()=>{
+  ["mcText","mcTags","mcVerdict"].forEach(id=>{const el=document.getElementById(id);if(el)el.style.transition="opacity 0.18s ease";});
+</script>
 </body>
 </html>

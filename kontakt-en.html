@@ -1,58 +1,291 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="google-site-verification" content="N-tI0mRJKKnPVNDB_v0LWIN6QjN9BnB8Zw8DN8ARdF0" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — ETOS</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    .kontakt-hero {
+      background: var(--bg-dark);
+      padding: 72px 52px 64px;
+      position: relative; overflow: hidden;
+    }
+    .kontakt-hero::before {
+      content: ''; position: absolute; top: -80px; right: -80px;
+      width: 360px; height: 360px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(226,136,78,0.08), transparent 70%);
+      pointer-events: none;
+    }
+    .kontakt-hero-inner { max-width: 1160px; margin: 0 auto; position: relative; }
+    .kontakt-hero h1 {
+      font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 48px);
+      color: #f0ebe0; font-weight: 400; line-height: 1.12;
+      letter-spacing: -0.02em; margin-bottom: 16px;
+    }
+    .kontakt-hero h1 em { font-style: italic; color: var(--accent); }
+    .kontakt-hero-lead {
+      font-family: 'DM Sans', sans-serif; font-size: 15px;
+      color: rgba(240,235,224,0.5); line-height: 1.8;
+      max-width: 540px; margin: 0;
+    }
+
+    /* MAIN LAYOUT */
+    .kontakt-body { background: #f5f0e8; padding: 64px 52px; }
+    .kontakt-body-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 380px; gap: 48px; align-items: start; }
+
+    /* LEFT: cards */
+    .kontakt-cards { display: flex; flex-direction: column; gap: 12px; }
+    .kontakt-card {
+      background: #fff; border: 1px solid rgba(0,0,0,0.07); border-radius: 14px;
+      padding: 28px 28px; display: flex; gap: 20px; align-items: flex-start;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .kontakt-card:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(0,0,0,0.07); }
+    .kontakt-card-icon {
+      width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 18px;
+    }
+    .kontakt-card-body { flex: 1; }
+    .kontakt-card-tag {
+      font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent);
+      display: block; margin-bottom: 4px;
+    }
+    .kontakt-card h3 {
+      font-family: 'Playfair Display', serif; font-size: 17px; color: #1a1a1a;
+      font-weight: 400; margin-bottom: 6px;
+    }
+    .kontakt-card p {
+      font-family: 'DM Sans', sans-serif; font-size: 13px; color: #888;
+      line-height: 1.7; margin: 0;
+    }
+
+    /* RIGHT: sticky contact box */
+    .kontakt-sidebar { position: sticky; top: 88px; }
+    .kontakt-direct {
+      background: var(--bg-dark); border-radius: 16px; padding: 36px 32px;
+      position: relative; overflow: hidden;
+    }
+    .kontakt-direct::before {
+      content: ''; position: absolute; bottom: -40px; right: -40px;
+      width: 180px; height: 180px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(226,136,78,0.1), transparent 70%);
+      pointer-events: none;
+    }
+    .kontakt-direct-label {
+      font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,235,224,0.35);
+      display: block; margin-bottom: 16px;
+    }
+    .kontakt-direct h3 {
+      font-family: 'Playfair Display', serif; font-size: 22px; color: #f0ebe0;
+      font-weight: 400; font-style: italic; line-height: 1.3; margin-bottom: 12px;
+    }
+    .kontakt-direct p {
+      font-family: 'DM Sans', sans-serif; font-size: 13px;
+      color: rgba(240,235,224,0.45); line-height: 1.75; margin-bottom: 24px;
+    }
+    .kontakt-email-btn {
+      display: block; background: var(--accent); color: #fff;
+      padding: 13px 20px; border-radius: 10px; text-align: center;
+      font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+      text-decoration: none; transition: background 0.15s; margin-bottom: 12px;
+      word-break: break-all;
+    }
+    .kontakt-email-btn:hover { background: var(--accent-dk); }
+    .kontakt-note {
+      font-family: 'DM Sans', sans-serif; font-size: 12px;
+      color: rgba(240,235,224,0.25); text-align: center; font-style: italic;
+    }
+
+    /* QUOTE STRIP */
+    .kontakt-quote {
+      background: #1e2e1f; padding: 48px 52px;
+    }
+    .kontakt-quote-inner { max-width: 1160px; margin: 0 auto; }
+    .kontakt-quote blockquote {
+      font-family: 'Playfair Display', serif; font-size: 22px;
+      color: rgba(240,235,224,0.7); font-weight: 400; font-style: italic;
+      line-height: 1.55; border: none; margin: 0 0 12px; padding: 0;
+    }
+    .kontakt-quote cite {
+      font-family: 'DM Sans', sans-serif; font-size: 12px;
+      color: rgba(240,235,224,0.3); font-style: normal;
+    }
+
+    @media (max-width: 860px) {
+      .kontakt-hero { padding: 48px 28px; }
+      .kontakt-body { padding: 48px 28px; }
+      .kontakt-body-inner { grid-template-columns: 1fr; }
+      .kontakt-sidebar { position: static; }
+      .kontakt-quote { padding: 40px 28px; }
+    }
+  </style>
 </head>
 <body>
 
-<header class="site">
-  <div class="container navbar">
-    <div class="brand">M.E.M. Teori / ETOS<small>Democratic reflection, governance and learning</small></div>
-    <nav class="navlinks">
-      <a href="index-en.html">Home</a>
-      <div class="dropdown">
-        <button class="dropbtn">ETOS ▾</button>
-        <div class="dropdown-content">
-          <a href="etos-en.html">ETOS hub</a>
-          <a href="anvendelse-en.html">Applications</a>
-          <a href="etos-psykiatri-en.html">Psychiatry</a>
-          <a href="etos-demokrati-en.html">Democracy</a>
-          <a href="etos-ai-en.html">AI Governance</a>
-          <a href="etos-kommune-en.html">Municipal governance</a>
+<header class="fs-header">
+
+  <div class="fs-nav">
+    <a href="index-en.html" class="fs-logo">M.E.M.</a>
+    <nav class="fs-links">
+
+      <!-- ETOS -->
+      <a href="etos-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Decision model</span></span>
+      </a>
+
+      <!-- PRODUKTER -->
+      <a href="produkter-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1228;">🛍</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Products</span><span class="fs-nav-sub">Software · Programmes · Books</span></span>
+      </a>
+
+      <!-- PILOT -->
+      <a href="pilot-pakke-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1a0d;">🧪</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Pilot</span><span class="fs-nav-sub">Test it in practice</span></span>
+      </a>
+
+      <!-- MERE dropdown -->
+      <div class="fs-dropdown">
+        <a href="mem-en.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#0d1117;">✦</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">More</span><span class="fs-nav-sub">Theory · Universe · Democracy</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="forloeb-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2020;">🔄</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Programmes</span><span class="fs-dropdown-item-sub">Carers · Leaders · Psychiatry</span></span>
+          </a>
+          <a href="mem-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🔬</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">M.E.M.</span><span class="fs-dropdown-item-sub">Foundation</span></span>
+          </a>
+          <a href="arkitektur-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🏗</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Architecture</span><span class="fs-dropdown-item-sub">IDK · ETOS · CDP</span></span>
+          </a>
+          <a href="etos-demokrati-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2820;">🗳</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Democracy</span><span class="fs-dropdown-item-sub">Promises · Accountability</span></span>
+          </a>
+          <a href="boerneunivers.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#2a1f1a;">🌱</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Universe</span><span class="fs-dropdown-item-sub">Children · Bankeren · Learning</span></span>
+          </a>
+
         </div>
       </div>
-      <a href="samarbejde-en.html">Collaboration</a>
-      <a href="presse-en.html">Press</a>
-      <a href="pilotprojekt-en.html">Pilot project</a>
-      <a href="international-en.html">International</a>
-      <a href="mem-en.html">M.E.M.</a>
-      <a href="reflektionscenter-en.html">Reflection Center</a>
-      <a href="kontakt-en.html">Contact</a>
+
     </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt-en.html" class="fs-nav-cta">Contact</a>
+      <a href="kontakt.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">DA</a>
+    </div>
   </div>
 </header>
 
-
-<div class="lang-switch-wrap">
-  <div class="container">
-    <div class="lang-switch">
-      <span>Choose language</span>
-      <a class="lang-pill" href="kontakt.html">DA</a><a class="lang-pill active" href="kontakt-en.html">EN</a><a class="lang-pill" href="kontakt-de.html">DE</a>
-    </div>
+<!-- HERO -->
+<div class="kontakt-hero">
+  <div class="kontakt-hero-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:20px;">Contact</span>
+    <h1>You do not need<br>a finished pitch —<br><em>one thought is enough</em></h1>
+    <p class="kontakt-hero-lead">A curiosity, an idea or a gut feeling of relevance is a fine starting point. I read all enquiries myself and reply as quickly as possible.</p>
   </div>
 </div>
 
+<!-- BODY -->
+<div class="kontakt-body">
+  <div class="kontakt-body-inner">
 
-<main><section class="hero"><div class="container two-col"><div class="reveal"><span class="eyebrow">Contact</span><h1>Open to dialogue, debate and collaboration.</h1><p class="lead">If you want to discuss ETOS, M.E.M. Theory, applications, critique or possible collaborations, you are welcome to write.</p></div><div class="card padded reveal"><span class="eyebrow">Contact points</span><ul class="bullets"><li>Email: <a href="mailto:M.E.M.Teori@gmail.com">M.E.M.Teori@gmail.com</a></li><li>Substack: <a href="https://substack.com/@mariaedlenborgmortensen">substack.com/@mariaedlenborgmortensen</a></li></ul></div></div></section></main>
+    <!-- VENSTRE: hvad kan vi tale om -->
+    <div>
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">Possible entry points</span>
+      <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:28px;">What can we talk about?</h2>
 
+      <div class="kontakt-cards">
+        <div class="kontakt-card">
+          <div class="kontakt-card-icon" style="background:rgba(122,158,232,0.1);">🤝</div>
+          <div class="kontakt-card-body">
+            <span class="kontakt-card-tag">Collaboration</span>
+            <h3>Pilot programmes and partnerships</h3>
+            <p>Would you like to try ETOS in your organisation? We adapt the programme to your context — psychiatry, municipality, company or educational institution.</p>
+          </div>
+        </div>
 
-<footer>
-  <div class="container">M.E.M. Theory — ETOS, concept, structure and texts by Maria Edlenborg Mortensen. Contact: <a href="mailto:M.E.M.Teori@gmail.com">M.E.M.Teori@gmail.com</a></div>
-</footer>
-<script src="script.js"></script>
+        <div class="kontakt-card">
+          <div class="kontakt-card-icon" style="background:rgba(226,136,78,0.1);">🧠</div>
+          <div class="kontakt-card-body">
+            <span class="kontakt-card-tag">Professional dialogue</span>
+            <h3>Sparring and perspectives</h3>
+            <p>Do you have experiences, criticism or insights that can enrich the model? M.E.M. is a beta — it grows stronger through encountering reality.</p>
+          </div>
+        </div>
+
+        <div class="kontakt-card">
+          <div class="kontakt-card-icon" style="background:rgba(78,200,140,0.1);">📰</div>
+          <div class="kontakt-card-body">
+            <span class="kontakt-card-tag">Press and communication</span>
+            <h3>Interview and knowledge sharing</h3>
+            <p>Journalist, podcaster or communicator? We are happy to talk about the project, the theory behind it and why it is relevant now.</p>
+          </div>
+        </div>
+
+        <div class="kontakt-card">
+          <div class="kontakt-card-icon" style="background:rgba(226,136,78,0.08);">💡</div>
+          <div class="kontakt-card-body">
+            <span class="kontakt-card-tag">Investment</span>
+            <h3>Strategic development dialogue</h3>
+            <p>The projects are in active development and open to dialogue with investors and strategic partners who see the potential.</p>
+          </div>
+        </div>
+
+        <div class="kontakt-card">
+          <div class="kontakt-card-icon" style="background:rgba(122,158,232,0.08);">✉️</div>
+          <div class="kontakt-card-body">
+            <span class="kontakt-card-tag">No agenda</span>
+            <h3>Just curious?</h3>
+            <p>Just write. If you can sense a relevance — in your work, your research or your life — that is reason enough to get in touch.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HØJRE: kontakt-boks -->
+    <div class="kontakt-sidebar">
+      <div class="kontakt-direct">
+        <span class="kontakt-direct-label">Direct contact</span>
+        <h3>I read it myself.</h3>
+        <p>No form, no autoresponder. Just a direct line to Maria Edlenborg Mortensen.</p><p style="font-family:'Playfair Display',serif;font-style:italic;font-size:14px;color:rgba(240,235,224,0.5);margin-top:8px;">"You do not need to know exactly what you need — we will figure it out together."</p>
+        <a href="mailto:M.E.M.Teori@gmail.com" class="kontakt-email-btn">
+          M.E.M.Teori@gmail.com
+        </a>
+        <p class="kontakt-note">Response typically within 1–3 working days</p>
+      </div>
+
+      <div style="margin-top:16px;background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:14px;padding:24px 28px;">
+        <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#888;display:block;margin-bottom:12px;">Background</span>
+        <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:#666;line-height:1.75;margin:0;">Maria Edlenborg Mortensen is the creator of the M.E.M. theory and the projects that spring from it. Background in humanistic and diagnostic theory development, with a special focus on complex decision situations.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- QUOTE -->
+<div class="kontakt-quote">
+  <div class="kontakt-quote-inner">
+    <blockquote>"The field always responds — and it often starts with daring to listen."</blockquote>
+    <cite>— M.E.M. Diagnostics</cite>
+  </div>
+</div>
 
 </body>
 </html>
