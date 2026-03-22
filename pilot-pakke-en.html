@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ETOS Pilot Package — Test it in reality</title>
+  <title>ETOS Pilot Package — Test it in the real world</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="style-additions.css">
   <style>
-    /* HERO */
     .pilot-hero {
       background: linear-gradient(160deg, #1a1a0d 0%, #1e1e14 60%, #0d1117 100%);
       padding: 80px 52px 72px; position: relative; overflow: hidden;
@@ -29,7 +28,6 @@
     .pilot-btn-ghost { background: transparent; color: rgba(240,235,224,0.55); border: 1px solid rgba(240,235,224,0.15); }
     .pilot-btn-ghost:hover { color: rgba(240,235,224,0.9); border-color: rgba(240,235,224,0.3); }
 
-    /* STATUS BADGE */
     .pilot-status { display: flex; flex-direction: column; gap: 12px; }
     .pilot-status-main {
       background: rgba(240,200,80,0.08); border: 1px solid rgba(240,200,80,0.2);
@@ -47,7 +45,6 @@
     .pilot-target.fael { background: rgba(200,122,232,0.1); color: #c87ae8; border: 1px solid rgba(200,122,232,0.2); }
     .pilot-target:hover { filter: brightness(1.2); }
 
-    /* HVAD ER EN PILOT */
     .pilot-what { background: #f5f0e8; padding: 64px 52px; }
     .pilot-what-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
     .pilot-what h2 { font-family: 'Playfair Display', serif; font-size: 28px; color: #1a1a1a; font-weight: 400; margin-bottom: 16px; }
@@ -61,7 +58,6 @@
     .pilot-ni.not p { color: #8a3030; }
     .pilot-ni.is  p { color: #2a6a40; }
 
-    /* FLOW — 90 MINUTTER */
     .pilot-flow { background: #0d1117; padding: 72px 52px; }
     .pilot-flow-inner { max-width: 1160px; margin: 0 auto; }
     .pilot-steps { display: flex; flex-direction: column; gap: 0; margin-top: 40px; position: relative; }
@@ -83,7 +79,6 @@
     .pilot-step-q { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(240,235,224,0.55); padding: 7px 12px; background: rgba(240,200,80,0.05); border-radius: 6px; font-style: italic; }
     .pilot-step-magic { margin-top: 8px; font-family: 'DM Sans', sans-serif; font-size: 11px; color: #f0c850; font-style: italic; }
 
-    /* ROLLE */
     .pilot-rolle { background: #1a1a0d; padding: 64px 52px; }
     .pilot-rolle-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
     .pilot-rolle h2 { font-family: 'Playfair Display', serif; font-size: 26px; color: #f0ebe0; font-weight: 400; margin-bottom: 16px; }
@@ -101,7 +96,6 @@
     .pilot-quote { background: rgba(240,200,80,0.06); border: 1px solid rgba(240,200,80,0.15); border-radius: 14px; padding: 28px 32px; }
     .pilot-quote p { font-family: 'Playfair Display', serif; font-size: 18px; color: rgba(240,235,224,0.65); font-style: italic; line-height: 1.65; margin: 0; }
 
-    /* SUCCESKRITERIER */
     .pilot-success { background: #f5f0e8; padding: 64px 52px; }
     .pilot-success-inner { max-width: 1160px; margin: 0 auto; }
     .pilot-success-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-top: 36px; }
@@ -114,7 +108,6 @@
     .pilot-reaction-list { display: flex; flex-wrap: wrap; gap: 10px; }
     .pilot-reaction { font-family: 'DM Sans', sans-serif; font-size: 13px; font-style: italic; color: rgba(240,235,224,0.6); background: rgba(240,200,80,0.07); border: 1px solid rgba(240,200,80,0.15); padding: 8px 14px; border-radius: 20px; }
 
-    /* HVAD DU FÅR */
     .pilot-gets { background: #0d1117; padding: 64px 52px; }
     .pilot-gets-inner { max-width: 1160px; margin: 0 auto; }
     .pilot-gets-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 36px; }
@@ -123,7 +116,6 @@
     .pilot-gets-card h3 { font-family: 'Playfair Display', serif; font-size: 17px; color: #e8ecfc; font-weight: 400; margin-bottom: 8px; }
     .pilot-gets-card p { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(232,236,252,0.4); line-height: 1.7; margin: 0; }
 
-    /* CTA */
     .pilot-cta { background: #1a1a0d; padding: 72px 52px; }
     .pilot-cta-inner { max-width: 800px; margin: 0 auto; text-align: center; }
 
@@ -167,26 +159,21 @@
   <div class="fs-nav">
     <a href="index-en.html" class="fs-logo">M.E.M.</a>
     <nav class="fs-links">
-
-      <!-- ETOS -->
       <a href="etos-en.html" class="fs-nav-item">
         <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
         <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Decision model</span></span>
       </a>
 
-      <!-- FORLØB -->
       <a href="forloeb-en.html" class="fs-nav-item">
         <span class="fs-nav-icon" style="background:#1a2020;">🔄</span>
         <span class="fs-nav-text"><span class="fs-nav-title">Programmes</span><span class="fs-nav-sub">Carers · Leaders · Psychiatry</span></span>
       </a>
 
-      <!-- PILOT -->
       <a href="pilot-pakke-en.html" class="fs-nav-item">
         <span class="fs-nav-icon" style="background:#1a1a0d;">🧪</span>
         <span class="fs-nav-text"><span class="fs-nav-title">Pilot</span><span class="fs-nav-sub">Test it in practice</span></span>
       </a>
 
-      <!-- MERE dropdown -->
       <div class="fs-dropdown">
         <a href="mem-en.html" class="fs-nav-item">
           <span class="fs-nav-icon" style="background:#0d1117;">✦</span>
@@ -216,11 +203,10 @@
           </a>
           <a href="regnskab-program-en.html" class="fs-dropdown-item">
             <span class="fs-dropdown-item-icon" style="background:#111520;">📊</span>
-            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Regnskab</span><span class="fs-dropdown-item-sub">Finance · Overview</span></span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Accounting</span><span class="fs-dropdown-item-sub">Finance · Overview</span></span>
           </a>
         </div>
       </div>
-
     </nav>
     <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
       <a href="kontakt-en.html" class="fs-nav-cta">Contact</a>
@@ -229,24 +215,23 @@
   </div>
 </header>
 
-<!-- HERO -->
 <div class="pilot-hero">
   <div class="pilot-hero-inner">
     <div>
       <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#f0c850;display:block;margin-bottom:20px;">ETOS Pilot Package · Ready for real-world use</span>
       <h1>Test it<br>in the <em>real world</em></h1>
-      <p class="pilot-hero-lead">ETOS is not designed to look good on paper — it is designed to work in the encounter with real situations. The pilot package is your path from theory to practice.</p>
+      <p class="pilot-hero-lead">ETOS is not designed to look good on paper — it is designed to work in real situations. The pilot package is your path from theory to practice.</p>
       <p class="pilot-hero-principle">Not perfection — but learning and proof.</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <a href="#tilmeld" class="pilot-btn pilot-btn-primary">Join the pilot →</a>
+        <a href="#tilmeld" class="pilot-btn pilot-btn-primary">Apply for the pilot →</a>
         <a href="#flow" class="pilot-btn pilot-btn-ghost">See the programme ↓</a>
       </div>
     </div>
 
     <div class="pilot-status">
       <div class="pilot-status-main">
-        <div class="pilot-status-title"><span class="pilot-status-dot"></span>Pilot running</div>
-        <p class="pilot-status-text">I am currently testing ETOS in practice with selected participants. Would you like to join a pilot programme?</p>
+        <div class="pilot-status-title"><span class="pilot-status-dot"></span>Pilot underway</div>
+        <p class="pilot-status-text">ETOS is currently being tested in practice with selected participants. Would you like to join a pilot programme?</p>
       </div>
       <p style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(240,235,224,0.3);text-align:center;margin:4px 0;">Choose your focus area</p>
       <div class="pilot-targets">
@@ -259,33 +244,31 @@
   </div>
 </div>
 
-<!-- HVAD ER EN PILOT -->
 <div class="pilot-what">
   <div class="pilot-what-inner">
     <div>
       <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#f0c850;display:block;margin-bottom:10px;">What is a pilot?</span>
       <h2>90 minutes.<br>One situation.<br>Real learning.</h2>
-      <p>A pilot is not a course or a lecture. It is a concrete session where ETOS meets a real situation — your situation.</p>
+      <p>A pilot is not a course or a lecture — it is a working session. ETOS meets a real situation: your situation.</p>
       <p>You do not need to prepare anything. Just bring your situation.</p>
     </div>
     <div class="pilot-not-is">
       <div class="pilot-ni not"><span class="pilot-ni-sign">✗</span><p><strong>Not</strong> a lecture on theory</p></div>
       <div class="pilot-ni not"><span class="pilot-ni-sign">✗</span><p><strong>Not</strong> a solution to your situation</p></div>
       <div class="pilot-ni not"><span class="pilot-ni-sign">✗</span><p><strong>Not</strong> therapy or counselling</p></div>
-      <div class="pilot-ni is"><span class="pilot-ni-sign">✓</span><p><strong>A concrete session</strong> with your real situation</p></div>
-      <div class="pilot-ni is"><span class="pilot-ni-sign">✓</span><p><strong>Overview of tensions</strong> you could not see clearly</p></div>
-      <div class="pilot-ni is"><span class="pilot-ni-sign">✓</span><p><strong>Clearer decisions</strong> — not necessarily easier</p></div>
+      <div class="pilot-ni is"><span class="pilot-ni-sign">✓</span><p><strong>A concrete session</strong> built around your real situation</p></div>
+      <div class="pilot-ni is"><span class="pilot-ni-sign">✓</span><p><strong>Overview of tensions</strong> you could not previously see clearly</p></div>
+      <div class="pilot-ni is"><span class="pilot-ni-sign">✓</span><p><strong>Clearer decisions</strong> — not necessarily easier ones</p></div>
       <div class="pilot-ni is"><span class="pilot-ni-sign">✓</span><p><strong>Your feedback</strong> helps make ETOS better</p></div>
     </div>
   </div>
 </div>
 
-<!-- 90 MINUTTER FLOW -->
 <div class="pilot-flow" id="flow">
   <div class="pilot-flow-inner">
     <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#f0c850;display:block;margin-bottom:10px;">The process</span>
     <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#f0ebe0;font-weight:400;margin-bottom:8px;">90 minutes — minute by minute</h2>
-    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,0.4);max-width:540px;line-height:1.75;">The pilot follows a fixed structure — but starts from your situation.</p>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,0.4);max-width:540px;line-height:1.75;">The pilot follows a fixed structure — but always starts from your situation.</p>
 
     <div class="pilot-steps">
       <div class="pilot-step">
@@ -295,9 +278,9 @@
             <span class="pilot-step-time">0–10 min</span>
             <span class="pilot-step-title">Introduction</span>
           </div>
-          <p class="pilot-step-content">A brief introduction to ETOS and what we will do today. Not theory — just enough context to get started.</p>
+          <p class="pilot-step-content">A brief introduction to ETOS and what we will do today. Not theory — just enough context to begin.</p>
           <div class="pilot-step-questions">
-            <div class="pilot-step-q">"I am testing a tool that helps understand difficult situations — not solve them quickly."</div>
+            <div class="pilot-step-q">"I am testing a tool that helps us understand difficult situations — not solve them quickly."</div>
           </div>
         </div>
       </div>
@@ -309,10 +292,10 @@
             <span class="pilot-step-time">10–25 min</span>
             <span class="pilot-step-title">Your situation</span>
           </div>
-          <p class="pilot-step-content">You tell the story. What is difficult. What is at stake. No structure yet — just the situation as it is.</p>
+          <p class="pilot-step-content">You tell the story: what is difficult and what is at stake. No structure yet — just the situation as it is.</p>
           <div class="pilot-step-questions">
             <div class="pilot-step-q">"What are you dealing with right now?"</div>
-            <div class="pilot-step-q">"What is difficult?"</div>
+            <div class="pilot-step-q">"What feels difficult?"</div>
           </div>
         </div>
       </div>
@@ -324,7 +307,7 @@
             <span class="pilot-step-time">25–45 min</span>
             <span class="pilot-step-title">ETOS analysis</span>
           </div>
-          <p class="pilot-step-content">We fill in the ETOS parameters together. Risk, human factors, relational trust, time pressure. ETOS shows divergence, ethical pressure and room for action.</p>
+          <p class="pilot-step-content">We fill in the ETOS parameters together: risk, human factors, relational trust, and time pressure. ETOS makes divergence, ethical pressure, and room for action visible.</p>
           <div class="pilot-step-questions">
             <div class="pilot-step-q">Risk · Autonomy · Relational trust · Time pressure</div>
           </div>
@@ -338,13 +321,13 @@
             <span class="pilot-step-time">45–65 min</span>
             <span class="pilot-step-title">Understanding</span>
           </div>
-          <p class="pilot-step-content">This is where the most important part happens. You see your situation in a new way. Not because ETOS has the answer — but because the structure makes visible something you could not clearly see before.</p>
+          <p class="pilot-step-content">This is where the most important part happens. You begin to see your situation in a new way. Not because ETOS has the answer — but because the structure makes something visible that you could not clearly see before.</p>
           <div class="pilot-step-questions">
             <div class="pilot-step-q">"What surprises you?"</div>
             <div class="pilot-step-q">"What makes sense?"</div>
             <div class="pilot-step-q">"What becomes clearer?"</div>
           </div>
-          <p class="pilot-step-magic">✦ This is where the magic happens</p>
+          <p class="pilot-step-magic">✦ This is where the shift happens</p>
         </div>
       </div>
 
@@ -355,7 +338,7 @@
             <span class="pilot-step-time">65–80 min</span>
             <span class="pilot-step-title">Decision</span>
           </div>
-          <p class="pilot-step-content">From understanding to action. Not huge plans — just one next step that is more conscious than the previous one.</p>
+          <p class="pilot-step-content">From understanding to action. Not huge plans — just one next step that is more conscious than before.</p>
           <div class="pilot-step-questions">
             <div class="pilot-step-q">"What do you do now?"</div>
             <div class="pilot-step-q">"What do you do differently?"</div>
@@ -371,7 +354,7 @@
             <span class="pilot-step-time">80–90 min</span>
             <span class="pilot-step-title">Your feedback</span>
           </div>
-          <p class="pilot-step-content">This is the most important part for ETOS’s continued development. Your honest reaction — positive or critical — is more valuable than praise.</p>
+          <p class="pilot-step-content">This is the most important part for ETOS’s continued development. Your honest reaction — whether positive or critical — is more valuable than praise.</p>
           <div class="pilot-step-questions">
             <div class="pilot-step-q">"Did it help?"</div>
             <div class="pilot-step-q">"What was missing?"</div>
@@ -383,31 +366,29 @@
   </div>
 </div>
 
-<!-- DIN ROLLE -->
 <div class="pilot-rolle">
   <div class="pilot-rolle-inner">
     <div>
       <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#f0c850;display:block;margin-bottom:10px;">Your role as a participant</span>
       <h2>You do not need to do anything other than show up.</h2>
-      <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,0.5);line-height:1.8;margin-bottom:24px;">The pilot makes no demands for preparation. Bring your situation — raw, unstructured and unfinished. That is exactly what we work with.</p>
+      <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,0.5);line-height:1.8;margin-bottom:24px;">The pilot requires no preparation. Bring your situation — raw, unstructured, and unfinished. That is exactly what we work with.</p>
       <div class="pilot-rolle-grid">
         <div class="pilot-rolle-item not"><span class="pilot-rolle-item-icon">✗</span><div><h4>No preparation needed</h4><p>You do not need to read up on ETOS beforehand</p></div></div>
-        <div class="pilot-rolle-item not"><span class="pilot-rolle-item-icon">✗</span><div><h4>No "right" situation</h4><p>All situations are welcome — large and small</p></div></div>
+        <div class="pilot-rolle-item not"><span class="pilot-rolle-item-icon">✗</span><div><h4>No “right” kind of situation</h4><p>All situations are welcome — big or small</p></div></div>
         <div class="pilot-rolle-item is"><span class="pilot-rolle-item-icon">✓</span><div><h4>Bring a real situation</h4><p>Something that is genuinely on your mind right now</p></div></div>
-        <div class="pilot-rolle-item is"><span class="pilot-rolle-item-icon">✓</span><div><h4>Be honest in feedback</h4><p>Your criticism is more valuable than your praise</p></div></div>
+        <div class="pilot-rolle-item is"><span class="pilot-rolle-item-icon">✓</span><div><h4>Be honest in your feedback</h4><p>Your criticism is more valuable than praise</p></div></div>
       </div>
     </div>
     <div class="pilot-quote">
-      <p>"The facilitator is not the expert with the solution — but the mirror that makes the structure visible. Those are two very different things."</p>
+      <p>"The facilitator is not the expert with the solution, but the mirror that makes the structure visible. Those are two very different things."</p>
     </div>
   </div>
 </div>
 
-<!-- SUCCESKRITERIER -->
 <div class="pilot-success">
   <div class="pilot-success-inner">
     <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#f0c850;display:block;margin-bottom:10px;">What we look for</span>
-    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">Not "was it perfect?" — but this:</h2>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">Not “was it perfect?” — but this:</h2>
     <div class="pilot-success-grid">
       <div class="pilot-success-card">
         <span class="pilot-success-icon">🧠</span>
@@ -421,8 +402,8 @@
       </div>
       <div class="pilot-success-card">
         <span class="pilot-success-icon">🔍</span>
-        <div class="pilot-success-q">Did it bring clarity?</div>
-        <div class="pilot-success-note">Did they see something they could not see clearly before?</div>
+        <div class="pilot-success-q">Did it create clarity?</div>
+        <div class="pilot-success-note">Did they see something they could not clearly see before?</div>
       </div>
       <div class="pilot-success-card">
         <span class="pilot-success-icon">🧭</span>
@@ -431,19 +412,18 @@
       </div>
     </div>
     <div class="pilot-reactions">
-      <span class="pilot-reactions-label">Typical reactions — these are success criteria</span>
+      <span class="pilot-reactions-label">Typical reactions — these count as success</span>
       <div class="pilot-reaction-list">
         <div class="pilot-reaction">"That makes sense"</div>
-        <div class="pilot-reaction">"I can see it more clearly"</div>
+        <div class="pilot-reaction">"I can see it more clearly now"</div>
         <div class="pilot-reaction">"It’s difficult… but good"</div>
         <div class="pilot-reaction">"I knew it — but now I can see it"</div>
-        <div class="pilot-reaction">"I am not the problem"</div>
+        <div class="pilot-reaction">"I am not the only problem"</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- HVAD DU FÅR -->
 <div class="pilot-gets">
   <div class="pilot-gets-inner">
     <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#f0c850;display:block;margin-bottom:10px;">After 2–3 pilots</span>
@@ -452,7 +432,7 @@
       <div class="pilot-gets-card">
         <div class="pilot-gets-num">01</div>
         <h3>Cases and language</h3>
-        <p>Real situations that show what ETOS does — in words you would not have found yourself.</p>
+        <p>Real situations that show what ETOS does — in words you would not have found on your own.</p>
       </div>
       <div class="pilot-gets-card">
         <div class="pilot-gets-num">02</div>
@@ -462,21 +442,20 @@
       <div class="pilot-gets-card">
         <div class="pilot-gets-num">03</div>
         <h3>Credibility</h3>
-        <p>You have tested it in reality. That is different from having a theory — and everyone can feel the difference.</p>
+        <p>You have tested it in reality. That is different from having a theory — and people can feel the difference.</p>
       </div>
     </div>
   </div>
 </div>
 
-<!-- CTA -->
 <div class="pilot-cta" id="tilmeld">
   <div class="pilot-cta-inner">
-    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#f0c850;display:block;margin-bottom:16px;">Sign up</span>
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#f0c850;display:block;margin-bottom:16px;">Apply</span>
     <h2 style="font-family:'Playfair Display',serif;font-size:32px;color:#f0ebe0;font-weight:400;margin-bottom:14px;">Would you like to join the pilot?</h2>
     <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,0.5);line-height:1.8;margin-bottom:8px;">90 minutes. Your real situation. No obligation beyond showing up and giving honest feedback.</p>
-    <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,0.35);margin-bottom:28px;">Online or in person · Arranged as preferred</p>
+    <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,0.35);margin-bottom:28px;">Online or in person · arranged as preferred</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;">
-      <a href="mailto:M.E.M.Teori@gmail.com?subject=ETOS Pilot - I would like to join" class="pilot-btn pilot-btn-primary">Write to us — I’d like to join →</a>
+      <a href="mailto:M.E.M.Teori@gmail.com?subject=ETOS Pilot - I would like to apply" class="pilot-btn pilot-btn-primary">Write to us — I’d like to apply →</a>
       <a href="kontakt-en.html" class="pilot-btn pilot-btn-ghost">Contact page</a>
     </div>
     <p style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,0.2);font-style:italic;">Free · no obligation · your feedback is the payment</p>
