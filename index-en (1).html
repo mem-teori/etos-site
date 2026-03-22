@@ -288,7 +288,7 @@
         <span style="font-family:'DM Sans',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(240,235,224,0.25);display:block;margin-bottom:6px;">Conclusion</span>
         <p class="mc-verdict" id="mcVerdict">The system's need for action and the person's experience of control pull in different directions.</p>
       </div>
-      <a href="system.html" class="mc-link" style="font-size:11px;opacity:0.7;">Analyze with ETOS →</a>
+      <a href="system.html" class="mc-link" style="font-size:11px;opacity:0.7;">Analyse with ETOS →</a>
     </div>
   </div>
 </div>
@@ -473,7 +473,7 @@
 
 <script>
 const cases = [
-  {text:"A patient refuses treatment. The system assesses high risk. The patient wants to stay at home.",tags:[{c:"r",t:"High divergence"},{c:"o",t:"Ethical pressure"},{c:"b",t:"Low trust"}],verdict:"System logic and human reality pull in opposite directions. Ethical debt arises regardless of the choice."},
+  {text:"A patient refuses treatment. The system assesses high risk. The patient wants to stay at home.",tags:[{c:"r",t:"High divergence"},{c:"o",t:"Ethical pressure"},{c:"b",t:"Low trust"}],verdict:"System logic and human reality pull in opposite directions. Ethical debt arises whatever you choose."},
   {text:"A family is assessed for placement. The parents cooperate. The child wants to stay at home.",tags:[{c:"o",t:"System conflict"},{c:"r",t:"Ethical pressure"},{c:"b",t:"Moderate trust"}],verdict:"Rules and relationship pull in different directions. ETOS registers what is at stake."},
   {text:"A manager must close a department. The staff are loyal. The decision came from above.",tags:[{c:"o",t:"Incompatible"},{c:"r",t:"Ethical debt"},{c:"b",t:"Unclear responsibility"}],verdict:"The system has decided. The manager is caught in the middle. Responsibility is unclear — and it has a cost."}
 ];
@@ -510,18 +510,18 @@ function demoUpdate(){
   const d=clamp(Math.round(Math.abs(s1-s2)*.5+(100-s3)*.3+s1*.2));
   const rL=s1<33?"low":s1<66?"moderate":"high";
   const aL=s2<33?"low":s2<66?"moderate":"high";
-  const tL=s3<33?"low":s3<66?"moderate":"strong";
+  const tL=s3<33?"weak":s3<66?"moderate":"strong";
 
-  // Slider hints — aktivér den mest pressede
+  // Slider hints — activate the most pressured one
   const h1=document.getElementById("hint1"),h2=document.getElementById("hint2"),h3=document.getElementById("hint3");
   if(h1&&h2&&h3){
     h1.classList.toggle("active", s1>60);
     h2.classList.toggle("active", s2>60);
     h3.classList.toggle("active", s3<40);
     if(window._tog==="b"){
-      h1.textContent=s1>66?"The system is likely to act — pressure is building":"The system’s pressure is manageable right now";
-      h2.textContent=s2>66?"Your lived reality carries significant weight in this decision":"Your lived reality is only partly being heard";
-      h3.textContent=s3<33?"Low trust makes a decision harder to accept":"Trust carries part of the burden";
+      h1.textContent=s1>66?"The system wants to act — the pressure is rising":"The system pressure is manageable right now";
+      h2.textContent=s2>66?"Your reality carries significant weight in this decision":"Your reality is only partly being heard";
+      h3.textContent=s3<33?"Low trust makes it difficult to accept a decision":"Trust carries part of the burden";
     } else {
       h1.textContent=s1>66?"High risk increases the system's need to act":"Risk level is moderate — there is room for dialogue";
       h2.textContent=s2>66?"High autonomy strengthens the right to self-determination":"Limited autonomy — the system weighs heavily";
@@ -536,16 +536,16 @@ function demoUpdate(){
     rec="Document the reasoning. Involve the affected person in the decision as far as possible.";
   } else if(e>72||d>75){
     mode="Critical tension"; color="#e07070";
-    insight="There is a wide gap between system demands and human reality. Any decision carries an ethical cost.";
+    insight="There is a wide gap between the system’s demands and human reality. Every decision carries an ethical cost.";
     rec="Seek supervision. Do not let time pressure replace ethical reflection. Document the dilemma explicitly.";
   } else if(Math.abs(s1-s2)>55){
-    mode="Competing demands"; color="#e2a06a";
-    insight="The system’s logic and the individual’s needs cannot be reconciled in this situation. Ethical debt arises regardless of the choice.";
-    rec="Acknowledge the conflict openly. No solution is perfect — choose the one that causes the least harm and explain why.";
+    mode="Incompatible considerations"; color="#e2a06a";
+    insight="The system’s logic and the individual’s needs cannot be reconciled in this situation. Ethical debt arises whatever you choose.";
+    rec="Acknowledge the conflict openly. No solution is perfect — choose the one that does the least harm and explain why.";
   } else {
     mode="Requires review"; color="#7a9ee8";
     insight="Multiple factors pull in different directions. Here, understanding is more important than immediate action.";
-    rec="Slow down. Explain the decision to the person affected. Strengthen the relationship before and after acting.";
+    rec="Slow the pace. Explain the decision to the person affected. Strengthen the relationship before and after acting.";
   }
 
   const prev=document.getElementById("dMode").textContent;
