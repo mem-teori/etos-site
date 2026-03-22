@@ -118,6 +118,18 @@
     .prod-cta { background: #1E2E1F; padding: 56px 52px; }
     .prod-cta-inner { max-width: 1160px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
 
+
+    @media (max-width: 860px) {
+      .prod-grid-2, .prod-grid-3, .prod-grid-4 { grid-template-columns: 1fr !important; }
+      .prod-featured { grid-template-columns: 1fr !important; }
+      .prod-featured-notif { display: none; }
+      .prod-hero, .prod-section, .prod-cta { padding: 48px 24px !important; }
+      .prod-section-header { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 480px) {
+      .prod-hero h1 { font-size: 2rem; }
+    }
+
     @media (max-width: 860px) {
       .prod-hero, .prod-section, .prod-cta { padding: 48px 28px; }
       .prod-grid-2, .prod-grid-3, .prod-grid-4 { grid-template-columns: 1fr; }
@@ -176,9 +188,9 @@
             <span class="fs-dropdown-item-icon" style="background:#1a2820;">🗳</span>
             <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Demokrati</span><span class="fs-dropdown-item-sub">Løfter · Ansvar</span></span>
           </a>
-          <a href="boerneunivers.html" class="fs-dropdown-item">
+          <a href="univers.html" class="fs-dropdown-item">
             <span class="fs-dropdown-item-icon" style="background:#2a1f1a;">🌱</span>
-            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Universet</span><span class="fs-dropdown-item-sub">Børn · Bankeren · Læring</span></span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Børneunivers</span><span class="fs-dropdown-item-sub">Bøger · uniVRs · Bankeren</span></span>
           </a>
 
         </div>
@@ -198,28 +210,6 @@
     <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:16px;">Hvad du kan få adgang til nu</span>
     <h1>Produkter og<br><em>anvendelser</em></h1>
     <p class="prod-hero-lead">Fra teoretisk fundament til fungerende software. Her er hvad der er tilgængeligt — til brug, køb eller pilotsamarbejde — lige nu.</p>
-  </div>
-</div>
-
-<!-- VÆLG INDGANG -->
-<div style="background:#fff;border-bottom:1px solid rgba(0,0,0,0.07);">
-  <div style="max-width:1160px;margin:0 auto;padding:24px 52px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
-    <a href="#software" style="display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:10px;border:1px solid rgba(0,0,0,0.08);text-decoration:none;transition:all 0.15s;background:#fafafa;" onmouseover="this.style.borderColor='var(--accent)';this.style.background='rgba(226,136,78,0.04)'" onmouseout="this.style.borderColor='rgba(0,0,0,0.08)';this.style.background='#fafafa'">
-      <span style="font-size:20px;">⚙️</span>
-      <div><div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:#1a1a1a;">Brug det</div><div style="font-family:'DM Sans',sans-serif;font-size:11px;color:#999;">Software</div></div>
-    </a>
-    <a href="#forloeb" style="display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:10px;border:1px solid rgba(0,0,0,0.08);text-decoration:none;transition:all 0.15s;background:#fafafa;" onmouseover="this.style.borderColor='var(--accent)';this.style.background='rgba(226,136,78,0.04)'" onmouseout="this.style.borderColor='rgba(0,0,0,0.08)';this.style.background='#fafafa'">
-      <span style="font-size:20px;">🔄</span>
-      <div><div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:#1a1a1a;">Arbejd med det</div><div style="font-family:'DM Sans',sans-serif;font-size:11px;color:#999;">Forløb · kurser</div></div>
-    </a>
-    <a href="#boeger" style="display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:10px;border:1px solid rgba(0,0,0,0.08);text-decoration:none;transition:all 0.15s;background:#fafafa;" onmouseover="this.style.borderColor='var(--accent)';this.style.background='rgba(226,136,78,0.04)'" onmouseout="this.style.borderColor='rgba(0,0,0,0.08)';this.style.background='#fafafa'">
-      <span style="font-size:20px;">📘</span>
-      <div><div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:#1a1a1a;">Forstå det</div><div style="font-family:'DM Sans',sans-serif;font-size:11px;color:#999;">Teori · bøger</div></div>
-    </a>
-    <a href="#boern" style="display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:10px;border:1px solid rgba(0,0,0,0.08);text-decoration:none;transition:all 0.15s;background:#fafafa;" onmouseover="this.style.borderColor='var(--accent)';this.style.background='rgba(226,136,78,0.04)'" onmouseout="this.style.borderColor='rgba(0,0,0,0.08)';this.style.background='#fafafa'">
-      <span style="font-size:20px;">🧸</span>
-      <div><div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:#1a1a1a;">Oplev det</div><div style="font-family:'DM Sans',sans-serif;font-size:11px;color:#999;">Børn · sansning</div></div>
-    </a>
   </div>
 </div>
 
@@ -424,15 +414,15 @@
         <span class="prod-section-tag" style="color:#c87ae8;">Børn og sansning</span>
         <h2 style="color:#1a1a1a;">Bankeren og børneuniverset</h2>
       </div>
-      <a href="boerneunivers.html" style="font-family:'DM Sans',sans-serif;font-size:13px;color:var(--accent);text-decoration:none;">Se børneuniverset →</a>
+      <a href="univers.html" style="font-family:'DM Sans',sans-serif;font-size:13px;color:var(--accent);text-decoration:none;">Se børneuniverset →</a>
     </div>
     <div class="prod-grid-3">
-      <a href="boerneunivers.html" class="prod-card white">
+      <a href="univers.html" class="prod-card white">
         <span class="prod-status klar"><span class="prod-status-dot"></span>Klar</span>
         <span class="prod-card-icon">📖</span>
-        <span class="prod-card-tag" style="color:#c87ae8;">Børnebøger · 3 alderstrin</span>
-        <h3 style="color:#1a1a1a;">Bankeren børnebøger</h3>
-        <p style="color:#888;">Tre bøger til 0–4, 5–8 og 9–12 år. Følelser, relationer og forståelse — tilpasset barnets udviklingstrin.</p>
+        <span class="prod-card-tag" style="color:#c87ae8;">Børneunivers · bøger · uniVRs</span>
+        <h3 style="color:#1a1a1a;">Børneunivers</h3>
+        <p style="color:#888;">En samlet indgang til bøger, Lærings-uniVRs og Bankeren — med forskellige spor for børn og unge.</p>
         <div class="prod-card-footer">
           <span class="prod-card-price" style="color:#aaa;">Kontakt for adgang</span>
           <span class="prod-card-cta" style="color:var(--accent);">Se →</span>
