@@ -358,3 +358,290 @@ a.text-link {
   transition: opacity 0.15s;
 }
 a.text-link:hover { opacity: 1; }
+
+/* ============================================
+   FINISH LAYER — CSS Polish
+   Spacing · Typography · Buttons · Cards
+   ============================================ */
+
+/* ---- GLOBAL RYTME ---- */
+/* Ensret vertikal luft på sektioner der bruger native section-tag */
+section {
+  padding: 84px 52px;
+}
+@media (max-width: 768px) {
+  section { padding: 64px 24px; }
+}
+
+/* ---- TYPOGRAFI ---- */
+h1, h2, h3 {
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+}
+h1 { font-size: clamp(2.2rem, 5vw, 4rem); margin-bottom: 16px; }
+h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: 14px; }
+h3 { font-size: clamp(1rem, 2vw, 1.25rem); font-weight: 600; margin-bottom: 10px; }
+
+/* Brødtekst — kun på lys baggrund */
+.section-light p,
+.e-forst p,
+.e-ex p,
+.e-out-card p,
+.prod-section.light p,
+.anv-section.light p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #4a5565;
+}
+
+/* ---- KNAPPER — finish polish ---- */
+/* Primær (orange/grøn) — lift + shadow */
+.mem-btn-primary:hover,
+.e-btn-p:hover,
+.eh-btn-p:hover,
+.fs-btn-primary:hover,
+.omt-btn-primary:hover,
+.dv-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  transition: all 0.18s ease;
+}
+
+/* Sekundær ghost — subtil lift */
+.mem-btn-ghost:hover,
+.e-btn-s:hover,
+.eh-btn-g:hover,
+.fs-btn-ghost-dark:hover {
+  transform: translateY(-1px);
+  transition: all 0.18s ease;
+}
+
+/* Min-height på knapper */
+.mem-btn-primary,
+.e-btn-p,
+.eh-btn-p,
+.fs-btn-primary,
+.omt-btn-primary {
+  min-height: 46px;
+  border-radius: 12px;
+}
+
+/* ---- KORT — ensartet hover ---- */
+.sys-card,
+.prod-card,
+.anv-card,
+.e-out-card,
+.indgang-card {
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.sys-card:hover,
+.prod-card:hover,
+.anv-card:hover,
+.e-out-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(15,23,42,0.09);
+}
+
+/* ---- STATUS BADGES — konsistent ---- */
+.prod-status {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+.prod-status.klar,
+.prod-status.ready   { background: rgba(78,200,140,0.12); color: #2a7a50; border: 1px solid rgba(78,200,140,0.25); }
+.prod-status.pilot   { background: rgba(122,158,232,0.12); color: #2347b2; border: 1px solid rgba(122,158,232,0.25); }
+.prod-status.beta    { background: rgba(240,200,80,0.12);  color: #8a5a00; border: 1px solid rgba(240,200,80,0.25); }
+.prod-status.kommende,
+.prod-status.coming  { background: rgba(150,150,150,0.1);  color: #555;    border: 1px solid rgba(150,150,150,0.2); }
+
+/* ---- CASE-SEKTION ---- */
+.mini-case-inner {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+.mc-tab {
+  transition: all 0.18s ease;
+  font-weight: 600;
+}
+.mc-tab.active {
+  box-shadow: 0 2px 8px rgba(226,136,78,0.25);
+}
+
+/* ---- INDGANG-KORT ---- */
+.indgang-card {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.indgang-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+}
+.indgang-card h3 {
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  line-height: 1.2;
+}
+
+/* ---- NAVIGATION ---- */
+.fs-header {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.fs-nav-item {
+  transition: background 0.15s ease;
+}
+.fs-nav-cta {
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.fs-nav-cta:hover {
+  transform: translateY(-1px);
+}
+
+/* ---- SECTION TRANSITIONS ---- */
+/* Smooth visual separation */
+.mem-hero + .mini-case,
+.etos-block + .sys-overview,
+.sys-overview + .indgange {
+  position: relative;
+}
+
+/* ---- PILOT STRIP ---- */
+/* Giv pilotstriben mere luft og tydeligere knap */
+.fs-cta-strip {
+  padding: 52px 52px;
+}
+
+/* ---- MOBIL ---- */
+@media (max-width: 768px) {
+
+  /* Knapper: fuld bredde på mobil */
+  .mem-hero-btns,
+  .e-btns,
+  .eh-btns,
+  .eh-btns,
+  .dv-hero-btns,
+  .omt-btns {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .mem-btn-primary,
+  .e-btn-p,
+  .eh-btn-p,
+  .fs-btn-primary,
+  .omt-btn-primary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Kort: mindre padding + radius */
+  .sys-card,
+  .prod-card,
+  .anv-card,
+  .e-out-card,
+  .indgang-card {
+    padding: 20px 18px;
+    border-radius: 16px;
+  }
+
+  /* Navigation: tæt på mobil */
+  .fs-nav { padding: 10px 18px; }
+  .fs-cta-strip { padding: 36px 24px; }
+
+  /* Hero: mere luft øverst */
+  .mem-hero { padding-top: 64px; padding-bottom: 56px; }
+
+  /* Dropdown: full width */
+  .fs-dropdown-menu {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    width: auto;
+  }
+}
+
+/* ---- FOCUS STATES (accessibility) ---- */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ---- SCROLL SMOOTHNESS ---- */
+html { scroll-behavior: smooth; }
+
+
+/* ---- GLOBAL MOBIL-FIXES ---- */
+@media (max-width: 860px) {
+
+  /* Alle sektion-grids -> 1 kolonne */
+  .anv-grid,
+  .omt-flow,
+  .omt-mem-inner,
+  .omt-ui-screens,
+  .omt-pilot-inner,
+  .dv-concepts-inner,
+  .dv-states-grid,
+  .dv-exists-grid { grid-template-columns: 1fr !important; }
+
+  /* Forsidens ETOS+demo blok */
+  .etos-block-inner { gap: 32px !important; }
+
+  /* Forside: mini-case grid */
+  .mini-case-inner {
+    grid-template-columns: 1fr !important;
+  }
+  .mini-case-arrow { display: none; }
+  .mini-case-right { border-radius: 0 0 12px 12px; }
+
+  /* Nav quick fixes */
+  .fs-nav-sub { display: none; }
+  .fs-nav-icon { width: 22px; height: 22px; font-size: 11px; }
+
+  /* Reduce hero padding sitewide */
+  .mem-hero { padding: 52px 24px 44px !important; }
+  .anv-hero, .omt-hero, .dv-hero, .prod-hero { padding: 52px 24px 44px !important; }
+
+  /* Typography scale down */
+  h1 { font-size: clamp(1.8rem, 8vw, 3rem) !important; }
+  h2 { font-size: clamp(1.4rem, 6vw, 2.2rem) !important; }
+
+  /* Featured card notification hide on mobile */
+  .prod-featured-notif,
+  .omt-notif,
+  .eh-visual,
+  .e-hero-visual { display: none !important; }
+
+  /* Featured card: single column */
+  .prod-featured,
+  .anv-featured { grid-template-columns: 1fr !important; }
+
+  /* CTA strips */
+  .fs-cta-strip,
+  .omt-cta-inner,
+  .prod-cta-inner,
+  .dv-cta-inner,
+  .ect-inner { flex-direction: column; gap: 20px; }
+
+  /* Buttons: full width in stacked CTAs */
+  .fs-cta-btns,
+  .e-btns,
+  .eh-btns,
+  .omt-btns,
+  .dv-hero-btns { flex-direction: column; gap: 10px; }
+}
+
+@media (max-width: 480px) {
+  /* Extra small: single column everything */
+  .sys-grid,
+  .indgange-grid,
+  .ef-inner,
+  .em-inner,
+  .es-grid,
+  .dv-states-grid { grid-template-columns: 1fr !important; }
+
+  /* Tighter nav */
+  .fs-nav { padding: 8px 16px !important; min-height: 56px; }
+  .fs-logo { font-size: 15px !important; }
+}
