@@ -2,324 +2,383 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="google-site-verification" content="N-tI0mRJKKnPVNDB_v0LWIN6QjN9BnB8Zw8DN8ARdF0" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>M.E.M. Theory — choose your universe</title>
-  <meta name="description" content="M.E.M. is the foundation. From here you can enter the universes where the theory is used in practice — ETOS, Children’s Universe, Dirigenten, Accounting and more." />
+  <title>ETOS — Beslutninger i komplekse situationer</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="style-additions.css">
   <style>
-    .mem-home-hero {
-      background:
-        radial-gradient(circle at 20% 10%, rgba(122,158,232,0.14), transparent 28%),
-        radial-gradient(circle at 80% 12%, rgba(226,136,78,0.11), transparent 26%),
-        radial-gradient(circle at 50% 90%, rgba(78,200,140,0.08), transparent 24%),
-        linear-gradient(180deg, #0d1117 0%, #11131a 55%, #16181d 100%);
-      padding: 84px 52px 72px;
-      position: relative;
-      overflow: hidden;
+    .hero-primary-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 28px; border-radius: 10px;
+      background: #e2884e; color: #fff;
+      font-family: "DM Sans", sans-serif;
+      font-size: 15px; font-weight: 500;
+      border: none; cursor: pointer;
+      transition: background 0.15s, transform 0.15s;
+      margin-bottom: 8px;
     }
-    .mem-home-hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background-image:
-        radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px),
-        radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size: 44px 44px, 86px 86px;
-      background-position: 0 0, 22px 18px;
-      opacity: 0.24;
+    .hero-primary-btn:hover { background: #d4743a; transform: translateY(-1px); }
+    .hero-primary-sub { font-size: 12px; color: rgba(240,235,224,0.3); font-style: italic; }
+    .home-hero-v2 {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 420px; background: var(--bg-dark);
     }
-    .mem-home-inner {
-      max-width: 1160px;
-      margin: 0 auto;
-      position: relative;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 44px;
+    .home-hero-v2-left {
+      padding: 56px 52px;
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .home-hero-v2-left::before {
+      content: ""; position: absolute; top: -60px; right: -60px;
+      width: 260px; height: 260px; border-radius: 50%;
+      background: rgba(226,136,78,0.07); pointer-events: none;
+    }
+    .home-hero-v2-right {
+      padding: 36px 44px;
+      display: flex; flex-direction: column; justify-content: center;
+      border-left: 1px solid rgba(255,255,255,0.07);
+    }
+    .hero-toggle-row { display: flex; gap: 6px; margin-top: 12px; }
+    .hero-tog-btn {
+      font-family: "DM Sans", sans-serif;
+      font-size: 11px; padding: 5px 12px; border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: transparent; color: rgba(255,255,255,0.45);
+      cursor: pointer; transition: all 0.15s;
+    }
+    .hero-tog-btn.active-borger { background: rgba(78,200,140,0.12); border-color: rgba(78,200,140,0.35); color: #4ec88c; }
+    .hero-tog-btn.active-fag    { background: rgba(90,126,216,0.12); border-color: rgba(90,126,216,0.35); color: #7a9ee8; }
+    .mini-case-bar { background: #f5f0e8; border-bottom: 1px solid rgba(0,0,0,0.07); }
+    .mini-case-inner {
+      max-width: var(--max); margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 32px 1fr;
       align-items: center;
     }
-    .mem-home-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #7a9ee8;
-      margin-bottom: 18px;
+    .mini-case-scenario { padding: 24px 32px; }
+    .mini-case-label { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 10px; }
+    .mini-case-tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+    .mc-tab { font-family: "DM Sans", sans-serif; font-size: 12px; font-weight: 400; padding: 5px 12px; border-radius: 20px; border: 1px solid var(--line); background: #fff; color: var(--muted); cursor: pointer; transition: all 0.15s; }
+    .mc-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 500; }
+    .mini-case-text { font-size: 14px; color: #444; line-height: 1.7; font-style: italic; transition: opacity 0.18s; }
+    .mini-case-arrow { text-align: center; font-size: 20px; color: var(--accent); opacity: 0.6; }
+    .mini-case-result { padding: 24px 32px; background: var(--bg-dark); }
+    .mini-case-result-label { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,235,224,0.3); display: block; margin-bottom: 10px; }
+    .mc-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; transition: opacity 0.18s; }
+    .mc-tag { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; }
+    .mc-tag.red    { background: rgba(224,112,112,0.15); color: #e07070; border: 1px solid rgba(224,112,112,0.2); }
+    .mc-tag.orange { background: rgba(226,136,78,0.15);  color: #e2a06a; border: 1px solid rgba(226,136,78,0.2); }
+    .mc-tag.blue   { background: rgba(90,126,216,0.15);  color: #7a9ee8; border: 1px solid rgba(90,126,216,0.2); }
+    .mini-case-verdict { font-size: 13px; color: rgba(240,235,224,0.55); line-height: 1.7; margin-bottom: 12px; transition: opacity 0.18s; }
+    .mini-case-link { font-size: 12px; font-weight: 500; color: var(--accent); text-decoration: none; }
+    .hero-demo-result.pulse-anim { animation: result-pulse 0.4s ease; }
+    @keyframes result-pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(226,136,78,0.4); }
+      50%  { box-shadow: 0 0 0 8px rgba(226,136,78,0); }
+      100% { box-shadow: 0 0 0 0 rgba(226,136,78,0); }
     }
-    .mem-home-tag-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: #7a9ee8; box-shadow: 0 0 16px rgba(122,158,232,0.5);
-    }
-    .mem-home-hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(38px, 5vw, 62px);
-      color: #f0ebe0; font-weight: 400; line-height: 1.05;
-      letter-spacing: -0.02em; margin-bottom: 16px;
-    }
-    .mem-home-hero h1 em { color: #7a9ee8; font-style: italic; }
-    .mem-home-sub {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(18px, 2.1vw, 26px);
-      color: rgba(240,235,224,0.7); font-style: italic; margin-bottom: 18px;
-    }
-    .mem-home-lead {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 15px; color: rgba(240,235,224,0.52);
-      line-height: 1.9; max-width: 560px; margin-bottom: 28px;
-    }
-    .mem-home-btns { display:flex; gap:10px; flex-wrap:wrap; }
-    .mem-home-note {
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 18px; padding: 28px 30px; box-shadow: 0 18px 40px rgba(0,0,0,0.15);
-    }
-    .mem-home-note-label {
-      display: block; font-family: 'DM Sans', sans-serif; font-size: 10px;
-      font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(240,235,224,0.34); margin-bottom: 12px;
-    }
-    .mem-home-note p {
-      margin: 0; font-family: 'Playfair Display', serif; font-size: 22px;
-      line-height: 1.65; color: rgba(240,235,224,0.78); font-style: italic;
-    }
-    .mem-universes { background: #f5f0e8; padding: 72px 52px; }
-    .mem-universes-inner { max-width: 1160px; margin: 0 auto; }
-    .mem-universes-head {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
-      align-items: end; margin-bottom: 34px;
-    }
-    .mem-universes-head h2 {
-      font-family: 'Playfair Display', serif; font-size: 32px;
-      color: #1a1a1a; font-weight: 400; line-height: 1.15; margin: 0;
-    }
-    .mem-universes-head p {
-      margin: 0; font-family: 'DM Sans', sans-serif; font-size: 14px;
-      color: #666; line-height: 1.85; max-width: 500px; justify-self: end;
-    }
-    .mem-u-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .mem-u-card {
-      position: relative; overflow: hidden; border-radius: 22px;
-      padding: 30px 28px 26px; text-decoration: none; display: flex; flex-direction: column;
-      min-height: 290px; transition: transform 0.18s, box-shadow 0.18s;
-      box-shadow: 0 16px 36px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.06);
-    }
-    .mem-u-card:hover { transform: translateY(-4px); box-shadow: 0 22px 46px rgba(0,0,0,0.14); }
-    .mem-u-card::before {
-      content: ""; position: absolute; right: -42px; bottom: -42px;
-      width: 140px; height: 140px; border-radius: 50%;
-      opacity: 0.18; transition: opacity 0.18s, transform 0.18s;
-    }
-    .mem-u-card:hover::before { opacity: 0.3; transform: scale(1.06); }
-    .mem-u-card.etos { background: linear-gradient(180deg, #1E2E1F 0%, #162217 100%); border-color: rgba(78,200,140,0.14); }
-    .mem-u-card.etos::before { background: #4ec88c; }
-    .mem-u-card.child { background: linear-gradient(180deg, #1b1227 0%, #160f21 100%); border-color: rgba(200,122,232,0.16); }
-    .mem-u-card.child::before { background: #c87ae8; }
-    .mem-u-card.dir { background: linear-gradient(180deg, #1d1712 0%, #18130f 100%); border-color: rgba(226,136,78,0.16); }
-    .mem-u-card.dir::before { background: #e2a06a; }
-    .mem-u-card.regn { background: linear-gradient(180deg, #141823 0%, #10141d 100%); border-color: rgba(122,158,232,0.16); }
-    .mem-u-card.regn::before { background: #7a9ee8; }
-    .mem-u-card.more { background: linear-gradient(180deg, #16161a 0%, #121216 100%); border-color: rgba(255,255,255,0.08); }
-    .mem-u-card.more::before { background: #f0c850; }
-    .mem-u-kicker {
-      font-family: 'DM Sans', sans-serif; font-size: 10px; text-transform: uppercase;
-      letter-spacing: 0.1em; font-weight: 600; margin-bottom: 10px;
-    }
-    .mem-u-card.etos .mem-u-kicker { color: #7fe0ac; }
-    .mem-u-card.child .mem-u-kicker { color: #d49ced; }
-    .mem-u-card.dir .mem-u-kicker { color: #efb98b; }
-    .mem-u-card.regn .mem-u-kicker { color: #98b5f1; }
-    .mem-u-card.more .mem-u-kicker { color: #f0c850; }
-    .mem-u-icon { font-size: 30px; margin-bottom: 12px; }
-    .mem-u-card h3 {
-      font-family: 'Playfair Display', serif; font-size: 27px; font-weight: 400;
-      line-height: 1.15; color: #f5f2ed; margin-bottom: 10px;
-    }
-    .mem-u-card p {
-      font-family: 'DM Sans', sans-serif; font-size: 14px; line-height: 1.8;
-      color: rgba(245,242,237,0.56); margin-bottom: 16px; max-width: 34ch;
-    }
-    .mem-u-pills { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
-    .mem-u-pill {
-      font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(245,242,237,0.72);
-      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
-      padding: 4px 10px; border-radius: 999px;
-    }
-    .mem-u-cta {
-      margin-top: auto; display: inline-flex; align-items: center; gap: 8px;
-      font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
-    }
-    .mem-u-card.etos .mem-u-cta { color: #7fe0ac; }
-    .mem-u-card.child .mem-u-cta { color: #d49ced; }
-    .mem-u-card.dir .mem-u-cta { color: #efb98b; }
-    .mem-u-card.regn .mem-u-cta { color: #98b5f1; }
-    .mem-u-card.more .mem-u-cta { color: #f0c850; }
-    .mem-theory { background: #0d1117; padding: 64px 52px; color: #f0ebe0; }
-    .mem-theory-inner {
-      max-width: 1160px; margin: 0 auto; display: grid;
-      grid-template-columns: 1fr 1fr; gap: 44px; align-items: center;
-    }
-    .mem-theory h2 {
-      font-family: 'Playfair Display', serif; font-size: 30px;
-      font-weight: 400; margin-bottom: 12px; line-height: 1.15;
-    }
-    .mem-theory p {
-      font-family: 'DM Sans', sans-serif; font-size: 14px; line-height: 1.85;
-      color: rgba(240,235,224,0.52); margin-bottom: 14px;
-    }
-    .mem-dimensions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .mem-d-card {
-      border-radius: 16px; padding: 22px 20px;
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-    }
-    .mem-d-card h4 {
-      font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 400; margin-bottom: 8px;
-    }
-    .mem-d-card.m h4 { color: #7a9ee8; }
-    .mem-d-card.e h4 { color: #e2a06a; }
-    .mem-d-card.mod h4 { color: #4ec88c; }
-    .mem-d-card p {
-      font-family: 'DM Sans', sans-serif; font-size: 12px;
-      color: rgba(240,235,224,0.46); line-height: 1.7; margin: 0;
-    }
-    .mem-bottom-cta { background: #1E2E1F; padding: 44px 52px; }
-    @media (max-width: 900px) {
-      .mem-home-inner, .mem-universes-head, .mem-theory-inner { grid-template-columns: 1fr; }
-      .mem-universes-head p { justify-self: start; }
-      .mem-u-grid { grid-template-columns: 1fr; }
-      .mem-dimensions { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 640px) {
-      .mem-home-hero, .mem-universes, .mem-theory, .mem-bottom-cta { padding: 52px 28px; }
+    @media (max-width: 860px) {
+      .home-hero-v2 { grid-template-columns: 1fr; }
+      .home-hero-v2-right { border-left: none; border-top: 1px solid rgba(255,255,255,0.07); padding: 28px 32px; }
+      .mini-case-inner { grid-template-columns: 1fr; }
+      .mini-case-arrow { display: none; }
     }
   </style>
 </head>
 <body>
-<header class="fs-header">
-  <div class="fs-nav">
-    <a href="index-en.html" class="fs-logo">M.E.M.</a>
-    <nav class="fs-links">
-      <a href="mem-en.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#1a1228;">🔬</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">M.E.M.</span><span class="fs-nav-sub">Foundation</span></span>
-      </a>
-      <a href="univers-en.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#2a1f1a;">🌱</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Children’s Universe</span><span class="fs-nav-sub">Books · uniVRs · Bankeren</span></span>
-      </a>
-      <a href="etos-en.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Decision model</span></span>
-      </a>
-      <a href="produkter-en.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#111520;">🛍</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Universes</span><span class="fs-nav-sub">Applications · Products</span></span>
-      </a>
-    </nav>
-    <a href="kontakt-en.html" class="fs-nav-cta">Contact</a>
-  </div>
-</header>
 
-<section class="mem-home-hero">
-  <div class="mem-home-inner">
-    <div>
-      <span class="mem-home-tag"><span class="mem-home-tag-dot"></span>M.E.M. Theory · the foundation underneath it all</span>
-      <h1>Choose the <em>universe</em> you want to enter</h1>
-      <p class="mem-home-sub">M.E.M. is not one product — but the foundation for several different worlds.</p>
-      <p class="mem-home-lead">From here you can enter the universes where the theory is used in practice. Some work with decisions, others with children, learning, projects, or overview. What they share is the same core idea: meaning, experience, and model.</p>
-      <div class="mem-home-btns">
-        <a href="#universer" class="fs-btn-primary">See the universes →</a>
-        <a href="mem-en.html" class="fs-btn-ghost-dark">Understand M.E.M.</a>
+<nav class="site-nav">
+  <a href="index-en.html" class="nav-logo">ETOS</a>
+  <div class="nav-links">
+    <a href="etos-en.html" class="nav-item">
+      <span class="nav-item-icon" style="background:#1a2040;">🧭</span>
+      <span class="nav-item-text"><span class="nav-item-title">ETOS</span><span class="nav-item-sub">Decision model</span></span>
+    </a>
+    <a href="system.html" class="nav-item">
+      <span class="nav-item-icon" style="background:#0d1117;">⚙️</span>
+      <span class="nav-item-text"><span class="nav-item-title">Systemet</span><span class="nav-item-sub">Case analyse · Demo</span></span>
+    </a>
+    <a href="boerneunivers.html" class="nav-item">
+      <span class="nav-item-icon" style="background:#1a1228;">📖</span>
+      <span class="nav-item-text"><span class="nav-item-title">Children’s Universe</span><span class="nav-item-sub">Børnebøger</span></span>
+    </a>
+    <a href="laering.html" class="nav-item">
+      <span class="nav-item-icon" style="background:#0d1a2a;">🌐</span>
+      <span class="nav-item-text"><span class="nav-item-title">Lærings-uniVRs</span><span class="nav-item-sub">Oplevelse · Læring</span></span>
+    </a>
+    <a href="dirigent-rum.html" class="nav-item">
+      <span class="nav-item-icon" style="background:#1a1a12;">🎼</span>
+      <span class="nav-item-text"><span class="nav-item-title">Dirigenten</span><span class="nav-item-sub">Ideas · Projects</span></span>
+    </a>
+    <a href="regnskab-program.html" class="nav-item">
+      <span class="nav-item-icon" style="background:#111520;">📊</span>
+      <span class="nav-item-text"><span class="nav-item-title">Accounting</span><span class="nav-item-sub">Finance · Overview</span></span>
+    </a>
+  </div>
+  <a href="kontakt-en.html" class="nav-cta">Contact</a>
+</nav>
+
+<!-- HERO -->
+<section class="home-hero-v2">
+  <div class="home-hero-v2-left">
+    <div class="hero-tag">
+      <span class="hero-tag-dot"></span>
+      Under udvikling · Åben for samarbejde
+    </div>
+    <h1 class="hero-v2-h1">Når systemer presser<br>mennesker ind i<br><em>umulige valg</em></h1>
+    <p class="hero-v2-sub">ETOS gør spændinger synlige — et redskab til beslutninger der ikke har nemme svar.</p>
+    <button class="hero-primary-btn" onclick="document.getElementById('hs1').focus()">
+      Prøv ETOS nu →
+    </button>
+    <p class="hero-primary-sub">2 minutter · ingen konto · ingen opsætning</p>
+  </div>
+
+  <div class="home-hero-v2-right">
+    <p class="hero-demo-invite">Forestil dig en svær situation — juster og se hvad ETOS ser.</p>
+    <div class="hero-demo-slider">
+      <div class="hds-header">
+        <span class="hds-label" id="lbl1">Systemets risikovurdering</span>
+        <span class="hds-val"><span id="hv1">60</span><span class="hds-max"> / 100</span></span>
       </div>
+      <input type="range" class="hero-range" id="hs1" min="0" max="100" value="60" oninput="heroUpdate()">
+      <div class="hds-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
     </div>
-    <div class="mem-home-note">
-      <span class="mem-home-note-label">The idea behind it</span>
-      <p>“You do not start in the system. You start in understanding — and from there enter the universe that fits your reality.”</p>
-    </div>
-  </div>
-</section>
-
-<section class="mem-universes" id="universer">
-  <div class="mem-universes-inner">
-    <div class="mem-universes-head">
-      <h2>Several universes — the same foundation</h2>
-      <p>M.E.M. is the theory behind it all. Here you do not just choose a page, but the track where the theory is used: in decisions, children and young people, reflection, finance, or other applications.</p>
-    </div>
-    <div class="mem-u-grid">
-      <a href="etos-en.html" class="mem-u-card etos">
-        <span class="mem-u-kicker">Decisions · tensions · practice</span>
-        <div class="mem-u-icon">🧭</div>
-        <h3>ETOS</h3>
-        <p>The universe for complex decisions — where system demands, human experience, and lived reality do not always point in the same direction.</p>
-        <div class="mem-u-pills"><span class="mem-u-pill">Care</span><span class="mem-u-pill">Psychiatry</span><span class="mem-u-pill">Democracy</span><span class="mem-u-pill">Programmes</span></div>
-        <span class="mem-u-cta">Go to ETOS →</span>
-      </a>
-      <a href="univers-en.html" class="mem-u-card child">
-        <span class="mem-u-kicker">Children · young people · sensing</span>
-        <div class="mem-u-icon">🌱</div>
-        <h3>Children’s Universe</h3>
-        <p>A lighter and more sensory track with books, Lærings-uniVRs, and Bankeren — for children, young people, and the adults around them.</p>
-        <div class="mem-u-pills"><span class="mem-u-pill">Books</span><span class="mem-u-pill">Lærings-uniVRs</span><span class="mem-u-pill">Bankeren</span></div>
-        <span class="mem-u-cta">Gå til Children’s Universe →</span>
-      </a>
-      <a href="dirigent-rum-en.html" class="mem-u-card dir">
-        <span class="mem-u-kicker">Projects · ideas · direction</span>
-        <div class="mem-u-icon">🎼</div>
-        <h3>Dirigenten</h3>
-        <p>A track for anyone with many thoughts in motion who needs to gather, prioritise, and create a clear direction.</p>
-        <div class="mem-u-pills"><span class="mem-u-pill">Ideas</span><span class="mem-u-pill">Projects</span><span class="mem-u-pill">Overview</span></div>
-        <span class="mem-u-cta">Go to Dirigenten →</span>
-      </a>
-      <a href="regnskab-program-en.html" class="mem-u-card regn">
-        <span class="mem-u-kicker">Finance · structure · clarity</span>
-        <div class="mem-u-icon">📊</div>
-        <h3>Accounting</h3>
-        <p>A more structured track where numbers do not become mere administration, but a tool for overview, patterns, and action.</p>
-        <div class="mem-u-pills"><span class="mem-u-pill">Finance</span><span class="mem-u-pill">Structure</span><span class="mem-u-pill">Overview</span></div>
-        <span class="mem-u-cta">Gå til Accounting →</span>
-      </a>
-      <a href="produkter-en.html" class="mem-u-card more">
-        <span class="mem-u-kicker">More applications · the next track</span>
-        <div class="mem-u-icon">✦</div>
-        <h3>More tracks</h3>
-        <p>Here you will find the other applications, prototypes, and paths where M.E.M. and ETOS unfold in different directions.</p>
-        <div class="mem-u-pills"><span class="mem-u-pill">Produkter</span><span class="mem-u-pill">Pilot</span><span class="mem-u-pill">Applications</span></div>
-        <span class="mem-u-cta">See more tracks →</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<section class="mem-theory">
-  <div class="mem-theory-inner">
-    <div>
-      <span class="fs-tag" style="margin-bottom:14px;">M.E.M. as a core idea</span>
-      <h2>One theory — many applications</h2>
-      <p>M.E.M. is not designed as a closed concept, but as a way of understanding situations. That is why the same foundation can be used in very different universes — from children’s emotional lives to difficult decisions in systems.</p>
-      <p>That is also why the front page does not present only one product. It presents the places where the theory becomes alive in different ways.</p>
-      <div class="mem-home-btns" style="margin-top:20px;">
-        <a href="mem-en.html" class="fs-btn-primary">Gå til M.E.M. →</a>
-        <a href="om-en.html" class="fs-btn-ghost-dark">Read more about the idea</a>
+    <div class="hero-demo-slider">
+      <div class="hds-header">
+        <span class="hds-label" id="lbl2">Patientens autonomi</span>
+        <span class="hds-val"><span id="hv2">75</span><span class="hds-max"> / 100</span></span>
       </div>
+      <input type="range" class="hero-range" id="hs2" min="0" max="100" value="75" oninput="heroUpdate()">
+      <div class="hds-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
     </div>
-    <div class="mem-dimensions">
-      <div class="mem-d-card m"><h4>M</h4><p>Meaning — what is experienced as important, desired, or threatened in the situation.</p></div>
-      <div class="mem-d-card e"><h4>E</h4><p>Experience — lived reality, relationship, and what is felt before it is explained.</p></div>
-      <div class="mem-d-card mod"><h4>M</h4><p>Model — the structures, rules, and forms that organise action and understanding.</p></div>
+    <div class="hero-demo-slider">
+      <div class="hds-header">
+        <span class="hds-label" id="lbl3">Relationel tillid</span>
+        <span class="hds-val"><span id="hv3">40</span><span class="hds-max"> / 100</span></span>
+      </div>
+      <input type="range" class="hero-range" id="hs3" min="0" max="100" value="40" oninput="heroUpdate()">
+      <div class="hds-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
+    </div>
+    <div class="hero-demo-result" id="heroResult">
+      <div class="hdr-mode-row">
+        <span class="hdr-mode-label">Beslutningsmode</span>
+        <span class="hdr-mode-value" id="heroMode">Requires Review</span>
+      </div>
+      <p class="hdr-insight" id="heroInsight">Spænding mellem høj autonomi, moderat tillid og stigende risikovurdering. Review anbefales frem for hurtig eskalation.</p>
+      <a href="system.html" class="hdr-link">Se fuld analyse →</a>
+    </div>
+    <div class="hero-toggle-row">
+      <button class="hero-tog-btn" onclick="setHeroTog('borger',this)">👤 Borger</button>
+      <button class="hero-tog-btn active-fag" onclick="setHeroTog('fag',this)">🧑‍⚕️ Fagperson</button>
     </div>
   </div>
 </section>
 
-<div class="fs-cta-strip mem-bottom-cta">
-  <p class="fs-cta-quote">"You do not need to start in the same place as everyone else — you need to start in the universe that makes sense for you."</p>
-  <div class="fs-cta-btns">
-    <a href="univers-en.html" class="fs-btn-primary">Gå til Children’s Universe →</a>
-    <a href="etos-en.html" class="fs-btn-ghost-dark">Go to ETOS</a>
+<!-- MINI-CASE -->
+<div class="mini-case-bar">
+  <div class="mini-case-inner">
+    <div class="mini-case-scenario">
+      <span class="mini-case-label">Forstå ETOS på 5 sekunder</span>
+      <div class="mini-case-tabs">
+        <button class="mc-tab active" onclick="switchCase(0,this)">🏥 Psychiatry</button>
+        <button class="mc-tab" onclick="switchCase(1,this)">🏛 Kommune</button>
+        <button class="mc-tab" onclick="switchCase(2,this)">🏢 Ledelse</button>
+      </div>
+      <p class="mini-case-text" id="mcText">En patient nægter behandling. Systemet vurderer risiko som høj. Patienten ønsker at forblive hjemme.</p>
+    </div>
+    <div class="mini-case-arrow">→</div>
+    <div class="mini-case-result">
+      <span class="mini-case-result-label">ETOS registrerer</span>
+      <div class="mc-tags" id="mcTags">
+        <span class="mc-tag red">Høj divergens</span>
+        <span class="mc-tag orange">Etisk pres</span>
+        <span class="mc-tag blue">Lav tillid</span>
+      </div>
+      <p class="mini-case-verdict" id="mcVerdict">Systemlogik og menneskelig virkelighed trækker i modsat retning. Etisk gæld opstår uanset valg.</p>
+      <a href="system.html" class="mini-case-link">Prøv selv med sliders →</a>
+    </div>
   </div>
 </div>
+
+<!-- PROJEKT FORSKEL -->
+<div style="background:#fff;padding:48px 52px;border-top:1px solid var(--line);">
+  <div style="max-width:var(--max);margin:0 auto;">
+    <span class="eyebrow">Hvad er hvad</span>
+    <h2 style="color:var(--ink);margin-bottom:28px;">Fire projekter — én grundidé</h2>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+      <div style="padding:20px;background:#f8f8f8;border-radius:12px;border-left:3px solid #7a9ee8;">
+        <p style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#7a9ee8;margin-bottom:6px;">ETOS</p>
+        <p style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:4px;">Forstå beslutninger</p>
+        <p style="font-size:13px;color:var(--muted);line-height:1.6;">Synliggør spændinger i komplekse situationer — til fagpersoner og organisationer.</p>
+      </div>
+      <div style="padding:20px;background:#f8f8f8;border-radius:12px;border-left:3px solid var(--accent);">
+        <p style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;">Dirigenten</p>
+        <p style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:4px;">Dit personlige OS</p>
+        <p style="font-size:13px;color:var(--muted);line-height:1.6;">Tag kaos fra hovedet og lav det til en overskuelig portfolio. Bygget til neurodivergente.</p>
+      </div>
+      <div style="padding:20px;background:#f8f8f8;border-radius:12px;border-left:3px solid #4ec88c;">
+        <p style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#3a8a5a;margin-bottom:6px;">Lærings-uniVRs</p>
+        <p style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:4px;">Oplev før du forstår</p>
+        <p style="font-size:13px;color:var(--muted);line-height:1.6;">Naturvidenskab gennem oplevelse — for børn og unge der lærer bedst ved at gøre.</p>
+      </div>
+      <div style="padding:20px;background:#f8f8f8;border-radius:12px;border-left:3px solid #5a7ed8;">
+        <p style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#4a6ec8;margin-bottom:6px;">Accounting</p>
+        <p style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:4px;">Overview over økonomi</p>
+        <p style="font-size:13px;color:var(--muted);line-height:1.6;">Simpelt og visuelt — uden revisorlogik. Bygget til iværksættere og solo-founders.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- KONTEKSTER -->
+<div style="background:#0d1117;padding:64px 52px;">
+  <div style="max-width:var(--max);margin:0 auto;">
+    <span class="eyebrow" style="color:#7a9ee8;">Anvendelse</span>
+    <h2 style="color:#e8ecfc;margin-bottom:32px;">Hvem er ETOS til?</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+      <a href="anvendelse.html" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:28px 24px;text-decoration:none;display:block;transition:border-color 0.15s;">
+        <div style="font-size:24px;margin-bottom:14px;">🏥</div>
+        <h4 style="font-family:'Playfair Display',serif;font-size:17px;color:#e8ecfc;font-weight:400;margin-bottom:6px;">Psychiatry</h4>
+        <p style="font-size:12px;color:var(--accent);font-style:italic;margin-bottom:8px;">Tvang vs. autonomi</p>
+        <p style="font-size:13px;color:rgba(232,236,252,0.4);line-height:1.7;">Når omsorg og systemlogik trækker i hver sin retning.</p>
+      </a>
+      <a href="anvendelse.html" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:28px 24px;text-decoration:none;display:block;transition:border-color 0.15s;">
+        <div style="font-size:24px;margin-bottom:14px;">🏛</div>
+        <h4 style="font-family:'Playfair Display',serif;font-size:17px;color:#e8ecfc;font-weight:400;margin-bottom:6px;">Kommuner</h4>
+        <p style="font-size:12px;color:var(--accent);font-style:italic;margin-bottom:8px;">Regler vs. virkelighed</p>
+        <p style="font-size:13px;color:rgba(232,236,252,0.4);line-height:1.7;">Anbringelser og sagsbehandling — hvor reglerne ikke altid passer.</p>
+      </a>
+      <a href="anvendelse.html" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:28px 24px;text-decoration:none;display:block;transition:border-color 0.15s;">
+        <div style="font-size:24px;margin-bottom:14px;">🏢</div>
+        <h4 style="font-family:'Playfair Display',serif;font-size:17px;color:#e8ecfc;font-weight:400;margin-bottom:6px;">Virksomheder</h4>
+        <p style="font-size:12px;color:var(--accent);font-style:italic;margin-bottom:8px;">Styring vs. mennesker</p>
+        <p style="font-size:13px;color:rgba(232,236,252,0.4);line-height:1.7;">Ledere der træffer svære valg uden nemme svar.</p>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<div class="features-strip">
+  <div class="feature-item">
+    <div class="feature-num">01</div>
+    <h3>Synliggør spændinger</h3>
+    <p>Konflikterne i beslutningsprocessen gøres synlige — så de kan håndteres frem for skjules.</p>
+  </div>
+  <div class="feature-item">
+    <div class="feature-num">02</div>
+    <h3>Bruges i praksis</h3>
+    <p>Psychiatry, kommuner, AI og ledelse — overalt hvor beslutninger ikke har nemme svar.</p>
+  </div>
+  <div class="feature-item">
+    <div class="feature-num">03</div>
+    <h3>Åben for samarbejde</h3>
+    <p>ETOS søger pilotpartnere og investorer. Første skridt er en samtale.</p>
+  </div>
+</div>
+
+<div class="container">
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow">Næste skridt</span>
+      <h2>Hvad vil du gøre nu?</h2>
+    </div>
+    <div class="card-grid three">
+      <article class="card">
+        <span class="kicker">Prøv det</span>
+        <h3>Åbn systemet</h3>
+        <p>Case Analyse og live demo venter.</p>
+        <p><a class="text-link" href="system.html">Gå til systemet →</a></p>
+      </article>
+      <article class="card">
+        <span class="kicker">Pilot</span>
+        <h3>Afprøv i din organisation</h3>
+        <p>Se hvordan ETOS kan bruges i et konkret pilotforløb.</p>
+        <p><a class="text-link" href="pilot.html">Se pilotspor →</a></p>
+      </article>
+      <article class="card">
+        <span class="kicker">Contact</span>
+        <h3>Tag dialogen videre</h3>
+        <p>Én besked er nok til at starte.</p>
+        <p><a class="text-link" href="kontakt-en.html">Skriv til os →</a></p>
+      </article>
+    </div>
+  </section>
+</div>
+
+<div class="cta-strip">
+  <p class="cta-quote">"ETOS træffer ikke beslutninger — det gør dem synlige."</p>
+  <div class="cta-strip-btns">
+    <a href="system.html" class="btn btn-primary">Prøv ETOS nu</a>
+    <a href="kontakt-en.html" class="btn btn-ghost">Contact</a>
+  </div>
+</div>
+
+<script>
+const cases = [
+  { text: "En patient nægter behandling. Systemet vurderer risiko som høj. Patienten ønsker at forblive hjemme.", tags: [{c:"red",t:"Høj divergens"},{c:"orange",t:"Etisk pres"},{c:"blue",t:"Lav tillid"}], verdict: "Systemlogik og menneskelig virkelighed trækker i modsat retning. Etisk gæld opstår uanset valg." },
+  { text: "En familie vurderes til anbringelse. Forældrene samarbejder. Barnet ønsker at blive hjemme.", tags: [{c:"orange",t:"Systemkonflikt"},{c:"red",t:"Etisk pres"},{c:"blue",t:"Moderat tillid"}], verdict: "Reglerne og relationen trækker i hver sin retning. ETOS registrerer hvad der er på spil for alle parter." },
+  { text: "En leder skal nedlægge en afdeling. Medarbejderne er loyale. Beslutningen er truffet oppefra.", tags: [{c:"orange",t:"Incompatible"},{c:"red",t:"Etisk gæld"},{c:"blue",t:"Uklar ansvarsfordeling"}], verdict: "Systemet har besluttet. Lederen er i klemme. ETOS synliggør at ansvaret er uklart — og hvad det koster." }
+];
+
+function switchCase(idx, btn) {
+  const c = cases[idx];
+  const t = document.getElementById("mcText");
+  const tg = document.getElementById("mcTags");
+  const v = document.getElementById("mcVerdict");
+  t.style.opacity = "0"; tg.style.opacity = "0"; v.style.opacity = "0";
+  setTimeout(() => {
+    t.textContent = c.text;
+    tg.innerHTML = c.tags.map(x => `<span class="mc-tag ${x.c}">${x.t}</span>`).join("");
+    v.textContent = c.verdict;
+    t.style.opacity = "1"; tg.style.opacity = "1"; v.style.opacity = "1";
+  }, 180);
+  document.querySelectorAll(".mc-tab").forEach(b => b.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+}
+
+function heroUpdate() {
+  const s1 = parseInt(document.getElementById("hs1").value);
+  const s2 = parseInt(document.getElementById("hs2").value);
+  const s3 = parseInt(document.getElementById("hs3").value);
+  document.getElementById("hv1").textContent = s1;
+  document.getElementById("hv2").textContent = s2;
+  document.getElementById("hv3").textContent = s3;
+  const clamp = v => Math.min(100, Math.max(0, v));
+  const e = clamp(Math.round(s1*.5 + (100-s3)*.3 + (100-s2)*.2));
+  const h = clamp(Math.round(s3*.5 + s2*.3 + (100-s1)*.2));
+  const d = clamp(Math.round(Math.abs(s1-s2)*.5 + (100-s3)*.3 + s1*.2));
+  const rL = s1<33?"lav":s1<66?"moderat":"høj";
+  const aL = s2<33?"lav":s2<66?"moderat":"høj";
+  const tL = s3<33?"svag":s3<66?"moderat":"stærk";
+  let mode, color, insight;
+  if (h>60 && e<33) { mode="Normal"; color="#4ec88c"; insight=`Lavt etisk pres (${e}/100) og godt handlingsrum (${h}/100). Risikovurdering ${rL}. Beslutningen kan træffes.`; }
+  else if (e>72 || d>75) { mode="Emergency"; color="#e07070"; insight=`Kritisk: pres ${e}/100, divergens ${d}/100. ${rL} risiko mod ${aL} autonomi. Supervision anbefales.`; }
+  else if (Math.abs(s1-s2)>55) { mode="Incompatible"; color="#e2a06a"; insight=`${rL} risikovurdering (${s1}/100) og ${aL} autonomi (${s2}/100) er uforenelige. ${tL} tillid.`; }
+  else { mode="Requires Review"; color="#7a9ee8"; insight=`${aL} autonomi (${s2}/100), ${tL} tillid (${s3}/100), ${rL} risikovurdering (${s1}/100). Review anbefales.`; }
+  const prev = document.getElementById("heroMode").textContent;
+  document.getElementById("heroMode").textContent = mode;
+  document.getElementById("heroMode").style.color = color;
+  document.getElementById("heroInsight").textContent = insight;
+  if (prev !== mode) {
+    const r = document.getElementById("heroResult");
+    r.classList.remove("pulse-anim"); void r.offsetWidth; r.classList.add("pulse-anim");
+    r.style.borderLeftColor = color;
+  }
+}
+
+function setHeroTog(type, btn) {
+  document.querySelectorAll(".hero-tog-btn").forEach(b => b.classList.remove("active-borger","active-fag"));
+  btn.classList.add(type==="borger" ? "active-borger" : "active-fag");
+  document.getElementById("lbl1").textContent = type==="borger" ? "Systemets pres på dig" : "Systemets risikovurdering";
+  document.getElementById("lbl2").textContent = type==="borger" ? "Din virkelighed" : "Patientens autonomi";
+  document.getElementById("lbl3").textContent = type==="borger" ? "Tillid til systemet" : "Relationel tillid";
+  heroUpdate();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  ["mcText","mcTags","mcVerdict"].forEach(id => { const el=document.getElementById(id); if(el) el.style.transition="opacity 0.18s ease"; });
+  heroUpdate();
+});
+</script>
+
 </body>
 </html>
