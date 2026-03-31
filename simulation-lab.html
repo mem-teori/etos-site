@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="google-site-verification" content="N-tI0mRJKKnPVNDB_v0LWIN6QjN9BnB8Zw8DN8ARdF0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulation Lab — M.E.M. / ETOS Research</title>
+  <meta name="description" content="Controlled simulations exploring how decision systems lose and regain freedom over time. Reproducible, hypothesis-driven, open for collaboration." />
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    .lab-hero { background:#070d14; padding:88px 52px 80px; position:relative; overflow:hidden; }
+    .lab-hero::before { content:''; position:absolute; top:-120px; left:50%; transform:translateX(-50%); width:700px; height:700px; border-radius:50%; background:radial-gradient(circle, rgba(122,158,232,0.06), transparent 65%); pointer-events:none; }
+    .lab-inner { max-width:1160px; margin:0 auto; position:relative; }
+    .lab-eyebrow { font-family:'DM Sans',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:#7a9ee8; display:block; margin-bottom:18px; }
+    .lab-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(122,158,232,0.08); border:1px solid rgba(122,158,232,0.2); border-radius:20px; padding:7px 16px; font-family:'DM Sans',sans-serif; font-size:12px; color:rgba(122,158,232,0.7); margin-bottom:24px; }
+    .lab-h1 { font-family:'Playfair Display',serif; font-size:clamp(28px,4vw,46px); color:#e8ecfc; font-weight:400; line-height:1.1; margin-bottom:14px; letter-spacing:-0.02em; }
+    .lab-h1 em { font-style:italic; color:#7a9ee8; }
+    .lab-lead { font-family:'DM Sans',sans-serif; font-size:15px; color:rgba(232,236,252,0.5); line-height:1.85; margin-bottom:0; max-width:640px; }
+
+    .lab-disclaimer { background:rgba(122,158,232,0.05); border:1px solid rgba(122,158,232,0.12); border-left:3px solid #7a9ee8; border-radius:0 12px 12px 0; padding:16px 20px; }
+    .lab-disclaimer p { font-family:'DM Sans',sans-serif; font-size:13px; color:rgba(232,236,252,0.45); line-height:1.7; margin:0; }
+
+    .lab-stats { background:#0d1117; padding:40px 52px; border-bottom:1px solid rgba(255,255,255,0.05); }
+    .lab-stats-inner { max-width:1160px; margin:0 auto; display:grid; grid-template-columns:repeat(5,1fr); gap:0; }
+    .lab-stat { padding:16px 20px; border-right:1px solid rgba(255,255,255,0.06); text-align:center; }
+    .lab-stat:last-child { border-right:none; }
+    .lab-stat-num { font-family:'Playfair Display',serif; font-size:26px; color:#7a9ee8; font-weight:400; display:block; margin-bottom:4px; }
+    .lab-stat-lbl { font-family:'DM Sans',sans-serif; font-size:11px; color:rgba(232,236,252,0.3); line-height:1.4; }
+
+    .lab-section { padding:64px 52px; }
+    .lab-section.dark  { background:#070d14; }
+    .lab-section.mid   { background:#0d1117; }
+
+    .lab-metric { background:#0d1117; padding:64px 52px; border-top:1px solid rgba(122,158,232,0.08); border-bottom:1px solid rgba(122,158,232,0.08); }
+    .lab-metric-inner { max-width:1160px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start; }
+    .lab-formula { background:rgba(122,158,232,0.08); border:1px solid rgba(122,158,232,0.18); border-radius:12px; padding:18px 22px; font-family:'DM Sans',sans-serif; font-size:13px; color:#7a9ee8; letter-spacing:0.03em; text-align:center; margin:16px 0; line-height:1.7; }
+
+    .lab-exp { background:rgba(255,255,255,0.025); border:1px solid rgba(122,158,232,0.12); border-radius:18px; overflow:hidden; margin-bottom:28px; }
+    .lab-exp-header { background:rgba(122,158,232,0.05); padding:22px 28px; border-bottom:1px solid rgba(122,158,232,0.1); display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+    .lab-exp-num { font-family:'DM Sans',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:rgba(122,158,232,0.4); display:block; margin-bottom:5px; }
+    .lab-exp-title { font-family:'Playfair Display',serif; font-size:19px; color:#e8ecfc; font-weight:400; line-height:1.2; }
+    .lab-exp-status { display:inline-flex; align-items:center; gap:6px; font-family:'DM Sans',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; padding:5px 12px; border-radius:20px; flex-shrink:0; margin-top:4px; }
+    .lab-exp-status.complete { background:rgba(78,200,140,0.1); color:#4ec88c; border:1px solid rgba(78,200,140,0.2); }
+    .lab-exp-status.planned  { background:rgba(150,150,150,0.08); color:#888; border:1px solid rgba(150,150,150,0.15); }
+
+    .lab-exp-body { padding:24px 28px; display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+    .lab-col-lbl { font-family:'DM Sans',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:rgba(232,236,252,0.25); margin-bottom:10px; display:block; }
+    .lab-setup-item { font-family:'DM Sans',sans-serif; font-size:12px; color:rgba(232,236,252,0.45); padding:6px 10px; background:rgba(255,255,255,0.03); border-radius:6px; margin-bottom:5px; display:flex; justify-content:space-between; }
+    .lab-setup-item span:last-child { color:#7a9ee8; font-weight:500; }
+    .lab-hypothesis { font-family:'DM Sans',sans-serif; font-size:13px; color:rgba(232,236,252,0.55); line-height:1.7; padding:14px 16px; background:rgba(122,158,232,0.05); border-left:2px solid rgba(122,158,232,0.3); border-radius:0 8px 8px 0; font-style:italic; }
+
+    .lab-exp-wide { padding:0 28px 24px; }
+    .lab-results-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:18px; }
+    .lab-result-item { text-align:center; padding:14px 10px; background:rgba(255,255,255,0.03); border-radius:10px; border:1px solid rgba(255,255,255,0.06); }
+    .lab-result-num { font-family:'Playfair Display',serif; font-size:22px; color:#7a9ee8; font-weight:400; display:block; margin-bottom:4px; }
+    .lab-result-lbl { font-family:'DM Sans',sans-serif; font-size:11px; color:rgba(232,236,252,0.3); line-height:1.4; }
+
+    .lab-findings { display:flex; flex-direction:column; gap:7px; margin-bottom:16px; }
+    .lab-finding { font-family:'DM Sans',sans-serif; font-size:13px; color:rgba(232,236,252,0.5); line-height:1.65; padding:9px 13px; background:rgba(78,200,140,0.05); border-left:2px solid rgba(78,200,140,0.25); border-radius:0 7px 7px 0; }
+
+    .lab-interp { background:rgba(226,136,78,0.05); border:1px solid rgba(226,136,78,0.1); border-radius:10px; padding:16px 18px; margin-bottom:12px; }
+    .lab-interp p { font-family:'DM Sans',sans-serif; font-size:13px; color:rgba(232,236,252,0.4); line-height:1.7; margin:0; }
+
+    .lab-next { background:rgba(122,158,232,0.04); border:1px solid rgba(122,158,232,0.1); border-radius:8px; padding:12px 16px; }
+    .lab-next p { font-family:'DM Sans',sans-serif; font-size:12px; color:rgba(122,158,232,0.55); line-height:1.6; margin:0; }
+    .lab-next p::before { content:'→ '; }
+
+    .lab-cta { background:#070d14; padding:72px 52px; text-align:center; }
+    .lab-cta-inner { max-width:580px; margin:0 auto; }
+    .lab-btn-p { display:inline-flex; align-items:center; gap:8px; background:#7a9ee8; color:#070d14; padding:12px 24px; border-radius:9px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:700; text-decoration:none; transition:background 0.15s; }
+    .lab-btn-p:hover { background:#5a7ed0; }
+    .lab-btn-g { font-family:'DM Sans',sans-serif; font-size:13px; color:rgba(232,236,252,0.35); text-decoration:none; border-bottom:1px solid rgba(232,236,252,0.15); padding-bottom:1px; }
+
+    @media (max-width:860px) {
+      .lab-hero, .lab-section, .lab-metric, .lab-cta, .lab-stats { padding:48px 24px; }
+      .lab-stats-inner { grid-template-columns:repeat(2,1fr); }
+      .lab-stat:nth-child(2) { border-right:none; }
+      .lab-exp-body { grid-template-columns:1fr; gap:16px; }
+      .lab-results-grid { grid-template-columns:1fr 1fr; }
+      .lab-metric-inner { grid-template-columns:1fr; gap:28px; }
+      .lab-exp-wide, .lab-exp-header { padding-left:20px; padding-right:20px; }
+    }
+    @media (max-width:480px) {
+      .lab-results-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="fs-header">
+
+  <div class="fs-nav">
+    <a href="index-en.html" class="fs-logo">M.E.M.</a>
+    <nav class="fs-links">
+
+      <!-- ETOS -->
+      <a href="etos-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Decision model</span></span>
+      </a>
+
+      <!-- PRODUKTER -->
+      <a href="produkter-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1228;">🛍</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Products</span><span class="fs-nav-sub">Software · Programmes · Books</span></span>
+      </a>
+
+      <!-- PILOT -->
+      <a href="pilot-pakke-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1a0d;">🧪</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Pilot</span><span class="fs-nav-sub">Test it in practice</span></span>
+      </a>
+
+      <!-- MERE dropdown -->
+      <div class="fs-dropdown">
+        <a href="mem-en.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#0d1117;">✦</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">More</span><span class="fs-nav-sub">Theory · Universe · Democracy</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="forloeb-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2020;">🔄</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Programmes</span><span class="fs-dropdown-item-sub">Carers · Leaders · Psychiatry</span></span>
+          </a>
+          <a href="mem-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🔬</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">M.E.M.</span><span class="fs-dropdown-item-sub">Foundation</span></span>
+          </a>
+          <a href="simulation-lab.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0a0f1a;">🧪</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Simulation Lab</span><span class="fs-dropdown-item-sub">Research · Experiments</span></span>
+          </a>
+          <a href="arkitektur-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🏗</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Architecture</span><span class="fs-dropdown-item-sub">IDK · ETOS · CDP</span></span>
+          </a>
+          <a href="etos-demokrati-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2820;">🗳</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Democracy</span><span class="fs-dropdown-item-sub">Promises · Accountability</span></span>
+          </a>
+          <a href="boerneunivers.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#2a1f1a;">🌱</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Universe</span><span class="fs-dropdown-item-sub">Children · Bankeren · Learning</span></span>
+          </a>
+
+        </div>
+      </div>
+
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt-en.html" class="fs-nav-cta">Contact</a>
+      <a href="index.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">DA</a>
+    </div>
+  </div>
+</header>
+
+<div class="lab-hero">
+  <div class="lab-inner">
+    <div class="lab-badge">🧪 M.E.M. Research · Simulation Lab</div>
+    <span class="lab-eyebrow">Controlled simulations · Reproducible results · Open for collaboration</span>
+    <h1 class="lab-h1">Exploring <em>Path Dependence</em><br>and Freedom in Decision Systems</h1>
+    <p class="lab-lead">This section documents controlled simulations exploring how decision systems lose and regain freedom over time. All results are scenario-based, reproducible, and designed to test falsifiable hypotheses.</p>
+  </div>
+</div>
+
+<div class="lab-section dark" style="padding-top:28px;padding-bottom:28px;">
+  <div class="lab-inner">
+    <div class="lab-disclaimer">
+      <p><strong style="color:rgba(122,158,232,0.7);font-weight:500;">Methodological note:</strong> All findings presented here are simulation-based. They represent modelled behaviour under controlled conditions — not empirical observations from real systems or human subjects. Results should be read as hypothesis-generating, not hypothesis-confirming. We actively seek collaborators to test these models in real-world contexts.</p>
+    </div>
+  </div>
+</div>
+
+<div class="lab-stats">
+  <div class="lab-stats-inner">
+    <div class="lab-stat"><span class="lab-stat-num">5</span><span class="lab-stat-lbl">Experiments completed</span></div>
+    <div class="lab-stat"><span class="lab-stat-num">1,296</span><span class="lab-stat-lbl">Synthetic cases tested in IDK engine</span></div>
+    <div class="lab-stat"><span class="lab-stat-num">200</span><span class="lab-stat-lbl">Generations per path simulation</span></div>
+    <div class="lab-stat"><span class="lab-stat-num">36</span><span class="lab-stat-lbl">Agents per simulation run</span></div>
+    <div class="lab-stat"><span class="lab-stat-num">TRL 4–5</span><span class="lab-stat-lbl">Technology readiness level</span></div>
+  </div>
+</div>
+
+<div class="lab-metric">
+  <div class="lab-metric-inner">
+    <div>
+      <span class="lab-eyebrow">Foundation concept</span>
+      <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#e8ecfc;font-weight:400;margin-bottom:12px;">The Freedom Metric</h2>
+      <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(232,236,252,0.45);line-height:1.8;margin-bottom:12px;">The core innovation of the simulation framework is a quantitative measure of <em>decision freedom</em> — the degree to which an agent retains genuine choice, as opposed to being constrained by accumulated bias, path dependency, or structural lock-in.</p>
+      <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(232,236,252,0.45);line-height:1.8;margin-bottom:16px;">Freedom is not binary. It can plateau at stable low-capacity states where agents neither collapse nor recover. This is the most important empirical finding of the simulation series.</p>
+      <div class="lab-formula">freedom(t) = base_capacity − accumulated_bias(t) × weight<br>+ recovery_events(t) × plasticity</div>
+      <p style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(232,236,252,0.25);margin:0;">Where <em>plasticity</em> determines how readily an agent can reverse accumulated bias through intervention.</p>
+    </div>
+    <div>
+      <span class="lab-eyebrow">Why it matters</span>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:4px;">
+        <div style="padding:16px 18px;background:rgba(122,158,232,0.06);border-radius:10px;border:1px solid rgba(122,158,232,0.12);">
+          <div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:#7a9ee8;margin-bottom:6px;">In clinical settings</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(232,236,252,0.4);line-height:1.65;">Measures the degree to which a patient, carer or professional retains genuine decision agency under systemic pressure.</div>
+        </div>
+        <div style="padding:16px 18px;background:rgba(78,200,140,0.06);border-radius:10px;border:1px solid rgba(78,200,140,0.12);">
+          <div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:#4ec88c;margin-bottom:6px;">In organisations</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(232,236,252,0.4);line-height:1.65;">Tracks whether decision-making culture is expanding or contracting over time — a leading indicator of institutional health.</div>
+        </div>
+        <div style="padding:16px 18px;background:rgba(226,136,78,0.06);border-radius:10px;border:1px solid rgba(226,136,78,0.12);">
+          <div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:var(--accent);margin-bottom:6px;">In governance</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(232,236,252,0.4);line-height:1.65;">Maps the distance between stated democratic intention (M) and actual citizen experience (E) — the core of ETOS Democracy.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="lab-section mid">
+  <div class="lab-inner">
+    <span class="lab-eyebrow">Simulation series</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#e8ecfc;font-weight:400;margin-bottom:6px;">Experiments</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(232,236,252,0.35);max-width:520px;line-height:1.75;margin-bottom:36px;">Each experiment follows the same structure: setup · hypothesis · result · key findings · interpretation · next step.</p>
+
+    <!-- EXP 01 -->
+    <div class="lab-exp">
+      <div class="lab-exp-header">
+        <div><span class="lab-exp-num">Experiment 01</span><div class="lab-exp-title">Path Dependence Over 200 Generations</div></div>
+        <span class="lab-exp-status complete"><span style="width:5px;height:5px;border-radius:50%;background:#4ec88c;display:inline-block;"></span>Complete</span>
+      </div>
+      <div class="lab-exp-body">
+        <div>
+          <span class="lab-col-lbl">Setup</span>
+          <div class="lab-setup-item"><span>Agents</span><span>36</span></div>
+          <div class="lab-setup-item"><span>Generations</span><span>200</span></div>
+          <div class="lab-setup-item"><span>Bias weight</span><span>0.8–1.4</span></div>
+          <div class="lab-setup-item"><span>Plasticity</span><span>0.05–0.35</span></div>
+          <div class="lab-setup-item"><span>Testing</span><span>Freedom decay over time</span></div>
+        </div>
+        <div>
+          <span class="lab-col-lbl">Hypothesis</span>
+          <div class="lab-hypothesis">Agents with accumulated bias above threshold will show non-linear freedom decay — early stability followed by rapid late-stage collapse.</div>
+        </div>
+      </div>
+      <div class="lab-exp-wide">
+        <div class="lab-results-grid">
+          <div class="lab-result-item"><span class="lab-result-num">67%</span><span class="lab-result-lbl">showed late-stage collapse after gen. 140</span></div>
+          <div class="lab-result-item"><span class="lab-result-num">23%</span><span class="lab-result-lbl">maintained stable freedom throughout</span></div>
+          <div class="lab-result-item"><span class="lab-result-num">Gen. 140</span><span class="lab-result-lbl">median collapse threshold</span></div>
+        </div>
+        <span class="lab-col-lbl">Key findings</span>
+        <div class="lab-findings">
+          <div class="lab-finding">Freedom decay is not linear — systems appear stable for extended periods before rapid collapse</div>
+          <div class="lab-finding">Different life paths emerge from identical starting conditions, depending on early bias accumulation</div>
+          <div class="lab-finding">Late-stage collapse is difficult to reverse without structural intervention</div>
+        </div>
+        <div class="lab-interp">
+          <span class="lab-col-lbl" style="color:rgba(226,136,78,0.5);">Interpretation</span>
+          <p>The non-linearity is the most significant finding. Systems that appear functional may be in pre-collapse states. This has direct implications for how we monitor decision freedom in organisations and clinical settings — standard metrics may miss the warning signs entirely. <strong style="color:rgba(226,136,78,0.55);font-weight:500;">What we do not know:</strong> whether the same patterns hold with real human agents, or whether the thresholds scale linearly with system complexity.</p>
+        </div>
+        <div class="lab-next"><p>Test whether early intervention (before gen. 80) can prevent late-stage collapse — see Experiment 03.</p></div>
+      </div>
+    </div>
+
+    <!-- EXP 02 -->
+    <div class="lab-exp">
+      <div class="lab-exp-header">
+        <div><span class="lab-exp-num">Experiment 02</span><div class="lab-exp-title">Metastable Low-Freedom States</div></div>
+        <span class="lab-exp-status complete"><span style="width:5px;height:5px;border-radius:50%;background:#4ec88c;display:inline-block;"></span>Complete</span>
+      </div>
+      <div class="lab-exp-body">
+        <div>
+          <span class="lab-col-lbl">Setup</span>
+          <div class="lab-setup-item"><span>Agents</span><span>36</span></div>
+          <div class="lab-setup-item"><span>Generations</span><span>200</span></div>
+          <div class="lab-setup-item"><span>Bias weight</span><span>&gt; 1.0</span></div>
+          <div class="lab-setup-item"><span>Plasticity</span><span>&lt; 0.15</span></div>
+          <div class="lab-setup-item"><span>Testing</span><span>Plateau emergence</span></div>
+        </div>
+        <div>
+          <span class="lab-col-lbl">Hypothesis</span>
+          <div class="lab-hypothesis">If bias_weight &gt; 1.0 and plasticity &lt; 0.15, agents will stabilise at a low-freedom plateau where recovery is possible but unlikely without external intervention.</div>
+        </div>
+      </div>
+      <div class="lab-exp-wide">
+        <div class="lab-results-grid">
+          <div class="lab-result-item"><span class="lab-result-num">71%</span><span class="lab-result-lbl">plateaued between freedom 0.16–0.24</span></div>
+          <div class="lab-result-item"><span class="lab-result-num">14%</span><span class="lab-result-lbl">recovered to freedom &gt; 0.5</span></div>
+          <div class="lab-result-item"><span class="lab-result-num">14%</span><span class="lab-result-lbl">remained fully locked (freedom &lt; 0.1)</span></div>
+        </div>
+        <span class="lab-col-lbl">Key findings</span>
+        <div class="lab-findings">
+          <div class="lab-finding">A metastable state emerges where agents neither collapse fully nor recover — a stable low-capacity equilibrium</div>
+          <div class="lab-finding">The plateau band (0.16–0.24) is remarkably consistent across different starting conditions</div>
+          <div class="lab-finding">Loss of freedom is not binary — it forms stable intermediate states that resist both collapse and recovery</div>
+        </div>
+        <div class="lab-interp">
+          <span class="lab-col-lbl" style="color:rgba(226,136,78,0.5);">Interpretation</span>
+          <p>This is the strongest empirical finding of the simulation series. The emergence of a consistent plateau band suggests that low-freedom states are not simply pre-collapse — they are structurally stable. This maps directly onto observed phenomena in clinical settings, organisations and political systems. <strong style="color:rgba(226,136,78,0.55);font-weight:500;">What we do not know:</strong> what determines which agents plateau vs. collapse vs. recover. Plasticity appears key, but the threshold is not fully understood.</p>
+        </div>
+        <div class="lab-next"><p>Design targeted interventions to break the plateau — test whether different intervention types have different effects on plateau escape rate.</p></div>
+      </div>
+    </div>
+
+    <!-- EXP 03 -->
+    <div class="lab-exp">
+      <div class="lab-exp-header">
+        <div><span class="lab-exp-num">Experiment 03</span><div class="lab-exp-title">Intervention Types and Freedom Recovery</div></div>
+        <span class="lab-exp-status complete"><span style="width:5px;height:5px;border-radius:50%;background:#4ec88c;display:inline-block;"></span>Complete</span>
+      </div>
+      <div class="lab-exp-body">
+        <div>
+          <span class="lab-col-lbl">Setup</span>
+          <div class="lab-setup-item"><span>Agents</span><span>36 (from Exp. 02)</span></div>
+          <div class="lab-setup-item"><span>Intervention types</span><span>3</span></div>
+          <div class="lab-setup-item"><span>Applied at</span><span>Generation 100</span></div>
+          <div class="lab-setup-item"><span>Testing</span><span>Recovery rate per type</span></div>
+        </div>
+        <div>
+          <span class="lab-col-lbl">Hypothesis</span>
+          <div class="lab-hypothesis">Relational interventions (targeting trust and connection) will outperform corrective interventions (targeting bias directly) in breaking metastable plateau states.</div>
+        </div>
+      </div>
+      <div class="lab-exp-wide">
+        <div class="lab-results-grid">
+          <div class="lab-result-item"><span class="lab-result-num">12%</span><span class="lab-result-lbl">Mild intervention recovery rate</span></div>
+          <div class="lab-result-item"><span class="lab-result-num">31%</span><span class="lab-result-lbl">Corrective intervention recovery rate</span></div>
+          <div class="lab-result-item"><span class="lab-result-num">54%</span><span class="lab-result-lbl">Relational intervention recovery rate</span></div>
+        </div>
+        <span class="lab-col-lbl">Key findings</span>
+        <div class="lab-findings">
+          <div class="lab-finding">Relational interventions (trust + connection) are 4.5× more effective than mild interventions at breaking the plateau</div>
+          <div class="lab-finding">Corrective interventions work — but produce brittle recovery that often re-plateaus within 40 generations</div>
+          <div class="lab-finding">Timing matters: interventions before generation 80 have 2× higher recovery rates</div>
+        </div>
+        <div class="lab-interp">
+          <span class="lab-col-lbl" style="color:rgba(226,136,78,0.5);">Interpretation</span>
+          <p>The dominance of relational interventions confirms a core M.E.M. hypothesis: that the Experience layer (human connection, trust, relational context) is the primary lever for systemic change — not direct correction of the Model layer. This maps onto clinical findings that therapeutic alliance predicts treatment outcome more reliably than treatment type. <strong style="color:rgba(226,136,78,0.55);font-weight:500;">What we do not know:</strong> whether relational interventions are more resource-intensive in real systems.</p>
+        </div>
+        <div class="lab-next"><p>Test self-monitoring agents that can detect their own plateau state and initiate recovery autonomously — see Experiment 04.</p></div>
+      </div>
+    </div>
+
+    <!-- EXP 04 -->
+    <div class="lab-exp">
+      <div class="lab-exp-header">
+        <div><span class="lab-exp-num">Experiment 04</span><div class="lab-exp-title">Meta-Recovery Layer: Self-Monitoring Agents</div></div>
+        <span class="lab-exp-status complete"><span style="width:5px;height:5px;border-radius:50%;background:#4ec88c;display:inline-block;"></span>Complete</span>
+      </div>
+      <div class="lab-exp-body">
+        <div>
+          <span class="lab-col-lbl">Setup</span>
+          <div class="lab-setup-item"><span>Agents</span><span>36</span></div>
+          <div class="lab-setup-item"><span>Meta-layer</span><span>Enabled</span></div>
+          <div class="lab-setup-item"><span>Monitoring threshold</span><span>freedom &lt; 0.25</span></div>
+          <div class="lab-setup-item"><span>Testing</span><span>Internal vs external recovery</span></div>
+        </div>
+        <div>
+          <span class="lab-col-lbl">Hypothesis</span>
+          <div class="lab-hypothesis">Agents with self-monitoring capability will detect plateau states earlier and initiate recovery without external intervention, achieving higher overall freedom scores across 200 generations.</div>
+        </div>
+      </div>
+      <div class="lab-exp-wide">
+        <div class="lab-results-grid">
+          <div class="lab-result-item"><span class="lab-result-num">+38%</span><span class="lab-result-lbl">Higher freedom scores vs. non-monitoring agents</span></div>
+          <div class="lab-result-item"><span class="lab-result-num">Gen. 62</span><span class="lab-result-lbl">Average detection time (vs. gen. 140 collapse)</span></div>
+          <div class="lab-result-item"><span class="lab-result-num">89%</span><span class="lab-result-lbl">Plateau prevention rate with early detection</span></div>
+        </div>
+        <span class="lab-col-lbl">Key findings</span>
+        <div class="lab-findings">
+          <div class="lab-finding">Self-monitoring prevents plateau formation in 89% of cases — vs. 31% recovery after the fact</div>
+          <div class="lab-finding">Early detection (before freedom drops below 0.3) is the critical threshold — intervention after 0.2 is 3× less effective</div>
+          <div class="lab-finding">Internal recovery mechanisms are more durable than external correction</div>
+        </div>
+        <div class="lab-interp">
+          <span class="lab-col-lbl" style="color:rgba(226,136,78,0.5);">Interpretation</span>
+          <p>This is the most directly applicable finding for ETOS system design. A decision support system that helps users monitor their own decision freedom — not just classify individual decisions — would be significantly more effective. The Reflection Centre module of ETOS is designed with this in mind. <strong style="color:rgba(226,136,78,0.55);font-weight:500;">What we do not know:</strong> whether the monitoring overhead is acceptable in high-pressure clinical contexts.</p>
+        </div>
+        <div class="lab-next"><p>Apply full simulation framework to ETOS IDK engine — test whether 1,296 real case classifications show the same plateau dynamics.</p></div>
+      </div>
+    </div>
+
+    <!-- EXP 05 -->
+    <div class="lab-exp">
+      <div class="lab-exp-header">
+        <div><span class="lab-exp-num">Experiment 05</span><div class="lab-exp-title">IDK Engine Validation — 1,296 Synthetic Cases</div></div>
+        <span class="lab-exp-status complete"><span style="width:5px;height:5px;border-radius:50%;background:#4ec88c;display:inline-block;"></span>Complete</span>
+      </div>
+      <div class="lab-exp-body">
+        <div>
+          <span class="lab-col-lbl">Setup</span>
+          <div class="lab-setup-item"><span>Total cases</span><span>1,296</span></div>
+          <div class="lab-setup-item"><span>Parameters</span><span>6 (full IDK set)</span></div>
+          <div class="lab-setup-item"><span>States tested</span><span>All 5</span></div>
+          <div class="lab-setup-item"><span>Testing</span><span>Classification consistency + edge cases</span></div>
+        </div>
+        <div>
+          <span class="lab-col-lbl">Hypothesis</span>
+          <div class="lab-hypothesis">The IDK engine will show consistent classification across the full parameter space, with identifiable structural weaknesses at state boundaries — particularly between Emergency and Incompatible.</div>
+        </div>
+      </div>
+      <div class="lab-exp-wide">
+        <div class="lab-results-grid">
+          <div class="lab-result-item"><span class="lab-result-num">23%</span><span class="lab-result-lbl">Cases classified as Emergency</span></div>
+          <div class="lab-result-item"><span class="lab-result-num">22</span><span class="lab-result-lbl">Low-score Emergency edge cases</span></div>
+          <div class="lab-result-item"><span class="lab-result-num">12</span><span class="lab-result-lbl">Abrupt transitions detected</span></div>
+        </div>
+        <span class="lab-col-lbl">Key findings</span>
+        <div class="lab-findings">
+          <div class="lab-finding">Classification is consistent across 98.7% of the parameter space — engine behaviour is predictable</div>
+          <div class="lab-finding">22 "low-score Emergency" cases reveal a structural gap: high individual parameters can trigger Emergency even with low overall divergence</div>
+          <div class="lab-finding">12 abrupt transitions suggest the Emergency/Incompatible boundary needs calibration with real-world data</div>
+        </div>
+        <div class="lab-interp">
+          <span class="lab-col-lbl" style="color:rgba(226,136,78,0.5);">Interpretation</span>
+          <p>The engine is structurally sound but has known edge cases that require empirical calibration. The 22 low-score Emergency cases are the most important: they suggest the current parameter weighting may over-classify certain situations. In a clinical context, this could create alert fatigue. <strong style="color:rgba(226,136,78,0.55);font-weight:500;">What we do not know:</strong> whether the 23% Emergency rate reflects real-world decision pressure, or is an artefact of synthetic case generation.</p>
+        </div>
+        <div class="lab-next"><p>Run pilot with real-world cases from a single clinical department — compare classification rates against synthetic baseline.</p></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PLANNED -->
+<div class="lab-section dark">
+  <div class="lab-inner">
+    <span class="lab-eyebrow">Planned</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:24px;color:#e8ecfc;font-weight:400;margin-bottom:28px;">Next experiments</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+      <div style="padding:22px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;">
+        <span class="lab-exp-status planned" style="margin-bottom:12px;display:inline-flex;">Planned</span>
+        <div style="font-family:'Playfair Display',serif;font-size:16px;color:rgba(232,236,252,0.55);font-weight:400;margin-bottom:8px;line-height:1.3;">Real-World Case Validation</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(232,236,252,0.3);line-height:1.65;">Apply IDK engine to anonymised cases from a pilot partner. Compare classification rates and recommendations against clinical judgement.</div>
+      </div>
+      <div style="padding:22px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;">
+        <span class="lab-exp-status planned" style="margin-bottom:12px;display:inline-flex;">Planned</span>
+        <div style="font-family:'Playfair Display',serif;font-size:16px;color:rgba(232,236,252,0.55);font-weight:400;margin-bottom:8px;line-height:1.3;">Multi-Agent Interaction Effects</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(232,236,252,0.3);line-height:1.65;">Test whether freedom decay is contagious — does one agent's plateau state affect adjacent agents' freedom trajectories?</div>
+      </div>
+      <div style="padding:22px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;">
+        <span class="lab-exp-status planned" style="margin-bottom:12px;display:inline-flex;">Planned</span>
+        <div style="font-family:'Playfair Display',serif;font-size:16px;color:rgba(232,236,252,0.55);font-weight:400;margin-bottom:8px;line-height:1.3;">Democratic System Simulation</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(232,236,252,0.3);line-height:1.65;">Apply path dependence framework to political promise-action cycles. Does political debt accumulate in the same non-linear pattern as individual agent bias?</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="lab-cta">
+  <div class="lab-cta-inner">
+    <span class="lab-eyebrow" style="text-align:center;display:block;">Open for collaboration</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#e8ecfc;font-weight:400;margin-bottom:12px;">The simulations are ready.<br>The real world awaits.</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(232,236,252,0.4);line-height:1.8;margin-bottom:28px;">We are seeking researchers, clinicians, organisations and funding partners to help move these findings from simulation to empirical validation. TRL 4–5, pilot-ready.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="kontakt-en.html" class="lab-btn-p">Discuss collaboration →</a>
+      <a href="arkitektur-en.html" class="lab-btn-g">See the full architecture</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
