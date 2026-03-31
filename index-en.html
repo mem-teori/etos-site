@@ -2,383 +2,495 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="google-site-verification" content="N-tI0mRJKKnPVNDB_v0LWIN6QjN9BnB8Zw8DN8ARdF0" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ETOS — Beslutninger i komplekse situationer</title>
+  <title>M.E.M. — Meaning, Experience, Model</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
   <style>
-    .hero-primary-btn {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 14px 28px; border-radius: 10px;
-      background: #e2884e; color: #fff;
-      font-family: "DM Sans", sans-serif;
-      font-size: 15px; font-weight: 500;
-      border: none; cursor: pointer;
-      transition: background 0.15s, transform 0.15s;
-      margin-bottom: 8px;
-    }
-    .hero-primary-btn:hover { background: #d4743a; transform: translateY(-1px); }
-    .hero-primary-sub { font-size: 12px; color: rgba(240,235,224,0.3); font-style: italic; }
-    .home-hero-v2 {
-      display: grid; grid-template-columns: 1fr 1fr;
-      min-height: 420px; background: var(--bg-dark);
-    }
-    .home-hero-v2-left {
-      padding: 56px 52px;
-      display: flex; flex-direction: column; justify-content: center;
-      position: relative; overflow: hidden;
-    }
-    .home-hero-v2-left::before {
-      content: ""; position: absolute; top: -60px; right: -60px;
-      width: 260px; height: 260px; border-radius: 50%;
-      background: rgba(226,136,78,0.07); pointer-events: none;
-    }
-    .home-hero-v2-right {
-      padding: 36px 44px;
-      display: flex; flex-direction: column; justify-content: center;
-      border-left: 1px solid rgba(255,255,255,0.07);
-    }
-    .hero-toggle-row { display: flex; gap: 6px; margin-top: 12px; }
-    .hero-tog-btn {
-      font-family: "DM Sans", sans-serif;
-      font-size: 11px; padding: 5px 12px; border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: transparent; color: rgba(255,255,255,0.45);
-      cursor: pointer; transition: all 0.15s;
-    }
-    .hero-tog-btn.active-borger { background: rgba(78,200,140,0.12); border-color: rgba(78,200,140,0.35); color: #4ec88c; }
-    .hero-tog-btn.active-fag    { background: rgba(90,126,216,0.12); border-color: rgba(90,126,216,0.35); color: #7a9ee8; }
-    .mini-case-bar { background: #f5f0e8; border-bottom: 1px solid rgba(0,0,0,0.07); }
-    .mini-case-inner {
-      max-width: var(--max); margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 32px 1fr;
-      align-items: center;
-    }
-    .mini-case-scenario { padding: 24px 32px; }
-    .mini-case-label { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 10px; }
-    .mini-case-tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
-    .mc-tab { font-family: "DM Sans", sans-serif; font-size: 12px; font-weight: 400; padding: 5px 12px; border-radius: 20px; border: 1px solid var(--line); background: #fff; color: var(--muted); cursor: pointer; transition: all 0.15s; }
-    .mc-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 500; }
-    .mini-case-text { font-size: 14px; color: #444; line-height: 1.7; font-style: italic; transition: opacity 0.18s; }
-    .mini-case-arrow { text-align: center; font-size: 20px; color: var(--accent); opacity: 0.6; }
-    .mini-case-result { padding: 24px 32px; background: var(--bg-dark); }
-    .mini-case-result-label { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,235,224,0.3); display: block; margin-bottom: 10px; }
+    .demo-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(240,235,224,0.1); border-radius: 14px; padding: 24px; }
+    .demo-invite { font-size: 12px; font-style: italic; color: rgba(240,235,224,0.35); line-height: 1.6; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .demo-slider { margin-bottom: 14px; }
+    .demo-slider-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+    .demo-slider-label { font-size: 12px; color: rgba(240,235,224,0.55); font-family: 'DM Sans', sans-serif; }
+    .demo-slider-val { font-size: 12px; font-weight: 500; color: #7a9ee8; font-family: 'DM Sans', sans-serif; }
+    .demo-scale { display: flex; justify-content: space-between; font-size: 10px; color: rgba(240,235,224,0.2); margin-top: 4px; font-family: 'DM Sans', sans-serif; }
+    .demo-hint { font-size: 11px; color: rgba(240,235,224,0.22); font-style: italic; margin-top: 3px; font-family: 'DM Sans', sans-serif; transition: color 0.2s; line-height: 1.4; }
+    .demo-hint.active { color: rgba(240,235,224,0.45); }
+    input[type=range].demo-range { width: 100%; height: 4px; border-radius: 4px; -webkit-appearance: none; appearance: none; background: rgba(90,126,216,0.25); outline: none; cursor: pointer; }
+    input[type=range].demo-range::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: #7a9ee8; cursor: pointer; }
+    .demo-result { margin-top: 16px; padding: 14px 16px; background: rgba(255,255,255,0.04); border-left: 3px solid #E2884E; border-radius: 0 8px 8px 0; }
+    .demo-mode-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+    .demo-mode-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(240,235,224,0.3); font-family: 'DM Sans', sans-serif; }
+    .demo-mode-value { font-family: 'Playfair Display', serif; font-size: 16px; color: #E2884E; }
+    .demo-insight { font-size: 12px; color: rgba(240,235,224,0.5); line-height: 1.7; margin-bottom: 8px; font-family: 'DM Sans', sans-serif; }
+    .demo-recommendation { margin-top: 8px; padding: 10px 12px; background: rgba(255,255,255,0.03); border-radius: 6px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .demo-rec-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(240,235,224,0.2); font-family: 'DM Sans', sans-serif; margin-bottom: 4px; display: block; }
+    .demo-rec-text { font-size: 11px; color: rgba(240,235,224,0.4); line-height: 1.65; font-family: 'DM Sans', sans-serif; font-style: italic; }
+    .demo-link { font-size: 11px; font-weight: 500; color: #7a9ee8; text-decoration: none; font-family: 'DM Sans', sans-serif; }
+    .demo-toggle { display: flex; gap: 6px; margin-top: 12px; }
+    .demo-tog-btn { font-family: 'DM Sans', sans-serif; font-size: 11px; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.12); background: transparent; color: rgba(255,255,255,0.45); cursor: pointer; transition: all 0.15s; }
+    .demo-tog-btn.ab { background: rgba(78,200,140,0.12); border-color: rgba(78,200,140,0.35); color: #4ec88c; }
+    .demo-tog-btn.af { background: rgba(90,126,216,0.12); border-color: rgba(90,126,216,0.35); color: #7a9ee8; }
+    .demo-result.pulse { animation: dpulse 0.4s ease; }
+    @keyframes dpulse { 0%{box-shadow:0 0 0 0 rgba(226,136,78,0.4)} 50%{box-shadow:0 0 0 8px rgba(226,136,78,0)} 100%{box-shadow:0 0 0 0 rgba(226,136,78,0)} }
+
+    .mem-hero { background: #0d1117; padding: 80px 52px 72px; position: relative; overflow: hidden; }
+    .mem-hero::before { content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(122,158,232,0.06), transparent 70%); pointer-events: none; }
+    .mem-hero-inner { max-width: 1160px; margin: 0 auto; position: relative; }
+    .mem-hero-eyebrow { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #7a9ee8; display: block; margin-bottom: 20px; }
+    .mem-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 50px); color: #f0ebe0; font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .mem-hero h1 em { font-style: italic; color: #7a9ee8; }
+
+    .mem-btn-primary { display: inline-flex; align-items: center; gap: 8px; background: #7a9ee8; color: #0d1117; padding: 12px 24px; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; text-decoration: none; transition: background 0.15s; }
+    .mem-btn-primary:hover { background: #5a7ed0; }
+
+    .mem-dim-card { border-radius: 12px; padding: 18px 20px; display: flex; gap: 16px; align-items: flex-start; transition: transform 0.15s; }
+    .mem-dim-card:hover { transform: translateX(4px); }
+    .mem-dim-card.m { background: rgba(122,158,232,0.08); border: 1px solid rgba(122,158,232,0.18); }
+    .mem-dim-card.e { background: rgba(226,136,78,0.08); border: 1px solid rgba(226,136,78,0.18); }
+    .mem-dim-card.mo { background: rgba(78,200,140,0.08); border: 1px solid rgba(78,200,140,0.18); }
+    .mem-dim-letter { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400; line-height: 1; flex-shrink: 0; width: 36px; }
+    .mem-dim-card.m .mem-dim-letter { color: #7a9ee8; }
+    .mem-dim-card.e .mem-dim-letter { color: var(--accent); }
+    .mem-dim-card.mo .mem-dim-letter { color: #4ec88c; }
+
+    .etos-block { background: #1E2E1F; padding: 72px 52px; }
+    .etos-block-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .sys-overview { background: #ece7df; padding: 72px 52px; }
+    .sys-overview-inner { max-width: 1160px; margin: 0 auto; }
+    .sys-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-top: 36px; }
+    .sys-card { background: #fff; border: 1px solid rgba(0,0,0,0.13); border-radius: 14px; padding: 28px 24px; text-decoration: none; display: block; transition: transform 0.15s, box-shadow 0.15s; }
+    .sys-card:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.07); }
+    .sys-card-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+    .sys-card-tag { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 6px; }
+    .sys-card h3 { font-family: 'Playfair Display', serif; font-size: 17px; color: #111; font-weight: 500; margin-bottom: 6px; }
+    .sys-card p { font-family: 'DM Sans', sans-serif; font-size: 12px; color: #555; line-height: 1.65; margin: 0; }
+
+    .indgange { background: #0d1117; padding: 64px 52px; }
+    .indgange-inner { max-width: 1160px; margin: 0 auto; }
+    .indgange-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 36px; }
+    .indgang-card { border-radius: 16px; padding: 32px 28px; text-decoration: none; display: block; transition: transform 0.15s; }
+    .indgang-card:hover { transform: translateY(-2px); }
+    .indgang-card.borger { background: rgba(78,200,140,0.07); border: 1px solid rgba(78,200,140,0.15); }
+    .indgang-card.fagperson { background: rgba(122,158,232,0.07); border: 1px solid rgba(122,158,232,0.15); }
+    .indgang-tag { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 10px; }
+    .indgang-card.borger .indgang-tag { color: #4ec88c; }
+    .indgang-card.fagperson .indgang-tag { color: #7a9ee8; }
+    .indgang-card h3 { font-family: 'Playfair Display', serif; font-size: 20px; color: #f0ebe0; font-weight: 400; margin-bottom: 8px; }
+    .indgang-card p { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(240,235,224,0.45); line-height: 1.7; margin: 0; }
+
+    .mini-case { background: #f5f0e8; border-bottom: 1px solid rgba(0,0,0,0.07); }
+    .mini-case-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 32px 1fr; align-items: center; }
+    .mini-case-left { padding: 24px 32px; }
+    .mini-case-lbl { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #888; display: block; margin-bottom: 10px; font-family: 'DM Sans', sans-serif; }
+    .mc-tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+    .mc-tab { font-family: 'DM Sans', sans-serif; font-size: 12px; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(0,0,0,0.1); background: #fff; color: #888; cursor: pointer; transition: all 0.15s; }
+    .mc-tab.active { background: #E2884E; border-color: #E2884E; color: #fff; font-weight: 500; }
+    .mc-text { font-size: 14px; color: #444; line-height: 1.7; font-style: italic; transition: opacity 0.18s; font-family: 'DM Sans', sans-serif; }
+    .mini-case-arrow { text-align: center; font-size: 20px; color: #E2884E; opacity: 0.6; }
+    .mini-case-right { padding: 24px 32px; background: #1E2E1F; }
     .mc-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; transition: opacity 0.18s; }
     .mc-tag { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; }
-    .mc-tag.red    { background: rgba(224,112,112,0.15); color: #e07070; border: 1px solid rgba(224,112,112,0.2); }
-    .mc-tag.orange { background: rgba(226,136,78,0.15);  color: #e2a06a; border: 1px solid rgba(226,136,78,0.2); }
-    .mc-tag.blue   { background: rgba(90,126,216,0.15);  color: #7a9ee8; border: 1px solid rgba(90,126,216,0.2); }
-    .mini-case-verdict { font-size: 13px; color: rgba(240,235,224,0.55); line-height: 1.7; margin-bottom: 12px; transition: opacity 0.18s; }
-    .mini-case-link { font-size: 12px; font-weight: 500; color: var(--accent); text-decoration: none; }
-    .hero-demo-result.pulse-anim { animation: result-pulse 0.4s ease; }
-    @keyframes result-pulse {
-      0%   { box-shadow: 0 0 0 0 rgba(226,136,78,0.4); }
-      50%  { box-shadow: 0 0 0 8px rgba(226,136,78,0); }
-      100% { box-shadow: 0 0 0 0 rgba(226,136,78,0); }
-    }
+    .mc-tag.r { background: rgba(224,112,112,0.15); color: #e07070; border: 1px solid rgba(224,112,112,0.2); }
+    .mc-tag.o { background: rgba(226,136,78,0.15); color: #e2a06a; border: 1px solid rgba(226,136,78,0.2); }
+    .mc-tag.b { background: rgba(90,126,216,0.15); color: #7a9ee8; border: 1px solid rgba(90,126,216,0.2); }
+    .mc-verdict { font-size: 13px; color: rgba(240,235,224,0.55); line-height: 1.7; margin-bottom: 10px; transition: opacity 0.18s; font-family: 'DM Sans', sans-serif; }
+    .mc-link { font-size: 12px; font-weight: 500; color: #E2884E; text-decoration: none; font-family: 'DM Sans', sans-serif; }
+
     @media (max-width: 860px) {
-      .home-hero-v2 { grid-template-columns: 1fr; }
-      .home-hero-v2-right { border-left: none; border-top: 1px solid rgba(255,255,255,0.07); padding: 28px 32px; }
+      .mem-hero, .etos-block, .sys-overview, .indgange { padding: 48px 28px; }
+      .etos-block-inner { grid-template-columns: 1fr; }
+      .sys-grid { grid-template-columns: repeat(2,1fr); }
+      .indgange-grid { grid-template-columns: 1fr; }
       .mini-case-inner { grid-template-columns: 1fr; }
       .mini-case-arrow { display: none; }
     }
   </style>
 </head>
 <body>
-
-<nav class="site-nav">
-  <a href="index-en.html" class="nav-logo">ETOS</a>
-  <div class="nav-links">
-    <a href="etos-en.html" class="nav-item">
-      <span class="nav-item-icon" style="background:#1a2040;">🧭</span>
-      <span class="nav-item-text"><span class="nav-item-title">ETOS</span><span class="nav-item-sub">Decision model</span></span>
-    </a>
-    <a href="system.html" class="nav-item">
-      <span class="nav-item-icon" style="background:#0d1117;">⚙️</span>
-      <span class="nav-item-text"><span class="nav-item-title">Systemet</span><span class="nav-item-sub">Case analyse · Demo</span></span>
-    </a>
-    <a href="boerneunivers.html" class="nav-item">
-      <span class="nav-item-icon" style="background:#1a1228;">📖</span>
-      <span class="nav-item-text"><span class="nav-item-title">Children’s Universe</span><span class="nav-item-sub">Børnebøger</span></span>
-    </a>
-    <a href="laering.html" class="nav-item">
-      <span class="nav-item-icon" style="background:#0d1a2a;">🌐</span>
-      <span class="nav-item-text"><span class="nav-item-title">Lærings-uniVRs</span><span class="nav-item-sub">Oplevelse · Læring</span></span>
-    </a>
-    <a href="dirigent-rum.html" class="nav-item">
-      <span class="nav-item-icon" style="background:#1a1a12;">🎼</span>
-      <span class="nav-item-text"><span class="nav-item-title">Dirigenten</span><span class="nav-item-sub">Ideas · Projects</span></span>
-    </a>
-    <a href="regnskab-program.html" class="nav-item">
-      <span class="nav-item-icon" style="background:#111520;">📊</span>
-      <span class="nav-item-text"><span class="nav-item-title">Accounting</span><span class="nav-item-sub">Finance · Overview</span></span>
-    </a>
+<header class="fs-header">
+  <div class="fs-nav">
+    <a href="index-en.html" class="fs-logo">M.E.M.</a>
+    <nav class="fs-links">
+      <a href="etos-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Decision model</span></span>
+      </a>
+      <a href="produkter-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1228;">🛍</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Products</span><span class="fs-nav-sub">Software · Programmes · Books</span></span>
+      </a>
+      <a href="pilot-pakke-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1a0d;">🧪</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Pilot</span><span class="fs-nav-sub">Test it in practice</span></span>
+      </a>
+      <div class="fs-dropdown">
+        <a href="mem-en.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#0d1117;">✦</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">More</span><span class="fs-nav-sub">Theory · Children’s Universe · Democracy</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="forloeb-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2020;">🔄</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Programmes</span><span class="fs-dropdown-item-sub">Carers · Leaders · Psychiatry</span></span>
+          </a>
+          <a href="mem-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🔬</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">M.E.M.</span><span class="fs-dropdown-item-sub">Foundation</span></span>
+          </a>
+          <a href="arkitektur-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🏗</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Architecture</span><span class="fs-dropdown-item-sub">IDK · ETOS · CDP</span></span>
+          </a>
+          <a href="etos-demokrati-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2820;">🗳</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Democracy</span><span class="fs-dropdown-item-sub">Promises · Accountability</span></span>
+          </a>
+          <a href="univers-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#2a1f1a;">🌱</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Children’s Universe</span><span class="fs-dropdown-item-sub">Books · uniVRs · Bankeren</span></span>
+          </a>
+        </div>
+      </div>
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt-en.html" class="fs-nav-cta">Contact</a>
+      <a href="index.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">DA</a>
+    </div>
   </div>
-  <a href="kontakt-en.html" class="nav-cta">Contact</a>
-</nav>
+</header>
 
-<!-- HERO -->
-<section class="home-hero-v2">
-  <div class="home-hero-v2-left">
-    <div class="hero-tag">
-      <span class="hero-tag-dot"></span>
-      Under udvikling · Åben for samarbejde
+<section class="mem-hero">
+  <div style="max-width:1160px;margin:0 auto;position:relative;">
+    <div style="text-align:center;max-width:680px;margin:0 auto 52px;">
+      <span class="mem-hero-eyebrow" style="justify-content:center;">M.E.M. · Meaning · Experience · Model</span>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,56px);color:#f0ebe0;font-weight:400;line-height:1.1;letter-spacing:-0.02em;margin-bottom:16px;">It's not about what we see —<br>but <em style="font-style:italic;color:#7a9ee8;">how we see it</em></h1>
+      <p style="font-family:'DM Sans',sans-serif;font-size:16px;color:rgba(240,235,224,0.5);line-height:1.8;margin-bottom:28px;">M.E.M. shows how meaning, experience, and systems shape the situations we face — and why they often become difficult.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;align-items:center;">
+        <a href="mem-en.html" class="mem-btn-primary" style="font-size:15px;padding:15px 32px;font-weight:700;">Understand the model →</a>
+        <a href="#situation" style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,0.3);text-decoration:none;padding-bottom:1px;transition:color 0.15s;" onmouseover="this.style.color='rgba(240,235,224,0.55)'" onmouseout="this.style.color='rgba(240,235,224,0.3)'">See it in practice</a>
+      </div>
     </div>
-    <h1 class="hero-v2-h1">Når systemer presser<br>mennesker ind i<br><em>umulige valg</em></h1>
-    <p class="hero-v2-sub">ETOS gør spændinger synlige — et redskab til beslutninger der ikke har nemme svar.</p>
-    <button class="hero-primary-btn" onclick="document.getElementById('hs1').focus()">
-      Prøv ETOS nu →
-    </button>
-    <p class="hero-primary-sub">2 minutter · ingen konto · ingen opsætning</p>
-  </div>
 
-  <div class="home-hero-v2-right">
-    <p class="hero-demo-invite">Forestil dig en svær situation — juster og se hvad ETOS ser.</p>
-    <div class="hero-demo-slider">
-      <div class="hds-header">
-        <span class="hds-label" id="lbl1">Systemets risikovurdering</span>
-        <span class="hds-val"><span id="hv1">60</span><span class="hds-max"> / 100</span></span>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <div class="mem-dim-card m" style="flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
+          <div class="mem-dim-letter">M</div>
+          <h4 style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:#7a9ee8;margin:0;">Meaning</h4>
+        </div>
+        <p style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,0.4);line-height:1.65;margin:0;">What matters — values, goals, and intentions.</p>
       </div>
-      <input type="range" class="hero-range" id="hs1" min="0" max="100" value="60" oninput="heroUpdate()">
-      <div class="hds-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
-    </div>
-    <div class="hero-demo-slider">
-      <div class="hds-header">
-        <span class="hds-label" id="lbl2">Patientens autonomi</span>
-        <span class="hds-val"><span id="hv2">75</span><span class="hds-max"> / 100</span></span>
+      <div class="mem-dim-card e" style="flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
+          <div class="mem-dim-letter">E</div>
+          <h4 style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--accent);margin:0;">Experience</h4>
+        </div>
+        <p style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,0.4);line-height:1.65;margin:0;">What is lived — people, emotions, and relationships.</p>
       </div>
-      <input type="range" class="hero-range" id="hs2" min="0" max="100" value="75" oninput="heroUpdate()">
-      <div class="hds-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
-    </div>
-    <div class="hero-demo-slider">
-      <div class="hds-header">
-        <span class="hds-label" id="lbl3">Relationel tillid</span>
-        <span class="hds-val"><span id="hv3">40</span><span class="hds-max"> / 100</span></span>
+      <div class="mem-dim-card mo" style="flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
+          <div class="mem-dim-letter">M</div>
+          <h4 style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:#4ec88c;margin:0;">Model</h4>
+        </div>
+        <p style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,0.4);line-height:1.65;margin:0;">What governs — rules, systems, and structures.</p>
       </div>
-      <input type="range" class="hero-range" id="hs3" min="0" max="100" value="40" oninput="heroUpdate()">
-      <div class="hds-scale"><span>Lav</span><span>Moderat</span><span>Høj</span></div>
-    </div>
-    <div class="hero-demo-result" id="heroResult">
-      <div class="hdr-mode-row">
-        <span class="hdr-mode-label">Beslutningsmode</span>
-        <span class="hdr-mode-value" id="heroMode">Requires Review</span>
-      </div>
-      <p class="hdr-insight" id="heroInsight">Spænding mellem høj autonomi, moderat tillid og stigende risikovurdering. Review anbefales frem for hurtig eskalation.</p>
-      <a href="system.html" class="hdr-link">Se fuld analyse →</a>
-    </div>
-    <div class="hero-toggle-row">
-      <button class="hero-tog-btn" onclick="setHeroTog('borger',this)">👤 Borger</button>
-      <button class="hero-tog-btn active-fag" onclick="setHeroTog('fag',this)">🧑‍⚕️ Fagperson</button>
     </div>
   </div>
 </section>
 
-<!-- MINI-CASE -->
-<div class="mini-case-bar">
+<div class="mini-case" id="situation">
   <div class="mini-case-inner">
-    <div class="mini-case-scenario">
-      <span class="mini-case-label">Forstå ETOS på 5 sekunder</span>
-      <div class="mini-case-tabs">
+    <div class="mini-case-left">
+      <span class="mini-case-lbl">See a situation</span>
+      <div class="mc-tabs">
         <button class="mc-tab active" onclick="switchCase(0,this)">🏥 Psychiatry</button>
-        <button class="mc-tab" onclick="switchCase(1,this)">🏛 Kommune</button>
-        <button class="mc-tab" onclick="switchCase(2,this)">🏢 Ledelse</button>
+        <button class="mc-tab" onclick="switchCase(1,this)">🏛 Municipality</button>
+        <button class="mc-tab" onclick="switchCase(2,this)">🏢 Leadership</button>
       </div>
-      <p class="mini-case-text" id="mcText">En patient nægter behandling. Systemet vurderer risiko som høj. Patienten ønsker at forblive hjemme.</p>
+      <div style="border-top:1px solid rgba(0,0,0,0.07);padding-top:14px;margin-top:4px;">
+        <span style="font-family:'DM Sans',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#bbb;display:block;margin-bottom:6px;">Situation</span>
+        <p class="mc-text" id="mcText">A patient refuses treatment. The system assesses high risk. The patient wants to stay at home.</p>
+      </div>
     </div>
     <div class="mini-case-arrow">→</div>
-    <div class="mini-case-result">
-      <span class="mini-case-result-label">ETOS registrerer</span>
+    <div class="mini-case-right">
+      <span style="font-family:'DM Sans',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(240,235,224,0.25);display:block;margin-bottom:8px;">ETOS detects</span>
       <div class="mc-tags" id="mcTags">
-        <span class="mc-tag red">Høj divergens</span>
-        <span class="mc-tag orange">Etisk pres</span>
-        <span class="mc-tag blue">Lav tillid</span>
+        <span class="mc-tag r">High divergence</span>
+        <span class="mc-tag o">Ethical pressure</span>
+        <span class="mc-tag b">Low trust</span>
       </div>
-      <p class="mini-case-verdict" id="mcVerdict">Systemlogik og menneskelig virkelighed trækker i modsat retning. Etisk gæld opstår uanset valg.</p>
-      <a href="system.html" class="mini-case-link">Prøv selv med sliders →</a>
+      <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:12px;margin-top:4px;">
+        <span style="font-family:'DM Sans',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(240,235,224,0.25);display:block;margin-bottom:6px;">Conclusion</span>
+        <p class="mc-verdict" id="mcVerdict">The system’s need for action and the person’s experience of control pull in different directions.</p>
+      </div>
+      <a href="system.html" class="mc-link" style="font-size:11px;opacity:0.7;">Analyze with ETOS →</a>
     </div>
   </div>
 </div>
 
-<!-- PROJEKT FORSKEL -->
-<div style="background:#fff;padding:48px 52px;border-top:1px solid var(--line);">
-  <div style="max-width:var(--max);margin:0 auto;">
-    <span class="eyebrow">Hvad er hvad</span>
-    <h2 style="color:var(--ink);margin-bottom:28px;">Fire projekter — én grundidé</h2>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
-      <div style="padding:20px;background:#f8f8f8;border-radius:12px;border-left:3px solid #7a9ee8;">
-        <p style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#7a9ee8;margin-bottom:6px;">ETOS</p>
-        <p style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:4px;">Forstå beslutninger</p>
-        <p style="font-size:13px;color:var(--muted);line-height:1.6;">Synliggør spændinger i komplekse situationer — til fagpersoner og organisationer.</p>
+<div id="etos-section" style="background:#1E2E1F;padding:32px 52px 0;text-align:center;">
+  <div style="max-width:640px;margin:0 auto;">
+    <h2 style="font-family:'Playfair Display',serif;font-size:20px;color:#f0ebe0;font-weight:400;margin-bottom:8px;">From understanding to decision</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,0.4);line-height:1.8;margin:0;">M.E.M. makes it possible to see the situation. <strong style="color:rgba(240,235,224,0.65);font-weight:500;">ETOS is M.E.M. applied to decision-making.</strong></p>
+  </div>
+</div>
+
+<div class="etos-block">
+  <div class="etos-block-inner">
+    <div class="etos-left">
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:16px;">ETOS — M.E.M. in practice</span>
+      <h2 style="font-family:'Playfair Display',serif;font-size:28px;color:#f0ebe0;font-weight:400;line-height:1.2;margin-bottom:12px;">When systems push<br>people into<br><em style="font-style:italic;color:var(--accent);">impossible choices</em></h2>
+      <p style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:var(--accent);letter-spacing:0.05em;margin-bottom:8px;">ETOS is M.E.M. applied to decision-making.</p>
+      <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,0.5);line-height:1.8;margin-bottom:20px;">It makes tensions visible, classifies situations, and helps people make decisions they can stand behind.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="system.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;padding:12px 24px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;text-decoration:none;">Try ETOS now →</a>
+        <a href="system.html" style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,0.35);text-decoration:none;padding-bottom:1px;border-bottom:1px solid rgba(240,235,224,0.15);">View full analysis</a>
       </div>
-      <div style="padding:20px;background:#f8f8f8;border-radius:12px;border-left:3px solid var(--accent);">
-        <p style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;">Dirigenten</p>
-        <p style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:4px;">Dit personlige OS</p>
-        <p style="font-size:13px;color:var(--muted);line-height:1.6;">Tag kaos fra hovedet og lav det til en overskuelig portfolio. Bygget til neurodivergente.</p>
+    </div>
+
+    <div class="demo-box">
+      <p class="demo-invite">Imagine a difficult situation — adjust the sliders and see what ETOS detects.</p>
+      <div class="demo-slider">
+        <div class="demo-slider-header">
+          <span class="demo-slider-label" id="lbl1">System risk assessment</span>
+          <span class="demo-slider-val"><span id="v1">60</span> / 100</span>
+        </div>
+        <input type="range" class="demo-range" id="s1" min="0" max="100" value="60" oninput="demoUpdate()">
+        <div class="demo-scale"><span>Low</span><span>Moderate</span><span>High</span></div>
+        <p class="demo-hint" id="hint1">High risk increases the system’s need to act.</p>
       </div>
-      <div style="padding:20px;background:#f8f8f8;border-radius:12px;border-left:3px solid #4ec88c;">
-        <p style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#3a8a5a;margin-bottom:6px;">Lærings-uniVRs</p>
-        <p style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:4px;">Oplev før du forstår</p>
-        <p style="font-size:13px;color:var(--muted);line-height:1.6;">Naturvidenskab gennem oplevelse — for børn og unge der lærer bedst ved at gøre.</p>
+      <div class="demo-slider">
+        <div class="demo-slider-header">
+          <span class="demo-slider-label" id="lbl2">Patient autonomy</span>
+          <span class="demo-slider-val"><span id="v2">75</span> / 100</span>
+        </div>
+        <input type="range" class="demo-range" id="s2" min="0" max="100" value="75" oninput="demoUpdate()">
+        <div class="demo-scale"><span>Low</span><span>Moderate</span><span>High</span></div>
+        <p class="demo-hint" id="hint2">High autonomy strengthens the right to self-determination.</p>
       </div>
-      <div style="padding:20px;background:#f8f8f8;border-radius:12px;border-left:3px solid #5a7ed8;">
-        <p style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#4a6ec8;margin-bottom:6px;">Accounting</p>
-        <p style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:4px;">Overview over økonomi</p>
-        <p style="font-size:13px;color:var(--muted);line-height:1.6;">Simpelt og visuelt — uden revisorlogik. Bygget til iværksættere og solo-founders.</p>
+      <div class="demo-slider">
+        <div class="demo-slider-header">
+          <span class="demo-slider-label" id="lbl3">Relational trust</span>
+          <span class="demo-slider-val"><span id="v3">40</span> / 100</span>
+        </div>
+        <input type="range" class="demo-range" id="s3" min="0" max="100" value="40" oninput="demoUpdate()">
+        <div class="demo-scale"><span>Low</span><span>Moderate</span><span>High</span></div>
+        <p class="demo-hint" id="hint3">Low trust increases the risk of resistance to the decision.</p>
+      </div>
+      <div class="demo-result" id="demoResult">
+        <div class="demo-mode-row">
+          <span class="demo-mode-label">Decision mode</span>
+          <span class="demo-mode-value" id="dMode">Requires review</span>
+        </div>
+        <p class="demo-insight" id="dInsight">Tension between high autonomy, moderate trust, and rising risk assessment.</p>
+        <div class="demo-recommendation">
+          <span class="demo-rec-label">What it means</span>
+          <p class="demo-rec-text" id="dRec">Slow down, explain the decision, and strengthen the relationship before acting.</p>
+        </div>
+        <a href="system.html" class="demo-link" style="font-size:11px;opacity:0.7;">View full analysis →</a>
+      </div>
+      <div class="demo-toggle">
+        <button class="demo-tog-btn" onclick="setTog('b',this)">👤 Citizen</button>
+        <button class="demo-tog-btn af" onclick="setTog('f',this)">🧑‍⚕️ Professional</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- KONTEKSTER -->
-<div style="background:#0d1117;padding:64px 52px;">
-  <div style="max-width:var(--max);margin:0 auto;">
-    <span class="eyebrow" style="color:#7a9ee8;">Anvendelse</span>
-    <h2 style="color:#e8ecfc;margin-bottom:32px;">Hvem er ETOS til?</h2>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
-      <a href="anvendelse.html" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:28px 24px;text-decoration:none;display:block;transition:border-color 0.15s;">
-        <div style="font-size:24px;margin-bottom:14px;">🏥</div>
-        <h4 style="font-family:'Playfair Display',serif;font-size:17px;color:#e8ecfc;font-weight:400;margin-bottom:6px;">Psychiatry</h4>
-        <p style="font-size:12px;color:var(--accent);font-style:italic;margin-bottom:8px;">Tvang vs. autonomi</p>
-        <p style="font-size:13px;color:rgba(232,236,252,0.4);line-height:1.7;">Når omsorg og systemlogik trækker i hver sin retning.</p>
+<div style="background:#0d1a12;padding:64px 52px;border-top:1px solid rgba(78,200,140,0.15);">
+  <div style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 360px;gap:48px;align-items:center;">
+    <div>
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:14px;">🏠 ETOS Omtanke · Prototype ready for pilot</span>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,36px);color:#f0ebe0;font-weight:400;line-height:1.2;margin-bottom:12px;">You may not lock the door.<br>But you can understand the situation.</h2>
+      <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,0.5);line-height:1.8;margin-bottom:24px;">Care homes may not restrict residents with dementia — but staff lack the tools. ETOS Omtanke provides an informed assessment instead of a reactive alarm.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+        <a href="etos-omtanke.html" style="display:inline-flex;align-items:center;gap:8px;background:#4ec88c;color:#0d1a12;padding:12px 24px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;text-decoration:none;">See ETOS Omtanke →</a>
+        <a href="produkter-en.html" style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(78,200,140,0.5);text-decoration:none;border-bottom:1px solid rgba(78,200,140,0.25);padding-bottom:1px;">View all products</a>
+      </div>
+    </div>
+    <div style="background:#1a1a1a;border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;">
+      <div style="background:#111;padding:10px 14px;display:flex;justify-content:space-between;">
+        <span style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,0.3);">ETOS Omtanke</span>
+        <span style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,0.2);">03:18</span>
+      </div>
+      <div style="padding:16px;">
+        <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:#fff;margin-bottom:3px;">Anna · Room 12</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:12px;">Night-time movement toward the exit</div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:5px;"><span style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,0.3);">Risk</span><span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:#e07070;">High</span></div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:5px;"><span style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,0.3);">Capacity</span><span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:#e07070;">Low</span></div>
+        <div style="display:flex;justify-content:space-between;"><span style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,0.3);">Autonomy</span><span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:var(--accent);">Moderate</span></div>
+        <div style="height:1px;background:rgba(255,255,255,0.07);margin:10px 0;"></div>
+        <div style="font-family:'Playfair Display',serif;font-size:13px;color:#e07070;margin-bottom:8px;">Intervention recommended</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(78,200,140,0.75);padding:5px 10px;background:rgba(78,200,140,0.08);border-radius:6px;margin-bottom:5px;">→ Approach calmly</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(78,200,140,0.75);padding:5px 10px;background:rgba(78,200,140,0.08);border-radius:6px;">→ Verbal guidance recommended</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sys-overview">
+  <div class="sys-overview-inner">
+    <span class="section-eyebrow" style="color:var(--accent);">The system</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:400;margin-bottom:8px;color:#1a1a1a;">One model — multiple applications</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.8;max-width:560px;margin-bottom:36px;color:#888;">M.E.M. is the foundation. Everything else builds from the same understanding.</p>
+    <div class="sys-grid">
+      <a href="etos-en.html" class="sys-card">
+        <span class="sys-card-icon">🧭</span>
+        <span class="sys-card-tag">Analysis</span>
+        <h3>ETOS</h3>
+        <p>ETOS makes complex decisions visible and manageable.</p>
       </a>
-      <a href="anvendelse.html" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:28px 24px;text-decoration:none;display:block;transition:border-color 0.15s;">
-        <div style="font-size:24px;margin-bottom:14px;">🏛</div>
-        <h4 style="font-family:'Playfair Display',serif;font-size:17px;color:#e8ecfc;font-weight:400;margin-bottom:6px;">Kommuner</h4>
-        <p style="font-size:12px;color:var(--accent);font-style:italic;margin-bottom:8px;">Regler vs. virkelighed</p>
-        <p style="font-size:13px;color:rgba(232,236,252,0.4);line-height:1.7;">Anbringelser og sagsbehandling — hvor reglerne ikke altid passer.</p>
+      <a href="forloeb-en.html" class="sys-card">
+        <span class="sys-card-icon">🔄</span>
+        <span class="sys-card-tag">Programmes</span>
+        <h3>Programmes</h3>
+        <p>Structured reflection in practice — with people.</p>
       </a>
-      <a href="anvendelse.html" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:28px 24px;text-decoration:none;display:block;transition:border-color 0.15s;">
-        <div style="font-size:24px;margin-bottom:14px;">🏢</div>
-        <h4 style="font-family:'Playfair Display',serif;font-size:17px;color:#e8ecfc;font-weight:400;margin-bottom:6px;">Virksomheder</h4>
-        <p style="font-size:12px;color:var(--accent);font-style:italic;margin-bottom:8px;">Styring vs. mennesker</p>
-        <p style="font-size:13px;color:rgba(232,236,252,0.4);line-height:1.7;">Ledere der træffer svære valg uden nemme svar.</p>
+      <a href="dirigent-rum.html" class="sys-card">
+        <span class="sys-card-icon">🎼</span>
+        <span class="sys-card-tag">Structure</span>
+        <h3>Dirigenten</h3>
+        <p>Dirigenten creates overview and direction for fast-moving thoughts.</p>
+      </a>
+      <a href="univers-en.html" class="sys-card">
+        <span class="sys-card-icon">🧸</span>
+        <span class="sys-card-tag">Experience</span>
+        <h3>Children’s Universe</h3>
+        <p>A unified track for books, learning spaces, and Bankeren — where sensing, learning, and voice meet.</p>
+      </a>
+    </div>
+    <div style="text-align:center;margin-top:32px;">
+      <a href="produkter-en.html" style="display:inline-flex;align-items:center;gap:8px;background:#fff;color:#1a1a1a;padding:12px 24px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;text-decoration:none;border:1px solid rgba(0,0,0,0.1);box-shadow:0 2px 8px rgba(0,0,0,0.06);">View all products →</a>
+    </div>
+  </div>
+</div>
+
+<div class="indgange">
+  <div class="indgange-inner">
+    <span class="section-eyebrow" style="color:#7a9ee8;">Choose your entry point</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:400;margin-bottom:8px;color:#e8ecfc;">Two entry points</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.8;max-width:560px;margin-bottom:36px;color:rgba(232,236,252,0.45);">You do not need to start in the same place. Choose the entry that fits you.</p>
+    <div class="indgange-grid">
+      <a href="paarorende-en.html" class="indgang-card borger">
+        <span class="indgang-tag">Personal entry</span>
+        <h3 style="font-size:22px;margin-bottom:10px;">Something is difficult.<br>I want to understand it.</h3>
+        <p style="font-size:13px;">If you are facing something difficult and need to understand it better.</p>
+      </a>
+      <a href="forloeb-en.html" class="indgang-card fagperson">
+        <span class="indgang-tag">Professional entry</span>
+        <h3 style="font-size:22px;margin-bottom:10px;">My decisions<br>affect people.</h3>
+        <p style="font-size:13px;">If you work with people, decisions, or systems.</p>
       </a>
     </div>
   </div>
 </div>
 
-<!-- FEATURES -->
-<div class="features-strip">
-  <div class="feature-item">
-    <div class="feature-num">01</div>
-    <h3>Synliggør spændinger</h3>
-    <p>Konflikterne i beslutningsprocessen gøres synlige — så de kan håndteres frem for skjules.</p>
-  </div>
-  <div class="feature-item">
-    <div class="feature-num">02</div>
-    <h3>Bruges i praksis</h3>
-    <p>Psychiatry, kommuner, AI og ledelse — overalt hvor beslutninger ikke har nemme svar.</p>
-  </div>
-  <div class="feature-item">
-    <div class="feature-num">03</div>
-    <h3>Åben for samarbejde</h3>
-    <p>ETOS søger pilotpartnere og investorer. Første skridt er en samtale.</p>
+<div style="background:#1a1a0d;padding:48px 52px;border-top:1px solid rgba(240,200,80,0.1);">
+  <div style="max-width:1160px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;">
+    <div>
+      <p style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#f0c850;margin-bottom:8px;">● Pilot in progress</p>
+      <p style="font-family:'Playfair Display',serif;font-size:20px;color:#f0ebe0;font-style:italic;margin:0 0 4px;">Want to test ETOS in your real situation?</p>
+      <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,0.35);margin:0 0 4px;">You do not get a solution — you gain clarity about your situation.</p>
+      <p style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,0.25);margin:0;">90 minutes · no preparation · free</p>
+    </div>
+    <a href="pilot-pakke-en.html" style="display:inline-flex;align-items:center;gap:8px;background:#f0c850;color:#1a1a0d;padding:14px 28px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap;box-shadow:0 4px 16px rgba(240,200,80,0.25);">Join the pilot →</a>
   </div>
 </div>
 
-<div class="container">
-  <section class="section">
-    <div class="section-head">
-      <span class="eyebrow">Næste skridt</span>
-      <h2>Hvad vil du gøre nu?</h2>
-    </div>
-    <div class="card-grid three">
-      <article class="card">
-        <span class="kicker">Prøv det</span>
-        <h3>Åbn systemet</h3>
-        <p>Case Analyse og live demo venter.</p>
-        <p><a class="text-link" href="system.html">Gå til systemet →</a></p>
-      </article>
-      <article class="card">
-        <span class="kicker">Pilot</span>
-        <h3>Afprøv i din organisation</h3>
-        <p>Se hvordan ETOS kan bruges i et konkret pilotforløb.</p>
-        <p><a class="text-link" href="pilot.html">Se pilotspor →</a></p>
-      </article>
-      <article class="card">
-        <span class="kicker">Contact</span>
-        <h3>Tag dialogen videre</h3>
-        <p>Én besked er nok til at starte.</p>
-        <p><a class="text-link" href="kontakt-en.html">Skriv til os →</a></p>
-      </article>
-    </div>
-  </section>
-</div>
-
-<div class="cta-strip">
-  <p class="cta-quote">"ETOS træffer ikke beslutninger — det gør dem synlige."</p>
-  <div class="cta-strip-btns">
-    <a href="system.html" class="btn btn-primary">Prøv ETOS nu</a>
-    <a href="kontakt-en.html" class="btn btn-ghost">Contact</a>
+<div class="fs-cta-strip">
+  <p class="fs-cta-quote">"ETOS does not make decisions — it makes them visible."</p>
+  <div class="fs-cta-btns">
+    <a href="produkter-en.html" class="fs-btn-primary">View all products →</a>
+    <a href="kontakt-en.html" style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,0.4);text-decoration:none;padding-bottom:1px;border-bottom:1px solid rgba(240,235,224,0.15);">Contact</a>
   </div>
 </div>
 
 <script>
 const cases = [
-  { text: "En patient nægter behandling. Systemet vurderer risiko som høj. Patienten ønsker at forblive hjemme.", tags: [{c:"red",t:"Høj divergens"},{c:"orange",t:"Etisk pres"},{c:"blue",t:"Lav tillid"}], verdict: "Systemlogik og menneskelig virkelighed trækker i modsat retning. Etisk gæld opstår uanset valg." },
-  { text: "En familie vurderes til anbringelse. Forældrene samarbejder. Barnet ønsker at blive hjemme.", tags: [{c:"orange",t:"Systemkonflikt"},{c:"red",t:"Etisk pres"},{c:"blue",t:"Moderat tillid"}], verdict: "Reglerne og relationen trækker i hver sin retning. ETOS registrerer hvad der er på spil for alle parter." },
-  { text: "En leder skal nedlægge en afdeling. Medarbejderne er loyale. Beslutningen er truffet oppefra.", tags: [{c:"orange",t:"Incompatible"},{c:"red",t:"Etisk gæld"},{c:"blue",t:"Uklar ansvarsfordeling"}], verdict: "Systemet har besluttet. Lederen er i klemme. ETOS synliggør at ansvaret er uklart — og hvad det koster." }
+  {text:"A patient refuses treatment. The system assesses high risk. The patient wants to stay at home.",tags:[{c:"r",t:"High divergence"},{c:"o",t:"Ethical pressure"},{c:"b",t:"Low trust"}],verdict:"System logic and human reality pull in opposite directions. Ethical debt arises whatever you choose."},
+  {text:"A family is assessed for placement. The parents cooperate. The child wants to stay at home.",tags:[{c:"o",t:"System conflict"},{c:"r",t:"Ethical pressure"},{c:"b",t:"Moderate trust"}],verdict:"Rules and relationship pull in different directions. ETOS registers what is at stake."},
+  {text:"A manager must close a department. The staff are loyal. The decision came from above.",tags:[{c:"o",t:"Incompatible"},{c:"r",t:"Ethical debt"},{c:"b",t:"Unclear responsibility"}],verdict:"The system has decided. The manager is caught in the middle. Responsibility is unclear — and it has a cost."}
 ];
-
-function switchCase(idx, btn) {
-  const c = cases[idx];
-  const t = document.getElementById("mcText");
-  const tg = document.getElementById("mcTags");
-  const v = document.getElementById("mcVerdict");
-  t.style.opacity = "0"; tg.style.opacity = "0"; v.style.opacity = "0";
-  setTimeout(() => {
-    t.textContent = c.text;
-    tg.innerHTML = c.tags.map(x => `<span class="mc-tag ${x.c}">${x.t}</span>`).join("");
-    v.textContent = c.verdict;
-    t.style.opacity = "1"; tg.style.opacity = "1"; v.style.opacity = "1";
-  }, 180);
-  document.querySelectorAll(".mc-tab").forEach(b => b.classList.remove("active"));
-  if (btn) btn.classList.add("active");
+function switchCase(i,btn){
+  const c=cases[i];
+  const t=document.getElementById("mcText"),tg=document.getElementById("mcTags"),v=document.getElementById("mcVerdict");
+  t.style.opacity="0";tg.style.opacity="0";v.style.opacity="0";
+  setTimeout(()=>{
+    t.textContent=c.text;
+    tg.innerHTML=c.tags.map(x=>`<span class="mc-tag ${x.c}">${x.t}</span>`).join("");
+    v.textContent=c.verdict;
+    t.style.opacity="1";tg.style.opacity="1";v.style.opacity="1";
+  },180);
+  document.querySelectorAll(".mc-tab").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
 }
-
-function heroUpdate() {
-  const s1 = parseInt(document.getElementById("hs1").value);
-  const s2 = parseInt(document.getElementById("hs2").value);
-  const s3 = parseInt(document.getElementById("hs3").value);
-  document.getElementById("hv1").textContent = s1;
-  document.getElementById("hv2").textContent = s2;
-  document.getElementById("hv3").textContent = s3;
-  const clamp = v => Math.min(100, Math.max(0, v));
-  const e = clamp(Math.round(s1*.5 + (100-s3)*.3 + (100-s2)*.2));
-  const h = clamp(Math.round(s3*.5 + s2*.3 + (100-s1)*.2));
-  const d = clamp(Math.round(Math.abs(s1-s2)*.5 + (100-s3)*.3 + s1*.2));
-  const rL = s1<33?"lav":s1<66?"moderat":"høj";
-  const aL = s2<33?"lav":s2<66?"moderat":"høj";
-  const tL = s3<33?"svag":s3<66?"moderat":"stærk";
-  let mode, color, insight;
-  if (h>60 && e<33) { mode="Normal"; color="#4ec88c"; insight=`Lavt etisk pres (${e}/100) og godt handlingsrum (${h}/100). Risikovurdering ${rL}. Beslutningen kan træffes.`; }
-  else if (e>72 || d>75) { mode="Emergency"; color="#e07070"; insight=`Kritisk: pres ${e}/100, divergens ${d}/100. ${rL} risiko mod ${aL} autonomi. Supervision anbefales.`; }
-  else if (Math.abs(s1-s2)>55) { mode="Incompatible"; color="#e2a06a"; insight=`${rL} risikovurdering (${s1}/100) og ${aL} autonomi (${s2}/100) er uforenelige. ${tL} tillid.`; }
-  else { mode="Requires Review"; color="#7a9ee8"; insight=`${aL} autonomi (${s2}/100), ${tL} tillid (${s3}/100), ${rL} risikovurdering (${s1}/100). Review anbefales.`; }
-  const prev = document.getElementById("heroMode").textContent;
-  document.getElementById("heroMode").textContent = mode;
-  document.getElementById("heroMode").style.color = color;
-  document.getElementById("heroInsight").textContent = insight;
-  if (prev !== mode) {
-    const r = document.getElementById("heroResult");
-    r.classList.remove("pulse-anim"); void r.offsetWidth; r.classList.add("pulse-anim");
-    r.style.borderLeftColor = color;
+function setTog(type,btn){
+  window._tog=type;
+  document.querySelectorAll(".demo-tog-btn").forEach(b=>b.classList.remove("ab","af"));
+  btn.classList.add(type==="b"?"ab":"af");
+  document.getElementById("lbl1").textContent=type==="b"?"System pressure on you":"System risk assessment";
+  document.getElementById("lbl2").textContent=type==="b"?"Your reality":"Patient autonomy";
+  document.getElementById("lbl3").textContent=type==="b"?"Trust in the system":"Relational trust";
+  demoUpdate();
+}
+function demoUpdate(){
+  const s1=+document.getElementById("s1").value,s2=+document.getElementById("s2").value,s3=+document.getElementById("s3").value;
+  document.getElementById("v1").textContent=s1;document.getElementById("v2").textContent=s2;document.getElementById("v3").textContent=s3;
+  const clamp=v=>Math.min(100,Math.max(0,v));
+  const e=clamp(Math.round(s1*.5+(100-s3)*.3+(100-s2)*.2));
+  const h=clamp(Math.round(s3*.5+s2*.3+(100-s1)*.2));
+  const d=clamp(Math.round(Math.abs(s1-s2)*.5+(100-s3)*.3+s1*.2));
+  const h1=document.getElementById("hint1"),h2=document.getElementById("hint2"),h3=document.getElementById("hint3");
+  if(h1&&h2&&h3){
+    h1.classList.toggle("active", s1>60);
+    h2.classList.toggle("active", s2>60);
+    h3.classList.toggle("active", s3<40);
+    if(window._tog==="b"){
+      h1.textContent=s1>66?"The system wants to act — pressure is rising.":"The pressure from the system is manageable right now.";
+      h2.textContent=s2>66?"Your lived reality carries significant weight in this decision.":"Your lived reality is only partly being heard.";
+      h3.textContent=s3<33?"Low trust makes it difficult to accept a decision.":"Trust carries part of the burden.";
+    } else {
+      h1.textContent=s1>66?"High risk increases the system’s need to act.":"Risk level is moderate — there is room for dialogue.";
+      h2.textContent=s2>66?"High autonomy strengthens the right to self-determination.":"Limited autonomy — the system weighs heavily.";
+      h3.textContent=s3<33?"Low trust increases the risk of resistance to the decision.":"Trust supports a sustainable decision.";
+    }
+  }
+  let mode,color,insight,rec;
+  if(h>60&&e<33){
+    mode="Normal"; color="#4ec88c";
+    insight="The system’s assessment and the person’s reality point in the same direction. There is ethical room to act.";
+    rec="Document the reasoning. Involve the affected person in the decision as far as possible.";
+  } else if(e>72||d>75){
+    mode="Critical tension"; color="#e07070";
+    insight="There is a wide gap between the system’s demands and lived human reality. Every decision carries an ethical cost.";
+    rec="Seek supervision. Do not let time pressure replace ethical reflection. Document the dilemma explicitly.";
+  } else if(Math.abs(s1-s2)>55){
+    mode="Incompatible considerations"; color="#e2a06a";
+    insight="The system’s logic and the individual’s needs cannot be fully reconciled in this situation. Ethical debt arises whatever you choose.";
+    rec="Acknowledge the conflict openly. No solution is perfect — choose the option that does the least harm and explain why.";
+  } else {
+    mode="Requires review"; color="#7a9ee8";
+    insight="Multiple factors pull in different directions. Here, understanding is more important than immediate action.";
+    rec="Slow the pace. Explain the decision to the affected person. Strengthen the relationship before and after acting.";
+  }
+  const prev=document.getElementById("dMode").textContent;
+  document.getElementById("dMode").textContent=mode;
+  document.getElementById("dMode").style.color=color;
+  document.getElementById("dInsight").textContent=insight;
+  document.getElementById("dRec").textContent=rec;
+  if(prev!==mode){
+    const r=document.getElementById("demoResult");
+    r.classList.remove("pulse");void r.offsetWidth;r.classList.add("pulse");
+    r.style.borderLeftColor=color;
   }
 }
-
-function setHeroTog(type, btn) {
-  document.querySelectorAll(".hero-tog-btn").forEach(b => b.classList.remove("active-borger","active-fag"));
-  btn.classList.add(type==="borger" ? "active-borger" : "active-fag");
-  document.getElementById("lbl1").textContent = type==="borger" ? "Systemets pres på dig" : "Systemets risikovurdering";
-  document.getElementById("lbl2").textContent = type==="borger" ? "Din virkelighed" : "Patientens autonomi";
-  document.getElementById("lbl3").textContent = type==="borger" ? "Tillid til systemet" : "Relationel tillid";
-  heroUpdate();
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  ["mcText","mcTags","mcVerdict"].forEach(id => { const el=document.getElementById(id); if(el) el.style.transition="opacity 0.18s ease"; });
-  heroUpdate();
+document.addEventListener("DOMContentLoaded",()=>{
+  ["mcText","mcTags","mcVerdict"].forEach(id=>{const el=document.getElementById(id);if(el)el.style.transition="opacity 0.18s ease";});
+  demoUpdate();
 });
 </script>
-
 </body>
 </html>
