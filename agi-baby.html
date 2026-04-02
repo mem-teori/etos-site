@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AGI-BABY — Udviklingsarkitektur · M.E.M.</title>
+  <meta name="description" content="AGI-BABY er et dynamisk, miljøfølsomt udviklingssystem med realistisk sårbarhed, recovery og ikke-deterministisk adfærd. En fungerende kerne til proto-kognitiv forskning.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    section { padding: 76px 52px; }
+    .inner { max-width: 1160px; margin: 0 auto; }
+    .eyebrow { font-family:'DM Sans',sans-serif; font-size:11px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; display:block; margin-bottom:14px; }
+
+    .hero { background:#0a1220; color:#f0ebe0; position:relative; overflow:hidden; }
+    .hero::before { content:''; position:absolute; top:-120px; right:-80px; width:480px; height:480px; border-radius:50%; background:radial-gradient(circle,rgba(122,158,232,.09),transparent 70%); pointer-events:none; }
+    .hero::after  { content:''; position:absolute; bottom:-80px; left:-60px; width:300px; height:300px; border-radius:50%; background:radial-gradient(circle,rgba(80,180,100,.05),transparent 70%); pointer-events:none; }
+    .hero .inner { position:relative; display:grid; grid-template-columns:1.1fr .9fr; gap:52px; align-items:center; }
+    h1 { font-family:'Playfair Display',serif; font-size:clamp(38px,5vw,58px); font-weight:400; line-height:1.05; letter-spacing:-.02em; margin:0 0 12px; }
+    .subtitle { font-family:'Playfair Display',serif; font-size:clamp(18px,2.2vw,26px); color:#7a9ee8; font-style:italic; margin-bottom:18px; }
+    .lead { font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.85; color:rgba(240,235,224,.56); max-width:700px; margin-bottom:28px; }
+    .btns { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    .btn-primary { display:inline-flex; align-items:center; gap:8px; background:#7a9ee8; color:#0d1117; padding:14px 28px; border-radius:9px; text-decoration:none; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:700; }
+    .btn-secondary { font-family:'DM Sans',sans-serif; font-size:14px; color:rgba(240,235,224,.46); text-decoration:none; border-bottom:1px solid rgba(240,235,224,.18); padding-bottom:2px; }
+
+    .light { background:#f5f0e8; }
+    .dark  { background:#0d1117; color:#e8ecfc; }
+    .mid   { background:#0e1825; color:#e8ecfc; }
+    .light h2,.dark h2,.mid h2 { font-family:'Playfair Display',serif; font-size:30px; font-weight:400; margin:0 0 8px; }
+    .sub { font-family:'DM Sans',sans-serif; font-size:14px; line-height:1.8; max-width:760px; margin-bottom:34px; color:#666; }
+    .dark .sub,.mid .sub { color:rgba(232,236,252,.48); }
+
+    .kicker { display:inline-flex; font-family:'DM Sans',sans-serif; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); margin-bottom:10px; }
+    .grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+    .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .card { background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:16px; padding:24px 22px; }
+    .dark .card,.mid .card { background:rgba(255,255,255,.03); border-color:rgba(255,255,255,.07); }
+    .card h3 { font-family:'Playfair Display',serif; font-size:20px; font-weight:400; margin:0 0 10px; color:#1a1a1a; }
+    .dark .card h3,.mid .card h3 { color:#e8ecfc; }
+    .card p { font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.75; margin:0; color:#666; }
+    .dark .card p,.mid .card p { color:rgba(232,236,252,.46); }
+
+    /* REGIME CHIPS */
+    .regime-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .regime-card { border-radius:18px; padding:28px 24px; border:1px solid rgba(0,0,0,.08); position:relative; overflow:hidden; }
+    .regime-card::before { content:''; position:absolute; top:-40px; right:-40px; width:120px; height:120px; border-radius:50%; pointer-events:none; }
+    .regime-card.stable   { background:#f0fbf2; border-color:rgba(80,180,100,.25); }
+    .regime-card.unstable { background:#fdf9f0; border-color:rgba(230,180,60,.25); }
+    .regime-card.overload { background:#fdf0f0; border-color:rgba(220,80,80,.25); }
+    .regime-card.stable::before   { background:radial-gradient(circle,rgba(80,180,100,.12),transparent 70%); }
+    .regime-card.unstable::before { background:radial-gradient(circle,rgba(230,180,60,.12),transparent 70%); }
+    .regime-card.overload::before { background:radial-gradient(circle,rgba(220,80,80,.12),transparent 70%); }
+    .regime-icon { font-size:26px; margin-bottom:12px; display:block; }
+    .regime-card h3 { font-family:'Playfair Display',serif; font-size:21px; font-weight:400; margin:0 0 6px; }
+    .regime-card.stable h3   { color:#1a3d1f; }
+    .regime-card.unstable h3 { color:#3d2e00; }
+    .regime-card.overload h3 { color:#3d0a0a; }
+    .regime-collapse { font-family:'DM Sans',sans-serif; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.08em; margin-bottom:10px; }
+    .regime-card.stable   .regime-collapse { color:#50b464; }
+    .regime-card.unstable .regime-collapse { color:#c9931a; }
+    .regime-card.overload .regime-collapse { color:#dc5050; }
+    .regime-desc { font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.75; color:#555; margin:0; }
+    .regime-card.stable   .regime-desc { color:#2d5c34; }
+    .regime-card.unstable .regime-desc { color:#5c4a1a; }
+    .regime-card.overload .regime-desc { color:#5c1a1a; }
+
+    /* BREAKTHROUGHS */
+    .breakthrough-list { display:flex; flex-direction:column; gap:12px; }
+    .bt-item { display:flex; gap:16px; align-items:flex-start; padding:16px 18px; border-radius:14px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07); }
+    .bt-tag { font-family:'DM Sans',sans-serif; font-size:11px; font-weight:700; color:#7a9ee8; background:rgba(122,158,232,.1); border:1px solid rgba(122,158,232,.2); border-radius:6px; padding:3px 8px; flex-shrink:0; align-self:flex-start; margin-top:1px; }
+    .bt-text { font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.75; color:rgba(232,236,252,.6); }
+    .bt-text strong { color:rgba(232,236,252,.88); font-weight:600; }
+
+    /* NEXT DIRECTIONS */
+    .direction-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .dir-card { border-radius:16px; padding:24px; border:1px solid rgba(255,255,255,.07); background:rgba(255,255,255,.02); }
+    .dir-letter { font-family:'Playfair Display',serif; font-size:36px; font-weight:400; color:rgba(122,158,232,.3); margin-bottom:10px; line-height:1; }
+    .dir-card h3 { font-family:'Playfair Display',serif; font-size:19px; font-weight:400; color:#e8ecfc; margin:0 0 8px; }
+    .dir-card p { font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.75; color:rgba(232,236,252,.45); margin:0; }
+
+    /* ARCHITECTURE CHECKLIST */
+    .arch-list { display:flex; flex-direction:column; gap:8px; }
+    .arch-item { display:flex; align-items:center; gap:12px; padding:12px 16px; border-radius:12px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06); font-family:'DM Sans',sans-serif; font-size:13px; color:rgba(232,236,252,.65); }
+    .arch-check { width:20px; height:20px; border-radius:50%; background:#50b464; display:flex; align-items:center; justify-content:center; font-size:11px; flex-shrink:0; }
+
+    .big-quote { font-family:'Playfair Display',serif; font-size:clamp(20px,2.8vw,32px); font-style:italic; font-weight:400; border-left:4px solid #7a9ee8; padding-left:28px; margin:0; line-height:1.45; color:#e8ecfc; }
+
+    .cta-band { background:#0a1220; color:#f0ebe0; border-top:1px solid rgba(122,158,232,.15); }
+    .cta-band .inner { display:flex; align-items:center; justify-content:space-between; gap:28px; flex-wrap:wrap; }
+    .cta-band p { font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.8; color:rgba(240,235,224,.52); margin:8px 0 0; max-width:620px; }
+
+    @media (max-width:900px) {
+      section { padding:52px 28px; }
+      .hero .inner,.grid-2,.grid-3,.regime-grid,.direction-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="fs-header">
+  <div class="fs-nav">
+    <a href="index.html" class="fs-logo">M.E.M.</a>
+    <nav class="fs-links">
+      <a href="etos.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Governance-lag</span></span>
+      </a>
+      <a href="produkter.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1228;">🛍</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Produkter</span><span class="fs-nav-sub">Software · Forløb · Bøger</span></span>
+      </a>
+      <div class="fs-dropdown">
+        <a href="research.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#111520;">🧪</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">Forskerhjørnet</span><span class="fs-nav-sub">Lab · AGI-BABY · Dirigenten</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="research.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#111520;">🧪</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Forskerhjørnet</span><span class="fs-dropdown-item-sub">Overblik over alle spor</span></span>
+          </a>
+          <a href="meta_demo.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🧠</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Meta Demo</span><span class="fs-dropdown-item-sub">Statiske signaturcases</span></span>
+          </a>
+          <a href="propose.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2020;">⚙️</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Proposal Generator</span><span class="fs-dropdown-item-sub">Semi-dynamisk ETOS-Self</span></span>
+          </a>
+          <a href="agi-baby.html" class="fs-dropdown-item active">
+            <span class="fs-dropdown-item-icon" style="background:#0d1520;">🧸</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">AGI-BABY</span><span class="fs-dropdown-item-sub">Udviklingsarkitektur</span></span>
+          </a>
+          <a href="dirigent-rum.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1020;">🎼</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Dirigenten</span><span class="fs-dropdown-item-sub">Personlig beslutningsstøtte</span></span>
+          </a>
+        </div>
+      </div>
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
+      <a href="agi-baby-en.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">EN</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="inner">
+    <div>
+      <span class="eyebrow" style="color:#7a9ee8;">Forskerhjørnet · Spor 2 · Developmental dynamics lab</span>
+      <h1>AGI-BABY</h1>
+      <p class="subtitle">Ikke AGI endnu. Ikke bare en simulation længere.</p>
+      <p class="lead">AGI-BABY er et dynamisk, miljøfølsomt udviklingssystem med realistisk sårbarhed, recovery og ikke-deterministisk adfærd. Det er en fungerende kerne til at undersøge udvikling, kollaps og genopbygning i proto-kognitive systemer.</p>
+      <div class="btns">
+        <a href="#regimer" class="btn-primary">Se de tre regimer →</a>
+        <a href="research.html" class="btn-secondary">← Forskerhjørnet</a>
+      </div>
+    </div>
+    <div style="background:rgba(122,158,232,.06);border:1px solid rgba(122,158,232,.15);border-radius:18px;padding:28px;">
+      <div style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#7a9ee8;margin-bottom:16px;">Baseline v1 · Status</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-family:'DM Sans',sans-serif;font-size:13px;">
+          <span style="color:rgba(240,235,224,.55);">Fase-system</span>
+          <span style="color:#50b464;font-weight:600;">✔ Newborn → Child</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-family:'DM Sans',sans-serif;font-size:13px;">
+          <span style="color:rgba(240,235,224,.55);">Reversible transitions</span>
+          <span style="color:#50b464;font-weight:600;">✔ Aktiv</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-family:'DM Sans',sans-serif;font-size:13px;">
+          <span style="color:rgba(240,235,224,.55);">Miljøafhængig dynamik</span>
+          <span style="color:#50b464;font-weight:600;">✔ 3 regimer</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-family:'DM Sans',sans-serif;font-size:13px;">
+          <span style="color:rgba(240,235,224,.55);">Recovery som mekanisme</span>
+          <span style="color:#50b464;font-weight:600;">✔ Separat lag</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-family:'DM Sans',sans-serif;font-size:13px;">
+          <span style="color:rgba(240,235,224,.55);">Diagnoseværktøj</span>
+          <span style="color:#50b464;font-weight:600;">✔ Aktiv</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-family:'DM Sans',sans-serif;font-size:13px;">
+          <span style="color:rgba(240,235,224,.55);">Agentisk strategi</span>
+          <span style="color:rgba(240,235,224,.30);">— Næste fase</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KERNEKONKLUSION -->
+<section class="dark">
+  <div class="inner" style="text-align:center;max-width:820px;margin:0 auto;">
+    <span class="eyebrow" style="color:#7a9ee8;text-align:center;">Det vigtigste teoretiske fund</span>
+    <blockquote class="big-quote" style="border:none;padding:0;text-align:center;border-left:none;">
+      "Stabilisering er ikke det samme som recovery."
+    </blockquote>
+    <p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;color:rgba(232,236,252,.48);max-width:620px;margin:24px auto 0;">Systemet kan mindske instabilitet — og stadig miste coherence. Det var gennembruddet, der krævede aktiv recovery-mekanik som et selvstændigt lag, adskilt fra dæmpning.</p>
+  </div>
+</section>
+
+<!-- TRE REGIMER -->
+<section class="light" id="regimer">
+  <div class="inner">
+    <span class="eyebrow" style="color:#7a9ee8;">De tre stabile regimer</span>
+    <h2>Miljøet bestemmer adfærden</h2>
+    <p class="sub">AGI-BABY adskiller sig fra en scoremaskine ved at have tre fundamentalt forskellige regimer, der fremkommer afhængigt af miljøbetingelserne — ikke af tilfældig variation.</p>
+    <div class="regime-grid">
+      <div class="regime-card stable">
+        <span class="regime-icon">🟢</span>
+        <span class="regime-collapse">Kollaps-type: coherence-erosion</span>
+        <h3>Stable</h3>
+        <p class="regime-desc">Troværdig livscyklus. Systemet kan nå infant/toddler-fase, falde tilbage og komme sig igen — med variation i recovery-type (fast / slow / none). Det er præcis det, der adskiller det fra determinisme.</p>
+      </div>
+      <div class="regime-card unstable">
+        <span class="regime-icon">🟡</span>
+        <span class="regime-collapse">Kollaps-type: coherence-first eller simultaneous spike</span>
+        <h3>Unstable</h3>
+        <p class="regime-desc">Sårbart men ikke deterministisk. Nogle runs når infant-fase, andre kollapser tidligt. Pause-lock opstår — men ikke altid. Recovery varierer mellem kørsler: fast / false / collapse.</p>
+      </div>
+      <div class="regime-card overload">
+        <span class="regime-icon">🔴</span>
+        <span class="regime-collapse">Kollaps-type: suppression</span>
+        <h3>Overload</h3>
+        <p class="regime-desc">Korrekt ekstremtilstand. Aldrig progression. Permanent pause-lock. Ingen recovery mulig. Det er præcis, hvad man bør forvente af et system under ekstremt pres.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GENNEMBRUD -->
+<section class="mid">
+  <div class="inner">
+    <span class="eyebrow" style="color:#7a9ee8;">Vigtigste gennembrud</span>
+    <h2>Hvad der fik systemet til at virke</h2>
+    <p class="sub">Seks konkrete ændringer er grunden til at systemet nu opfører sig troværdigt frem for at kollapse i cirkulære mønstre.</p>
+    <div class="breakthrough-list">
+      <div class="bt-item">
+        <span class="bt-tag">[L]</span>
+        <div class="bt-text"><strong>Post-regression rebuild</strong> — første gang systemet faktisk kan komme sig efter regression, ikke bare stabilisere sig.</div>
+      </div>
+      <div class="bt-item">
+        <span class="bt-tag">[O]</span>
+        <div class="bt-text"><strong>Coherence floor i stable</strong> — brød den cirkulære lås, der forhindrede recovery i stable-regimet.</div>
+      </div>
+      <div class="bt-item">
+        <span class="bt-tag">[R]</span>
+        <div class="bt-text"><strong>Adaptiv probe-omkostning</strong> — unstable-regimet blev realistisk (ikke bare kaos). Exploration koster nu anderledes under pres.</div>
+      </div>
+      <div class="bt-item">
+        <span class="bt-tag">[S]</span>
+        <div class="bt-text"><strong>Variation rekindling</strong> — fjernede "matematisk død" (variation = 0), som låste systemet permanent uden mulighed for genopretning.</div>
+      </div>
+      <div class="bt-item">
+        <span class="bt-tag">[P]</span>
+        <div class="bt-text"><strong>Probe-dæmpning efter kollaps</strong> — recovery blev mulig uden at fjerne systemets exploration-kapacitet helt.</div>
+      </div>
+      <div class="bt-item">
+        <span class="bt-tag">[Q]</span>
+        <div class="bt-text"><strong>Miljø-korrektion</strong> — stable-regimet blev ikke længere straffet for at udforske. Exploration og stabilitet kan nu sameksistere.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARKITEKTUR -->
+<section class="dark">
+  <div class="inner">
+    <span class="eyebrow" style="color:var(--accent);">Arkitektur · Baseline v1</span>
+    <h2>En proto-kognitiv arkitektur — ikke bare en model</h2>
+    <p class="sub">Det er forskellen på det, der eksisterede før, og det der eksisterer nu. Systemet er ikke bare et sæt scores — det er en arkitektur med adfærd.</p>
+    <div class="arch-list">
+      <div class="arch-item"><span class="arch-check">✓</span>Fase-system (newborn → child) med definerede overgange</div>
+      <div class="arch-item"><span class="arch-check">✓</span>Reversible transitions — systemet kan bevæge sig begge veje</div>
+      <div class="arch-item"><span class="arch-check">✓</span>Miljøafhængig dynamik — tre distinkte regimer</div>
+      <div class="arch-item"><span class="arch-check">✓</span>Ikke-deterministisk adfærd — samme startbetingelser giver forskellige udfald</div>
+      <div class="arch-item"><span class="arch-check">✓</span>Recovery som separat mekanisme — ikke bare dæmpning</div>
+      <div class="arch-item"><span class="arch-check">✓</span>Diagnoseværktøj — kan identificere pre-kollaps fingerprints og klassificere recovery-type</div>
+    </div>
+    <div style="margin-top:24px;padding:20px 24px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);">
+      <div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(232,236,252,.35);margin-bottom:10px;">Bevidst ikke løst — korrekt for denne fase</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(232,236,252,.45);line-height:1.75;">Systemet vælger ikke strategier endnu. Der er ingen mål, intention eller planlægning. Recovery er stadig mekanisk, ikke agentisk. Det er præcis rigtigt for Baseline v1.</div>
+    </div>
+  </div>
+</section>
+
+<!-- NÆSTE RETNINGER -->
+<section class="light">
+  <div class="inner">
+    <span class="eyebrow" style="color:var(--accent);">Næste naturlige retninger</span>
+    <h2>Tre oplagte spor fremad</h2>
+    <p class="sub">AGI-BABY er nu et stabilt fundament. Det åbner for tre selvstændige retninger, der gør systemet gradvis mere agentisk.</p>
+    <div class="direction-grid">
+      <div class="dir-card">
+        <div class="dir-letter">A</div>
+        <h3>Strategy layer</h3>
+        <p>Hvornår skal systemet probe? Hvornår pause? Hvornår stabilize? Et strategi-lag gør systemet agentisk — det kan vælge sin egen næste handling.</p>
+      </div>
+      <div class="dir-card">
+        <div class="dir-letter">B</div>
+        <h3>Memory / identity</h3>
+        <p>Ikke bare de seneste 40 steps — men "hvad virker i dette miljø?" Et memory-lag giver systemet kontinuitet og mulighed for at lære på tværs af kørsler.</p>
+      </div>
+      <div class="dir-card">
+        <div class="dir-letter">C</div>
+        <h3>Stability zones</h3>
+        <p>Kortlæg hvor systemet kan eksistere stabilt som funktion af miljøparametre. Et phase landscape giver et billede af, hvornår systemet er trygt — og hvornår det er tæt på kanten.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RELATION TIL ETOS -->
+<section class="dark">
+  <div class="inner">
+    <span class="eyebrow" style="color:var(--accent);">Forbindelsen til ETOS</span>
+    <h2>To spor — ét forskningsunivers</h2>
+    <p class="sub">AGI-BABY og ETOS undersøger beslægtede spørgsmål fra forskellige vinkler. De er ikke det samme — men de supplerer hinanden præcist.</p>
+    <div class="grid-2">
+      <div class="card">
+        <span class="kicker" style="color:#6ddb85;">ETOS</span>
+        <h3 style="color:#e8ecfc;">Governance, alignment og rekursiv selv-korrektion</h3>
+        <p style="color:rgba(232,236,252,.46);">ETOS undersøger, hvordan systemer kan holde sig inden for normative rammer — og sige nej til sig selv, når det er nødvendigt. Fokus er på det voksne, fungerende system.</p>
+      </div>
+      <div class="card">
+        <span class="kicker" style="color:#7a9ee8;">AGI-BABY</span>
+        <h3 style="color:#e8ecfc;">Udviklingsdynamik, sårbarhed og recovery</h3>
+        <p style="color:rgba(232,236,252,.46);">AGI-BABY undersøger, hvad der sker, før systemet er stabilt — hvordan det vokser, fejler og genopbygger sig. Fokus er på fremkomst og sårbarhed.</p>
+      </div>
+    </div>
+    <div style="margin-top:20px;padding:20px 24px;border-radius:14px;background:rgba(122,158,232,.06);border:1px solid rgba(122,158,232,.15);font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(232,236,252,.6);line-height:1.8;">
+      Tilsammen med Dirigenten udgør de tre spor et samlet perspektiv: <strong style="color:rgba(232,236,252,.85);">ETOS</strong> viser governance i systemer, <strong style="color:rgba(232,236,252,.85);">AGI-BABY</strong> viser udviklingsmekanik, og <strong style="color:rgba(232,236,252,.85);">Dirigenten</strong> viser, hvad det vil sige at regulere sig selv som menneske.
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="inner">
+    <div>
+      <span class="eyebrow" style="color:#7a9ee8;">Del af Forskerhjørnet</span>
+      <h2 style="font-family:'Playfair Display',serif;font-size:30px;font-weight:400;margin:0;color:#f0ebe0;">Interesseret i forskningen?</h2>
+      <p>AGI-BABY er under aktiv udvikling. Kontakt os, hvis du vil følge med, samarbejde eller teste hypoteser i en virkelig kontekst.</p>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+      <a href="kontakt.html" class="btn-primary">Tag kontakt →</a>
+      <a href="research.html" class="btn-secondary" style="color:rgba(240,235,224,.46);">← Forskerhjørnet</a>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
