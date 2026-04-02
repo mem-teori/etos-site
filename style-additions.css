@@ -1,15 +1,13 @@
 /* ============================================
-   STYLE-ADDITIONS.CSS — M.E.M. / ETOS
-   Supplerer style.css med navigation og
-   globale komponenter brugt på alle sider.
+   FORSIDE (FS) — Nyt design
    ============================================ */
 
-/* ---- FONTE ---- */
+/* Fonte */
 .fs-h1, .fs-feature h3, .fs-cta-quote {
   font-family: 'Playfair Display', serif;
 }
 
-/* ---- HEADER / NAV ---- */
+/* HEADER */
 .fs-header {
   background: #0d1117;
   border-bottom: 1px solid rgba(255,255,255,0.07);
@@ -33,7 +31,6 @@
   color: #ffffff;
   letter-spacing: 0.06em;
   margin-right: 12px;
-  text-decoration: none;
 }
 .fs-links {
   display: flex;
@@ -64,7 +61,7 @@
 }
 .fs-nav-cta:hover { background: #2a3f2b; }
 
-/* ---- NAV IKONER ---- */
+/* NAV IKONER */
 .fs-nav-item {
   display: flex;
   align-items: center;
@@ -82,64 +79,56 @@
   font-size: 13px; flex-shrink: 0;
 }
 .fs-nav-text { display: flex; flex-direction: column; }
-.fs-nav-title {
-  font-size: 12px; font-weight: 500; color: #ffffff;
-  line-height: 1.2; font-family: 'DM Sans', sans-serif;
-}
-.fs-nav-sub {
-  font-size: 10px; color: rgba(255,255,255,0.45);
-  line-height: 1.2; font-family: 'DM Sans', sans-serif;
-}
+.fs-nav-title { font-size: 12px; font-weight: 500; color: #ffffff; line-height: 1.2; font-family: 'DM Sans', sans-serif; }
+.fs-nav-sub   { font-size: 10px; color: rgba(255,255,255,0.45); line-height: 1.2; font-family: 'DM Sans', sans-serif; }
 
-/* ---- DROPDOWN ---- */
-.fs-dropdown { position: relative; }
-.fs-dropdown-menu {
+/* HERO — ingen grid, ingen højre kolonne */
+.fs-hero {
+  display: block;
+  background: #1E2E1F;
+}
+.fs-hero-right {
   display: none;
-  position: absolute; top: calc(100% + 6px); left: -8px;
-  background: #1a1a1a;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 12px; padding: 8px;
-  min-width: 200px; z-index: 999;
-  box-shadow: 0 12px 36px rgba(0,0,0,0.4);
 }
-.fs-dropdown:hover .fs-dropdown-menu { display: block; }
-.fs-dropdown-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 9px 12px; border-radius: 8px;
-  text-decoration: none;
-  transition: background 0.12s;
+.fs-hero-left {
+  background: #1E2E1F;
+  padding: 56px 52px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  max-width: 1160px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
 }
-.fs-dropdown-item:hover { background: rgba(255,255,255,0.07); }
-.fs-dropdown-item-icon {
-  width: 28px; height: 28px; border-radius: 7px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; flex-shrink: 0;
+.fs-hero-left::before {
+  content: '';
+  position: absolute;
+  top: -70px; right: -70px;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(226,136,78,0.10), transparent 70%);
+  pointer-events: none;
 }
-.fs-dropdown-item-text { display: flex; flex-direction: column; }
-.fs-dropdown-item-title {
-  font-family: 'DM Sans', sans-serif; font-size: 12px;
-  font-weight: 500; color: #fff; line-height: 1.2;
-}
-.fs-dropdown-item-sub {
-  font-family: 'DM Sans', sans-serif; font-size: 10px;
-  color: rgba(255,255,255,0.4); line-height: 1.2;
-}
-.fs-nav-item-arrow {
-  font-size: 9px; color: rgba(255,255,255,0.25); margin-left: 2px;
-}
-
-/* ---- FORSIDE HERO ELEMENTER ---- */
-/* Bruges stadig på index.html via fs-tag, fs-h1, fs-lead */
 .fs-tag {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: 'DM Sans', sans-serif; font-size: 11px;
-  font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
-  color: #E2884E; margin-bottom: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #E2884E;
+  margin-bottom: 22px;
 }
 .fs-tag-dot {
-  width: 6px; height: 6px; border-radius: 50%;
+  width: 6px; height: 6px;
+  border-radius: 50%;
   background: #E2884E;
-  animation: fs-pulse 2s ease-in-out infinite; flex-shrink: 0;
+  animation: fs-pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
 }
 @keyframes fs-pulse {
   0%,100% { opacity: 1; transform: scale(1); }
@@ -147,20 +136,27 @@
 }
 .fs-h1 {
   font-size: clamp(32px, 4vw, 44px);
-  color: #F0EBE0; line-height: 1.15;
-  font-weight: 400; margin: 0 0 18px;
+  color: #F0EBE0;
+  line-height: 1.15;
+  font-weight: 400;
+  margin: 0 0 18px;
   letter-spacing: -0.02em;
 }
 .fs-h1 em { font-style: italic; color: #E2884E; }
 .fs-lead {
-  font-family: 'DM Sans', sans-serif; font-size: 14px;
-  color: rgba(240,235,224,0.55); font-weight: 300;
-  line-height: 1.75; margin: 0 0 24px; max-width: 400px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: rgba(240,235,224,0.55);
+  font-weight: 300;
+  line-height: 1.75;
+  margin: 0 0 24px;
+  max-width: 400px;
 }
 
-/* ---- FEATURES STRIP ---- */
+/* FEATURES */
 .fs-features {
-  display: grid; grid-template-columns: repeat(3, 1fr);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   border-top: 1px solid rgba(0,0,0,0.07);
   background: #F5F0E8;
 }
@@ -170,31 +166,49 @@
 }
 .fs-feature:last-child { border-right: none; }
 .fs-feature-num {
-  font-family: 'Playfair Display', serif; font-size: 30px;
-  color: #E2884E; font-weight: 400; margin-bottom: 10px; opacity: 0.7;
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  color: #E2884E;
+  font-weight: 400;
+  margin-bottom: 10px;
+  opacity: 0.7;
 }
 .fs-feature h3 {
-  font-family: 'Playfair Display', serif; font-size: 17px;
-  color: #1A1A1A; font-weight: 400; margin-bottom: 8px;
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  color: #1A1A1A;
+  font-weight: 400;
+  margin-bottom: 8px;
 }
 .fs-feature p {
-  font-family: 'DM Sans', sans-serif; font-size: 13px;
-  color: #888; font-weight: 300; line-height: 1.7; margin: 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: #888;
+  font-weight: 300;
+  line-height: 1.7;
+  margin: 0;
 }
 
-/* ---- CTA STRIP ---- */
+/* CTA STRIP */
 .fs-cta-strip {
-  background: #1E2E1F; padding: 40px 52px;
-  display: flex; align-items: center; gap: 28px; flex-wrap: wrap;
+  background: #1E2E1F;
+  padding: 40px 52px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
 }
 .fs-cta-quote {
-  font-family: 'Playfair Display', serif; font-size: 22px;
-  color: #F0EBE0; font-weight: 400; font-style: italic;
-  margin: 0; flex: 1; min-width: 200px;
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: #F0EBE0;
+  font-weight: 400;
+  font-style: italic;
+  margin: 0;
+  flex: 1;
+  min-width: 200px;
 }
 .fs-cta-btns { display: flex; gap: 10px; flex-wrap: wrap; }
-
-/* ---- KNAPPER ---- */
 .fs-btn-primary {
   font-family: 'DM Sans', sans-serif;
   font-size: 13px; font-weight: 500;
@@ -213,435 +227,18 @@
   text-decoration: none; cursor: pointer;
   transition: border-color 0.15s; display: inline-block;
 }
-.fs-btn-ghost-dark:hover {
-  border-color: rgba(240,235,224,0.35);
-  color: rgba(240,235,224,0.85);
-}
+.fs-btn-ghost-dark:hover { border-color: rgba(240,235,224,0.35); color: rgba(240,235,224,0.85); }
 
-/* ---- RESPONSIVT ---- */
+/* RESPONSIVT */
 @media (max-width: 860px) {
+  .fs-hero-left { grid-template-columns: 1fr !important; padding: 40px 28px; }
   .fs-features { grid-template-columns: 1fr; }
-  .fs-feature {
-    border-right: none;
-    border-bottom: 1px solid rgba(0,0,0,0.07);
-    padding: 28px 32px;
-  }
+  .fs-feature { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.07); padding: 28px 32px; }
   .fs-feature:last-child { border-bottom: none; }
   .fs-nav { padding: 10px 20px; }
   .fs-nav-sub { display: none; }
   .fs-cta-strip { padding: 32px; }
-  .fs-dropdown-menu { position: fixed; left: 16px; right: 16px; }
 }
 @media (max-width: 640px) {
   .fs-nav-text { display: none; }
-}
-
-/* ============================================
-   CSS POLISH — spacing, typography, buttons
-   ============================================ */
-
-/* ---- SPACING SYSTEM ---- */
-.mem-hero       { padding: 88px 52px 80px; }
-.mini-case      { /* inherits */ }
-.etos-block     { padding: 80px 52px; }
-.sys-overview   { padding: 80px 52px; }
-.indgange       { padding: 80px 52px; }
-
-/* ---- TYPOGRAPHY SYSTEM ---- */
-/* h1 — hero only */
-.mem-hero h1,
-.eh h1,
-.e-h1 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.08;
-}
-
-/* h2 — section titles */
-.section-h2,
-.etos-left h2,
-h2 {
-  letter-spacing: -0.01em;
-}
-
-/* Micro labels */
-.eyebrow,
-.e-eyebrow,
-.section-eyebrow,
-.mem-hero-eyebrow {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  line-height: 1;
-}
-
-/* ---- BUTTON SYSTEM ---- */
-/* Primary */
-.fs-btn-primary,
-.mem-btn-primary,
-.e-btn-p,
-.eh-btn-p,
-.omt-btn-primary,
-.dv-btn-primary {
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  transition: all 0.15s ease;
-}
-
-/* Hover lift on primary buttons */
-.fs-btn-primary:hover,
-.mem-btn-primary:hover,
-.e-btn-p:hover,
-.eh-btn-p:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-}
-
-/* ---- CARD SYSTEM ---- */
-/* Consistent border radius */
-.sys-card,
-.prod-card,
-.anv-card,
-.indgang-card,
-.em-card,
-.ec-case,
-.e-out-card {
-  border-radius: 14px;
-}
-
-/* Consistent hover */
-.sys-card:hover,
-.prod-card:hover,
-.anv-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.1);
-  transition: all 0.15s ease;
-}
-
-/* ---- PRODUCT STATUS BADGES ---- */
-.prod-status {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-/* ---- NAVIGATION ACTIVE STATE ---- */
-.fs-nav-item:focus-within,
-.fs-nav-item:focus {
-  background: rgba(255,255,255,0.08);
-  outline: none;
-}
-
-/* ---- MOBILE RHYTHM ---- */
-@media (max-width: 860px) {
-  .mem-hero       { padding: 56px 28px 48px; }
-  .sys-overview   { padding: 52px 28px; }
-  .indgange       { padding: 52px 28px; }
-  .etos-block     { padding: 52px 28px; }
-
-  /* More vertical space between sections on mobile */
-  section + section,
-  div.anv-section + div.anv-section {
-    margin-top: 0;
-  }
-}
-
-/* ---- LINK UNDERLINE STYLE ---- */
-a.text-link {
-  text-decoration: none;
-  border-bottom: 1px solid currentColor;
-  padding-bottom: 1px;
-  opacity: 0.6;
-  transition: opacity 0.15s;
-}
-a.text-link:hover { opacity: 1; }
-
-/* ============================================
-   FINISH LAYER — CSS Polish
-   Spacing · Typography · Buttons · Cards
-   ============================================ */
-
-/* ---- GLOBAL RYTME ---- */
-/* Ensret vertikal luft på sektioner der bruger native section-tag */
-section {
-  padding: 84px 52px;
-}
-@media (max-width: 768px) {
-  section { padding: 64px 24px; }
-}
-
-/* ---- TYPOGRAFI ---- */
-h1, h2, h3 {
-  letter-spacing: -0.02em;
-  line-height: 1.12;
-}
-h1 { font-size: clamp(2.2rem, 5vw, 4rem); margin-bottom: 16px; }
-h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: 14px; }
-h3 { font-size: clamp(1rem, 2vw, 1.25rem); font-weight: 600; margin-bottom: 10px; }
-
-/* Brødtekst — kun på lys baggrund */
-.section-light p,
-.e-forst p,
-.e-ex p,
-.e-out-card p,
-.prod-section.light p,
-.anv-section.light p {
-  font-size: 1rem;
-  line-height: 1.8;
-  color: #4a5565;
-}
-
-/* ---- KNAPPER — finish polish ---- */
-/* Primær (orange/grøn) — lift + shadow */
-.mem-btn-primary:hover,
-.e-btn-p:hover,
-.eh-btn-p:hover,
-.fs-btn-primary:hover,
-.omt-btn-primary:hover,
-.dv-btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-  transition: all 0.18s ease;
-}
-
-/* Sekundær ghost — subtil lift */
-.mem-btn-ghost:hover,
-.e-btn-s:hover,
-.eh-btn-g:hover,
-.fs-btn-ghost-dark:hover {
-  transform: translateY(-1px);
-  transition: all 0.18s ease;
-}
-
-/* Min-height på knapper */
-.mem-btn-primary,
-.e-btn-p,
-.eh-btn-p,
-.fs-btn-primary,
-.omt-btn-primary {
-  min-height: 46px;
-  border-radius: 12px;
-}
-
-/* ---- KORT — ensartet hover ---- */
-.sys-card,
-.prod-card,
-.anv-card,
-.e-out-card,
-.indgang-card {
-  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-}
-.sys-card:hover,
-.prod-card:hover,
-.anv-card:hover,
-.e-out-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 40px rgba(15,23,42,0.09);
-}
-
-/* ---- STATUS BADGES — konsistent ---- */
-.prod-status {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 999px;
-}
-.prod-status.klar,
-.prod-status.ready   { background: rgba(78,200,140,0.12); color: #2a7a50; border: 1px solid rgba(78,200,140,0.25); }
-.prod-status.pilot   { background: rgba(122,158,232,0.12); color: #2347b2; border: 1px solid rgba(122,158,232,0.25); }
-.prod-status.beta    { background: rgba(240,200,80,0.12);  color: #8a5a00; border: 1px solid rgba(240,200,80,0.25); }
-.prod-status.kommende,
-.prod-status.coming  { background: rgba(150,150,150,0.1);  color: #555;    border: 1px solid rgba(150,150,150,0.2); }
-
-/* ---- CASE-SEKTION ---- */
-.mini-case-inner {
-  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-}
-.mc-tab {
-  transition: all 0.18s ease;
-  font-weight: 600;
-}
-.mc-tab.active {
-  box-shadow: 0 2px 8px rgba(226,136,78,0.25);
-}
-
-/* ---- INDGANG-KORT ---- */
-.indgang-card {
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-}
-.indgang-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.1);
-}
-.indgang-card h3 {
-  font-size: clamp(1.1rem, 2vw, 1.3rem);
-  line-height: 1.2;
-}
-
-/* ---- NAVIGATION ---- */
-.fs-header {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-.fs-nav-item {
-  transition: background 0.15s ease;
-}
-.fs-nav-cta {
-  transition: background 0.15s ease, transform 0.15s ease;
-}
-.fs-nav-cta:hover {
-  transform: translateY(-1px);
-}
-
-/* ---- SECTION TRANSITIONS ---- */
-/* Smooth visual separation */
-.mem-hero + .mini-case,
-.etos-block + .sys-overview,
-.sys-overview + .indgange {
-  position: relative;
-}
-
-/* ---- PILOT STRIP ---- */
-/* Giv pilotstriben mere luft og tydeligere knap */
-.fs-cta-strip {
-  padding: 52px 52px;
-}
-
-/* ---- MOBIL ---- */
-@media (max-width: 768px) {
-
-  /* Knapper: fuld bredde på mobil */
-  .mem-hero-btns,
-  .e-btns,
-  .eh-btns,
-  .eh-btns,
-  .dv-hero-btns,
-  .omt-btns {
-    flex-direction: column;
-    gap: 10px;
-  }
-  .mem-btn-primary,
-  .e-btn-p,
-  .eh-btn-p,
-  .fs-btn-primary,
-  .omt-btn-primary {
-    width: 100%;
-    justify-content: center;
-  }
-
-  /* Kort: mindre padding + radius */
-  .sys-card,
-  .prod-card,
-  .anv-card,
-  .e-out-card,
-  .indgang-card {
-    padding: 20px 18px;
-    border-radius: 16px;
-  }
-
-  /* Navigation: tæt på mobil */
-  .fs-nav { padding: 10px 18px; }
-  .fs-cta-strip { padding: 36px 24px; }
-
-  /* Hero: mere luft øverst */
-  .mem-hero { padding-top: 64px; padding-bottom: 56px; }
-
-  /* Dropdown: full width */
-  .fs-dropdown-menu {
-    position: fixed;
-    left: 12px;
-    right: 12px;
-    width: auto;
-  }
-}
-
-/* ---- FOCUS STATES (accessibility) ---- */
-a:focus-visible,
-button:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 6px;
-}
-
-/* ---- SCROLL SMOOTHNESS ---- */
-html { scroll-behavior: smooth; }
-
-
-/* ---- GLOBAL MOBIL-FIXES ---- */
-@media (max-width: 860px) {
-
-  /* Alle sektion-grids -> 1 kolonne */
-  .anv-grid,
-  .omt-flow,
-  .omt-mem-inner,
-  .omt-ui-screens,
-  .omt-pilot-inner,
-  .dv-concepts-inner,
-  .dv-states-grid,
-  .dv-exists-grid { grid-template-columns: 1fr !important; }
-
-  /* Forsidens ETOS+demo blok */
-  .etos-block-inner { gap: 32px !important; }
-
-  /* Forside: mini-case grid */
-  .mini-case-inner {
-    grid-template-columns: 1fr !important;
-  }
-  .mini-case-arrow { display: none; }
-  .mini-case-right { border-radius: 0 0 12px 12px; }
-
-  /* Nav quick fixes */
-  .fs-nav-sub { display: none; }
-  .fs-nav-icon { width: 22px; height: 22px; font-size: 11px; }
-
-  /* Reduce hero padding sitewide */
-  .mem-hero { padding: 52px 24px 44px !important; }
-  .anv-hero, .omt-hero, .dv-hero, .prod-hero { padding: 52px 24px 44px !important; }
-
-  /* Typography scale down */
-  h1 { font-size: clamp(1.8rem, 8vw, 3rem) !important; }
-  h2 { font-size: clamp(1.4rem, 6vw, 2.2rem) !important; }
-
-  /* Featured card notification hide on mobile */
-  .prod-featured-notif,
-  .omt-notif,
-  .eh-visual,
-  .e-hero-visual { display: none !important; }
-
-  /* Featured card: single column */
-  .prod-featured,
-  .anv-featured { grid-template-columns: 1fr !important; }
-
-  /* CTA strips */
-  .fs-cta-strip,
-  .omt-cta-inner,
-  .prod-cta-inner,
-  .dv-cta-inner,
-  .ect-inner { flex-direction: column; gap: 20px; }
-
-  /* Buttons: full width in stacked CTAs */
-  .fs-cta-btns,
-  .e-btns,
-  .eh-btns,
-  .omt-btns,
-  .dv-hero-btns { flex-direction: column; gap: 10px; }
-}
-
-@media (max-width: 480px) {
-  /* Extra small: single column everything */
-  .sys-grid,
-  .indgange-grid,
-  .ef-inner,
-  .em-inner,
-  .es-grid,
-  .dv-states-grid { grid-template-columns: 1fr !important; }
-
-  /* Tighter nav */
-  .fs-nav { padding: 8px 16px !important; min-height: 56px; }
-  .fs-logo { font-size: 15px !important; }
 }
