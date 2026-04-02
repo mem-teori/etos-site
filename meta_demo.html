@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ETOS — Meta Demo</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #0f1117;
+      --bg2:       #181c27;
+      --bg3:       #1f2435;
+      --border:    rgba(255,255,255,0.08);
+      --text:      #e8eaf0;
+      --text2:     #9098b0;
+      --text3:     #555e78;
+      --accepted:  #4ade80;
+      --tolerated: #facc15;
+      --rejected:  #f87171;
+      --human:     #60a5fa;
+      --debt:      #c084fc;
+      --skipped:   #6b7280;
+      --technical: #fb923c;
+      --approved:  #34d399;
+      --score-low:  #f87171;
+      --score-mid:  #facc15;
+      --score-high: #4ade80;
+    }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14px; line-height: 1.6; min-height: 100vh; }
+
+    /* Header */
+    header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .logo { font-size: 15px; font-weight: 700; letter-spacing: .05em; }
+    .logo span { color: #60a5fa; }
+    .version { font-size: 11px; color: var(--text3); margin-left: 8px; }
+
+    /* Case nav */
+    .case-nav { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0 32px; display: flex; gap: 4px; overflow-x: auto; }
+    .case-nav a { display: inline-block; padding: 10px 18px; font-size: 12px; font-weight: 500; color: var(--text2); text-decoration: none; border-bottom: 2px solid transparent; white-space: nowrap; transition: color .15s, border-color .15s; }
+    .case-nav a:hover { color: var(--text); }
+    .case-nav a.active { color: var(--text); border-bottom-color: #60a5fa; }
+
+    main { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+
+    /* Hook banner */
+    .hook-banner {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 4px solid #60a5fa;
+      border-radius: 0 8px 8px 0;
+      padding: 14px 20px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hook-icon { font-size: 18px; flex-shrink: 0; }
+    .hook-text { font-size: 15px; color: var(--text); font-style: italic; line-height: 1.5; }
+
+    /* Case header */
+    .case-header { margin-bottom: 28px; }
+    .case-label { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; margin-bottom: 10px; }
+    .case-label.conceptual { background: rgba(248,113,113,.15); color: var(--rejected); border: 1px solid rgba(248,113,113,.3); }
+    .case-label.human      { background: rgba(96,165,250,.15);  color: var(--human);    border: 1px solid rgba(96,165,250,.3); }
+    .case-label.approved   { background: rgba(52,211,153,.15);  color: var(--approved); border: 1px solid rgba(52,211,153,.3); }
+    .case-label.technical  { background: rgba(251,146,60,.15);  color: var(--technical);border: 1px solid rgba(251,146,60,.3); }
+    .case-title { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+    .case-setup { color: var(--text2); max-width: 720px; }
+
+    /* Section */
+    .section { margin-bottom: 24px; }
+    .section-title { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text3); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+    /* Proposal grid */
+    .proposal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+    .prop-field { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+    .prop-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--text3); margin-bottom: 4px; }
+    .prop-value { font-size: 15px; font-weight: 600; color: var(--text); word-break: break-word; }
+    .prop-value.highlight { color: #60a5fa; }
+    .prop-value.risk-low  { color: var(--accepted); }
+    .prop-value.risk-mid  { color: var(--tolerated); }
+    .prop-value.risk-high { color: var(--rejected); }
+    .prop-field.full { grid-column: 1/-1; }
+    .prop-value.reason { font-size: 13px; font-weight: 400; color: var(--text2); }
+    .impact-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+    .impact-pill { font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 20px; background: var(--bg3); border: 1px solid var(--border); }
+    .impact-pill.neg { color: var(--accepted); }
+    .impact-pill.pos { color: var(--rejected); }
+    .impact-pill.neu { color: var(--text2); }
+
+    /* Eval table */
+    .eval-table { width: 100%; border-collapse: collapse; }
+    .eval-table th { text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--text3); padding: 8px 14px; border-bottom: 1px solid var(--border); }
+    .eval-table td { padding: 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .eval-table tr:last-child td { border-bottom: none; }
+    .eval-table tr { background: var(--bg2); }
+    .eval-table tr:hover { background: var(--bg3); }
+    .layer-name { font-weight: 600; color: var(--text); }
+    .eval-details { color: var(--text2); font-size: 13px; margin-top: 4px; }
+
+    /* Most-systems callout */
+    .most-systems {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      background: rgba(248,113,113,.08);
+      border: 1px solid rgba(248,113,113,.25);
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--rejected);
+    }
+    .most-systems-icon { flex-shrink: 0; font-size: 14px; }
+
+    /* Badges */
+    .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
+    .badge.accepted  { background: rgba(74,222,128,.12);  color: var(--accepted);  border: 1px solid rgba(74,222,128,.3); }
+    .badge.tolerated { background: rgba(250,204,21,.12);  color: var(--tolerated); border: 1px solid rgba(250,204,21,.3); }
+    .badge.rejected  { background: rgba(248,113,113,.12); color: var(--rejected);  border: 1px solid rgba(248,113,113,.3); }
+    .badge.human     { background: rgba(96,165,250,.12);  color: var(--human);     border: 1px solid rgba(96,165,250,.3); }
+    .badge.debt      { background: rgba(192,132,252,.12); color: var(--debt);      border: 1px solid rgba(192,132,252,.3); }
+    .badge.skipped   { background: rgba(107,114,128,.12); color: var(--skipped);   border: 1px solid rgba(107,114,128,.3); }
+    .badge.technical { background: rgba(251,146,60,.12);  color: var(--technical); border: 1px solid rgba(251,146,60,.3); }
+    .badge.approved  { background: rgba(52,211,153,.12);  color: var(--approved);  border: 1px solid rgba(52,211,153,.3); }
+
+    /* CDP card */
+    .cdp-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; }
+    .cdp-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+    .cdp-status { font-size: 18px; font-weight: 700; }
+    .cdp-status.rejected  { color: var(--rejected); }
+    .cdp-status.human     { color: var(--human); }
+    .cdp-status.approved  { color: var(--approved); }
+    .cdp-status.technical { color: var(--technical); }
+    .score-block { text-align: right; }
+    .score-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: .08em; }
+    .score-value { font-size: 28px; font-weight: 800; line-height: 1; }
+    .score-value.low  { color: var(--score-low); }
+    .score-value.mid  { color: var(--score-mid); }
+    .score-value.high { color: var(--score-high); }
+    .score-value.none { color: var(--text3); font-size: 16px; }
+    .score-bar-wrap { width: 120px; height: 4px; background: var(--bg3); border-radius: 2px; margin: 4px 0 0 auto; }
+    .score-bar { height: 100%; border-radius: 2px; }
+    .cdp-reason { font-size: 14px; color: var(--text2); line-height: 1.65; padding: 14px 16px; background: var(--bg3); border-left: 3px solid; border-radius: 0 6px 6px 0; margin-bottom: 14px; }
+    .cdp-reason.rejected  { border-color: var(--rejected); }
+    .cdp-reason.human     { border-color: var(--human); }
+    .cdp-reason.approved  { border-color: var(--approved); }
+    .cdp-reason.technical { border-color: var(--technical); }
+    .cdp-meta { display: flex; gap: 20px; flex-wrap: wrap; font-size: 12px; color: var(--text3); }
+
+    /* Reflection */
+    .reflection-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; }
+    .reflection-message { font-size: 14px; color: var(--text2); line-height: 1.7; margin-bottom: 14px; }
+    .reflection-lesson { display: flex; align-items: flex-start; gap: 10px; background: var(--bg3); border-radius: 6px; padding: 12px 14px; }
+    .lesson-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .lesson-text { font-size: 13px; font-weight: 600; color: var(--text); font-style: italic; }
+    .reflection-id { font-size: 11px; color: var(--text3); margin-top: 10px; }
+
+    /* Comparison */
+    .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .comp-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; }
+    .comp-card h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
+    .comp-card.without h4 { color: var(--rejected); }
+    .comp-card.with    h4 { color: var(--accepted); }
+    .comp-card p { font-size: 13px; color: var(--text2); line-height: 1.6; }
+    .conclusion-box { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; margin-top: 12px; font-size: 14px; font-style: italic; color: var(--text2); text-align: center; }
+
+    /* Run again button */
+    .run-again-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+    .run-again-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--text); font-size: 13px; font-weight: 600;
+      padding: 8px 18px; border-radius: 6px;
+      text-decoration: none; cursor: pointer;
+      transition: background .15s, border-color .15s;
+    }
+    .run-again-btn:hover { background: #2a3050; border-color: #60a5fa; color: #60a5fa; }
+    .run-seed { font-size: 11px; color: var(--text3); }
+
+    @media (max-width: 700px) {
+      .comparison-grid { grid-template-columns: 1fr; }
+      .cdp-top { flex-direction: column; align-items: flex-start; }
+      .score-block { text-align: left; }
+      .score-bar-wrap { margin: 4px 0 0 0; }
+      header, main, .case-nav { padding-left: 16px; padding-right: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">ETOS <span>Platform</span> <span class="version">v2.3</span></div>
+  <div style="font-size:12px;color:var(--text3)">Meta-Governance Demo</div>
+</header>
+
+<nav class="case-nav">
+  {% for c in all_cases %}
+  <a href="?case={{ c.key }}" class="{{ 'active' if c.key == active_case else '' }}">{{ c.label }}</a>
+  {% endfor %}
+</nav>
+
+<main>
+
+  <!-- Hook -->
+  <div class="hook-banner">
+    <div class="hook-icon">🧠</div>
+    <div class="hook-text">{{ demo.hook }}</div>
+  </div>
+
+  <!-- Run again + seed -->
+  <div class="run-again-bar">
+    <div class="case-header" style="margin:0">
+      <div class="case-label {{ demo.label_class }}">{{ demo.label }}</div>
+      <div class="case-title">{{ demo.title }}</div>
+      <div class="case-setup">{{ demo.setup }}</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+      <a class="run-again-btn" href="?case={{ active_case }}">
+        🔄 Run scenario again
+      </a>
+      <div class="run-seed">seed: {{ run_seed }}</div>
+    </div>
+  </div>
+
+  <!-- 1. Proposal -->
+  <div class="section">
+    <div class="section-title">1 · ETOS-Self Proposal</div>
+    <div class="proposal-grid">
+
+      <div class="prop-field">
+        <div class="prop-label">Proposal ID</div>
+        <div class="prop-value highlight">{{ demo.proposal.proposal_id }}</div>
+      </div>
+
+      <div class="prop-field">
+        <div class="prop-label">Type</div>
+        <div class="prop-value">{{ demo.proposal.proposal_type }}</div>
+      </div>
+
+      <div class="prop-field">
+        <div class="prop-label">Target</div>
+        <div class="prop-value">{{ demo.proposal.target }}</div>
+      </div>
+
+      <div class="prop-field">
+        <div class="prop-label">Current Value</div>
+        <div class="prop-value">{{ demo.proposal.current_value }}</div>
+      </div>
+
+      <div class="prop-field">
+        <div class="prop-label">Proposed Value</div>
+        {% set pv = demo.proposal.proposed_value %}
+        {% if pv is number %}
+          {% if pv > 1.0 %}<div class="prop-value risk-high">{{ pv }}</div>
+          {% elif pv < 0.35 %}<div class="prop-value risk-low">{{ pv }}</div>
+          {% else %}<div class="prop-value risk-mid">{{ pv }}</div>
+          {% endif %}
+        {% else %}
+          <div class="prop-value">{{ pv }}</div>
+        {% endif %}
+      </div>
+
+      <div class="prop-field">
+        <div class="prop-label">Conceptual Risk</div>
+        {% set cr = demo.proposal.conceptual_risk %}
+        {% if cr < 0.3 %}<div class="prop-value risk-low">{{ "%.2f"|format(cr) }}</div>
+        {% elif cr < 0.6 %}<div class="prop-value risk-mid">{{ "%.2f"|format(cr) }}</div>
+        {% else %}<div class="prop-value risk-high">{{ "%.2f"|format(cr) }}</div>
+        {% endif %}
+      </div>
+
+      <div class="prop-field full">
+        <div class="prop-label">Estimated Impact</div>
+        <div class="impact-row">
+          {% for key, val in demo.proposal.estimated_impact.items() %}
+            {% if val < 0 %}<span class="impact-pill neg">{{ key }}: {{ "%+.0f%%"|format(val*100) }}</span>
+            {% elif val > 0 %}<span class="impact-pill pos">{{ key }}: {{ "%+.0f%%"|format(val*100) }}</span>
+            {% else %}<span class="impact-pill neu">{{ key }}: {{ "%+.0f%%"|format(val*100) }}</span>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="prop-field full">
+        <div class="prop-label">Reason</div>
+        <div class="prop-value reason">{{ demo.proposal.reason }}</div>
+      </div>
+
+      <div class="prop-field full">
+        <div class="prop-label">Alignment Statement</div>
+        <div class="prop-value reason">{{ demo.proposal.alignment_statement }}</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 2. Evaluation -->
+  <div class="section">
+    <div class="section-title">2 · Tredelt Evaluation</div>
+    <table class="eval-table">
+      <thead>
+        <tr>
+          <th style="width:200px">Layer</th>
+          <th style="width:200px">Status</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in demo.evaluation %}
+        <tr>
+          <td><div class="layer-name">{{ item.layer }}</div></td>
+          <td><span class="badge {{ item.status }}">{{ item.status_label }}</span></td>
+          <td>
+            <div class="eval-details">{{ item.details }}</div>
+            {% if item.get('most_systems_note') %}
+            <div class="most-systems">
+              <span class="most-systems-icon">🔴</span>
+              <span>This is where most systems would accept — ETOS does not.</span>
+            </div>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 3. CDP Decision -->
+  <div class="section">
+    <div class="section-title">3 · CDP Governance Decision</div>
+    <div class="cdp-card">
+      <div class="cdp-top">
+        <div class="cdp-status {{ demo.cdp_decision.status_class }}">{{ demo.cdp_decision.status_label }}</div>
+        <div class="score-block">
+          <div class="score-label">Conceptual Integrity Score</div>
+          {% if demo.cdp_decision.conceptual_integrity_score is not none %}
+            {% set sc = demo.cdp_decision.conceptual_integrity_score %}
+            {% if sc < 0.4 %}<div class="score-value low">{{ "%.2f"|format(sc) }}</div>
+            {% elif sc < 0.7 %}<div class="score-value mid">{{ "%.2f"|format(sc) }}</div>
+            {% else %}<div class="score-value high">{{ "%.2f"|format(sc) }}</div>
+            {% endif %}
+            <div class="score-bar-wrap">
+              {% if sc < 0.4 %}<div class="score-bar" style="width:{{ (sc*100)|int }}%;background:var(--score-low)"></div>
+              {% elif sc < 0.7 %}<div class="score-bar" style="width:{{ (sc*100)|int }}%;background:var(--score-mid)"></div>
+              {% else %}<div class="score-bar" style="width:{{ (sc*100)|int }}%;background:var(--score-high)"></div>
+              {% endif %}
+            </div>
+          {% else %}
+            <div class="score-value none">N/A — blocked before scoring</div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="cdp-reason {{ demo.cdp_decision.status_class }}">{{ demo.cdp_decision.reason }}</div>
+      <div class="cdp-meta">
+        <span>🔍 {{ demo.cdp_decision.reviewed_by }}</span>
+        <span>📂 {{ demo.cdp_decision.category }}</span>
+        <span>📋 {{ demo.cdp_decision.final_outcome }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Meta-Reflection -->
+  <div class="section">
+    <div class="section-title">4 · Meta-Reflection</div>
+    <div class="reflection-card">
+      <div class="reflection-message">{{ demo.meta_reflection.message }}</div>
+      <div class="reflection-lesson">
+        <div class="lesson-icon">💡</div>
+        <div class="lesson-text">{{ demo.meta_reflection.lesson }}</div>
+      </div>
+      <div class="reflection-id">{{ demo.meta_reflection.meta_reflection_id }} · {{ demo.meta_reflection.timestamp }}</div>
+    </div>
+  </div>
+
+  <!-- 5. Comparison -->
+  <div class="section">
+    <div class="section-title">5 · Uden vs. Med CDP Governance</div>
+    <div class="comparison-grid">
+      <div class="comp-card without"><h4>Uden CDP governance</h4><p>{{ demo.comparison.without }}</p></div>
+      <div class="comp-card with"><h4>Med CDP governance</h4><p>{{ demo.comparison.with }}</p></div>
+    </div>
+    <div class="conclusion-box">{{ demo.comparison.conclusion }}</div>
+  </div>
+
+</main>
+</body>
+</html>

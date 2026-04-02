@@ -1,11 +1,275 @@
-<!DOCTYPE html><html lang="da"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>ETOS — governance-native beslutningsinfrastruktur</title><meta name="description" content="ETOS er en governance-native beslutningsinfrastruktur til højrisiko-beslutninger med spændingsanalyse, forklarbarhed, historisk ansvarlighed og læring under konstitutionelle rammer."><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="style-additions.css">
-<style>
-section{padding:78px 52px}.wrap{max-width:1160px;margin:0 auto}.eyebrow{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:14px}.hero{background:#132016;position:relative;overflow:hidden}.hero::before{content:'';position:absolute;right:-120px;top:-120px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle, rgba(226,136,78,.09), transparent 70%)}.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;position:relative}.h1{font-family:'Playfair Display',serif;font-size:clamp(40px,5vw,64px);line-height:1.03;font-weight:400;letter-spacing:-.02em;margin:0 0 14px;color:#f0ebe0}.sub{font-family:'Playfair Display',serif;font-size:clamp(20px,2.2vw,30px);font-style:italic;color:var(--accent);margin:0 0 18px}.lead{font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.82;color:rgba(240,235,224,.58);max-width:640px;margin:0 0 28px}.btns{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;padding:14px 26px;border-radius:9px;text-decoration:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700}.btn-s{font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,.5);text-decoration:none;border-bottom:1px solid rgba(240,235,224,.18);padding-bottom:2px}.panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:28px}.panel h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;color:#f0ebe0;margin:0 0 10px}.panel p{font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.5);margin:0}.light{background:#f5f0e8}.light h2,.light h3{color:#161616}.light p,.light li{color:#555}.dark{background:#0d1117}.dark h2,.dark h3{color:#f0ebe0}.dark p{color:rgba(240,235,224,.54)}.mid{background:#11161d}.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{border-radius:16px;padding:24px 22px;border:1px solid rgba(0,0,0,.08);background:#fff}.dark .card,.mid .card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08)}.card h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;margin:0 0 8px}.card p{font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;margin:0}.mini{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:10px;color:var(--accent)}.metric{font-family:'Playfair Display',serif;font-size:34px;color:var(--accent);margin-bottom:8px}.timeline{display:flex;flex-direction:column;gap:12px}.step{display:grid;grid-template-columns:80px 1fr;gap:16px;align-items:start;padding:18px 20px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08)}.light .step{background:#fff;border:1px solid rgba(0,0,0,.08)}.step-no{font-family:'Playfair Display',serif;font-size:24px;color:var(--accent)}.step h4{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;margin:0 0 6px}.step p{font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;margin:0}.flow{font-family:'DM Sans',sans-serif;font-size:13px;line-height:2;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px}.flow strong{color:#fff;font-weight:600}.light .flow{background:#fff;border:1px solid rgba(0,0,0,.08)}.cta{background:#1a1a0d}.cta p{max-width:760px}.tagrow{display:flex;gap:8px;flex-wrap:wrap}.tag{font-family:'DM Sans',sans-serif;font-size:11px;padding:5px 10px;border-radius:999px;background:rgba(226,136,78,.10);border:1px solid rgba(226,136,78,.20);color:var(--accent)}@media(max-width:920px){.hero .wrap,.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.step{grid-template-columns:1fr}section{padding:56px 28px}}
-</style>
-</head><body><header class="fs-header"><div class="fs-nav"><a href="index.html" class="fs-logo">M.E.M.</a><nav class="fs-links"><a href="etos.html" class="fs-nav-item"><span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span><span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Governance-native platform</span></span></a><a href="research.html" class="fs-nav-item"><span class="fs-nav-icon" style="background:#0d1a2a;">🧪</span><span class="fs-nav-text"><span class="fs-nav-title">Forsker-hjørnet</span><span class="fs-nav-sub">Demo · working papers · fund</span></span></a><a href="mem.html" class="fs-nav-item"><span class="fs-nav-icon" style="background:#1a1228;">🔬</span><span class="fs-nav-text"><span class="fs-nav-title">M.E.M.</span><span class="fs-nav-sub">Grundlag</span></span></a><a href="univers.html" class="fs-nav-item"><span class="fs-nav-icon" style="background:#2a1f1a;">🌱</span><span class="fs-nav-text"><span class="fs-nav-title">Børneunivers</span><span class="fs-nav-sub">Bøger · uniVRs · Bankeren</span></span></a></nav><div style="display:flex;align-items:center;gap:8px;margin-left:8px;"><a href="kontakt.html" class="fs-nav-cta">Kontakt</a><a href="etos-en.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">EN</a></div></div></header>
-<section class="hero"><div class="wrap"><div><span class="eyebrow" style="color:#f0c850;">ETOS Platform · v3.5 · governance-native</span><h1 class="h1">ETOS er ikke bare en beslutningsmodel —<br>det er en <em style="font-style:italic;color:var(--accent);">selv-regulerende infrastruktur</em></h1><p class="sub">Til højrisiko-beslutninger, hvor læring, ansvarlighed og governance skal hænge sammen.</p><p class="lead">ETOS er designet til at synliggøre spændinger, gøre beslutninger forklarlige og auditérbare, og lade systemet lære over tid uden at bevæge sig uden om sine konstitutionelle rammer.</p><div class="btns"><a href="research.html" class="btn-p">Gå til Forsker-hjørnet →</a><a href="#arkitektur" class="btn-s">Se arkitekturen ↓</a></div></div><div class="panel"><h3>Det centrale skifte</h3><p>ETOS er nu beskrevet som en <strong style="color:#fff;">governance-native beslutningsinfrastruktur</strong>, hvor udvikling ikke sker uden om governance, men formes, begrænses og korrigeres under den. Systemet lærer ikke bare af verden — det lærer af sin egen governance-historik.</p></div></div></section>
-<section class="light" id="arkitektur"><div class="wrap"><span class="eyebrow" style="color:var(--accent);">Kernearkitektur</span><h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 16px;">Fire lag, ét lukket governance-loop</h2><p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;max-width:760px;margin:0 0 34px;color:#555;">ETOS er bygget som en rekursiv arkitektur, hvor forslag, evaluering, historisk hukommelse og aktiv styring hænger direkte sammen.</p><div class="grid-2"><div class="card"><span class="mini">01 · ETOS-Self</span><h3>Proposal Engine</h3><p>Genererer forslag ud fra kontekst, konfliktanalyse og governance-tilstand. Output inkluderer forslag, conflict profile, decision trace og governance adjustments.</p></div><div class="card"><span class="mini">02 · CDP</span><h3>Constitutional Decision Protocol</h3><p>Evaluerer forslag gennem tekniske, risikomæssige og konceptuelle lag. Output er integrity score, decision mode, governance flags og ethical debt.</p></div><div class="card"><span class="mini">03 · Drift Memory</span><h3>Reflection Center</h3><p>Opbygger systemets historiske forståelse af directional drift, velocity, acceleration, sekvensmønstre og ethical debt lifecycle.</p></div><div class="card"><span class="mini">04 · Governance Layer</span><h3>Aktiv regulator</h3><p>Binder systemet sammen via Drift Pressure Index, oscillation detection, debt lifecycle og governance modes som optimize, monitor, stabilize og pause.</p></div></div></div></section>
-<section class="dark"><div class="wrap"><span class="eyebrow" style="color:#f0c850;">v3.0 → v3.5</span><h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 16px;">Hvordan ETOS har udviklet sig</h2><div class="timeline"><div class="step"><div class="step-no">v3.0</div><div><h4>Drift-aware governance</h4><p>CDP bliver historisk bevidst. Drift Pressure Index og ethical debt lifecycle introduceres. Systemet forstår sin egen historik.</p></div></div><div class="step"><div class="step-no">v3.1</div><div><h4>Rekursivt feedback-loop</h4><p>ETOS-Self lærer fra CDP-afvisninger. Penalties påvirker fremtidige forslag, og persistent feedback memory introduceres.</p></div></div><div class="step"><div class="step-no">v3.2</div><div><h4>Observability</h4><p>Dashboard, feedback-log og drift-visualisering gør systemet læsbart og efterprøvbart.</p></div></div><div class="step"><div class="step-no">v3.3</div><div><h4>Proaktiv governance</h4><p>Governance-kontekst trækkes ind i ETOS-Self før beslutning. Systemet tænker i kontekst, ikke kun i efterkontrol.</p></div></div><div class="step"><div class="step-no">v3.4</div><div><h4>Dynamisk adfærd</h4><p>Velocity- og acceleration-awareness samt Governance Summary Layer gør systemet bevidst om sin egen bevægelse.</p></div></div><div class="step"><div class="step-no">v3.5</div><div><h4>Aktiv styring</h4><p>Governance bliver styrende og ikke kun observerende. Recommended mode påvirker forslag, human review kan tvinges, og systemet kan stabiliseres aktivt.</p></div></div></div></div></section>
-<section class="light"><div class="wrap"><span class="eyebrow" style="color:var(--accent);">Centrale begreber</span><div class="grid-4"><div class="card"><div class="metric">T</div><h3>Spændinger</h3><p>Beslutninger analyseres som spændinger mellem værdier, fx efficiency vs precaution, throughput vs sensitivity og autonomy vs oversight.</p></div><div class="card"><div class="metric">D</div><h3>Drift</h3><p>Systemets bevægelse over tid: retning, hastighed, acceleration og stabilitet. Ikke bare hvad der sker nu, men hvordan systemet er ved at ændre sig.</p></div><div class="card"><div class="metric">E</div><h3>Ethical Debt</h3><p>Vedvarende konsekvenser af beslutninger. Gæld akkumuleres pr. tension family, påvirker fremtidige valg og kræver aktiv resolution.</p></div><div class="card"><div class="metric">G</div><h3>Governance Modes</h3><p>Optimize, monitor, stabilize og pause. Governance er ikke dokumentation bagefter — det er en aktiv operativ tilstand.</p></div></div></div></section>
-<section class="mid"><div class="wrap"><span class="eyebrow" style="color:#7a9ee8;">Beslutningsflow</span><h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 16px;">Et lukket governance-loop</h2><div class="flow"><strong>Input</strong> → ETOS-Self → <strong>Proposal</strong><br>↓<br>CDP (Technical → Risk → Conceptual)<br>↓<br><strong>Decision + Debt + Flags</strong><br>↓<br>Drift Memory + Reflection<br>↓<br><strong>Feedback → ETOS-Self</strong><br>↓<br>Systemets fremtidige adfærd ændres</div><div class="tagrow" style="margin-top:18px;"><span class="tag">historisk ansvarlighed</span><span class="tag">forklarbarhed</span><span class="tag">auditability</span><span class="tag">aktiv stabilisering</span></div></div></section>
-<section class="cta"><div class="wrap"><span class="eyebrow" style="color:#f0c850;">Det unikke ved ETOS</span><h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 14px;color:#f0ebe0;">Systemet regulerer sin egen udvikling gennem governance</h2><p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;color:rgba(240,235,224,.58);margin:0 0 26px;">ETOS behandler beslutninger som spændinger — ikke svar. Det lærer under governance, ikke uden om den. Og det kan forklare både hvad det gør, hvorfor det gør det, og hvordan det ændrer sig over tid.</p><div class="btns"><a href="research.html" class="btn-p">Åbn Forsker-hjørnet →</a><a href="kontakt.html" class="btn-s">Tal med os om ETOS</a></div></div></section></body></html>
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ETOS — Governance-native beslutningsinfrastruktur</title>
+  <meta name="description" content="ETOS er en governance-native beslutningsinfrastruktur for højrisiko-systemer med forklarbarhed, auditability, drift-aware governance og rekursiv selv-korrektion.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    section { padding: 80px 52px; }
+    .inner { max-width: 1160px; margin: 0 auto; }
+    .eyebrow { font-family:'DM Sans',sans-serif; font-size:11px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; display:block; margin-bottom:14px; }
+    .hero { background:#1E2E1F; color:#f0ebe0; position:relative; overflow:hidden; }
+    .hero::before { content:''; position:absolute; top:-120px; right:-120px; width:520px; height:520px; border-radius:50%; background:radial-gradient(circle, rgba(226,136,78,.08), transparent 70%); pointer-events:none; }
+    .hero .inner { display:grid; grid-template-columns: 1.05fr .95fr; gap:56px; align-items:center; position:relative; }
+    h1 { font-family:'Playfair Display',serif; font-size:clamp(40px,5vw,62px); font-weight:400; line-height:1.04; letter-spacing:-.02em; margin:0 0 10px; }
+    .subtitle { font-family:'Playfair Display',serif; font-size:clamp(20px,2.4vw,28px); color:var(--accent); font-style:italic; margin-bottom:20px; }
+    .lead { font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.85; color:rgba(240,235,224,.56); max-width:640px; margin-bottom:28px; }
+    .btns { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    .btn-primary { display:inline-flex; align-items:center; gap:8px; background:var(--accent); color:#fff; padding:14px 28px; border-radius:9px; text-decoration:none; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:700; }
+    .btn-secondary { font-family:'DM Sans',sans-serif; font-size:14px; color:rgba(240,235,224,.46); text-decoration:none; border-bottom:1px solid rgba(240,235,224,.18); padding-bottom:2px; }
+    .stat-card { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:24px; }
+    .stat-kicker { font-family:'DM Sans',sans-serif; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:rgba(240,235,224,.28); display:block; margin-bottom:12px; }
+    .status-box { padding:16px 18px; border-radius:12px; background:rgba(255,255,255,.04); border-left:3px solid #4ec88c; margin-bottom:14px; }
+    .status-title { font-family:'DM Sans',sans-serif; font-size:12px; font-weight:700; color:#4ec88c; text-transform:uppercase; letter-spacing:.08em; margin-bottom:6px; }
+    .status-text { font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.75; color:rgba(240,235,224,.56); }
+    .metric-list { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
+    .metric { padding:10px 12px; border-radius:10px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06); }
+    .metric strong { display:block; font-family:'DM Sans',sans-serif; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:rgba(240,235,224,.3); margin-bottom:4px; }
+    .metric span { font-family:'DM Sans',sans-serif; font-size:13px; color:#f0ebe0; }
+    .light { background:#f5f0e8; color:#1a1a1a; }
+    .light h2, .dark h2 { font-family:'Playfair Display',serif; font-size:30px; font-weight:400; margin:0 0 8px; }
+    .section-sub { font-family:'DM Sans',sans-serif; font-size:14px; line-height:1.8; max-width:760px; margin-bottom:34px; color:#666; }
+    .dark { background:#0d1117; color:#e8ecfc; }
+    .dark .section-sub { color:rgba(232,236,252,.48); }
+    .grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+    .grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+    .card { background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:16px; padding:24px 22px; }
+    .dark .card { background:rgba(255,255,255,.03); border-color:rgba(255,255,255,.07); }
+    .card h3 { font-family:'Playfair Display',serif; font-size:19px; font-weight:400; margin:0 0 10px; }
+    .card p { font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.75; margin:0; color:#666; }
+    .dark .card p { color:rgba(232,236,252,.46); }
+    .tag { display:inline-flex; font-family:'DM Sans',sans-serif; font-size:10px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin-bottom:10px; }
+    .flow { display:grid; grid-template-columns:repeat(5,1fr); gap:0; border:1px solid rgba(255,255,255,.08); border-radius:16px; overflow:hidden; }
+    .flow-step { padding:28px 24px; border-right:1px solid rgba(255,255,255,.06); }
+    .flow-step:last-child { border-right:none; }
+    .flow-num { font-family:'Playfair Display',serif; font-size:34px; color:var(--accent); opacity:.34; line-height:1; margin-bottom:12px; }
+    .flow-step h3 { font-family:'DM Sans',sans-serif; font-size:14px; font-weight:700; margin:0 0 8px; color:#e8ecfc; }
+    .flow-step p { font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.7; color:rgba(232,236,252,.44); margin:0; }
+    .timeline { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .phase { border-radius:16px; padding:22px 20px; background:#fff; border:1px solid rgba(0,0,0,.08); }
+    .phase strong { display:block; font-family:'DM Sans',sans-serif; font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); margin-bottom:8px; }
+    .phase h3 { font-family:'Playfair Display',serif; font-size:22px; font-weight:400; margin:0 0 8px; color:#1a1a1a; }
+    .phase p { font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.75; color:#666; margin:0; }
+    .cta-band { background:#1a1a0d; color:#f0ebe0; }
+    .cta-band .inner { display:flex; align-items:center; justify-content:space-between; gap:28px; flex-wrap:wrap; }
+    .cta-band p { font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.8; color:rgba(240,235,224,.52); margin:8px 0 0; max-width:620px; }
+    .pill-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:16px; }
+    .pill { font-family:'DM Sans',sans-serif; font-size:11px; padding:4px 10px; border-radius:999px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); color:rgba(240,235,224,.62); }
+    @media (max-width: 900px) {
+      section { padding:52px 28px; }
+      .hero .inner, .grid-4, .grid-2, .timeline, .flow { grid-template-columns:1fr; }
+      .metric-list { grid-template-columns:1fr; }
+      .flow-step { border-right:none; border-bottom:1px solid rgba(255,255,255,.06); }
+      .flow-step:last-child { border-bottom:none; }
+    }
+  </style>
+</head>
+<body>
+<header class="fs-header">
+  <div class="fs-nav">
+    <a href="index.html" class="fs-logo">M.E.M.</a>
+    <nav class="fs-links">
+      <a href="etos.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Governance-lag</span></span>
+      </a>
+      <a href="produkter.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1228;">🛍</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Produkter</span><span class="fs-nav-sub">Software · Forløb · Bøger</span></span>
+      </a>
+      <a href="pilot-pakke.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1a0d;">🧪</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Pilot</span><span class="fs-nav-sub">Test det i praksis</span></span>
+      </a>
+      <div class="fs-dropdown">
+        <a href="mem.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#0d1117;">✦</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">Mere</span><span class="fs-nav-sub">Teori · Forskerhjørne · Demokrati</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="research.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#111520;">🧪</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Forskerhjørnet</span><span class="fs-dropdown-item-sub">Simulation Lab · Demoer · fund</span></span>
+          </a>
+          <a href="mem.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🔬</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">M.E.M.</span><span class="fs-dropdown-item-sub">Grundmodel</span></span>
+          </a>
+          <a href="arkitektur.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🏗</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Arkitektur</span><span class="fs-dropdown-item-sub">ETOS-Self · CDP · Drift</span></span>
+          </a>
+          <a href="etos-demokrati.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2820;">🗳</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Demokrati</span><span class="fs-dropdown-item-sub">Løfter · ansvar</span></span>
+          </a>
+        </div>
+      </div>
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
+      <a href="etos-en.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">EN</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="inner">
+    <div>
+      <span class="eyebrow" style="color:var(--accent);">Governance-native beslutningsinfrastruktur</span>
+      <h1>ETOS</h1>
+      <p class="subtitle">Konstitutionelt styret selv-korrektion i højrisiko-systemer</p>
+      <p class="lead">ETOS er en inspicerbar, konstitutionelt styret rekursiv selv-korrektionsarkitektur. Systemet er bygget som et governance-lag oven på højrisiko-beslutningssystemer, så spændinger, forklarbarhed, historisk ansvarlighed og læring kan håndteres samlet — uden at governance brydes.</p>
+      <div class="btns">
+        <a href="research.html" class="btn-primary">Gå til Forskerhjørnet →</a>
+        <a href="#flow" class="btn-secondary">Se beslutningsflow</a>
+      </div>
+      <div class="pill-row">
+        <span class="pill">Drift-aware governance</span>
+        <span class="pill">Ethical debt lifecycle</span>
+        <span class="pill">Recursive self-correction</span>
+        <span class="pill">Inspectable alignment</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-kicker">Udviklingsstatus</span>
+      <div class="status-box">
+        <div class="status-title">Avanceret funktionel prototype / pre-pilot platform</div>
+        <div class="status-text">ETOS er længere end en tidlig simulation. Platformen samler proposal engine, konstitutionel evaluering, drift memory, observability og aktiv governance i et lukket loop, testet i kontrollerede miljøer og egnet som både beslutningsinfrastruktur og alignment-testbed.</div>
+      </div>
+      <div class="metric-list">
+        <div class="metric"><strong>Kernearkitektur</strong><span>ETOS-Self · CDP · Reflection · Governance</span></div>
+        <div class="metric"><strong>Governance modes</strong><span>optimize · monitor · stabilize · pause</span></div>
+        <div class="metric"><strong>Kontrol</strong><span>Human review kan tvinges</span></div>
+        <div class="metric"><strong>AGI-relevans</strong><span>Inspectable recursive alignment</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="light">
+  <div class="inner">
+    <span class="eyebrow" style="color:var(--accent);">Hvorfor ETOS er anderledes</span>
+    <h2>ETOS behandler ikke beslutninger som svar — men som spændinger</h2>
+    <p class="section-sub">I stedet for at optimere direkte mod output, arbejder ETOS med spændingsfamilier, drift over tid og vedvarende etiske konsekvenser. Det gør det muligt at sige nej til forbedringer, der teknisk virker, hvis de underminerer systemets normative formål.</p>
+    <div class="grid-4">
+      <div class="card">
+        <span class="tag">ETOS-Self</span>
+        <h3>Proposal engine</h3>
+        <p>Genererer forslag ud fra kontekst, konfliktanalyse og governance-tilstand. Outputtet er ikke bare et forslag, men også conflict profile, decision trace og governance-adjustments.</p>
+      </div>
+      <div class="card">
+        <span class="tag">CDP</span>
+        <h3>Konstitutionel evaluering</h3>
+        <p>Forslag gennemgår tre lag: Technical, Risk og Conceptual. Dermed kan ETOS afvise forbedringer, der ser effektive ud, men ændrer selve linealen.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Drift Memory</span>
+        <h3>Historisk bevidsthed</h3>
+        <p>Systemet logger retning, velocity, acceleration, oscillation og ethical debt. Det betyder, at ETOS ikke kun ser situationen nu, men sin egen bevægelse over tid.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Governance Layer</span>
+        <h3>Aktiv regulering</h3>
+        <p>Governance er ikke dokumentation bagefter. Den styrer systemets adfærd gennem modes, interventionslogik, debt lifecycle og Drift Pressure Index.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark" id="flow">
+  <div class="inner">
+    <span class="eyebrow" style="color:var(--accent);">Rekursivt beslutningsflow</span>
+    <h2>Et lukket governance-loop</h2>
+    <p class="section-sub">ETOS er bygget, så fremtidig adfærd hele tiden formes af tidligere beslutninger — men under konstitutionelle rammer. Det er det centrale skel mellem rå selv-forbedring og styret selv-korrektion.</p>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">01</div>
+        <h3>Input og kontekst</h3>
+        <p>Systemet modtager en kontekst med spændinger, konflikter, driftsignaler og governance-tilstand.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">02</div>
+        <h3>ETOS-Self</h3>
+        <p>Proposal engine genererer et ændringsforslag og et conflict profile baseret på kontekst og historik.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">03</div>
+        <h3>CDP</h3>
+        <p>Technical → Risk → Conceptual review afgør, om forslaget er kompatibelt, tvetydigt eller skal afvises.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">04</div>
+        <h3>Reflection</h3>
+        <p>Decision, flags, ethical debt og drift-signaler logges i Drift Memory & Reflection Center.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">05</div>
+        <h3>Fremtidig adfærd</h3>
+        <p>Feedback ændrer senere forslag, anbefalet mode og muligheden for stabilisering eller pause.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="light">
+  <div class="inner">
+    <span class="eyebrow" style="color:var(--accent);">Platformmodenhed</span>
+    <h2>Fra drift-aware governance til aktiv styring</h2>
+    <p class="section-sub">Udviklingen fra v3.0 til v3.5 handler ikke om flere features alene, men om at governance bliver mere og mere operationel og fremadrettet.</p>
+    <div class="timeline">
+      <div class="phase">
+        <strong>v3.0 → v3.1</strong>
+        <h3>Historik + feedback</h3>
+        <p>Drift Pressure Index, ethical debt lifecycle og persistent feedback memory gør systemet historisk bevidst og i stand til at lære af egne afvisninger.</p>
+      </div>
+      <div class="phase">
+        <strong>v3.2 → v3.4</strong>
+        <h3>Observability + bevægelse</h3>
+        <p>Dashboard, feedbacklog og driftvisualisering gør systemet læsbart. Velocity og acceleration-awareness gør det muligt at forstå ikke kun retning, men bevægelse.</p>
+      </div>
+      <div class="phase">
+        <strong>v3.5</strong>
+        <h3>Aktiv styring</h3>
+        <p>Governance anbefaler operative modes, kan tvinge human review og aktivt stabilisere systemet. Governance er nu styrende, ikke kun observerende.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="inner">
+    <span class="eyebrow" style="color:var(--accent);">AGI-perspektiv</span>
+    <h2>Et praktisk alignment-testbed på vej mod AGI</h2>
+    <p class="section-sub">ETOS er ikke AGI. Det er snævert og beslutningsfokuseret. Men det er et modent eksempel på inspicerbar rekursiv selv-korrektion, hvor systemet kan sige nej til sin egen forbedring og samtidig vise hvorfor.</p>
+    <div class="grid-2">
+      <div class="card">
+        <span class="tag">Alignment-gap</span>
+        <h3>Changing the ruler</h3>
+        <p>ETOS-Self foreslår ændringer, men CDP definerer, hvad der er acceptabel forbedring. Dermed forsøger systemet at forhindre, at selve normgrundlaget skrider i takt med optimeringen.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Drift detection</span>
+        <h3>Value drift over tid</h3>
+        <p>Drift Memory, oscillation detection og unresolved debt gør værdi-drift observerbar. Det er en praktisk tilgang til et problem, de fleste RSI-projekter stadig ikke kan vise åbent.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="inner">
+    <div>
+      <span class="eyebrow" style="color:#f0c850;">Forskerhjørnet · Simulation Lab</span>
+      <h2 style="font-family:'Playfair Display',serif;font-size:30px;font-weight:400;margin:0;color:#f0ebe0;">Se demoer, simulationsspor og working papers</h2>
+      <p>Forskerhjørnet samler det sted, hvor ETOS bliver testet, udfordret og gjort læsbart for andre. Det er her du kan følge udviklingen og gå direkte ind i demoerne.</p>
+    </div>
+    <a href="research.html" class="btn-primary" style="background:#f0c850;color:#1a1a0d;">Åbn Forskerhjørnet →</a>
+  </div>
+</section>
+</body>
+</html>

@@ -1,9 +1,227 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Research Corner — ETOS in motion</title><meta name="description" content="The Research Corner is the public lab around ETOS — demos, working papers, findings, simulations, and future collaboration paths."><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="style-additions.css">
-<style>
-section{padding:78px 52px}.wrap{max-width:1160px;margin:0 auto}.eyebrow{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:14px}.hero{background:#132016;position:relative;overflow:hidden}.hero::before{content:'';position:absolute;right:-120px;top:-120px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle, rgba(226,136,78,.09), transparent 70%)}.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;position:relative}.h1{font-family:'Playfair Display',serif;font-size:clamp(40px,5vw,64px);line-height:1.03;font-weight:400;letter-spacing:-.02em;margin:0 0 14px;color:#f0ebe0}.sub{font-family:'Playfair Display',serif;font-size:clamp(20px,2.2vw,30px);font-style:italic;color:var(--accent);margin:0 0 18px}.lead{font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.82;color:rgba(240,235,224,.58);max-width:640px;margin:0 0 28px}.btns{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;padding:14px 26px;border-radius:9px;text-decoration:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700}.btn-s{font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,.5);text-decoration:none;border-bottom:1px solid rgba(240,235,224,.18);padding-bottom:2px}.panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:28px}.panel h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;color:#f0ebe0;margin:0 0 10px}.panel p{font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.5);margin:0}.light{background:#f5f0e8}.light h2,.light h3{color:#161616}.light p,.light li{color:#555}.dark{background:#0d1117}.dark h2,.dark h3{color:#f0ebe0}.dark p{color:rgba(240,235,224,.54)}.mid{background:#11161d}.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{border-radius:16px;padding:24px 22px;border:1px solid rgba(0,0,0,.08);background:#fff}.dark .card,.mid .card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08)}.card h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;margin:0 0 8px}.card p{font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;margin:0}.mini{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:10px;color:var(--accent)}.metric{font-family:'Playfair Display',serif;font-size:34px;color:var(--accent);margin-bottom:8px}.timeline{display:flex;flex-direction:column;gap:12px}.step{display:grid;grid-template-columns:80px 1fr;gap:16px;align-items:start;padding:18px 20px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08)}.light .step{background:#fff;border:1px solid rgba(0,0,0,.08)}.step-no{font-family:'Playfair Display',serif;font-size:24px;color:var(--accent)}.step h4{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;margin:0 0 6px}.step p{font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;margin:0}.flow{font-family:'DM Sans',sans-serif;font-size:13px;line-height:2;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px}.flow strong{color:#fff;font-weight:600}.light .flow{background:#fff;border:1px solid rgba(0,0,0,.08)}.cta{background:#1a1a0d}.cta p{max-width:760px}.tagrow{display:flex;gap:8px;flex-wrap:wrap}.tag{font-family:'DM Sans',sans-serif;font-size:11px;padding:5px 10px;border-radius:999px;background:rgba(226,136,78,.10);border:1px solid rgba(226,136,78,.20);color:var(--accent)}@media(max-width:920px){.hero .wrap,.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.step{grid-template-columns:1fr}section{padding:56px 28px}}
-</style>
-</head><body><header class="fs-header"><div class="fs-nav"><a href="index-en.html" class="fs-logo">M.E.M.</a><nav class="fs-links"><a href="etos-en.html" class="fs-nav-item"><span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span><span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Governance-native platform</span></span></a><a href="research-en.html" class="fs-nav-item"><span class="fs-nav-icon" style="background:#0d1a2a;">🧪</span><span class="fs-nav-text"><span class="fs-nav-title">Research Corner</span><span class="fs-nav-sub">Demo · working papers · findings</span></span></a><a href="mem-en.html" class="fs-nav-item"><span class="fs-nav-icon" style="background:#1a1228;">🔬</span><span class="fs-nav-text"><span class="fs-nav-title">M.E.M.</span><span class="fs-nav-sub">Foundation</span></span></a><a href="univers-en.html" class="fs-nav-item"><span class="fs-nav-icon" style="background:#2a1f1a;">🌱</span><span class="fs-nav-text"><span class="fs-nav-title">Children’s Universe</span><span class="fs-nav-sub">Books · uniVRs · Bankeren</span></span></a></nav><div style="display:flex;align-items:center;gap:8px;margin-left:8px;"><a href="kontakt-en.html" class="fs-nav-cta">Contact</a><a href="etos.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">DA</a></div></div></header>
-<section class="hero" style="background:#0d1a2a;"><div class="wrap"><div><span class="eyebrow" style="color:#7a9ee8;">Research Corner · public lab</span><h1 class="h1">A place to follow how ETOS is <em style="font-style:italic;color:#7a9ee8;">tested, challenged, and shared</em></h1><p class="sub" style="color:#7a9ee8;">Not just a page of results — but a place where the work can be followed in motion.</p><p class="lead">The Research Corner is intended as the public lab around ETOS: demos, simulations, working papers, platform updates, and eventually a place where others can start or connect their own projects.</p><div class="btns"><a href="system.html" class="btn-p" style="background:#7a9ee8;color:#0d1117;">Open the demo →</a><a href="etos-en.html" class="btn-s">Read about the platform ↓</a></div></div><div class="panel"><h3>In the spirit of Niels Bohr</h3><p>The idea is simple: scientific work and understanding should be shareable. Not everything must be opened at the engine-room level, but development, arguments, and findings should be readable, discussable, and extendable.</p></div></div></section>
-<section class="light"><div class="wrap"><span class="eyebrow" style="color:var(--accent);">What lives here</span><div class="grid-3"><div class="card"><span class="mini">01 · Demo</span><h3>Interactive ETOS demo</h3><p>A direct way to see how tensions are registered and how decision mode changes as parameters move.</p></div><div class="card"><span class="mini">02 · Working papers</span><h3>Platform notes and development</h3><p>Updates on ETOS architecture, key concepts, drift, ethical debt, governance modes, and new iterations.</p></div><div class="card"><span class="mini">03 · Simulations</span><h3>Findings and experiments</h3><p>A place for models, tests, reflections, and results that can be shared without turning the site into closed product material.</p></div></div></div></section>
-<section class="dark"><div class="wrap"><span class="eyebrow" style="color:#f0c850;">Why this page exists</span><h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 16px;">Because ETOS should not only be shown — it should be possible to follow it</h2><p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;max-width:760px;margin:0 0 28px;color:rgba(240,235,224,.58);">When you link from posts, discussions, or collaboration outreach, there should be one place where people can understand the direction, the maturity, and the experimental work around ETOS. The Research Corner is intended to be that entry point.</p><div class="grid-2"><div class="panel"><h3>For readers and the curious</h3><p>Access the current demo, see how ETOS describes tensions, and follow how the platform develops over time.</p></div><div class="panel"><h3>For potential collaborators</h3><p>Use this page as the starting point if you want to discuss a pilot, a working paper, a simulation, or a project that could grow through ETOS.</p></div></div></div></section>
-<section class="cta"><div class="wrap"><span class="eyebrow" style="color:#f0c850;">Next step</span><h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 14px;color:#f0ebe0;">Over time this can become a portal for shared exploration</h2><p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;color:rgba(240,235,224,.58);margin:0 0 26px;max-width:800px;">The aim is not only to publish, but to create a place where people can follow along, think along, and perhaps start a project of their own from within the Research Corner.</p><div class="btns"><a href="system.html" class="btn-p">Go to the demo →</a><a href="kontakt-en.html" class="btn-s">Talk to us about the idea</a></div></div></section></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research Corner — ETOS Simulation Lab</title>
+  <meta name="description" content="The Research Corner brings together the ETOS Simulation Lab, demos, meta-cases, proposal generation, and development tracks around governance, drift, and alignment.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    section { padding: 76px 52px; }
+    .inner { max-width: 1160px; margin: 0 auto; }
+    .eyebrow { font-family:'DM Sans',sans-serif; font-size:11px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; display:block; margin-bottom:14px; }
+    .hero { background:#10161d; color:#f0ebe0; position:relative; overflow:hidden; }
+    .hero::before { content:''; position:absolute; top:-140px; left:50%; transform:translateX(-50%); width:560px; height:560px; border-radius:50%; background:radial-gradient(circle, rgba(122,158,232,.08), transparent 70%); pointer-events:none; }
+    .hero .inner { position:relative; display:grid; grid-template-columns:1.02fr .98fr; gap:52px; align-items:center; }
+    h1 { font-family:'Playfair Display',serif; font-size:clamp(40px,5vw,60px); font-weight:400; line-height:1.05; letter-spacing:-.02em; margin:0 0 12px; }
+    .subtitle { font-family:'Playfair Display',serif; font-size:clamp(20px,2.3vw,28px); color:#7a9ee8; font-style:italic; margin-bottom:18px; }
+    .lead { font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.85; color:rgba(240,235,224,.56); max-width:700px; margin-bottom:28px; }
+    .btns { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    .btn-primary { display:inline-flex; align-items:center; gap:8px; background:#7a9ee8; color:#0d1117; padding:14px 28px; border-radius:9px; text-decoration:none; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:700; }
+    .btn-secondary { font-family:'DM Sans',sans-serif; font-size:14px; color:rgba(240,235,224,.46); text-decoration:none; border-bottom:1px solid rgba(240,235,224,.18); padding-bottom:2px; }
+    .hero-card { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:24px; }
+    .hero-card h3 { font-family:'Playfair Display',serif; font-size:22px; font-weight:400; margin:0 0 10px; color:#f0ebe0; }
+    .hero-card p { font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.75; color:rgba(240,235,224,.52); margin:0; }
+    .pill-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:16px; }
+    .pill { font-family:'DM Sans',sans-serif; font-size:11px; padding:4px 10px; border-radius:999px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); color:rgba(240,235,224,.62); }
+    .light { background:#f5f0e8; }
+    .dark { background:#0d1117; color:#e8ecfc; }
+    .light h2, .dark h2 { font-family:'Playfair Display',serif; font-size:30px; font-weight:400; margin:0 0 8px; }
+    .sub { font-family:'DM Sans',sans-serif; font-size:14px; line-height:1.8; max-width:760px; margin-bottom:34px; color:#666; }
+    .dark .sub { color:rgba(232,236,252,.48); }
+    .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+    .card { background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:16px; padding:24px 22px; }
+    .dark .card { background:rgba(255,255,255,.03); border-color:rgba(255,255,255,.07); }
+    .card h3 { font-family:'Playfair Display',serif; font-size:21px; font-weight:400; margin:0 0 10px; color:#1a1a1a; }
+    .dark .card h3 { color:#e8ecfc; }
+    .card p { font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.75; margin:0; color:#666; }
+    .dark .card p { color:rgba(232,236,252,.46); }
+    .kicker { display:inline-flex; font-family:'DM Sans',sans-serif; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); margin-bottom:10px; }
+    .demo-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+    .demo-card { border-radius:18px; padding:24px; background:#121922; border:1px solid rgba(255,255,255,.08); }
+    .demo-card h3 { font-family:'Playfair Display',serif; font-size:24px; font-weight:400; color:#f0ebe0; margin:0 0 10px; }
+    .demo-card p { font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.78; color:rgba(240,235,224,.5); margin:0 0 16px; }
+    .demo-link { display:inline-flex; align-items:center; gap:8px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:700; color:#7a9ee8; text-decoration:none; }
+    .list { display:flex; flex-direction:column; gap:10px; }
+    .list-item { padding:14px 16px; border-radius:12px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07); font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.7; color:rgba(232,236,252,.56); }
+    .cta-band { background:#1a1a0d; color:#f0ebe0; }
+    .cta-band .inner { display:flex; align-items:center; justify-content:space-between; gap:28px; flex-wrap:wrap; }
+    .cta-band p { font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.8; color:rgba(240,235,224,.52); margin:8px 0 0; max-width:620px; }
+    @media (max-width: 900px) {
+      section { padding:52px 28px; }
+      .hero .inner, .grid-3, .grid-2, .demo-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+<header class="fs-header">
+  <div class="fs-nav">
+    <a href="index-en.html" class="fs-logo">M.E.M.</a>
+    <nav class="fs-links">
+      <a href="etos-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Governance layer</span></span>
+      </a>
+      <a href="produkter-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1228;">🛍</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Products</span><span class="fs-nav-sub">Software · Programmes · Books</span></span>
+      </a>
+      <div class="fs-dropdown">
+        <a href="research-en.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#111520;">🧪</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">Research Corner</span><span class="fs-nav-sub">Simulation Lab · demos</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="research-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#111520;">🧪</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Research Corner</span><span class="fs-dropdown-item-sub">experiments · simulations · findings</span></span>
+          </a>
+          <a href="meta_demo.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🧠</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Meta Demo</span><span class="fs-dropdown-item-sub">static signature cases</span></span>
+          </a>
+          <a href="propose.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2020;">⚙️</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Proposal Generator</span><span class="fs-dropdown-item-sub">semi-dynamic ETOS-Self</span></span>
+          </a>
+        </div>
+      </div>
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt-en.html" class="fs-nav-cta">Contact</a>
+      <a href="research.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">DA</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="inner">
+    <div>
+      <span class="eyebrow" style="color:#7a9ee8;">ETOS Research Lab · public working space</span>
+      <h1>Research Corner</h1>
+      <p class="subtitle">A place where development, demos, and findings can be followed openly</p>
+      <p class="lead">The Research Corner brings together the place where ETOS is tested, challenged, and made readable. This is where the Simulation Lab, signature cases, proposal generation, and development tracks live. The aim is not only to publish outcomes, but to make the research movement itself visible.</p>
+      <div class="btns">
+        <a href="#demos" class="btn-primary">Go to the demos →</a>
+        <a href="etos-en.html" class="btn-secondary">Back to ETOS</a>
+      </div>
+      <div class="pill-row">
+        <span class="pill">Simulation Lab</span>
+        <span class="pill">Meta cases</span>
+        <span class="pill">Proposal engine</span>
+        <span class="pill">Alignment testbed</span>
+      </div>
+    </div>
+    <div class="hero-card">
+      <h3>What could this become?</h3>
+      <p>Over time, the Research Corner can become a place where others follow the development, challenge assumptions, read working papers, and perhaps start their own project track. The idea is a shared, open laboratory in the spirit of Niels Bohr: that serious thinking and science become stronger when they can be shared and discussed.</p>
+    </div>
+  </div>
+</section>
+
+<section class="light" id="demos">
+  <div class="inner">
+    <span class="eyebrow" style="color:var(--accent);">Live tracks</span>
+    <h2>Demos and simulations</h2>
+    <p class="sub">From here, people can move directly into the concrete demos. They do not only show outputs, but how ETOS evaluates, rejects, accepts, or escalates proposals through a governance loop.</p>
+    <div class="demo-grid">
+      <div class="demo-card">
+        <span class="kicker">Signature cases</span>
+        <h3>Meta Demo</h3>
+        <p>Shows the clear cases where ETOS, for example, rejects a technically valid optimisation because it undermines the normative role of the system. This is where “The Rejection That Makes Sense” becomes visible.</p>
+        <a class="demo-link" href="meta_demo.html">Open Meta Demo →</a>
+      </div>
+      <div class="demo-card">
+        <span class="kicker">Semi-dynamic loop</span>
+        <h3>Proposal Generator</h3>
+        <p>Lets ETOS-Self generate proposals from context profiles, which are then evaluated by CDP. This makes the recursive idea more tangible and shows how proposals become governance decisions.</p>
+        <a class="demo-link" href="propose.html">Open Proposal Generator →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="inner">
+    <span class="eyebrow" style="color:var(--accent);">What is being explored</span>
+    <h2>Four central research tracks</h2>
+    <p class="sub">The Simulation Lab is not only a demo collection. It is an attempt to build a readable environment for questions that otherwise often remain hidden behind black-box optimisation.</p>
+    <div class="grid-2">
+      <div class="card">
+        <span class="kicker">Recursive governance</span>
+        <h3>Can a system learn under governance?</h3>
+        <p>ETOS explores whether a system can correct itself without slipping outside its own constitutional constraints.</p>
+      </div>
+      <div class="card">
+        <span class="kicker">Drift</span>
+        <h3>Can normative movement be detected early?</h3>
+        <p>Drift, velocity, acceleration, and oscillation are used as practical signals for whether a system is moving away from its purpose.</p>
+      </div>
+      <div class="card">
+        <span class="kicker">Ethical debt</span>
+        <h3>What happens to the consequences afterwards?</h3>
+        <p>Not all decisions disappear once they have been made. ETOS treats ethical debt as something that accumulates and requires active resolution.</p>
+      </div>
+      <div class="card">
+        <span class="kicker">Alignment</span>
+        <h3>Can a system say no to its own improvement?</h3>
+        <p>The central alignment question is tested concretely: whether the system can reject a change that looks efficient, but quietly changes the ruler.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="light">
+  <div class="inner">
+    <span class="eyebrow" style="color:var(--accent);">What already lives in the lab</span>
+    <h2>This is not only ideas — these are traceable building blocks</h2>
+    <p class="sub">The current lab already rests on a working proposal engine, three-layer CDP review, meta-reflection, and dashboard-oriented observability. That is why the Research Corner can act as a real entry point for posts, articles, and future project tracks.</p>
+    <div class="grid-3">
+      <div class="card">
+        <span class="kicker">Technical → Risk → Conceptual</span>
+        <h3>CDP</h3>
+        <p>The constitutional review makes it possible to distinguish between technical flaws, operational risk, and normative breaks.</p>
+      </div>
+      <div class="card">
+        <span class="kicker">Context → Proposal</span>
+        <h3>ETOS-Self</h3>
+        <p>The proposal engine turns context profiles into concrete proposals, making self-correction tangible and inspectable.</p>
+      </div>
+      <div class="card">
+        <span class="kicker">Result + reflection</span>
+        <h3>Meta-reflection</h3>
+        <p>After each evaluation, a reflection is generated that makes both the decision and the learning point readable to others.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="inner">
+    <span class="eyebrow" style="color:var(--accent);">Possible direction</span>
+    <h2>A shared place for future research and project tracks</h2>
+    <p class="sub">Over time, the Research Corner can work as public laboratory, collaboration entry point, and documentation layer for new project tracks. People should not only be able to see results here — but understand how the questions are being asked.</p>
+    <div class="list">
+      <div class="list-item">Public access to demos, simulations, and working-paper tracks</div>
+      <div class="list-item">A place to link from posts, Substack, and wider conversations</div>
+      <div class="list-item">A possible entry point for collaborators, pilot cases, and new research tracks</div>
+      <div class="list-item">A laboratory for exchange around governance, alignment, and decision systems</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="inner">
+    <div>
+      <span class="eyebrow" style="color:#f0c850;">Next step</span>
+      <h2 style="font-family:'Playfair Display',serif;font-size:30px;font-weight:400;margin:0;color:#f0ebe0;">Would you like to follow the development — or start your own track?</h2>
+      <p>The Research Corner is meant as both documentation and invitation. If you want to follow, challenge, or explore a project track of your own, this is where the entry begins.</p>
+    </div>
+    <a href="kontakt-en.html" class="btn-primary" style="background:#f0c850;color:#1a1a0d;">Get in touch →</a>
+  </div>
+</section>
+</body>
+</html>

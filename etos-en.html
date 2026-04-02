@@ -1,11 +1,275 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>ETOS — governance-native decision infrastructure</title><meta name="description" content="ETOS is a governance-native decision infrastructure for high-risk decisions, combining tension analysis, explainability, historical accountability, and learning under constitutional constraints."><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="style-additions.css">
-<style>
-section{padding:78px 52px}.wrap{max-width:1160px;margin:0 auto}.eyebrow{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:14px}.hero{background:#132016;position:relative;overflow:hidden}.hero::before{content:'';position:absolute;right:-120px;top:-120px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle, rgba(226,136,78,.09), transparent 70%)}.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;position:relative}.h1{font-family:'Playfair Display',serif;font-size:clamp(40px,5vw,64px);line-height:1.03;font-weight:400;letter-spacing:-.02em;margin:0 0 14px;color:#f0ebe0}.sub{font-family:'Playfair Display',serif;font-size:clamp(20px,2.2vw,30px);font-style:italic;color:var(--accent);margin:0 0 18px}.lead{font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.82;color:rgba(240,235,224,.58);max-width:640px;margin:0 0 28px}.btns{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;padding:14px 26px;border-radius:9px;text-decoration:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700}.btn-s{font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,.5);text-decoration:none;border-bottom:1px solid rgba(240,235,224,.18);padding-bottom:2px}.panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:28px}.panel h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;color:#f0ebe0;margin:0 0 10px}.panel p{font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.5);margin:0}.light{background:#f5f0e8}.light h2,.light h3{color:#161616}.light p,.light li{color:#555}.dark{background:#0d1117}.dark h2,.dark h3{color:#f0ebe0}.dark p{color:rgba(240,235,224,.54)}.mid{background:#11161d}.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{border-radius:16px;padding:24px 22px;border:1px solid rgba(0,0,0,.08);background:#fff}.dark .card,.mid .card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08)}.card h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;margin:0 0 8px}.card p{font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;margin:0}.mini{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:10px;color:var(--accent)}.metric{font-family:'Playfair Display',serif;font-size:34px;color:var(--accent);margin-bottom:8px}.timeline{display:flex;flex-direction:column;gap:12px}.step{display:grid;grid-template-columns:80px 1fr;gap:16px;align-items:start;padding:18px 20px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08)}.light .step{background:#fff;border:1px solid rgba(0,0,0,.08)}.step-no{font-family:'Playfair Display',serif;font-size:24px;color:var(--accent)}.step h4{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;margin:0 0 6px}.step p{font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;margin:0}.flow{font-family:'DM Sans',sans-serif;font-size:13px;line-height:2;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px}.flow strong{color:#fff;font-weight:600}.light .flow{background:#fff;border:1px solid rgba(0,0,0,.08)}.cta{background:#1a1a0d}.cta p{max-width:760px}.tagrow{display:flex;gap:8px;flex-wrap:wrap}.tag{font-family:'DM Sans',sans-serif;font-size:11px;padding:5px 10px;border-radius:999px;background:rgba(226,136,78,.10);border:1px solid rgba(226,136,78,.20);color:var(--accent)}@media(max-width:920px){.hero .wrap,.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.step{grid-template-columns:1fr}section{padding:56px 28px}}
-</style>
-</head><body><header class="fs-header"><div class="fs-nav"><a href="index-en.html" class="fs-logo">M.E.M.</a><nav class="fs-links"><a href="etos-en.html" class="fs-nav-item"><span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span><span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Governance-native platform</span></span></a><a href="research-en.html" class="fs-nav-item"><span class="fs-nav-icon" style="background:#0d1a2a;">🧪</span><span class="fs-nav-text"><span class="fs-nav-title">Research Corner</span><span class="fs-nav-sub">Demo · working papers · findings</span></span></a><a href="mem-en.html" class="fs-nav-item"><span class="fs-nav-icon" style="background:#1a1228;">🔬</span><span class="fs-nav-text"><span class="fs-nav-title">M.E.M.</span><span class="fs-nav-sub">Foundation</span></span></a><a href="univers-en.html" class="fs-nav-item"><span class="fs-nav-icon" style="background:#2a1f1a;">🌱</span><span class="fs-nav-text"><span class="fs-nav-title">Children’s Universe</span><span class="fs-nav-sub">Books · uniVRs · Bankeren</span></span></a></nav><div style="display:flex;align-items:center;gap:8px;margin-left:8px;"><a href="kontakt-en.html" class="fs-nav-cta">Contact</a><a href="etos.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">DA</a></div></div></header>
-<section class="hero"><div class="wrap"><div><span class="eyebrow" style="color:#f0c850;">ETOS Platform · v3.5 · governance-native</span><h1 class="h1">ETOS is no longer just a decision model —<br>it is a <em style="font-style:italic;color:var(--accent);">self-regulating infrastructure</em></h1><p class="sub">For high-risk environments where learning, accountability, and governance must remain aligned.</p><p class="lead">ETOS is designed to surface tensions, keep decisions explainable and auditable, and allow the system to learn over time without stepping outside its constitutional limits.</p><div class="btns"><a href="research-en.html" class="btn-p">Open the Research Corner →</a><a href="#architecture" class="btn-s">See the architecture ↓</a></div></div><div class="panel"><h3>The key shift</h3><p>ETOS is now framed as a <strong style="color:#fff;">governance-native decision infrastructure</strong> in which system evolution is continuously shaped, constrained, and corrected under governance. It does not merely learn from the world — it learns from its own governance history.</p></div></div></section>
-<section class="light" id="architecture"><div class="wrap"><span class="eyebrow" style="color:var(--accent);">Core architecture</span><h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 16px;">Four layers, one closed governance loop</h2><p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;max-width:760px;margin:0 0 34px;color:#555;">ETOS is built as a recursive architecture in which proposals, evaluation, historical memory, and active regulation are directly connected.</p><div class="grid-2"><div class="card"><span class="mini">01 · ETOS-Self</span><h3>Proposal Engine</h3><p>Generates proposals from context, conflict analysis, and governance state. Output includes proposal, conflict profile, decision trace, and governance adjustments.</p></div><div class="card"><span class="mini">02 · CDP</span><h3>Constitutional Decision Protocol</h3><p>Evaluates proposals through technical, risk, and conceptual layers. Output includes integrity score, decision mode, governance flags, and ethical debt.</p></div><div class="card"><span class="mini">03 · Drift Memory</span><h3>Reflection Center</h3><p>Builds the system’s historical understanding of directional drift, velocity, acceleration, sequence patterns, and the lifecycle of ethical debt.</p></div><div class="card"><span class="mini">04 · Governance Layer</span><h3>Active regulator</h3><p>Holds the platform together through the Drift Pressure Index, oscillation detection, debt lifecycle management, and governance modes such as optimize, monitor, stabilize, and pause.</p></div></div></div></section>
-<section class="dark"><div class="wrap"><span class="eyebrow" style="color:#f0c850;">v3.0 → v3.5</span><h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 16px;">How ETOS has evolved</h2><div class="timeline"><div class="step"><div class="step-no">v3.0</div><div><h4>Drift-aware governance</h4><p>CDP becomes historically aware. Drift Pressure Index and the ethical debt lifecycle are introduced. The system begins to understand its own history.</p></div></div><div class="step"><div class="step-no">v3.1</div><div><h4>Recursive feedback loop</h4><p>ETOS-Self learns from CDP rejections. Penalties affect future proposals, and persistent feedback memory is introduced.</p></div></div><div class="step"><div class="step-no">v3.2</div><div><h4>Observability</h4><p>Dashboard, feedback log, and drift visualisation make the system readable and inspectable.</p></div></div><div class="step"><div class="step-no">v3.3</div><div><h4>Proactive governance</h4><p>Governance context is pulled into ETOS-Self before the decision is made. The system starts reasoning in context, not only through after-the-fact control.</p></div></div><div class="step"><div class="step-no">v3.4</div><div><h4>Dynamic behaviour</h4><p>Velocity and acceleration awareness, together with a Governance Summary Layer, make the system aware of its own movement.</p></div></div><div class="step"><div class="step-no">v3.5</div><div><h4>Active steering</h4><p>Governance becomes steering rather than merely observational. Recommended mode shapes future proposals, human review can be enforced, and the system can be actively stabilised.</p></div></div></div></div></section>
-<section class="light"><div class="wrap"><span class="eyebrow" style="color:var(--accent);">Key concepts</span><div class="grid-4"><div class="card"><div class="metric">T</div><h3>Tensions</h3><p>Decisions are analysed as tensions between values: efficiency vs precaution, throughput vs sensitivity, autonomy vs oversight, and other structural conflicts.</p></div><div class="card"><div class="metric">D</div><h3>Drift</h3><p>The system’s movement over time: direction, velocity, acceleration, and stability. Not only what happens now, but how the platform is changing.</p></div><div class="card"><div class="metric">E</div><h3>Ethical Debt</h3><p>The durable consequences of decisions. Debt accumulates per tension family, affects future decisions, and requires active resolution.</p></div><div class="card"><div class="metric">G</div><h3>Governance Modes</h3><p>Optimize, monitor, stabilize, and pause. Governance is not documentation afterward — it is an operational mode within the system.</p></div></div></div></section>
-<section class="mid"><div class="wrap"><span class="eyebrow" style="color:#7a9ee8;">Decision flow</span><h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 16px;">A closed governance loop</h2><div class="flow"><strong>Input</strong> → ETOS-Self → <strong>Proposal</strong><br>↓<br>CDP (Technical → Risk → Conceptual)<br>↓<br><strong>Decision + Debt + Flags</strong><br>↓<br>Drift Memory + Reflection<br>↓<br><strong>Feedback → ETOS-Self</strong><br>↓<br>Future system behaviour changes</div><div class="tagrow" style="margin-top:18px;"><span class="tag">historical accountability</span><span class="tag">explainability</span><span class="tag">auditability</span><span class="tag">active stabilisation</span></div></div></section>
-<section class="cta"><div class="wrap"><span class="eyebrow" style="color:#f0c850;">What makes ETOS different</span><h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 14px;color:#f0ebe0;">The system regulates its own evolution through governance</h2><p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;color:rgba(240,235,224,.58);margin:0 0 26px;">ETOS treats decisions as tensions rather than answers. It learns under governance rather than around it. And it can explain what it does, why it does it, and how it changes over time.</p><div class="btns"><a href="research-en.html" class="btn-p">Open the Research Corner →</a><a href="kontakt-en.html" class="btn-s">Talk to us about ETOS</a></div></div></section></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ETOS — Governance-native decision infrastructure</title>
+  <meta name="description" content="ETOS is a governance-native decision infrastructure for high-risk systems with explainability, auditability, drift-aware governance, and recursive self-correction.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    section { padding: 80px 52px; }
+    .inner { max-width: 1160px; margin: 0 auto; }
+    .eyebrow { font-family:'DM Sans',sans-serif; font-size:11px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; display:block; margin-bottom:14px; }
+    .hero { background:#1E2E1F; color:#f0ebe0; position:relative; overflow:hidden; }
+    .hero::before { content:''; position:absolute; top:-120px; right:-120px; width:520px; height:520px; border-radius:50%; background:radial-gradient(circle, rgba(226,136,78,.08), transparent 70%); pointer-events:none; }
+    .hero .inner { display:grid; grid-template-columns: 1.05fr .95fr; gap:56px; align-items:center; position:relative; }
+    h1 { font-family:'Playfair Display',serif; font-size:clamp(40px,5vw,62px); font-weight:400; line-height:1.04; letter-spacing:-.02em; margin:0 0 10px; }
+    .subtitle { font-family:'Playfair Display',serif; font-size:clamp(20px,2.4vw,28px); color:var(--accent); font-style:italic; margin-bottom:20px; }
+    .lead { font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.85; color:rgba(240,235,224,.56); max-width:660px; margin-bottom:28px; }
+    .btns { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    .btn-primary { display:inline-flex; align-items:center; gap:8px; background:var(--accent); color:#fff; padding:14px 28px; border-radius:9px; text-decoration:none; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:700; }
+    .btn-secondary { font-family:'DM Sans',sans-serif; font-size:14px; color:rgba(240,235,224,.46); text-decoration:none; border-bottom:1px solid rgba(240,235,224,.18); padding-bottom:2px; }
+    .stat-card { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:24px; }
+    .stat-kicker { font-family:'DM Sans',sans-serif; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:rgba(240,235,224,.28); display:block; margin-bottom:12px; }
+    .status-box { padding:16px 18px; border-radius:12px; background:rgba(255,255,255,.04); border-left:3px solid #4ec88c; margin-bottom:14px; }
+    .status-title { font-family:'DM Sans',sans-serif; font-size:12px; font-weight:700; color:#4ec88c; text-transform:uppercase; letter-spacing:.08em; margin-bottom:6px; }
+    .status-text { font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.75; color:rgba(240,235,224,.56); }
+    .metric-list { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
+    .metric { padding:10px 12px; border-radius:10px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06); }
+    .metric strong { display:block; font-family:'DM Sans',sans-serif; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:rgba(240,235,224,.3); margin-bottom:4px; }
+    .metric span { font-family:'DM Sans',sans-serif; font-size:13px; color:#f0ebe0; }
+    .light { background:#f5f0e8; color:#1a1a1a; }
+    .light h2, .dark h2 { font-family:'Playfair Display',serif; font-size:30px; font-weight:400; margin:0 0 8px; }
+    .section-sub { font-family:'DM Sans',sans-serif; font-size:14px; line-height:1.8; max-width:760px; margin-bottom:34px; color:#666; }
+    .dark { background:#0d1117; color:#e8ecfc; }
+    .dark .section-sub { color:rgba(232,236,252,.48); }
+    .grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+    .grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+    .card { background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:16px; padding:24px 22px; }
+    .dark .card { background:rgba(255,255,255,.03); border-color:rgba(255,255,255,.07); }
+    .card h3 { font-family:'Playfair Display',serif; font-size:19px; font-weight:400; margin:0 0 10px; }
+    .card p { font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.75; margin:0; color:#666; }
+    .dark .card p { color:rgba(232,236,252,.46); }
+    .tag { display:inline-flex; font-family:'DM Sans',sans-serif; font-size:10px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin-bottom:10px; }
+    .flow { display:grid; grid-template-columns:repeat(5,1fr); gap:0; border:1px solid rgba(255,255,255,.08); border-radius:16px; overflow:hidden; }
+    .flow-step { padding:28px 24px; border-right:1px solid rgba(255,255,255,.06); }
+    .flow-step:last-child { border-right:none; }
+    .flow-num { font-family:'Playfair Display',serif; font-size:34px; color:var(--accent); opacity:.34; line-height:1; margin-bottom:12px; }
+    .flow-step h3 { font-family:'DM Sans',sans-serif; font-size:14px; font-weight:700; margin:0 0 8px; color:#e8ecfc; }
+    .flow-step p { font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.7; color:rgba(232,236,252,.44); margin:0; }
+    .timeline { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .phase { border-radius:16px; padding:22px 20px; background:#fff; border:1px solid rgba(0,0,0,.08); }
+    .phase strong { display:block; font-family:'DM Sans',sans-serif; font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); margin-bottom:8px; }
+    .phase h3 { font-family:'Playfair Display',serif; font-size:22px; font-weight:400; margin:0 0 8px; color:#1a1a1a; }
+    .phase p { font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.75; color:#666; margin:0; }
+    .cta-band { background:#1a1a0d; color:#f0ebe0; }
+    .cta-band .inner { display:flex; align-items:center; justify-content:space-between; gap:28px; flex-wrap:wrap; }
+    .cta-band p { font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.8; color:rgba(240,235,224,.52); margin:8px 0 0; max-width:620px; }
+    .pill-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:16px; }
+    .pill { font-family:'DM Sans',sans-serif; font-size:11px; padding:4px 10px; border-radius:999px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); color:rgba(240,235,224,.62); }
+    @media (max-width: 900px) {
+      section { padding:52px 28px; }
+      .hero .inner, .grid-4, .grid-2, .timeline, .flow { grid-template-columns:1fr; }
+      .metric-list { grid-template-columns:1fr; }
+      .flow-step { border-right:none; border-bottom:1px solid rgba(255,255,255,.06); }
+      .flow-step:last-child { border-bottom:none; }
+    }
+  </style>
+</head>
+<body>
+<header class="fs-header">
+  <div class="fs-nav">
+    <a href="index-en.html" class="fs-logo">M.E.M.</a>
+    <nav class="fs-links">
+      <a href="etos-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Governance layer</span></span>
+      </a>
+      <a href="produkter-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1228;">🛍</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Products</span><span class="fs-nav-sub">Software · Programmes · Books</span></span>
+      </a>
+      <a href="pilot-pakke-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1a0d;">🧪</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Pilot</span><span class="fs-nav-sub">Test it in practice</span></span>
+      </a>
+      <div class="fs-dropdown">
+        <a href="mem-en.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#0d1117;">✦</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">More</span><span class="fs-nav-sub">Theory · Research Corner · Democracy</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="research-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#111520;">🧪</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Research Corner</span><span class="fs-dropdown-item-sub">Simulation Lab · demos · findings</span></span>
+          </a>
+          <a href="mem-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🔬</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">M.E.M.</span><span class="fs-dropdown-item-sub">Foundation</span></span>
+          </a>
+          <a href="arkitektur-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🏗</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Architecture</span><span class="fs-dropdown-item-sub">ETOS-Self · CDP · Drift</span></span>
+          </a>
+          <a href="etos-demokrati-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2820;">🗳</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Democracy</span><span class="fs-dropdown-item-sub">Promises · accountability</span></span>
+          </a>
+        </div>
+      </div>
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt-en.html" class="fs-nav-cta">Contact</a>
+      <a href="etos.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">DA</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="inner">
+    <div>
+      <span class="eyebrow" style="color:var(--accent);">Governance-native decision infrastructure</span>
+      <h1>ETOS</h1>
+      <p class="subtitle">Constitutionally guided self-correction in high-risk systems</p>
+      <p class="lead">ETOS is an inspectable, constitutionally guided recursive self-correction architecture. It is designed as a governance layer on top of high-risk decision systems, so tensions, explainability, historical responsibility, and learning can be handled together — without breaking governance.</p>
+      <div class="btns">
+        <a href="research-en.html" class="btn-primary">Open the Research Corner →</a>
+        <a href="#flow" class="btn-secondary">See the decision flow</a>
+      </div>
+      <div class="pill-row">
+        <span class="pill">Drift-aware governance</span>
+        <span class="pill">Ethical debt lifecycle</span>
+        <span class="pill">Recursive self-correction</span>
+        <span class="pill">Inspectable alignment</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-kicker">Development status</span>
+      <div class="status-box">
+        <div class="status-title">Advanced functional prototype / pre-pilot platform</div>
+        <div class="status-text">ETOS is no longer an early simulation-only concept. The platform now brings together a proposal engine, constitutional review, drift memory, observability, and active governance in a closed loop, tested in controlled environments and suited both as decision infrastructure and as an alignment testbed.</div>
+      </div>
+      <div class="metric-list">
+        <div class="metric"><strong>Core architecture</strong><span>ETOS-Self · CDP · Reflection · Governance</span></div>
+        <div class="metric"><strong>Governance modes</strong><span>optimize · monitor · stabilize · pause</span></div>
+        <div class="metric"><strong>Control</strong><span>Human review can be forced</span></div>
+        <div class="metric"><strong>AGI relevance</strong><span>Inspectable recursive alignment</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="light">
+  <div class="inner">
+    <span class="eyebrow" style="color:var(--accent);">Why ETOS is different</span>
+    <h2>ETOS does not treat decisions as answers — but as tensions</h2>
+    <p class="section-sub">Instead of optimising directly toward output, ETOS works with tension families, drift over time, and persistent ethical consequences. That makes it possible to say no to improvements that are technically valid if they undermine the system's normative purpose.</p>
+    <div class="grid-4">
+      <div class="card">
+        <span class="tag">ETOS-Self</span>
+        <h3>Proposal engine</h3>
+        <p>Generates proposals from context, conflict analysis, and governance state. The output is not only a proposal, but also a conflict profile, decision trace, and governance adjustments.</p>
+      </div>
+      <div class="card">
+        <span class="tag">CDP</span>
+        <h3>Constitutional evaluation</h3>
+        <p>Proposals pass through three layers: Technical, Risk, and Conceptual. This allows ETOS to reject changes that look efficient but quietly change the ruler itself.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Drift Memory</span>
+        <h3>Historical awareness</h3>
+        <p>The system logs direction, velocity, acceleration, oscillation, and ethical debt. ETOS therefore sees not only the present situation, but its own movement over time.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Governance Layer</span>
+        <h3>Active regulation</h3>
+        <p>Governance is not documentation added afterwards. It shapes behaviour through modes, intervention logic, debt lifecycle, and the Drift Pressure Index.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark" id="flow">
+  <div class="inner">
+    <span class="eyebrow" style="color:var(--accent);">Recursive decision flow</span>
+    <h2>A closed governance loop</h2>
+    <p class="section-sub">ETOS is built so that future behaviour is continuously shaped by earlier decisions — but under constitutional constraints. That is the central difference between raw self-improvement and guided self-correction.</p>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">01</div>
+        <h3>Input and context</h3>
+        <p>The system receives a context containing tensions, conflicts, drift signals, and governance state.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">02</div>
+        <h3>ETOS-Self</h3>
+        <p>The proposal engine generates a change proposal and a conflict profile based on context and history.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">03</div>
+        <h3>CDP</h3>
+        <p>Technical → Risk → Conceptual review determines whether the proposal is compatible, ambiguous, or must be rejected.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">04</div>
+        <h3>Reflection</h3>
+        <p>The decision, flags, ethical debt, and drift signals are logged in Drift Memory & Reflection.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">05</div>
+        <h3>Future behaviour</h3>
+        <p>Feedback changes later proposals, recommended modes, and the ability to stabilise or pause the system.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="light">
+  <div class="inner">
+    <span class="eyebrow" style="color:var(--accent);">Platform maturity</span>
+    <h2>From drift-aware governance to active steering</h2>
+    <p class="section-sub">The move from v3.0 to v3.5 is not just a matter of adding features. It is the story of governance becoming more operational, more historically aware, and more active in shaping the system's own development.</p>
+    <div class="timeline">
+      <div class="phase">
+        <strong>v3.0 → v3.1</strong>
+        <h3>History + feedback</h3>
+        <p>Drift Pressure Index, ethical debt lifecycle, and persistent feedback memory make the system historically aware and able to learn from its own rejections.</p>
+      </div>
+      <div class="phase">
+        <strong>v3.2 → v3.4</strong>
+        <h3>Observability + motion</h3>
+        <p>Dashboards, feedback logs, and drift visualisation make the system readable. Velocity and acceleration awareness make it possible to understand not only direction, but movement.</p>
+      </div>
+      <div class="phase">
+        <strong>v3.5</strong>
+        <h3>Active steering</h3>
+        <p>Governance now recommends operational modes, can force human review, and can actively stabilise the system. Governance becomes steering, not observation alone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="inner">
+    <span class="eyebrow" style="color:var(--accent);">AGI perspective</span>
+    <h2>A practical alignment testbed on the path toward AGI</h2>
+    <p class="section-sub">ETOS is not AGI. It is narrow and decision-focused. But it is a mature example of inspectable recursive self-correction, where the system can say no to its own improvement and show why.</p>
+    <div class="grid-2">
+      <div class="card">
+        <span class="tag">Alignment gap</span>
+        <h3>Changing the ruler</h3>
+        <p>ETOS-Self proposes changes, but CDP defines what counts as acceptable improvement. In this way, the system tries to prevent the normative baseline from drifting along with optimisation.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Drift detection</span>
+        <h3>Value drift over time</h3>
+        <p>Drift Memory, oscillation detection, and unresolved debt make value drift observable. This is a practical response to a problem that most RSI projects still cannot show openly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="inner">
+    <div>
+      <span class="eyebrow" style="color:#f0c850;">Research Corner · Simulation Lab</span>
+      <h2 style="font-family:'Playfair Display',serif;font-size:30px;font-weight:400;margin:0;color:#f0ebe0;">Open the demos, simulation tracks, and working papers</h2>
+      <p>The Research Corner is where ETOS is tested, challenged, and made readable to others. It is the place to follow the development and move directly into the demos.</p>
+    </div>
+    <a href="research-en.html" class="btn-primary" style="background:#f0c850;color:#1a1a0d;">Open the Research Corner →</a>
+  </div>
+</section>
+</body>
+</html>

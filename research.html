@@ -1,9 +1,227 @@
-<!DOCTYPE html><html lang="da"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Forsker-hjørnet — ETOS i udvikling</title><meta name="description" content="Forsker-hjørnet er det offentlige laboratorium omkring ETOS — demoer, working papers, fund, simulationer og fremtidige samarbejder."><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="style-additions.css">
-<style>
-section{padding:78px 52px}.wrap{max-width:1160px;margin:0 auto}.eyebrow{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:14px}.hero{background:#132016;position:relative;overflow:hidden}.hero::before{content:'';position:absolute;right:-120px;top:-120px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle, rgba(226,136,78,.09), transparent 70%)}.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;position:relative}.h1{font-family:'Playfair Display',serif;font-size:clamp(40px,5vw,64px);line-height:1.03;font-weight:400;letter-spacing:-.02em;margin:0 0 14px;color:#f0ebe0}.sub{font-family:'Playfair Display',serif;font-size:clamp(20px,2.2vw,30px);font-style:italic;color:var(--accent);margin:0 0 18px}.lead{font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.82;color:rgba(240,235,224,.58);max-width:640px;margin:0 0 28px}.btns{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;padding:14px 26px;border-radius:9px;text-decoration:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700}.btn-s{font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,.5);text-decoration:none;border-bottom:1px solid rgba(240,235,224,.18);padding-bottom:2px}.panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:28px}.panel h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;color:#f0ebe0;margin:0 0 10px}.panel p{font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.5);margin:0}.light{background:#f5f0e8}.light h2,.light h3{color:#161616}.light p,.light li{color:#555}.dark{background:#0d1117}.dark h2,.dark h3{color:#f0ebe0}.dark p{color:rgba(240,235,224,.54)}.mid{background:#11161d}.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{border-radius:16px;padding:24px 22px;border:1px solid rgba(0,0,0,.08);background:#fff}.dark .card,.mid .card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08)}.card h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;margin:0 0 8px}.card p{font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;margin:0}.mini{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:10px;color:var(--accent)}.metric{font-family:'Playfair Display',serif;font-size:34px;color:var(--accent);margin-bottom:8px}.timeline{display:flex;flex-direction:column;gap:12px}.step{display:grid;grid-template-columns:80px 1fr;gap:16px;align-items:start;padding:18px 20px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08)}.light .step{background:#fff;border:1px solid rgba(0,0,0,.08)}.step-no{font-family:'Playfair Display',serif;font-size:24px;color:var(--accent)}.step h4{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;margin:0 0 6px}.step p{font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;margin:0}.flow{font-family:'DM Sans',sans-serif;font-size:13px;line-height:2;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px}.flow strong{color:#fff;font-weight:600}.light .flow{background:#fff;border:1px solid rgba(0,0,0,.08)}.cta{background:#1a1a0d}.cta p{max-width:760px}.tagrow{display:flex;gap:8px;flex-wrap:wrap}.tag{font-family:'DM Sans',sans-serif;font-size:11px;padding:5px 10px;border-radius:999px;background:rgba(226,136,78,.10);border:1px solid rgba(226,136,78,.20);color:var(--accent)}@media(max-width:920px){.hero .wrap,.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.step{grid-template-columns:1fr}section{padding:56px 28px}}
-</style>
-</head><body><header class="fs-header"><div class="fs-nav"><a href="index.html" class="fs-logo">M.E.M.</a><nav class="fs-links"><a href="etos.html" class="fs-nav-item"><span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span><span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Governance-native platform</span></span></a><a href="research.html" class="fs-nav-item"><span class="fs-nav-icon" style="background:#0d1a2a;">🧪</span><span class="fs-nav-text"><span class="fs-nav-title">Forsker-hjørnet</span><span class="fs-nav-sub">Demo · working papers · fund</span></span></a><a href="mem.html" class="fs-nav-item"><span class="fs-nav-icon" style="background:#1a1228;">🔬</span><span class="fs-nav-text"><span class="fs-nav-title">M.E.M.</span><span class="fs-nav-sub">Grundlag</span></span></a><a href="univers.html" class="fs-nav-item"><span class="fs-nav-icon" style="background:#2a1f1a;">🌱</span><span class="fs-nav-text"><span class="fs-nav-title">Børneunivers</span><span class="fs-nav-sub">Bøger · uniVRs · Bankeren</span></span></a></nav><div style="display:flex;align-items:center;gap:8px;margin-left:8px;"><a href="kontakt.html" class="fs-nav-cta">Kontakt</a><a href="etos-en.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">EN</a></div></div></header>
-<section class="hero" style="background:#0d1a2a;"><div class="wrap"><div><span class="eyebrow" style="color:#7a9ee8;">Forsker-hjørnet · offentlig lab</span><h1 class="h1">Et sted at følge med i,<br>hvordan ETOS bliver <em style="font-style:italic;color:#7a9ee8;">udfordret, testet og delt</em></h1><p class="sub" style="color:#7a9ee8;">Ikke bare en side om resultater — men et sted hvor arbejdet kan følges i bevægelse.</p><p class="lead">Forsker-hjørnet er tænkt som det offentlige laboratorium omkring ETOS: demoer, simulationer, working papers, platformopdateringer og på sigt mulighed for, at andre kan starte eller koble egne projekter på.</p><div class="btns"><a href="system.html" class="btn-p" style="background:#7a9ee8;color:#0d1117;">Åbn demoen →</a><a href="etos.html" class="btn-s">Læs om platformen ↓</a></div></div><div class="panel"><h3>I Niels Bohrs ånd</h3><p>Idéen er enkel: videnskab og erkendelse må kunne deles. Ikke alt skal offentliggøres i motor-rummet, men udvikling, argumenter og fund skal kunne læses, udfordres og tages videre.</p></div></div></section>
-<section class="light"><div class="wrap"><span class="eyebrow" style="color:var(--accent);">Hvad ligger her</span><div class="grid-3"><div class="card"><span class="mini">01 · Demo</span><h3>Interaktiv ETOS-demo</h3><p>Et konkret sted at se, hvordan spændinger registreres og hvordan beslutningsmoden ændrer sig, når parametre flytter sig.</p></div><div class="card"><span class="mini">02 · Working papers</span><h3>Platformnoter og udvikling</h3><p>Opdateringer på ETOS-arkitektur, vigtige begreber, drift, ethical debt, governance modes og nye iterationer.</p></div><div class="card"><span class="mini">03 · Simulationer</span><h3>Fund og eksperimenter</h3><p>Et sted for modeller, tests, refleksioner og resultater, som kan deles uden at gøre siden til lukket produktmateriale.</p></div></div></div></section>
-<section class="dark"><div class="wrap"><span class="eyebrow" style="color:#f0c850;">Hvorfor denne side findes</span><h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 16px;">Fordi ETOS ikke kun skal vises — det skal kunne følges</h2><p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;max-width:760px;margin:0 0 28px;color:rgba(240,235,224,.58);">Når du linker fra posts, diskussioner eller samarbejdsdialoger, skal der være ét sted, hvor folk kan forstå både retningen, modenheden og det eksperimentelle arbejde. Forsker-hjørnet er tænkt som den indgang.</p><div class="grid-2"><div class="panel"><h3>Til læsere og nysgerrige</h3><p>Få adgang til den aktuelle demo, se hvordan ETOS beskriver spændinger og følg platformens udvikling over tid.</p></div><div class="panel"><h3>Til mulige samarbejdspartnere</h3><p>Brug siden som indgang, hvis du vil diskutere pilot, working paper, simulation eller et projekt, der kunne udvikles videre i ETOS-regi.</p></div></div></div></section>
-<section class="cta"><div class="wrap"><span class="eyebrow" style="color:#f0c850;">Næste skridt</span><h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 14px;color:#f0ebe0;">På sigt kan dette blive en portal for fælles udforskning</h2><p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;color:rgba(240,235,224,.58);margin:0 0 26px;max-width:800px;">Målet er ikke blot at publicere, men at skabe et sted hvor folk kan følge med, tænke med og måske sætte deres eget projekt i gang med afsæt i Forsker-hjørnet.</p><div class="btns"><a href="system.html" class="btn-p">Gå til demoen →</a><a href="kontakt.html" class="btn-s">Tal med os om idéen</a></div></div></section></body></html>
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forskerhjørnet — ETOS Simulation Lab</title>
+  <meta name="description" content="Forskerhjørnet samler ETOS Simulation Lab, demoer, meta-cases, proposal generator og udviklingsspor omkring governance, drift og alignment.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    section { padding: 76px 52px; }
+    .inner { max-width: 1160px; margin: 0 auto; }
+    .eyebrow { font-family:'DM Sans',sans-serif; font-size:11px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; display:block; margin-bottom:14px; }
+    .hero { background:#10161d; color:#f0ebe0; position:relative; overflow:hidden; }
+    .hero::before { content:''; position:absolute; top:-140px; left:50%; transform:translateX(-50%); width:560px; height:560px; border-radius:50%; background:radial-gradient(circle, rgba(122,158,232,.08), transparent 70%); pointer-events:none; }
+    .hero .inner { position:relative; display:grid; grid-template-columns:1.02fr .98fr; gap:52px; align-items:center; }
+    h1 { font-family:'Playfair Display',serif; font-size:clamp(40px,5vw,60px); font-weight:400; line-height:1.05; letter-spacing:-.02em; margin:0 0 12px; }
+    .subtitle { font-family:'Playfair Display',serif; font-size:clamp(20px,2.3vw,28px); color:#7a9ee8; font-style:italic; margin-bottom:18px; }
+    .lead { font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.85; color:rgba(240,235,224,.56); max-width:700px; margin-bottom:28px; }
+    .btns { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    .btn-primary { display:inline-flex; align-items:center; gap:8px; background:#7a9ee8; color:#0d1117; padding:14px 28px; border-radius:9px; text-decoration:none; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:700; }
+    .btn-secondary { font-family:'DM Sans',sans-serif; font-size:14px; color:rgba(240,235,224,.46); text-decoration:none; border-bottom:1px solid rgba(240,235,224,.18); padding-bottom:2px; }
+    .hero-card { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:24px; }
+    .hero-card h3 { font-family:'Playfair Display',serif; font-size:22px; font-weight:400; margin:0 0 10px; color:#f0ebe0; }
+    .hero-card p { font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.75; color:rgba(240,235,224,.52); margin:0; }
+    .pill-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:16px; }
+    .pill { font-family:'DM Sans',sans-serif; font-size:11px; padding:4px 10px; border-radius:999px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); color:rgba(240,235,224,.62); }
+    .light { background:#f5f0e8; }
+    .dark { background:#0d1117; color:#e8ecfc; }
+    .light h2, .dark h2 { font-family:'Playfair Display',serif; font-size:30px; font-weight:400; margin:0 0 8px; }
+    .sub { font-family:'DM Sans',sans-serif; font-size:14px; line-height:1.8; max-width:760px; margin-bottom:34px; color:#666; }
+    .dark .sub { color:rgba(232,236,252,.48); }
+    .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+    .card { background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:16px; padding:24px 22px; }
+    .dark .card { background:rgba(255,255,255,.03); border-color:rgba(255,255,255,.07); }
+    .card h3 { font-family:'Playfair Display',serif; font-size:21px; font-weight:400; margin:0 0 10px; color:#1a1a1a; }
+    .dark .card h3 { color:#e8ecfc; }
+    .card p { font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.75; margin:0; color:#666; }
+    .dark .card p { color:rgba(232,236,252,.46); }
+    .kicker { display:inline-flex; font-family:'DM Sans',sans-serif; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); margin-bottom:10px; }
+    .demo-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+    .demo-card { border-radius:18px; padding:24px; background:#121922; border:1px solid rgba(255,255,255,.08); }
+    .demo-card h3 { font-family:'Playfair Display',serif; font-size:24px; font-weight:400; color:#f0ebe0; margin:0 0 10px; }
+    .demo-card p { font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.78; color:rgba(240,235,224,.5); margin:0 0 16px; }
+    .demo-link { display:inline-flex; align-items:center; gap:8px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:700; color:#7a9ee8; text-decoration:none; }
+    .list { display:flex; flex-direction:column; gap:10px; }
+    .list-item { padding:14px 16px; border-radius:12px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07); font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.7; color:rgba(232,236,252,.56); }
+    .cta-band { background:#1a1a0d; color:#f0ebe0; }
+    .cta-band .inner { display:flex; align-items:center; justify-content:space-between; gap:28px; flex-wrap:wrap; }
+    .cta-band p { font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.8; color:rgba(240,235,224,.52); margin:8px 0 0; max-width:620px; }
+    @media (max-width: 900px) {
+      section { padding:52px 28px; }
+      .hero .inner, .grid-3, .grid-2, .demo-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+<header class="fs-header">
+  <div class="fs-nav">
+    <a href="index.html" class="fs-logo">M.E.M.</a>
+    <nav class="fs-links">
+      <a href="etos.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Governance-lag</span></span>
+      </a>
+      <a href="produkter.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1228;">🛍</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Produkter</span><span class="fs-nav-sub">Software · Forløb · Bøger</span></span>
+      </a>
+      <div class="fs-dropdown">
+        <a href="research.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#111520;">🧪</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">Forskerhjørnet</span><span class="fs-nav-sub">Simulation Lab · demoer</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="research.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#111520;">🧪</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Forskerhjørnet</span><span class="fs-dropdown-item-sub">Forsøg · simulationer · fund</span></span>
+          </a>
+          <a href="meta_demo.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🧠</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Meta Demo</span><span class="fs-dropdown-item-sub">Statiske signaturcases</span></span>
+          </a>
+          <a href="propose.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2020;">⚙️</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Proposal Generator</span><span class="fs-dropdown-item-sub">Semi-dynamisk ETOS-Self</span></span>
+          </a>
+        </div>
+      </div>
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
+      <a href="research-en.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">EN</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="inner">
+    <div>
+      <span class="eyebrow" style="color:#7a9ee8;">ETOS Research Lab · offentligt arbejdsrum</span>
+      <h1>Forskerhjørnet</h1>
+      <p class="subtitle">Et sted hvor udvikling, demoer og fund kan følges åbent</p>
+      <p class="lead">Forskerhjørnet samler det sted, hvor ETOS bliver testet, udfordret og gjort læsbart. Her ligger Simulation Lab, signaturcases, forslagsgenerator og de spor, der viser hvordan platformen udvikler sig over tid. Målet er ikke bare at publicere resultater, men at gøre selve forskningsbevægelsen synlig.</p>
+      <div class="btns">
+        <a href="#demoer" class="btn-primary">Gå til demoerne →</a>
+        <a href="etos.html" class="btn-secondary">Tilbage til ETOS</a>
+      </div>
+      <div class="pill-row">
+        <span class="pill">Simulation Lab</span>
+        <span class="pill">Meta-cases</span>
+        <span class="pill">Proposal engine</span>
+        <span class="pill">Alignment testbed</span>
+      </div>
+    </div>
+    <div class="hero-card">
+      <h3>Hvad skal siden kunne blive til?</h3>
+      <p>På sigt kan Forskerhjørnet blive et sted, hvor andre kan følge med, udfordre antagelser, læse working papers og måske starte deres eget projektspor. Tanken er et delt, åbent laboratorium i Niels Bohrs ånd: at alvorlig tænkning og videnskab bliver stærkere, når den kan deles og diskuteres.</p>
+    </div>
+  </div>
+</section>
+
+<section class="light" id="demoer">
+  <div class="inner">
+    <span class="eyebrow" style="color:var(--accent);">Live spor</span>
+    <h2>Demoer og simulationer</h2>
+    <p class="sub">Herfra kan man gå direkte ind i de konkrete demoer. De viser ikke bare output, men hvordan ETOS vurderer, afviser, accepterer eller eskalerer forslag gennem et governance-loop.</p>
+    <div class="demo-grid">
+      <div class="demo-card">
+        <span class="kicker">Signaturcases</span>
+        <h3>Meta Demo</h3>
+        <p>Viser de tydelige cases, hvor ETOS fx afviser en teknisk valid optimering, fordi den undergraver systemets normative rolle. Det er stedet, hvor “The Rejection That Makes Sense” bliver synligt.</p>
+        <a class="demo-link" href="meta_demo.html">Åbn Meta Demo →</a>
+      </div>
+      <div class="demo-card">
+        <span class="kicker">Semi-dynamisk loop</span>
+        <h3>Proposal Generator</h3>
+        <p>Lader ETOS-Self generere forslag ud fra kontekstprofiler, som derefter evalueres af CDP. Det gør den rekursive idé mere håndgribelig og viser, hvordan forslag bliver til governance-beslutninger.</p>
+        <a class="demo-link" href="propose.html">Åbn Proposal Generator →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="inner">
+    <span class="eyebrow" style="color:var(--accent);">Hvad der undersøges</span>
+    <h2>Fire centrale forskningsspor</h2>
+    <p class="sub">Simulation Lab er ikke kun en demo-samling. Det er et forsøg på at bygge et læsbart miljø for spørgsmål, der ellers ofte forbliver skjult bag black-box-optimering.</p>
+    <div class="grid-2">
+      <div class="card">
+        <span class="kicker">Recursive governance</span>
+        <h3>Kan et system lære under governance?</h3>
+        <p>ETOS undersøger, om et system kan korrigere sig selv uden at glide udenom sine egne konstitutionelle rammer.</p>
+      </div>
+      <div class="card">
+        <span class="kicker">Drift</span>
+        <h3>Kan normativ bevægelse opdages tidligt?</h3>
+        <p>Drift, velocity, acceleration og oscillation bruges som praktiske signaler på, om et system er ved at bevæge sig væk fra sit formål.</p>
+      </div>
+      <div class="card">
+        <span class="kicker">Ethical debt</span>
+        <h3>Hvad sker der med konsekvenserne bagefter?</h3>
+        <p>Ikke alle beslutninger forsvinder, når de er truffet. ETOS arbejder med ethical debt som noget, der akkumuleres og kræver aktiv resolution.</p>
+      </div>
+      <div class="card">
+        <span class="kicker">Alignment</span>
+        <h3>Kan et system sige nej til sin egen forbedring?</h3>
+        <p>Det centrale alignment-spørgsmål bliver testet konkret: om systemet kan afvise en ændring, der ser effektiv ud, men ændrer selve linealen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="light">
+  <div class="inner">
+    <span class="eyebrow" style="color:var(--accent);">Hvad der allerede ligger i laboratoriet</span>
+    <h2>Det her er ikke bare idéer — det er sporbare byggesten</h2>
+    <p class="sub">Det nuværende laboratorium bygger allerede på en fungerende proposal engine, tredelt CDP-review, meta-reflection og dashboard-orienteret observability. Det er derfor, Forskerhjørnet kan bruges som reel indgang for posts, artikler og videre projekter.</p>
+    <div class="grid-3">
+      <div class="card">
+        <span class="kicker">Technical → Risk → Conceptual</span>
+        <h3>CDP</h3>
+        <p>Den konstitutionelle evaluering gør det muligt at skelne mellem tekniske fejl, operationel risiko og normative brud.</p>
+      </div>
+      <div class="card">
+        <span class="kicker">Context → Proposal</span>
+        <h3>ETOS-Self</h3>
+        <p>Proposal engine omsætter kontekstprofiler til konkrete forslag, så systemets selv-korrektion bliver konkret og inspicerbar.</p>
+      </div>
+      <div class="card">
+        <span class="kicker">Result + reflection</span>
+        <h3>Meta-reflection</h3>
+        <p>Efter hver vurdering bliver der genereret en refleksion, som gør både beslutningen og læringspunktet læsbart for andre.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="inner">
+    <span class="eyebrow" style="color:var(--accent);">Mulig retning</span>
+    <h2>Et delt sted for videre forskning og projekter</h2>
+    <p class="sub">På længere sigt kan Forskerhjørnet fungere som både offentligt laboratorium, samarbejdsindgang og dokumentation for nye projektspor. Her kan folk ikke bare se resultater — men også forstå, hvordan spørgsmålene bliver stillet.</p>
+    <div class="list">
+      <div class="list-item">Publik adgang til demoer, simulationer og working-paper-spor</div>
+      <div class="list-item">Et sted at linke til fra posts, Substack og videre samtaler</div>
+      <div class="list-item">Mulig indgang for samarbejdspartnere, pilotsager og nye forskningsspor</div>
+      <div class="list-item">Et laboratorium for meningsudveksling om governance, alignment og beslutningssystemer</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="inner">
+    <div>
+      <span class="eyebrow" style="color:#f0c850;">Næste skridt</span>
+      <h2 style="font-family:'Playfair Display',serif;font-size:30px;font-weight:400;margin:0;color:#f0ebe0;">Vil du følge udviklingen — eller starte et eget spor?</h2>
+      <p>Forskerhjørnet er tænkt som både dokumentation og invitation. Hvis du vil følge med, udfordre noget eller undersøge et eget projektspor, er det her indgangen begynder.</p>
+    </div>
+    <a href="kontakt.html" class="btn-primary" style="background:#f0c850;color:#1a1a0d;">Tag kontakt →</a>
+  </div>
+</section>
+</body>
+</html>
