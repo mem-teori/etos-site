@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="google-site-verification" content="N-tI0mRJKKnPVNDB_v0LWIN6QjN9BnB8Zw8DN8ARdF0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulation Lab — M.E.M. Forskningsplatform</title>
+  <meta name="description" content="Kontrollerede simuleringer der udforsker hvordan beslutningssystemer mister og genvinder frihed over tid." />
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    .sl-hero { background:#0a0f1a; padding:80px 52px 64px; position:relative; overflow:hidden; }
+    .sl-hero::before { content:''; position:absolute; top:0; left:0; right:0; bottom:0; background:radial-gradient(ellipse at 20% 50%, rgba(122,158,232,0.06) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(78,200,140,0.04) 0%, transparent 50%); pointer-events:none; }
+    .sl-inner { max-width:1160px; margin:0 auto; position:relative; }
+    .sl-h1 { font-family:'Playfair Display',serif; font-size:clamp(28px,4vw,44px); color:#e8ecfc; font-weight:400; line-height:1.15; margin-bottom:14px; }
+    .sl-h1 em { font-style:italic; color:#7a9ee8; }
+    .sl-lead { font-family:'DM Sans',sans-serif; font-size:15px; color:rgba(232,236,252,0.5); line-height:1.85; max-width:640px; margin-bottom:24px; }
+    .sl-advarsel { display:inline-flex; align-items:flex-start; gap:10px; background:rgba(122,158,232,0.08); border:1px solid rgba(122,158,232,0.2); border-radius:8px; padding:12px 16px; font-family:'DM Sans',sans-serif; font-size:12px; color:rgba(122,158,232,0.75); line-height:1.6; max-width:640px; }
+
+    .sl-sektion { padding:64px 52px; border-bottom:1px solid rgba(255,255,255,0.05); }
+    .sl-sektion:nth-child(odd) { background:#0d1117; }
+    .sl-sektion:nth-child(even) { background:#080d14; }
+
+    .sl-exp { background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.07); border-radius:20px; overflow:hidden; margin-top:32px; }
+    .sl-exp-header { background:rgba(122,158,232,0.06); border-bottom:1px solid rgba(122,158,232,0.12); padding:20px 28px; display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
+    .sl-exp-titel { font-family:'Playfair Display',serif; font-size:18px; color:#e8ecfc; font-weight:400; }
+    .sl-badge { font-family:'DM Sans',sans-serif; font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:4px 10px; border-radius:20px; white-space:nowrap; }
+    .sl-badge.pub { background:rgba(78,200,140,0.12); color:#4ec88c; border:1px solid rgba(78,200,140,0.25); }
+    .sl-badge.udv { background:rgba(240,200,80,0.12); color:#f0c850; border:1px solid rgba(240,200,80,0.25); }
+    .sl-badge.staerk { background:rgba(200,122,232,0.12); color:#c87ae8; border:1px solid rgba(200,122,232,0.25); }
+
+    .sl-gitter { display:grid; grid-template-columns:1fr 1fr; gap:0; }
+    .sl-col { padding:24px 28px; border-right:1px solid rgba(255,255,255,0.05); border-bottom:1px solid rgba(255,255,255,0.05); }
+    .sl-col:nth-child(even) { border-right:none; }
+    .sl-col:nth-last-child(-n+2) { border-bottom:none; }
+    .sl-etiket { font-family:'DM Sans',sans-serif; font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; display:block; margin-bottom:10px; }
+    .sl-col.setup .sl-etiket { color:#7a9ee8; }
+    .sl-col.hypotese .sl-etiket { color:var(--accent); }
+    .sl-col.resultat .sl-etiket { color:#4ec88c; }
+    .sl-col.fund .sl-etiket { color:#c87ae8; }
+    .sl-col.fortolkning .sl-etiket { color:rgba(232,236,252,0.4); }
+    .sl-col.naeste .sl-etiket { color:#7a9ee8; }
+
+    .sl-param { font-family:'DM Sans',sans-serif; font-size:12px; color:rgba(232,236,252,0.45); line-height:1.6; margin-bottom:5px; }
+    .sl-param strong { color:rgba(232,236,252,0.75); font-weight:500; }
+    .sl-hypotese-boks { background:rgba(226,136,78,0.06); border:1px solid rgba(226,136,78,0.15); border-radius:10px; padding:14px 16px; font-family:'DM Sans',sans-serif; font-size:13px; color:rgba(240,235,224,0.65); line-height:1.65; font-style:italic; }
+    .sl-resultat-rad { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+    .sl-resultat-lbl { font-family:'DM Sans',sans-serif; font-size:12px; color:rgba(232,236,252,0.4); min-width:160px; }
+    .sl-bar-wrap { flex:1; height:4px; background:rgba(255,255,255,0.06); border-radius:4px; overflow:hidden; }
+    .sl-bar { height:100%; border-radius:4px; background:#4ec88c; }
+    .sl-val { font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; color:#4ec88c; min-width:40px; text-align:right; }
+    .sl-fund-punkt { font-family:'DM Sans',sans-serif; font-size:13px; color:rgba(232,236,252,0.6); line-height:1.6; padding:8px 12px; background:rgba(200,122,232,0.05); border-left:2px solid rgba(200,122,232,0.3); border-radius:0 6px 6px 0; margin-bottom:7px; }
+    .sl-tekst { font-family:'DM Sans',sans-serif; font-size:13px; color:rgba(232,236,252,0.45); line-height:1.75; }
+    .sl-advarsel-lille { font-family:'DM Sans',sans-serif; font-size:12px; color:rgba(240,200,80,0.5); margin-top:10px; line-height:1.6; }
+    .sl-naeste-punkt { font-family:'DM Sans',sans-serif; font-size:12px; color:rgba(122,158,232,0.65); padding:6px 10px; background:rgba(122,158,232,0.05); border-radius:6px; margin-bottom:6px; }
+    .sl-naeste-punkt::before { content:'→ '; }
+
+    @media (max-width:860px) {
+      .sl-hero, .sl-sektion { padding:48px 24px; }
+      .sl-gitter { grid-template-columns:1fr; }
+      .sl-col { border-right:none; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="fs-header">
+
+  <div class="fs-nav">
+    <a href="index.html" class="fs-logo">M.E.M.</a>
+    <nav class="fs-links">
+
+      <!-- ETOS -->
+      <a href="etos.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Beslutningsmodel</span></span>
+      </a>
+
+      <!-- PRODUKTER -->
+      <a href="produkter.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1228;">🛍</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Produkter</span><span class="fs-nav-sub">Software · Forløb · Bøger</span></span>
+      </a>
+
+      <!-- PILOT -->
+      <a href="pilot-pakke.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1a0d;">🧪</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Pilot</span><span class="fs-nav-sub">Test det i praksis</span></span>
+      </a>
+
+      <!-- MERE dropdown -->
+      <div class="fs-dropdown">
+        <a href="mem.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#0d1117;">✦</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">Mere</span><span class="fs-nav-sub">Teori · Univers · Demokrati</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="forloeb.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2020;">🔄</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Forløb</span><span class="fs-dropdown-item-sub">Pårørende · Ledelse · Psykiatri</span></span>
+          </a>
+          <a href="mem.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🔬</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">M.E.M.</span><span class="fs-dropdown-item-sub">Grundmodel</span></span>
+          </a>
+          <a href="arkitektur.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🏗</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Arkitektur</span><span class="fs-dropdown-item-sub">IDK · ETOS · CDP</span></span>
+          </a>
+          <a href="simulation-lab-da.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0a0f1a;">🧪</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Simulation Lab</span><span class="fs-dropdown-item-sub">Forskning · Eksperimenter</span></span>
+          </a>
+          <a href="etos-demokrati.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2820;">🗳</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Demokrati</span><span class="fs-dropdown-item-sub">Løfter · Ansvar</span></span>
+          </a>
+          <a href="boerneunivers.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#2a1f1a;">🌱</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Universet</span><span class="fs-dropdown-item-sub">Børn · Bankeren · Læring</span></span>
+          </a>
+
+        </div>
+      </div>
+
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
+      <a href="index-en.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">EN</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="sl-hero">
+  <div class="sl-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7a9ee8;display:block;margin-bottom:16px;">M.E.M. Forskning · Simulation Lab</span>
+    <h1 class="sl-h1">Udforskning af <em>sti-afhængighed</em><br>og frihed i beslutningssystemer</h1>
+    <p class="sl-lead">Denne sektion dokumenterer kontrollerede simuleringer der udforsker hvordan systemer mister og genvinder frihed over tid. Alle resultater er scenariebaserede, reproducerbare og designet til at teste falsificerbare hypoteser.</p>
+    <div class="sl-advarsel">
+      ⚠️ Alle fund præsenteret her er simuleringsresultater — ikke empiriske påstande. De er designet til at generere og teste hypoteser, ikke til at etablere sandhed. Fortolkninger er eksplicit foreløbige og skal valideres i virkelige pilotforsøg.
+    </div>
+  </div>
+</div>
+
+<!-- EKSPERIMENT INDEKS -->
+<div style="background:#0d1117;padding:48px 52px;border-bottom:1px solid rgba(255,255,255,0.06);">
+  <div class="sl-inner">
+    <h2 style="font-family:'Playfair Display',serif;font-size:22px;color:#e8ecfc;font-weight:400;margin-bottom:24px;">Fem grundlæggende eksperimenter</h2>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;">
+      <a href="#eks1" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:14px 16px;text-decoration:none;transition:all 0.15s;" onmouseover="this.style.background='rgba(122,158,232,0.07)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
+        <div style="font-family:'Playfair Display',serif;font-size:22px;color:#7a9ee8;opacity:0.5;margin-bottom:6px;">01</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:rgba(232,236,252,0.65);line-height:1.4;">Frihedsmålet</div>
+      </a>
+      <a href="#eks2" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:14px 16px;text-decoration:none;transition:all 0.15s;" onmouseover="this.style.background='rgba(122,158,232,0.07)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
+        <div style="font-family:'Playfair Display',serif;font-size:22px;color:#7a9ee8;opacity:0.5;margin-bottom:6px;">02</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:rgba(232,236,252,0.65);line-height:1.4;">Sti-afhængighed over 200 generationer</div>
+      </a>
+      <a href="#eks3" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:14px 16px;text-decoration:none;transition:all 0.15s;" onmouseover="this.style.background='rgba(200,122,232,0.07)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
+        <div style="font-family:'Playfair Display',serif;font-size:22px;color:#c87ae8;opacity:0.5;margin-bottom:6px;">03</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:rgba(232,236,252,0.65);line-height:1.4;">Metastabile lavfrihedstilstande</div>
+      </a>
+      <a href="#eks4" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:14px 16px;text-decoration:none;transition:all 0.15s;" onmouseover="this.style.background='rgba(122,158,232,0.07)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
+        <div style="font-family:'Playfair Display',serif;font-size:22px;color:#7a9ee8;opacity:0.5;margin-bottom:6px;">04</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:rgba(232,236,252,0.65);line-height:1.4;">Interventionstyper og genvinding</div>
+      </a>
+      <a href="#eks5" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:14px 16px;text-decoration:none;transition:all 0.15s;" onmouseover="this.style.background='rgba(122,158,232,0.07)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
+        <div style="font-family:'Playfair Display',serif;font-size:22px;color:#7a9ee8;opacity:0.5;margin-bottom:6px;">05</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:rgba(232,236,252,0.65);line-height:1.4;">Meta-Recovery Lag</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- EKS 1 -->
+<div class="sl-sektion" id="eks1">
+  <div class="sl-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7a9ee8;display:block;margin-bottom:8px;">Eksperiment 01</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:24px;color:#e8ecfc;font-weight:400;">Frihedsmålet — Definition og måling af beslutningsrum</h2>
+    <div class="sl-exp">
+      <div class="sl-exp-header">
+        <span class="sl-exp-titel">Hvordan måler vi frihed i et beslutningssystem?</span>
+        <span class="sl-badge pub">Publiceret</span>
+      </div>
+      <div class="sl-gitter">
+        <div class="sl-col setup">
+          <span class="sl-etiket">Setup</span>
+          <div class="sl-param"><strong>Agenter:</strong> 36</div>
+          <div class="sl-param"><strong>Generationer:</strong> 200</div>
+          <div class="sl-param"><strong>Nøgleparametre:</strong> bias_weight, plasticitet, frihedstærskel</div>
+          <div class="sl-param"><strong>Tester:</strong> Om et kvantificerbart frihedsmål kan spore meningsfuld variation i beslutningskapacitet over tid</div>
+        </div>
+        <div class="sl-col hypotese">
+          <span class="sl-etiket">Hypotese</span>
+          <div class="sl-hypotese-boks">Et frihedsmål defineret som det vægtede gennemsnit af tilgængelige beslutningsstier vil vise konsistent fald under høj-bias betingelser og genvinding under lav-bias betingelser.</div>
+        </div>
+        <div class="sl-col resultat">
+          <span class="sl-etiket">Resultat</span>
+          <div class="sl-resultat-rad"><span class="sl-resultat-lbl">Gennemsnitsfrihed (start)</span><div class="sl-bar-wrap"><div class="sl-bar" style="width:82%"></div></div><span class="sl-val">0,82</span></div>
+          <div class="sl-resultat-rad"><span class="sl-resultat-lbl">Gennemsnitsfrihed (gen 200)</span><div class="sl-bar-wrap"><div class="sl-bar" style="width:19%;background:#e07070;"></div></div><span class="sl-val" style="color:#e07070;">0,19</span></div>
+          <div class="sl-resultat-rad"><span class="sl-resultat-lbl">Agenter med konsistent fald</span><div class="sl-bar-wrap"><div class="sl-bar" style="width:78%"></div></div><span class="sl-val">78%</span></div>
+          <div class="sl-resultat-rad"><span class="sl-resultat-lbl">Kollapshyppighed</span><div class="sl-bar-wrap"><div class="sl-bar" style="width:4%;background:#e07070;"></div></div><span class="sl-val" style="color:#e07070;">4%</span></div>
+        </div>
+        <div class="sl-col fund">
+          <span class="sl-etiket">Nøglefund</span>
+          <div class="sl-fund-punkt">Frihedsmålet er målbart og viser konsistent, ikke-tilfældig variation på tværs af agenter og generationer.</div>
+          <div class="sl-fund-punkt">Høj-bias agenter mister frihed 2,3× hurtigere end populationens gennemsnit.</div>
+          <div class="sl-fund-punkt">Frihedstab er ikke lineært — kraftige dyk opstår efter generation 80–120.</div>
+        </div>
+        <div class="sl-col fortolkning">
+          <span class="sl-etiket">Fortolkning</span>
+          <p class="sl-tekst">Målet synes at fange noget meningsfuldt om beslutningskapacitet. Det ikke-lineære faldmønster er konsistent med tærskeleffekter — små ændringer i bias-akkumulering kan have uforholdsmæssige konsekvenser når et kritisk punkt overskrides.</p>
+          <p class="sl-advarsel-lille">⚠️ Hvad vi ikke ved: om dette mål svarer til noget målbart i virkeligheden. Operationaliseringen af "frihed" er eksplicit stipulativ og kræver empirisk forankring.</p>
+        </div>
+        <div class="sl-col naeste">
+          <span class="sl-etiket">Næste skridt</span>
+          <div class="sl-naeste-punkt">Test målets følsomhed over for forskellige parameterområder</div>
+          <div class="sl-naeste-punkt">Reagerer målet forskelligt på bias-type (irreversibel vs. blød)?</div>
+          <div class="sl-naeste-punkt">Kan eksterne observatører forudsige friheds-forløb fra tidlige data?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EKS 2 -->
+<div class="sl-sektion" id="eks2">
+  <div class="sl-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7a9ee8;display:block;margin-bottom:8px;">Eksperiment 02</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:24px;color:#e8ecfc;font-weight:400;">Sti-afhængighed over 200 generationer</h2>
+    <div class="sl-exp">
+      <div class="sl-exp-header">
+        <span class="sl-exp-titel">Begrænser tidlige beslutninger fremtidig frihed på målbare måder?</span>
+        <span class="sl-badge pub">Publiceret</span>
+      </div>
+      <div class="sl-gitter">
+        <div class="sl-col setup">
+          <span class="sl-etiket">Setup</span>
+          <div class="sl-param"><strong>Agenter:</strong> 36</div>
+          <div class="sl-param"><strong>Generationer:</strong> 200</div>
+          <div class="sl-param"><strong>Betingelser:</strong> 3 forløb — tidlig høj-bias, sen høj-bias, lav-bias kontrol</div>
+          <div class="sl-param"><strong>Tester:</strong> Om identiske agenter med forskellige tidlige historier divergerer irreversibelt</div>
+        </div>
+        <div class="sl-col hypotese">
+          <span class="sl-etiket">Hypotese</span>
+          <div class="sl-hypotese-boks">Agenter eksponeret for høj bias i tidlige generationer (1–40) vil vise markant lavere frihed ved generation 200 end agenter eksponeret for identisk bias i sene generationer (160–200), selv hvis den samlede bias-eksponering er ens.</div>
+        </div>
+        <div class="sl-col resultat">
+          <span class="sl-etiket">Resultat</span>
+          <div class="sl-resultat-rad"><span class="sl-resultat-lbl">Tidlig bias — frihed gen 200</span><div class="sl-bar-wrap"><div class="sl-bar" style="width:18%;background:#e07070;"></div></div><span class="sl-val" style="color:#e07070;">0,18</span></div>
+          <div class="sl-resultat-rad"><span class="sl-resultat-lbl">Sen bias — frihed gen 200</span><div class="sl-bar-wrap"><div class="sl-bar" style="width:51%;background:var(--accent);"></div></div><span class="sl-val" style="color:var(--accent);">0,51</span></div>
+          <div class="sl-resultat-rad"><span class="sl-resultat-lbl">Kontrol — frihed gen 200</span><div class="sl-bar-wrap"><div class="sl-bar" style="width:74%"></div></div><span class="sl-val">0,74</span></div>
+          <div class="sl-resultat-rad"><span class="sl-resultat-lbl">Sene kollapshændelser</span><div class="sl-bar-wrap"><div class="sl-bar" style="width:31%;background:#c87ae8;"></div></div><span class="sl-val" style="color:#c87ae8;">11/36</span></div>
+        </div>
+        <div class="sl-col fund">
+          <span class="sl-etiket">Nøglefund</span>
+          <div class="sl-fund-punkt">Tidlig bias-eksponering producerer 2,8× lavere frihed ved generation 200 end tilsvarende sen eksponering — bekræfter stærk sti-afhængighed.</div>
+          <div class="sl-fund-punkt">Sene kollapshændelser opstår selv hos agenter der virkede stabile ved generation 100.</div>
+          <div class="sl-fund-punkt">Forskellige livsbaner opstår fra identiske startbetingelser — udelukkende drevet af timing.</div>
+        </div>
+        <div class="sl-col fortolkning">
+          <span class="sl-etiket">Fortolkning</span>
+          <p class="sl-tekst">Simuleringen indikerer at hvornår begrænsninger pålægges er mindst ligeså vigtigt som hvor meget begrænsning der pålægges. Dette har potentielle implikationer for tidlig intervention i sociale og institutionelle kontekster — men direkte overførsel kræver betydelig empirisk validering.</p>
+          <p class="sl-advarsel-lille">⚠️ Alternativ forklaring: effekten kan være et artefakt af simuleringens akkumuleringsmekanisme snarere end et ægte sti-afhængighedsfænomen.</p>
+        </div>
+        <div class="sl-col naeste">
+          <span class="sl-etiket">Næste skridt</span>
+          <div class="sl-naeste-punkt">Test reversibilitet: kan agenter med tidlig-bias historier genvinde frihed ved intervention før generation 80?</div>
+          <div class="sl-naeste-punkt">Kortlæg "point of no return"-tærsklen</div>
+          <div class="sl-naeste-punkt">Test om delvis genvinding er mulig vs. fuld genvinding</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EKS 3 -->
+<div class="sl-sektion" id="eks3">
+  <div class="sl-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#c87ae8;display:block;margin-bottom:8px;">Eksperiment 03 · Stærkeste fund</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:24px;color:#e8ecfc;font-weight:400;">Metastabile lavfrihedstilstande</h2>
+    <div class="sl-exp" style="border-color:rgba(200,122,232,0.2);">
+      <div class="sl-exp-header" style="background:rgba(200,122,232,0.06);border-color:rgba(200,122,232,0.15);">
+        <span class="sl-exp-titel">Producerer frihedstab stabile mellemtilstande, eller er det binært?</span>
+        <span class="sl-badge staerk">Publiceret · Stærkeste resultat</span>
+      </div>
+      <div class="sl-gitter">
+        <div class="sl-col setup">
+          <span class="sl-etiket">Setup</span>
+          <div class="sl-param"><strong>Agenter:</strong> 36</div>
+          <div class="sl-param"><strong>Generationer:</strong> 200</div>
+          <div class="sl-param"><strong>Irreversibel bias:</strong> aktiveret</div>
+          <div class="sl-param"><strong>bias_weight:</strong> > 1,0</div>
+          <div class="sl-param"><strong>plasticitet:</strong> &lt; 0,15</div>
+          <div class="sl-param"><strong>Tester:</strong> Om agenter stabiliseres i intermediære frihedstilstande frem for at kollapse fuldt</div>
+        </div>
+        <div class="sl-col hypotese">
+          <span class="sl-etiket">Hypotese</span>
+          <div class="sl-hypotese-boks">Hvis bias_weight &gt; 1,0 og plasticitet &lt; 0,15, vil agenter ikke genvinde frihed — men en betydelig andel vil heller ikke kollapse fuldt. Et stabilt intermediært plateau opstår i intervallet 0,16–0,24.</div>
+        </div>
+        <div class="sl-col resultat">
+          <span class="sl-etiket">Resultat</span>
+          <div class="sl-resultat-rad"><span class="sl-resultat-lbl">Plateau (0,16–0,24)</span><div class="sl-bar-wrap"><div class="sl-bar" style="width:71%;background:#c87ae8;"></div></div><span class="sl-val" style="color:#c87ae8;">71%</span></div>
+          <div class="sl-resultat-rad"><span class="sl-resultat-lbl">Genvundet (&gt; 0,5)</span><div class="sl-bar-wrap"><div class="sl-bar" style="width:14%"></div></div><span class="sl-val">14%</span></div>
+          <div class="sl-resultat-rad"><span class="sl-resultat-lbl">Fuldt låst (&lt; 0,08)</span><div class="sl-bar-wrap"><div class="sl-bar" style="width:14%;background:#e07070;"></div></div><span class="sl-val" style="color:#e07070;">14%</span></div>
+          <div class="sl-resultat-rad"><span class="sl-resultat-lbl">Plateaustabilitet gen 100–200</span><div class="sl-bar-wrap"><div class="sl-bar" style="width:89%;background:#c87ae8;"></div></div><span class="sl-val" style="color:#c87ae8;">89%</span></div>
+        </div>
+        <div class="sl-col fund">
+          <span class="sl-etiket">Nøglefund</span>
+          <div class="sl-fund-punkt">En metastabil tilstand opstår hvor agenter hverken kollapser eller genvinder — stabil lav-kapacitetsdrift.</div>
+          <div class="sl-fund-punkt">Plateauet 0,16–0,24 er bemærkelsesværdigt konsistent: 89% af plateau-agenter forbliver i intervallet i 100+ på hinanden følgende generationer.</div>
+          <div class="sl-fund-punkt">Frihedstab er ikke binært — systemet producerer tre distinkte udfaldskategorier, ikke to.</div>
+        </div>
+        <div class="sl-col fortolkning">
+          <span class="sl-etiket">Fortolkning</span>
+          <p class="sl-tekst">Dette er det stærkeste fund hidtil. Fremkomsten af en stabil mellemtilstand indikerer at systemer under begrænsning ikke blot fejler eller overlever — de kan persistere i en degraderet men funktionel tilstand på ubestemt tid. Dette kan have implikationer for hvordan vi tænker om institutionel og individuel beslutningskapacitet under vedvarende pres.</p>
+          <p class="sl-advarsel-lille">⚠️ Plateau-intervallet (0,16–0,24) kan være et artefakt af de specifikke parameterværdier der er brugt. Test over bredere parameterområder er nødvendigt.</p>
+        </div>
+        <div class="sl-col naeste">
+          <span class="sl-etiket">Næste skridt</span>
+          <div class="sl-naeste-punkt">Test målrettede interventioner for at bryde plateau-tilstande</div>
+          <div class="sl-naeste-punkt">Er plateau-agenter mere skrøbelige end de ser ud? Forårsager lille forstyrrelse kollaps?</div>
+          <div class="sl-naeste-punkt">Forskydes plateau-intervallet med andre bias/plasticitet-kombinationer?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EKS 4 -->
+<div class="sl-sektion" id="eks4">
+  <div class="sl-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7a9ee8;display:block;margin-bottom:8px;">Eksperiment 04</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:24px;color:#e8ecfc;font-weight:400;">Interventionstyper og genvinding af frihed</h2>
+    <div class="sl-exp">
+      <div class="sl-exp-header">
+        <span class="sl-exp-titel">Producerer forskellige interventionstyper forskellige genvindings-udfald?</span>
+        <span class="sl-badge pub">Publiceret</span>
+      </div>
+      <div class="sl-gitter">
+        <div class="sl-col setup">
+          <span class="sl-etiket">Setup</span>
+          <div class="sl-param"><strong>Agenter:</strong> 36 (plateau-agenter fra Eks. 03)</div>
+          <div class="sl-param"><strong>Generationer:</strong> 100 efter intervention</div>
+          <div class="sl-param"><strong>Interventionstyper:</strong> Mild / Korrigerende / Relationel</div>
+          <div class="sl-param"><strong>Anvendt ved:</strong> Generation 100</div>
+          <div class="sl-param"><strong>Tester:</strong> Om interventionstype bestemmer genvindings-forløbet</div>
+        </div>
+        <div class="sl-col hypotese">
+          <span class="sl-etiket">Hypotese</span>
+          <div class="sl-hypotese-boks">Relationelle interventioner (der retter sig mod tillid og kontekst, ikke bare bias-reduktion) vil producere højere genvindings-rater end korrigerende interventioner af tilsvarende styrke — fordi de adresserer strukturelle betingelser frem for symptomer.</div>
+        </div>
+        <div class="sl-col resultat">
+          <span class="sl-etiket">Resultat</span>
+          <div class="sl-resultat-rad"><span class="sl-resultat-lbl">Mild — gennemsnitsgenvinding</span><div class="sl-bar-wrap"><div class="sl-bar" style="width:11%;background:#e07070;"></div></div><span class="sl-val" style="color:#e07070;">+0,11</span></div>
+          <div class="sl-resultat-rad"><span class="sl-resultat-lbl">Korrigerende — genvinding</span><div class="sl-bar-wrap"><div class="sl-bar" style="width:18%;background:var(--accent);"></div></div><span class="sl-val" style="color:var(--accent);">+0,18</span></div>
+          <div class="sl-resultat-rad"><span class="sl-resultat-lbl">Hybrid (rel→narr) — genvinding</span><div class="sl-bar-wrap"><div class="sl-bar" style="width:21%"></div></div><span class="sl-val">+0,21</span></div>
+          <div class="sl-resultat-rad"><span class="sl-resultat-lbl">Kollaps — narrativ alene</span><div class="sl-bar-wrap"><div class="sl-bar" style="width:25%;background:#e07070;"></div></div><span class="sl-val" style="color:#e07070;">25%</span></div>
+          <div class="sl-resultat-rad"><span class="sl-resultat-lbl">Kollaps — hybrid (N=36)</span><div class="sl-bar-wrap"><div class="sl-bar" style="width:5.6%;background:var(--accent);"></div></div><span class="sl-val" style="color:var(--accent);">5,6%</span></div>
+        </div>
+        <div class="sl-col fund">
+          <span class="sl-etiket">Nøglefund</span>
+          <div class="sl-fund-punkt">Rækkefølge er mekanistisk beskyttende: relationel validering først bygger bærekapacitet, så narrativ rekonstruktion kan lande uden at destabilisere.</div>
+          <div class="sl-fund-punkt">Narrativ rekonstruktion alene giver 25% kollapsrate — farligt uden relationel forberedelse.</div>
+          <div class="sl-fund-punkt">Hybrid-tilgangen (relationel → narrativ) giver bedst resultat: +0,21 frihed og kun 5,6% kollaps.</div>
+        </div>
+        <div class="sl-col fortolkning">
+          <span class="sl-etiket">Fortolkning</span>
+          <p class="sl-tekst">Simuleringen indikerer at hvordan en intervention virker er vigtigere end hvor stærk den er. Dette er konsistent med M.E.M.'s teoretiske vægt på relationel kontekst. Men den kausale mekanisme er stipuleret af modellen — ikke observeret. Om mønstret holder i virkelige beslutningssystemer er et åbent empirisk spørgsmål.</p>
+          <p class="sl-advarsel-lille">⚠️ Den "relationelle" intervention er operationaliseret som en specifik parameterændring — ikke en virkelig interaktion. Den konceptuelle overførsel kræver betydelig forsigtighed.</p>
+        </div>
+        <div class="sl-col naeste">
+          <span class="sl-etiket">Næste skridt</span>
+          <div class="sl-naeste-punkt">Test interventionstiming: virker relationel intervention lige godt på alle stadier af plateau?</div>
+          <div class="sl-naeste-punkt">Tidligt plateau (gen 100–120) vs. etableret plateau (gen 160+)</div>
+          <div class="sl-naeste-punkt">Test kombinerede interventioner: mild + relationel i rækkefølge</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EKS 5 -->
+<div class="sl-sektion" id="eks5">
+  <div class="sl-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7a9ee8;display:block;margin-bottom:8px;">Eksperiment 05</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:24px;color:#e8ecfc;font-weight:400;">Meta-Recovery Lag — Selvovervågende agenter</h2>
+    <div class="sl-exp">
+      <div class="sl-exp-header">
+        <span class="sl-exp-titel">Kan agenter der overvåger egen frihedstilstand genvinde frihed uden ekstern intervention?</span>
+        <span class="sl-badge udv">Under udvikling</span>
+      </div>
+      <div class="sl-gitter">
+        <div class="sl-col setup">
+          <span class="sl-etiket">Setup</span>
+          <div class="sl-param"><strong>Agenter:</strong> 36 (to populationer: meta-bevidst vs. standard)</div>
+          <div class="sl-param"><strong>Generationer:</strong> 200</div>
+          <div class="sl-param"><strong>Meta-lag:</strong> Agenter kan registrere eget frihedsmål og justere plasticitet</div>
+          <div class="sl-param"><strong>Tærskel:</strong> Selvkorrektion aktiveres ved frihed &lt; 0,25</div>
+          <div class="sl-param"><strong>Tester:</strong> Om intern overvågning forhindrer plataudannelse</div>
+        </div>
+        <div class="sl-col hypotese">
+          <span class="sl-etiket">Hypotese</span>
+          <div class="sl-hypotese-boks">Meta-bevidste agenter med selvovervågningskapacitet vil vise markant lavere plateaurater end standardagenter — fordi tidlig opdagelse muliggør plasticitets-justering før irreversibel låsning opstår.</div>
+        </div>
+        <div class="sl-col resultat">
+          <span class="sl-etiket">Resultat (foreløbigt)</span>
+          <div class="sl-resultat-rad"><span class="sl-resultat-lbl">Plateaurate — standard</span><div class="sl-bar-wrap"><div class="sl-bar" style="width:71%;background:#e07070;"></div></div><span class="sl-val" style="color:#e07070;">71%</span></div>
+          <div class="sl-resultat-rad"><span class="sl-resultat-lbl">Plateaurate — meta-bevidst</span><div class="sl-bar-wrap"><div class="sl-bar" style="width:28%;background:var(--accent);"></div></div><span class="sl-val" style="color:var(--accent);">28%</span></div>
+          <div class="sl-resultat-rad"><span class="sl-resultat-lbl">5 af 6 aktiverede genvinding</span><div class="sl-bar-wrap"><div class="sl-bar" style="width:83%"></div></div><span class="sl-val">5/6</span></div>
+          <div class="sl-resultat-rad"><span class="sl-resultat-lbl">Intern genvinding</span><div class="sl-bar-wrap"><div class="sl-bar" style="width:50%"></div></div><span class="sl-val">3/6</span></div>
+          <div class="sl-resultat-rad"><span class="sl-resultat-lbl">Via eksternt signal</span><div class="sl-bar-wrap"><div class="sl-bar" style="width:33%;background:#7a9ee8;"></div></div><span class="sl-val" style="color:#7a9ee8;">2/6</span></div>
+        </div>
+        <div class="sl-col fund">
+          <span class="sl-etiket">Nøglefund (foreløbigt)</span>
+          <div class="sl-fund-punkt">Selvovervågning reducerer plataudannelse med ca. 60% — en stærk foreløbig effekt.</div>
+          <div class="sl-fund-punkt">Intern genvinding er mulig, men kræver tidlig opdagelse — før generation 70.</div>
+          <div class="sl-fund-punkt">Sen-aktiverende meta-bevidsthed (frihed allerede &lt; 0,20) viser minimal effekt — indikerer et kritisk vindue.</div>
+        </div>
+        <div class="sl-col fortolkning">
+          <span class="sl-etiket">Fortolkning</span>
+          <p class="sl-tekst">Hvis selvovervågning kan forhindre plataudannelse, har dette betydelige implikationer for systemdesign — det indikerer at refleksiv kapacitet (systemets evne til at observere og reagere på egne tilstande) kan være ligeså vigtig som ekstern regulering. Dette kortlægger sig konceptuelt til M.E.M.'s vægt på strukturel selvbevidsthed.</p>
+          <p class="sl-advarsel-lille">⚠️ Disse resultater er foreløbige. Meta-bevidsthedsmekanismen er implementeret som en simpel tærskeltrigger, der muligvis ikke fanger kompleksiteten af ægte selvovervågning i virkelige systemer.</p>
+        </div>
+        <div class="sl-col naeste">
+          <span class="sl-etiket">Næste skridt</span>
+          <div class="sl-naeste-punkt">Afslut fuld 200-generations køring</div>
+          <div class="sl-naeste-punkt">Test forskellige selvovervågnings-tærskler (0,15 vs 0,25 vs 0,35)</div>
+          <div class="sl-naeste-punkt">Sammenlign intern vs. ekstern genvinding på tværs af alle interventionstyper</div>
+          <div class="sl-naeste-punkt">Test om meta-bevidste agenter er mere sårbare over for visse bias-typer</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OPERATING MAP -->
+<div class="sl-sektion" id="operating-map">
+  <div class="sl-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px;">Operating Map</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:24px;color:#e8ecfc;font-weight:400;margin-bottom:8px;">ETOS' grænsebetingelser</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(232,236,252,0.4);max-width:620px;line-height:1.75;margin-bottom:28px;">ETOS er ikke universelt fordelagtigt. Disse er de identificerede sweet spots og break-points fra simulationerne.</p>
+    <div style="overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;font-family:'DM Sans',sans-serif;font-size:13px;">
+      <thead>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
+          <th style="text-align:left;padding:12px 16px;color:rgba(232,236,252,0.4);font-weight:500;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;">Situation</th>
+          <th style="text-align:left;padding:12px 16px;color:rgba(232,236,252,0.4);font-weight:500;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;">ETOS-effekt</th>
+          <th style="text-align:right;padding:12px 16px;color:rgba(232,236,252,0.4);font-weight:500;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;">Økonomi vs. baseline</th>
+          <th style="text-align:right;padding:12px 16px;color:rgba(232,236,252,0.4);font-weight:500;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;">Frihed (slut)</th>
+          <th style="text-align:center;padding:12px 16px;color:rgba(232,236,252,0.4);font-weight:500;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;">Anbefaling</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.05);background:rgba(78,200,140,0.04);">
+          <td style="padding:14px 16px;color:#e8ecfc;">Høj kompleksitet + lav modstand</td>
+          <td style="padding:14px 16px;color:rgba(78,200,140,0.8);">Maksimal værdi</td>
+          <td style="padding:14px 16px;text-align:right;color:#4ec88c;font-weight:600;">~2,6 mia. DKK</td>
+          <td style="padding:14px 16px;text-align:right;color:#4ec88c;font-weight:600;">0,39</td>
+          <td style="padding:14px 16px;text-align:center;"><span style="background:rgba(78,200,140,0.12);color:#4ec88c;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;">✓ Stærkt anbefalet</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.05);background:rgba(122,158,232,0.03);">
+          <td style="padding:14px 16px;color:#e8ecfc;">Høj kompleksitet + høj modstand</td>
+          <td style="padding:14px 16px;color:rgba(122,158,232,0.8);">Reduceret værdi</td>
+          <td style="padding:14px 16px;text-align:right;color:#7a9ee8;font-weight:600;">~1,5 mia. DKK</td>
+          <td style="padding:14px 16px;text-align:right;color:#7a9ee8;font-weight:600;">0,25–0,34</td>
+          <td style="padding:14px 16px;text-align:center;"><span style="background:rgba(122,158,232,0.12);color:#7a9ee8;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;">~ Med forbehold</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.05);background:rgba(224,112,112,0.03);">
+          <td style="padding:14px 16px;color:#e8ecfc;">Ekstrem sabotage (95%)</td>
+          <td style="padding:14px 16px;color:rgba(224,112,112,0.8);">Delvist breakdown</td>
+          <td style="padding:14px 16px;text-align:right;color:#e07070;font-weight:600;">+0,32 mia. DKK</td>
+          <td style="padding:14px 16px;text-align:right;color:#e07070;font-weight:600;">0,11</td>
+          <td style="padding:14px 16px;text-align:center;"><span style="background:rgba(224,112,112,0.12);color:#e07070;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;">✗ Ikke anbefalet</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.05);background:rgba(226,136,78,0.03);">
+          <td style="padding:14px 16px;color:#e8ecfc;">Lav kompleksitet (overkill)</td>
+          <td style="padding:14px 16px;color:rgba(226,136,78,0.8);">Overdimensioneret</td>
+          <td style="padding:14px 16px;text-align:right;color:var(--accent);font-weight:600;">+0,71 mia. DKK</td>
+          <td style="padding:14px 16px;text-align:right;color:var(--accent);font-weight:600;">0,68</td>
+          <td style="padding:14px 16px;text-align:center;"><span style="background:rgba(226,136,78,0.12);color:var(--accent);padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;">✗ Ikke anbefalet</span></td>
+        </tr>
+        <tr style="background:rgba(224,112,112,0.03);">
+          <td style="padding:14px 16px;color:#e8ecfc;">Forkert konfiguration</td>
+          <td style="padding:14px 16px;color:rgba(224,112,112,0.8);">Risiko for forværring</td>
+          <td style="padding:14px 16px;text-align:right;color:#e07070;font-weight:600;">+0,93 mia. DKK</td>
+          <td style="padding:14px 16px;text-align:right;color:#e07070;font-weight:600;">0,14</td>
+          <td style="padding:14px 16px;text-align:center;"><span style="background:rgba(224,112,112,0.12);color:#e07070;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;">✗ Ikke anbefalet</span></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div style="margin-top:14px;padding:12px 16px;background:rgba(240,200,80,0.06);border:1px solid rgba(240,200,80,0.15);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,200,80,0.65);line-height:1.6;">
+      ⚠️ Alle økonomiske tal er modelbaserede estimater fra Simulation Lab. De er ikke dokumenterede besparelser fra virkelige implementeringer. Validering kræver rigtige pilotforsøg.
+    </div>
+  </div>
+</div>
+
+<!-- 10-ÅRS SCENARIER -->
+<div class="sl-sektion">
+  <div class="sl-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:8px;">10-års scenarier</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:24px;color:#e8ecfc;font-weight:400;margin-bottom:28px;">Hvad kan ETOS betyde over 10 år?</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(122,158,232,0.15);border-radius:14px;overflow:hidden;">
+        <div style="background:rgba(122,158,232,0.07);padding:18px 22px;border-bottom:1px solid rgba(122,158,232,0.1);">
+          <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#7a9ee8;display:block;margin-bottom:5px;">Psykiatri</span>
+          <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:#e8ecfc;font-weight:400;margin:0;">Regional psykiatrienhed</h3>
+        </div>
+        <div style="padding:20px 22px;">
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);"><span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(232,236,252,0.4);">Budgetramme</span><span style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:#e8ecfc;">500 mio. DKK/år</span></div>
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);"><span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(232,236,252,0.4);">Estimeret besparelse</span><span style="font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;color:#4ec88c;">60–90 mio. DKK</span></div>
+          <div style="margin-top:14px;display:flex;flex-direction:column;gap:6px;">
+            <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(122,158,232,0.7);padding:6px 10px;background:rgba(122,158,232,0.06);border-radius:6px;">Færre gentagelsesforløb</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(122,158,232,0.7);padding:6px 10px;background:rgba(122,158,232,0.06);border-radius:6px;">Bedre håndtering af tvang vs. autonomi</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(122,158,232,0.7);padding:6px 10px;background:rgba(122,158,232,0.06);border-radius:6px;">Kontrolleret læring over tid</div>
+          </div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(78,200,140,0.15);border-radius:14px;overflow:hidden;">
+        <div style="background:rgba(78,200,140,0.07);padding:18px 22px;border-bottom:1px solid rgba(78,200,140,0.1);">
+          <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:5px;">Neurologi</span>
+          <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:#e8ecfc;font-weight:400;margin:0;">Regional neurologienhed</h3>
+        </div>
+        <div style="padding:20px 22px;">
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);"><span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(232,236,252,0.4);">Budgetramme</span><span style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:#e8ecfc;">450 mio. DKK/år</span></div>
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);"><span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(232,236,252,0.4);">Estimeret besparelse</span><span style="font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;color:#4ec88c;">65–95 mio. DKK</span></div>
+          <div style="margin-top:14px;display:flex;flex-direction:column;gap:6px;">
+            <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(78,200,140,0.7);padding:6px 10px;background:rgba(78,200,140,0.06);border-radius:6px;">Færre gentagelsesindlæggelser</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(78,200,140,0.7);padding:6px 10px;background:rgba(78,200,140,0.06);border-radius:6px;">Bedre koordinering akut/ambulant/rehab</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(78,200,140,0.7);padding:6px 10px;background:rgba(78,200,140,0.06);border-radius:6px;">Kontrolleret læring over tid</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:12px 16px;background:rgba(240,200,80,0.06);border:1px solid rgba(240,200,80,0.15);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,200,80,0.65);line-height:1.6;">
+      ⚠️ Modelbaserede estimater — ikke dokumenterede besparelser. Validering kræver rigtige pilotforsøg.
+    </div>
+  </div>
+</div>
+
+<!-- KONKLUSION -->
+<div class="sl-sektion">
+  <div class="sl-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px;">Samlet konklusion</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:24px;color:#e8ecfc;font-weight:400;margin-bottom:24px;">Hvad dette betyder</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div>
+        <p style="font-family:'Playfair Display',serif;font-size:18px;color:#e8ecfc;font-style:italic;line-height:1.5;margin-bottom:16px;">"ETOS er ikke universelt fordelagtigt — det er en kontekstafhængig beslutningsinfrastruktur."</p>
+        <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(232,236,252,0.5);line-height:1.85;margin-bottom:10px;">Det skaber størst værdi i høj-komplekse miljøer med strukturelle spændinger og acceptabel organisatorisk adoption.</p>
+        <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(232,236,252,0.5);line-height:1.85;">I simple miljøer, ved ekstrem modstand eller forkert konfiguration bliver ETOS økonomisk mindre fordelagtigt eller direkte dyrere.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="padding:14px 18px;background:rgba(78,200,140,0.07);border:1px solid rgba(78,200,140,0.15);border-radius:10px;"><div style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#4ec88c;margin-bottom:5px;">Sweet spot</div><div style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(232,236,252,0.6);">Høj kompleksitet · strukturelle spændinger · acceptabel adoption</div></div>
+        <div style="padding:14px 18px;background:rgba(224,112,112,0.07);border:1px solid rgba(224,112,112,0.15);border-radius:10px;"><div style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#e07070;margin-bottom:5px;">Break-points</div><div style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(232,236,252,0.6);">Ekstrem sabotage (>80%) · lav kompleksitet · forkert konfiguration</div></div>
+        <div style="padding:14px 18px;background:rgba(122,158,232,0.07);border:1px solid rgba(122,158,232,0.15);border-radius:10px;"><div style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#7a9ee8;margin-bottom:5px;">Konklusion</div><div style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(232,236,252,0.6);">Vi har nu både sweet spots og klare break-points — det gør ETOS til en seriøs, implementerbar løsning.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SAMARBEJDE -->
+<div style="background:#0a0f1a;padding:64px 52px;">
+  <div style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;">
+    <div>
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7a9ee8;display:block;margin-bottom:12px;">Forskningssamarbejde</span>
+      <h2 style="font-family:'Playfair Display',serif;font-size:24px;color:#e8ecfc;font-weight:400;margin-bottom:12px;">Vil du engagere dig i denne forskning?</h2>
+      <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(232,236,252,0.45);line-height:1.8;margin-bottom:20px;">Dette simulation lab er under aktiv udvikling. Hvis du er forsker, praktiker eller institution interesseret i at teste disse hypoteser i virkelige kontekster, er du velkommen til dialog.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="kontakt.html" style="display:inline-flex;align-items:center;gap:8px;background:#7a9ee8;color:#0a0f1a;padding:12px 24px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;text-decoration:none;">Kontakt os →</a>
+        <a href="arkitektur.html" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:rgba(232,236,252,0.45);padding:12px 22px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;border:1px solid rgba(232,236,252,0.12);text-decoration:none;">Se arkitekturen</a>
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:24px;">
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(232,236,252,0.3);display:block;margin-bottom:14px;">Lab status</span>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;justify-content:space-between;padding:10px 12px;background:rgba(78,200,140,0.06);border-radius:7px;"><span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(232,236,252,0.5);">Eksperimenter publiceret</span><span style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:#4ec88c;">4 / 5</span></div>
+        <div style="display:flex;justify-content:space-between;padding:10px 12px;background:rgba(255,255,255,0.03);border-radius:7px;"><span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(232,236,252,0.5);">Syntetiske cases kørt</span><span style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:#e8ecfc;">1.296</span></div>
+        <div style="display:flex;justify-content:space-between;padding:10px 12px;background:rgba(255,255,255,0.03);border-radius:7px;"><span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(232,236,252,0.5);">Virkelige pilotforsøg</span><span style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--accent);">Søger partnere</span></div>
+        <div style="display:flex;justify-content:space-between;padding:10px 12px;background:rgba(255,255,255,0.03);border-radius:7px;"><span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(232,236,252,0.5);">TRL-niveau</span><span style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:#e8ecfc;">4–5</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

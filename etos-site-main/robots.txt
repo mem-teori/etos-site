@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mem-teori.github.io/etos-site/sitemap.xml

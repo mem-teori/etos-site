@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Børneunivers — M.E.M.</title>
+  <meta name="description" content="Et sanseligt univers for børn og unge — bøger, Lærings-uniVRs og Bankeren samlet ét sted.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    .bu-shell{min-height:100vh;background:radial-gradient(circle at 20% 10%, rgba(200,122,232,0.16), transparent 26%),radial-gradient(circle at 80% 14%, rgba(74,158,218,0.12), transparent 24%),radial-gradient(circle at 50% 100%, rgba(226,136,78,0.10), transparent 28%),linear-gradient(180deg, #160f1d 0%, #120d18 38%, #10161d 100%);color:#f3edf8;overflow:hidden;position:relative}
+    .bu-shell::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px),radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);background-size:42px 42px,84px 84px;background-position:0 0,20px 20px;opacity:.22}
+    .bu-header{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(16,11,22,.72);border-bottom:1px solid rgba(255,255,255,.06)}
+    .bu-nav{max-width:1160px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .bu-logo{display:inline-flex;align-items:center;gap:12px;color:#f3edf8;text-decoration:none;font-family:'Playfair Display',serif;font-size:22px}
+    .bu-logo-mark{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:rgba(200,122,232,.14);color:#d49ced;box-shadow:0 0 28px rgba(200,122,232,.18);font-size:17px}
+    .bu-links{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .bu-link,.bu-back,.bu-lang{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;text-decoration:none;border-radius:999px;transition:all .15s}
+    .bu-link{color:rgba(243,237,248,.64);padding:8px 14px}.bu-link:hover{color:#fff;background:rgba(255,255,255,.06)}
+    .bu-back{color:#140d1c;background:#d49ced;padding:9px 16px}.bu-back:hover,.bu-lang:hover{filter:brightness(1.06)}
+    .bu-lang{color:#f3edf8;background:rgba(255,255,255,.08);padding:9px 14px}
+    .bu-hero{max-width:1160px;margin:0 auto;padding:78px 24px 56px;position:relative;text-align:center}
+    .bu-tag{display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#d49ced;margin-bottom:18px;font-weight:500}
+    .bu-tag-dot{width:6px;height:6px;border-radius:50%;background:#d49ced;box-shadow:0 0 16px rgba(212,156,237,.5)}
+    .bu-hero h1{font-family:'Playfair Display',serif;font-size:clamp(40px,6vw,68px);line-height:1.04;font-weight:400;color:#f3edf8;margin-bottom:14px;letter-spacing:-.02em}
+    .bu-hero h1 em{color:#7fb9ee;font-style:italic}
+    .bu-subtitle{font-family:'Playfair Display',serif;font-size:clamp(18px,2.2vw,26px);color:rgba(243,237,248,.72);font-style:italic;margin-bottom:18px}
+    .bu-lead{max-width:620px;margin:0 auto;font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;color:rgba(243,237,248,.52)}
+    .bu-worlds{max-width:1160px;margin:0 auto;padding:12px 24px 72px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative}
+    .bu-card{position:relative;overflow:hidden;border-radius:22px;padding:30px 28px 28px;text-decoration:none;min-height:330px;display:flex;flex-direction:column;transition:transform .18s,box-shadow .18s;border:1px solid rgba(255,255,255,.08);box-shadow:0 18px 42px rgba(0,0,0,.16)}
+    .bu-card:hover{transform:translateY(-4px);box-shadow:0 24px 56px rgba(0,0,0,.24)}
+    .bu-card::before{content:"";position:absolute;right:-44px;bottom:-44px;width:150px;height:150px;border-radius:50%;opacity:.18;transition:opacity .18s,transform .18s}
+    .bu-card:hover::before{opacity:.3;transform:scale(1.06)}
+    .bu-books{background:linear-gradient(180deg,#1b1227 0%,#160f21 100%)} .bu-books::before{background:#c87ae8}
+    .bu-learn{background:linear-gradient(180deg,#111c26 0%,#0f1720 100%)} .bu-learn::before{background:#6ab4e8}
+    .bu-bank{background:linear-gradient(180deg,#1d1612 0%,#18120f 100%)} .bu-bank::before{background:#e2a06a}
+    .bu-card-kicker{font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:10px}
+    .bu-books .bu-card-kicker{color:#d49ced}.bu-learn .bu-card-kicker{color:#7fb9ee}.bu-bank .bu-card-kicker{color:#e2a06a}
+    .bu-card-icon{font-size:30px;margin-bottom:12px;opacity:.95}
+    .bu-card h2{font-family:'Playfair Display',serif;font-size:28px;line-height:1.15;font-weight:400;color:#f7f2fb;margin-bottom:10px}
+    .bu-card p{font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.78;color:rgba(243,237,248,.52);margin-bottom:18px;max-width:34ch}
+    .bu-pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+    .bu-pill{font-family:'DM Sans',sans-serif;font-size:11px;padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.08);color:rgba(243,237,248,.7);background:rgba(255,255,255,.04)}
+    .bu-card-cta{margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;opacity:.82}
+    .bu-books .bu-card-cta{color:#d49ced}.bu-learn .bu-card-cta{color:#7fb9ee}.bu-bank .bu-card-cta{color:#e2a06a}
+    .bu-note{max-width:900px;margin:0 auto;padding:0 24px 74px;text-align:center}
+    .bu-note-box{border-radius:18px;padding:24px 28px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}
+    .bu-note-box h2{font-family:'Playfair Display',serif;font-size:28px;font-weight:400;color:#f3edf8;margin:0 0 10px}
+    .bu-note-box p{margin:0;font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.8;color:rgba(243,237,248,.62)}
+    @media (max-width:900px){.bu-worlds{grid-template-columns:1fr}.bu-card{min-height:auto}}
+    @media (max-width:640px){.bu-nav{padding:12px 16px;align-items:flex-start;flex-direction:column}.bu-links{width:100%}.bu-hero{padding:56px 20px 42px}.bu-worlds{padding:0 20px 56px}.bu-note{padding:0 20px 56px}}
+  </style>
+</head>
+<body><div class="bu-shell"><header class="bu-header"><div class="bu-nav"><a href="univers.html" class="bu-logo"><span class="bu-logo-mark">🌱</span><span>Børneunivers</span></a><nav class="bu-links"><a href="#verdener" class="bu-link">Verdener</a><a href="kontakt.html" class="bu-link">Kontakt</a><a href="index.html" class="bu-back">Tilbage til M.E.M.</a><a href="univers-en.html" class="bu-lang">EN</a></nav></div></header>
+<section class="bu-hero"><span class="bu-tag"><span class="bu-tag-dot"></span>Børn · unge · sansning · stemme</span><h1>Et sted, hvor man kan <em>mærke</em>,<br>forstå og finde sin stemme</h1><p class="bu-subtitle">Her træder man ikke ind i systemet — men ind i et andet univers.</p><p class="bu-lead">Børneuniverset samler bøger, læring og Bankeren i én indgang. Det er lavet til børn og unge — og til de voksne, der gerne vil møde dem med mere ro, sprog og nærvær.</p></section>
+<section class="bu-worlds" id="verdener">
+<a href="boerneunivers.html" class="bu-card bu-books"><span class="bu-card-kicker">Bøger · følelser · relationer</span><div class="bu-card-icon">📖</div><h2>Børnebøgerne</h2><p>Historier for flere alderstrin, hvor børn får et sprog for det, der kan mærkes, før det kan forklares.</p><div class="bu-pill-row"><span class="bu-pill">0–4 år</span><span class="bu-pill">5–8 år</span><span class="bu-pill">9–12 år</span></div><span class="bu-card-cta">Gå til bøgerne →</span></a>
+<a href="laering.html" class="bu-card bu-learn"><span class="bu-card-kicker">Oplevelse · læring · uniVRs</span><div class="bu-card-icon">🌐</div><h2>Lærings-uniVRs</h2><p>Et mere oplevelsesbaseret læringsrum, hvor børn og unge kan træde ind i stemninger, forståelser og refleksion på en anden måde.</p><div class="bu-pill-row"><span class="bu-pill">Oplevelse</span><span class="bu-pill">Refleksion</span><span class="bu-pill">Læring</span></div><span class="bu-card-cta">Gå til Lærings-uniVRs →</span></a>
+<a href="bankeren-produkt.html" class="bu-card bu-bank"><span class="bu-card-kicker">Produkt · sanseligt anker</span><div class="bu-card-icon">🧸</div><h2>Bankeren</h2><p>Et fysisk spor i universet — som lampe og bamse — der giver barnet en konkret måde at vise, hvad der mærkes indeni.</p><div class="bu-pill-row"><span class="bu-pill">Lampe</span><span class="bu-pill">Bamse</span><span class="bu-pill">Tryghed</span></div><span class="bu-card-cta">Mød Bankeren →</span></a>
+</section>
+<section class="bu-note"><div class="bu-note-box"><h2>Et univers, man træder ind i</h2><p>Her handler det ikke om rigtigt og forkert, men om at mærke det, der allerede er der — og finde et sted, hvor børn kan forstå, bruge og stole mere på deres egen stemme.</p></div></section></div></body></html>
