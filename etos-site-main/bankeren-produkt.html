@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bankeren — Følelser der kan ses, mærkes og forstås</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    /* HERO */
+    .bank-hero {
+      background: linear-gradient(160deg, #1a0d2a 0%, #2a1a3a 50%, #1a1228 100%);
+      padding: 72px 52px 64px; position: relative; overflow: hidden;
+      min-height: 520px; display: flex; align-items: center;
+    }
+    .bank-hero::before {
+      content: ''; position: absolute; top: -100px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(180,120,255,0.08), transparent 70%);
+      pointer-events: none;
+    }
+    .bank-hero-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 380px; gap: 64px; align-items: center; width: 100%; position: relative; }
+    .bank-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 54px); color: #f0ebe0; font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .bank-hero h1 em { font-style: italic; color: #c87ae8; }
+    .bank-hero-sub { font-family: 'Playfair Display', serif; font-size: 17px; color: rgba(240,235,224,0.5); font-style: italic; margin-bottom: 20px; }
+    .bank-hero-lead { font-family: 'DM Sans', sans-serif; font-size: 14px; color: rgba(240,235,224,0.45); line-height: 1.8; margin-bottom: 28px; max-width: 480px; }
+    .bank-coming { display: inline-flex; align-items: center; gap: 8px; background: rgba(200,122,232,0.1); border: 1px solid rgba(200,122,232,0.25); border-radius: 20px; padding: 7px 16px; font-family: 'DM Sans', sans-serif; font-size: 12px; color: #c87ae8; font-weight: 500; margin-bottom: 24px; }
+    .bank-coming-dot { width: 6px; height: 6px; border-radius: 50%; background: #c87ae8; animation: bpulse 2s ease-in-out infinite; }
+    @keyframes bpulse { 0%,100%{opacity:1}50%{opacity:0.3} }
+    .bank-hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+    .bank-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.15s; }
+    .bank-btn-primary { background: #c87ae8; color: #fff; }
+    .bank-btn-primary:hover { background: #b060d0; }
+    .bank-btn-ghost { background: transparent; color: rgba(240,235,224,0.55); border: 1px solid rgba(240,235,224,0.15); }
+    .bank-btn-ghost:hover { color: rgba(240,235,224,0.9); border-color: rgba(240,235,224,0.3); }
+
+    /* LAMPE ANIMATION */
+    .bank-lamp-wrap { display: flex; justify-content: center; align-items: center; }
+    .bank-lamp { width: 120px; height: 240px; position: relative; margin: 0 auto; }
+    .bank-lamp-cylinder {
+      width: 100%; height: 100%; border-radius: 60px;
+      border: 2px solid rgba(200,122,232,0.3);
+      background: rgba(200,122,232,0.05);
+      position: relative; overflow: hidden;
+    }
+    .bank-lamp-glow {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 60%; border-radius: 0 0 58px 58px;
+      background: radial-gradient(ellipse at 50% 100%, rgba(200,122,232,0.4), transparent 70%);
+      animation: glow-breathe 4s ease-in-out infinite;
+    }
+    @keyframes glow-breathe {
+      0%,100% { opacity: 0.6; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.1); }
+    }
+    .bank-lamp-feather {
+      position: absolute; bottom: 20%; left: 50%; transform: translateX(-50%);
+      width: 40px; height: 80px;
+      animation: feather-float 3s ease-in-out infinite;
+    }
+    @keyframes feather-float {
+      0%,100% { transform: translateX(-50%) rotate(-8deg) translateY(0); }
+      33% { transform: translateX(-50%) rotate(5deg) translateY(-12px); }
+      66% { transform: translateX(-50%) rotate(-3deg) translateY(-6px); }
+    }
+    .bank-lamp-feather svg { width: 100%; height: 100%; }
+    .bank-lamp-base { width: 80px; height: 16px; background: rgba(200,122,232,0.2); border-radius: 8px; margin: 8px auto 0; }
+    .bank-color-dots { display: flex; gap: 8px; justify-content: center; margin-top: 16px; }
+    .bank-color-dot { width: 20px; height: 20px; border-radius: 50%; cursor: pointer; transition: transform 0.15s; border: 2px solid rgba(255,255,255,0.2); }
+    .bank-color-dot:hover { transform: scale(1.2); }
+    .bank-color-dot.active { border-color: #fff; transform: scale(1.15); }
+
+    /* FUNDAMENT */
+    .bank-foundation { background: #f5f0e8; padding: 64px 52px; }
+    .bank-foundation-inner { max-width: 1160px; margin: 0 auto; }
+    .bank-mem { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid rgba(0,0,0,0.08); border-radius: 16px; overflow: hidden; margin-top: 40px; }
+    .bank-mem-cell { padding: 32px 28px; border-right: 1px solid rgba(0,0,0,0.08); background: #fff; }
+    .bank-mem-cell:last-child { border-right: none; }
+    .bank-mem-layer { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; display: block; }
+    .bank-mem-cell.a .bank-mem-layer { color: #7a9ee8; }
+    .bank-mem-cell.b .bank-mem-layer { color: var(--accent); }
+    .bank-mem-cell.c .bank-mem-layer { color: #c87ae8; }
+    .bank-mem-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 400; margin-bottom: 6px; }
+    .bank-mem-cell.a .bank-mem-title { color: #7a9ee8; }
+    .bank-mem-cell.b .bank-mem-title { color: var(--accent); }
+    .bank-mem-cell.c .bank-mem-title { color: #c87ae8; }
+    .bank-mem-desc { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #888; line-height: 1.7; }
+    .bank-mem-quote { font-family: 'Playfair Display', serif; font-size: 13px; font-style: italic; margin-top: 8px; }
+    .bank-mem-cell.c .bank-mem-quote { color: #c87ae8; }
+
+    /* PRODUKTER */
+    .bank-products { background: #1a1228; padding: 72px 52px; }
+    .bank-products-inner { max-width: 1160px; margin: 0 auto; }
+    .bank-prod-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
+    .bank-prod-card { border-radius: 20px; padding: 40px; position: relative; overflow: hidden; }
+    .bank-prod-card.lampe { background: rgba(200,122,232,0.07); border: 1px solid rgba(200,122,232,0.2); }
+    .bank-prod-card.bamse { background: rgba(226,136,78,0.07); border: 1px solid rgba(226,136,78,0.2); }
+    .bank-prod-tag { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 14px; }
+    .bank-prod-card.lampe .bank-prod-tag { color: #c87ae8; }
+    .bank-prod-card.bamse .bank-prod-tag { color: var(--accent); }
+    .bank-prod-icon { font-size: 36px; margin-bottom: 16px; display: block; }
+    .bank-prod-card h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: #f0ebe0; font-weight: 400; margin-bottom: 8px; }
+    .bank-prod-purpose { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(240,235,224,0.5); line-height: 1.7; margin-bottom: 20px; }
+    .bank-prod-features { display: flex; flex-direction: column; gap: 8px; }
+    .bank-prod-feature { display: flex; align-items: flex-start; gap: 10px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(240,235,224,0.55); line-height: 1.6; }
+    .bank-prod-feature::before { content: '→'; color: rgba(240,235,224,0.25); flex-shrink: 0; font-size: 12px; margin-top: 2px; }
+
+    /* FARVER */
+    .bank-colors { background: #0d1117; padding: 64px 52px; }
+    .bank-colors-inner { max-width: 1160px; margin: 0 auto; }
+    .bank-color-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px; }
+    .bank-color-card { border-radius: 16px; padding: 28px 24px; text-align: center; cursor: pointer; transition: transform 0.15s; }
+    .bank-color-card:hover { transform: translateY(-3px); }
+    .bank-color-card.rod   { background: rgba(224,80,80,0.1); border: 1px solid rgba(224,80,80,0.2); }
+    .bank-color-card.lilla { background: rgba(200,122,232,0.1); border: 1px solid rgba(200,122,232,0.2); }
+    .bank-color-card.blaa  { background: rgba(90,126,216,0.1); border: 1px solid rgba(90,126,216,0.2); }
+    .bank-color-card.gul   { background: rgba(240,200,80,0.1); border: 1px solid rgba(240,200,80,0.2); }
+    .bank-color-emoji { font-size: 32px; margin-bottom: 12px; display: block; }
+    .bank-color-name { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 400; margin-bottom: 6px; }
+    .bank-color-card.rod   .bank-color-name { color: #e05050; }
+    .bank-color-card.lilla .bank-color-name { color: #c87ae8; }
+    .bank-color-card.blaa  .bank-color-name { color: #7a9ee8; }
+    .bank-color-card.gul   .bank-color-name { color: #f0c850; }
+    .bank-color-meaning { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(240,235,224,0.4); }
+
+    /* ALDER */
+    .bank-ages { background: #f5f0e8; padding: 64px 52px; }
+    .bank-ages-inner { max-width: 1160px; margin: 0 auto; }
+    .bank-age-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+    .bank-age-card { background: #fff; border-radius: 16px; padding: 32px 28px; border: 1px solid rgba(0,0,0,0.07); transition: transform 0.15s; }
+    .bank-age-card:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.07); }
+    .bank-age-range { font-family: 'Playfair Display', serif; font-size: 32px; color: #c87ae8; font-weight: 400; margin-bottom: 6px; }
+    .bank-age-focus { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+    .bank-age-card h3 { font-family: 'Playfair Display', serif; font-size: 18px; color: #1a1a1a; font-weight: 400; margin-bottom: 10px; }
+    .bank-age-card p { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #888; line-height: 1.7; margin: 0; }
+
+    /* FLOW */
+    .bank-flow { background: #1a1228; padding: 64px 52px; }
+    .bank-flow-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+    .bank-flow-steps { display: flex; align-items: center; justify-content: center; gap: 0; margin: 40px 0; flex-wrap: wrap; }
+    .bank-flow-step { text-align: center; padding: 0 20px; }
+    .bank-flow-icon { font-size: 32px; margin-bottom: 10px; display: block; }
+    .bank-flow-step h4 { font-family: 'Playfair Display', serif; font-size: 15px; color: #f0ebe0; font-weight: 400; margin-bottom: 4px; }
+    .bank-flow-step p { font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(240,235,224,0.35); }
+    .bank-flow-arrow { font-size: 20px; color: rgba(200,122,232,0.3); padding: 0 4px; flex-shrink: 0; }
+
+    /* PROTOTYPE */
+    .bank-proto { background: #f5f0e8; padding: 64px 52px; }
+    .bank-proto-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .bank-proto h2 { font-family: 'Playfair Display', serif; font-size: 26px; color: #1a1a1a; font-weight: 400; margin-bottom: 16px; }
+    .bank-proto-materials { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+    .bank-proto-item { display: flex; align-items: center; gap: 14px; padding: 14px 18px; background: #fff; border-radius: 10px; border: 1px solid rgba(0,0,0,0.06); }
+    .bank-proto-item-icon { font-size: 20px; flex-shrink: 0; }
+    .bank-proto-item-text { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #555; }
+    .bank-proto-item-text strong { color: #1a1a1a; font-weight: 500; display: block; font-size: 13px; margin-bottom: 1px; }
+    .bank-proto-note { background: #1a1228; border-radius: 14px; padding: 28px 32px; }
+    .bank-proto-note p { font-family: 'Playfair Display', serif; font-size: 17px; color: rgba(240,235,224,0.65); font-style: italic; line-height: 1.65; margin: 0; }
+
+    /* CTA */
+    .bank-cta { background: #1a1228; padding: 56px 52px; }
+    .bank-cta-inner { max-width: 1160px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+
+    @media (max-width: 860px) {
+      .bank-hero { padding: 48px 28px; min-height: auto; }
+      .bank-hero-inner { grid-template-columns: 1fr; }
+      .bank-lamp-wrap { display: none; }
+      .bank-foundation { padding: 48px 28px; }
+      .bank-mem { grid-template-columns: 1fr; }
+      .bank-mem-cell { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.08); }
+      .bank-mem-cell:last-child { border-bottom: none; }
+      .bank-products { padding: 48px 28px; }
+      .bank-prod-grid { grid-template-columns: 1fr; }
+      .bank-colors { padding: 48px 28px; }
+      .bank-color-grid { grid-template-columns: repeat(2,1fr); }
+      .bank-ages { padding: 48px 28px; }
+      .bank-age-grid { grid-template-columns: 1fr; }
+      .bank-flow { padding: 48px 28px; }
+      .bank-flow-steps { flex-direction: column; gap: 12px; }
+      .bank-flow-arrow { transform: rotate(90deg); }
+      .bank-proto { padding: 48px 28px; }
+      .bank-proto-inner { grid-template-columns: 1fr; }
+      .bank-cta { padding: 40px 28px; }
+      .bank-cta-inner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="fs-header">
+<style>
+  .fs-dropdown { position: relative; }
+  .fs-dropdown-menu {
+    display: none; position: absolute; top: calc(100% + 6px); left: -8px;
+    background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 8px; min-width: 200px; z-index: 999;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+  }
+  .fs-dropdown:hover .fs-dropdown-menu { display: block; }
+  .fs-dropdown-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px; border-radius: 8px; text-decoration: none;
+    transition: background 0.12s;
+  }
+  .fs-dropdown-item:hover { background: rgba(255,255,255,0.07); }
+  .fs-dropdown-item-icon {
+    width: 28px; height: 28px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; flex-shrink: 0;
+  }
+  .fs-dropdown-item-text { display: flex; flex-direction: column; }
+  .fs-dropdown-item-title { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: #fff; line-height: 1.2; }
+  .fs-dropdown-item-sub { font-family: 'DM Sans', sans-serif; font-size: 10px; color: rgba(255,255,255,0.4); line-height: 1.2; }
+  .fs-nav-item-arrow { font-size: 9px; color: rgba(255,255,255,0.25); margin-left: 2px; }
+</style>
+  <div class="fs-nav">
+    <a href="index.html" class="fs-logo">ETOS</a>
+    <nav class="fs-links">
+
+      <!-- TEORI dropdown -->
+      <div class="fs-dropdown">
+        <a href="mem.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#1a1228;">🔬</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">Teori</span><span class="fs-nav-sub">M.E.M. · Arkitektur</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="mem.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🔬</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">M.E.M.</span><span class="fs-dropdown-item-sub">Grundmodel</span></span>
+          </a>
+          <a href="arkitektur.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🏗</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Arkitektur</span><span class="fs-dropdown-item-sub">IDK · ETOS · CDP</span></span>
+          </a>
+        </div>
+      </div>
+
+      <!-- FORLØB hub -->
+      <a href="forloeb.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a2020;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Forløb</span><span class="fs-nav-sub">Pårørende · Ledelse</span></span>
+      </a>
+
+      <!-- DEMOKRATI standalone -->
+      <a href="etos-demokrati.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a2820;">🗳</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Demokrati</span><span class="fs-nav-sub">Løfter · Ansvar</span></span>
+      </a>
+
+      <!-- SYSTEMET standalone -->
+      <a href="system.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#0d1117;">⚙️</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Systemet</span><span class="fs-nav-sub">Case analyse</span></span>
+      </a>
+
+      <!-- UNIVERSET dropdown -->
+      <div class="fs-dropdown">
+        <a href="boerneunivers.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#2a1f1a;">🌱</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">Universet</span><span class="fs-nav-sub">Børn · Læring · Bankeren</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="boerneunivers.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#2a1f1a;">📖</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Børneunivers</span><span class="fs-dropdown-item-sub">Børnebøger</span></span>
+          </a>
+          <a href="laering.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🌐</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Lærings-uniVRs</span><span class="fs-dropdown-item-sub">Oplevelse · Læring</span></span>
+          </a>
+          <a href="bankeren-produkt.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🧸</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Bankeren</span><span class="fs-dropdown-item-sub">Lampe · Bamse</span></span>
+          </a>
+        </div>
+      </div>
+
+      <!-- VÆRKTØJER dropdown -->
+      <div class="fs-dropdown">
+        <a href="dirigent-rum.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#1a1a12;">🛠</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">Værktøjer</span><span class="fs-nav-sub">Dirigenten · Regnskab</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="dirigent-rum.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1a12;">🎼</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Dirigenten</span><span class="fs-dropdown-item-sub">Idéer · Projekter</span></span>
+          </a>
+          <a href="regnskab-program.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#111520;">📊</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Regnskab</span><span class="fs-dropdown-item-sub">Økonomi · Overblik</span></span>
+          </a>
+        </div>
+      </div>
+
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
+      <a href="index-en.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">EN</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="bank-hero">
+  <div class="bank-hero-inner">
+    <div>
+      <div class="bank-coming"><span class="bank-coming-dot"></span> Kommende produkt · Konceptfase</div>
+      <h1>Bankeren<br><em>Følelser der kan ses,<br>mærkes og forstås</em></h1>
+      <p class="bank-hero-sub">Et fysisk følelses-interface for børn</p>
+      <p class="bank-hero-lead">En natlampe og en bamse der sammen hjælper børn med at mærke, regulere og udtrykke følelser — også dem de endnu ikke har ord for.</p>
+      <div class="bank-hero-btns">
+        <a href="kontakt.html" class="bank-btn bank-btn-primary">Vis interesse →</a>
+        <a href="#produkter" class="bank-btn bank-btn-ghost">Se produkterne ↓</a>
+      </div>
+    </div>
+
+    <div class="bank-lamp-wrap">
+      <div>
+        <div class="bank-lamp" id="bankLamp">
+          <div class="bank-lamp-cylinder" id="lampCylinder">
+            <div class="bank-lamp-glow" id="lampGlow"></div>
+            <div class="bank-lamp-feather">
+              <svg viewBox="0 0 40 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 75 C20 75 8 55 10 35 C12 15 20 5 20 5 C20 5 28 15 30 35 C32 55 20 75 20 75Z" fill="rgba(200,122,232,0.3)" stroke="rgba(200,122,232,0.5)" stroke-width="1"/>
+                <path d="M20 75 C20 75 14 50 15 30 C16 18 20 10 20 10" stroke="rgba(200,122,232,0.4)" stroke-width="0.8"/>
+                <path d="M15 45 C18 42 22 43 25 40" stroke="rgba(200,122,232,0.3)" stroke-width="0.6"/>
+                <path d="M13 55 C17 52 23 53 27 50" stroke="rgba(200,122,232,0.3)" stroke-width="0.6"/>
+              </svg>
+            </div>
+          </div>
+          <div class="bank-lamp-base"></div>
+        </div>
+        <div class="bank-color-dots" id="colorDots">
+          <div class="bank-color-dot" style="background:#e05050;" onclick="setLampColor('#e05050','rgba(224,80,80,0.4)',this)" title="Rød"></div>
+          <div class="bank-color-dot active" style="background:#c87ae8;" onclick="setLampColor('#c87ae8','rgba(200,122,232,0.4)',this)" title="Lilla"></div>
+          <div class="bank-color-dot" style="background:#5a7ed8;" onclick="setLampColor('#5a7ed8','rgba(90,126,216,0.4)',this)" title="Blå"></div>
+          <div class="bank-color-dot" style="background:#f0c850;" onclick="setLampColor('#f0c850','rgba(240,200,80,0.4)',this)" title="Gul"></div>
+        </div>
+        <p style="font-family:'DM Sans',sans-serif;font-size:10px;color:rgba(240,235,224,0.2);text-align:center;margin-top:8px;">Klik for at skifte farve</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FUNDAMENT -->
+<div class="bank-foundation">
+  <div class="bank-foundation-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#c87ae8;display:block;margin-bottom:10px;">Koblingen til teorien</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">Bankeren er oplevelsen før forklaringen</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;max-width:560px;line-height:1.75;">M.E.M.-teorien handler om spændingen mellem værdier, erfaring og systemer. Bankeren er der hvor teorien møder det allerførste lag — barnets sansning af verden.</p>
+    <div class="bank-mem">
+      <div class="bank-mem-cell a">
+        <span class="bank-mem-layer">M.E.M.</span>
+        <div class="bank-mem-title">Følelser = oplevelse</div>
+        <p class="bank-mem-desc">Teoriens lag om menneskelig erfaring — det der sker indeni, før det kan sættes i ord eller system.</p>
+      </div>
+      <div class="bank-mem-cell b">
+        <span class="bank-mem-layer">ETOS</span>
+        <div class="bank-mem-title">Spændinger = forståelse</div>
+        <p class="bank-mem-desc">Når følelse og system ikke stemmer overens — det barn og voksen, individ og institution kan lære af.</p>
+      </div>
+      <div class="bank-mem-cell c">
+        <span class="bank-mem-layer">Bankeren</span>
+        <div class="bank-mem-title">Følelser = sansning</div>
+        <p class="bank-mem-desc">Det allerførste lag — inden sproget, inden teorien. Barnet der mærker noget og har brug for et udtryk.</p>
+        <p class="bank-mem-quote">"Oplevelsen før forklaringen"</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUKTER -->
+<div class="bank-products" id="produkter">
+  <div class="bank-products-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#c87ae8;display:block;margin-bottom:10px;">To produkter · ét system</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#f0ebe0;font-weight:400;margin-bottom:8px;">Lampen og bamsen</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,0.4);max-width:540px;line-height:1.75;">To produkter der kan bruges hver for sig — eller sammen som et samlet system der giver barnets følelsesliv et synligt udtryk.</p>
+    <div class="bank-prod-grid">
+      <div class="bank-prod-card lampe">
+        <span class="bank-prod-tag">Produkt 1</span>
+        <span class="bank-prod-icon">💜</span>
+        <h3>Bankeren Lampen</h3>
+        <p class="bank-prod-purpose">En transparent cylinder med bevægende materialer og farvet lys — der skaber ro, visualiserer følelser og giver barnet en sanselig oplevelse.</p>
+        <div class="bank-prod-features">
+          <div class="bank-prod-feature">Transparent akryl-cylinder med lukket luftflow</div>
+          <div class="bank-prod-feature">Satin, chiffon og lette fjer — organisk, bølgende, levende bevægelse</div>
+          <div class="bank-prod-feature">RGB LED i bunden — lyser op gennem materialet</div>
+          <div class="bank-prod-feature">Manuel farvevalg · Auto-mode · "Føl med mig"-mode</div>
+        </div>
+      </div>
+      <div class="bank-prod-card bamse">
+        <span class="bank-prod-tag">Produkt 2</span>
+        <span class="bank-prod-icon">🧸</span>
+        <h3>Bankeren Bamsen</h3>
+        <p class="bank-prod-purpose">En blød bamse med farveknap der giver barnet noget at holde fast i — og et konkret måde at udtrykke en følelse uden ord.</p>
+        <div class="bank-prod-features">
+          <div class="bank-prod-feature">Blød bamse med farveknap i maven</div>
+          <div class="bank-prod-feature">LED skifter farve — "jeg er blå i dag"</div>
+          <div class="bank-prod-feature">Version 2: kobling til lampen (synkroniseret)</div>
+          <div class="bank-prod-feature">Version 2: sensor til tryk og bevægelse</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FARVER -->
+<div class="bank-colors">
+  <div class="bank-colors-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,235,224,0.35);display:block;margin-bottom:10px;">Følelsesmodellen</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#e8ecfc;font-weight:400;margin-bottom:8px;">Fire farver · fire følelser</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(232,236,252,0.4);max-width:540px;line-height:1.75;">Farver giver børn et sprog for det indre — uden at de behøver sætte ord på det endnu.</p>
+    <div class="bank-color-grid">
+      <div class="bank-color-card rod">
+        <span class="bank-color-emoji">🔴</span>
+        <div class="bank-color-name">Rød</div>
+        <div class="bank-color-meaning">Uro · vrede · intensitet</div>
+      </div>
+      <div class="bank-color-card lilla">
+        <span class="bank-color-emoji">🟣</span>
+        <div class="bank-color-name">Lilla</div>
+        <div class="bank-color-meaning">Refleksion · indadvendt · eftertanke</div>
+      </div>
+      <div class="bank-color-card blaa">
+        <span class="bank-color-emoji">🔵</span>
+        <div class="bank-color-name">Blå</div>
+        <div class="bank-color-meaning">Ro · tryghed · stilhed</div>
+      </div>
+      <div class="bank-color-card gul">
+        <span class="bank-color-emoji">🟡</span>
+        <div class="bank-color-name">Gul</div>
+        <div class="bank-color-meaning">Glæde · energi · åbenhed</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ALDER -->
+<div class="bank-ages">
+  <div class="bank-ages-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">Aldersopdeling</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">Bankeren vokser med barnet</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;max-width:540px;line-height:1.75;">Ligesom børnebøgerne er opdelt i alderstrin, tilpasser Bankeren sig barnets udviklingstrin.</p>
+    <div class="bank-age-grid">
+      <div class="bank-age-card">
+        <div class="bank-age-range">0–4</div>
+        <div class="bank-age-focus">Tryghed</div>
+        <h3>Det sanselige fundament</h3>
+        <p>Meget blød bevægelse. Få farver. Rolige overgange. Lyset som en stille tilstedeværelse — ikke et stimulus.</p>
+      </div>
+      <div class="bank-age-card">
+        <div class="bank-age-range">5–8</div>
+        <div class="bank-age-focus">Forståelse</div>
+        <h3>Det første farvesprog</h3>
+        <p>Tydeligere farver. Begyndende valg. "Jeg vælger blå" som en handling. Bamsen som det første udtryk.</p>
+      </div>
+      <div class="bank-age-card">
+        <div class="bank-age-range">9–12</div>
+        <div class="bank-age-focus">Refleksion</div>
+        <h3>Fra sansning til forståelse</h3>
+        <p>Flere nuancer. Kobling til ETOS-universet. Brobygning fra det sansede til det begrebslige.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SAMSPIL -->
+<div class="bank-flow">
+  <div class="bank-flow-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#c87ae8;display:block;margin-bottom:10px;">Samspillet</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#f0ebe0;font-weight:400;margin-bottom:8px;">Følelse → udtryk → regulering</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,0.4);max-width:480px;margin:0 auto 0;line-height:1.75;">Bankeren er ikke et system der forklarer følelser. Det er et system der giver dem et sted at være.</p>
+    <div class="bank-flow-steps">
+      <div class="bank-flow-step">
+        <span class="bank-flow-icon">🧠</span>
+        <h4>Barnet mærker noget</h4>
+        <p>Endnu ingen ord</p>
+      </div>
+      <div class="bank-flow-arrow">→</div>
+      <div class="bank-flow-step">
+        <span class="bank-flow-icon">🧸</span>
+        <h4>Trykker på bamsen</h4>
+        <p>Vælger en farve</p>
+      </div>
+      <div class="bank-flow-arrow">→</div>
+      <div class="bank-flow-step">
+        <span class="bank-flow-icon">💜</span>
+        <h4>Lampen skifter</h4>
+        <p>Rummet ændrer sig</p>
+      </div>
+      <div class="bank-flow-arrow">→</div>
+      <div class="bank-flow-step">
+        <span class="bank-flow-icon">🌊</span>
+        <h4>Regulering opstår</h4>
+        <p>Ikke forklaret — oplevet</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROTOTYPE -->
+<div class="bank-proto">
+  <div class="bank-proto-inner">
+    <div>
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">Prototype · V1</span>
+      <h2>Bygges simpelt. Testes ærligt.</h2>
+      <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#666;line-height:1.8;margin-bottom:20px;">Første version handler om én ting: bevægelse. Fjer og stof i luftflow er det vigtigste element — det der giver lampen liv.</p>
+      <div class="bank-proto-materials">
+        <div class="bank-proto-item">
+          <span class="bank-proto-item-icon">🏺</span>
+          <div class="bank-proto-item-text"><strong>Transparent cylinder</strong>Klar vase eller plasttube — det gennemsigtige er afgørende</div>
+        </div>
+        <div class="bank-proto-item">
+          <span class="bank-proto-item-icon">🌬</span>
+          <div class="bank-proto-item-text"><strong>USB blæser</strong>Stille luftflow nedefra — ikke støjende, bare et åndt</div>
+        </div>
+        <div class="bank-proto-item">
+          <span class="bank-proto-item-icon">💡</span>
+          <div class="bank-proto-item-text"><strong>LED strip</strong>RGB i bunden — lyser op gennem materialet og bevægelsen</div>
+        </div>
+        <div class="bank-proto-item">
+          <span class="bank-proto-item-icon">🪶</span>
+          <div class="bank-proto-item-text"><strong>Chiffon · satin · lette fjer</strong>Det organiske element — det der giver bevægelsen liv og sjæl</div>
+        </div>
+      </div>
+    </div>
+    <div class="bank-proto-note">
+      <p>"Det skal ikke forklares. Det skal føles. Første test handler om ét spørgsmål: bevæger det sig på den rigtige måde?"</p>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="bank-cta">
+  <div class="bank-cta-inner">
+    <div>
+      <p style="font-family:'Playfair Display',serif;font-size:24px;color:#f0ebe0;font-weight:400;font-style:italic;margin:0 0 8px;">Konceptet er klar. Prototypen bygges.</p>
+      <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,0.3);margin:0;">Søger samarbejde med designere, producenter og institutioner</p>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <a href="kontakt.html" class="bank-btn bank-btn-primary">Vis interesse →</a>
+      <a href="boerneunivers.html" class="bank-btn bank-btn-ghost">Se børneuniverset</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function setLampColor(color, glowColor, dot) {
+  document.getElementById('lampGlow').style.background =
+    `radial-gradient(ellipse at 50% 100%, ${glowColor}, transparent 70%)`;
+  document.querySelectorAll('.bank-color-dot').forEach(d => d.classList.remove('active'));
+  dot.classList.add('active');
+}
+</script>
+</body>
+</html>

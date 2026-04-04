@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ETOS — Governance-native decision infrastructure</title>
+  <meta name="description" content="ETOS is an inspectable, constitutionally governed recursive self-correction architecture for high-risk decision systems.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+</head>
+<body>
+<header class="fs-header">
+  <div class="fs-nav portal-nav">
+    <a href="index-en.html" class="fs-logo">M.E.M.</a>
+    <nav class="portal-toplinks">
+      <a href="etos-en.html">ETOS</a>
+      <a href="research-en.html">Research Corner</a>
+      <a href="dirigent-rum.html">Dirigenten</a>
+      <a href="boerneunivers-en.html">Children's Universe</a>
+      <a href="produkter-en.html">Products</a>
+      <a href="kontakt-en.html">Contact</a>
+    </nav>
+    <div class="portal-lang"><a href="etos.html">DA</a></div>
+  </div>
+</header>
+
+<section class="etos-page-hero">
+  <div class="etos-page-inner">
+    <div class="etos-hero-copy">
+      <span class="portal-eyebrow">Governance-native decision infrastructure</span>
+      <h1>ETOS</h1>
+      <p class="etos-subtitle">Inspectable, constitutionally governed recursive self-correction architecture</p>
+      <p class="etos-lead">ETOS is designed as a governance layer for high-risk decision systems — and as a practical testbed for alignment problems on the path toward AGI. It does not treat decisions as isolated outputs, but as movements through structures, consequences, and feedback.</p>
+      <div class="pill-row">
+        <span class="pill">High-risk governance</span>
+        <span class="pill">Recursive correction</span>
+        <span class="pill">Inspectable alignment</span>
+        <span class="pill">Historical accountability</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="etos-visual-section">
+  <div class="etos-page-inner">
+    <span class="portal-eyebrow">System structure</span>
+    <h2 class="etos-section-title">Decisions move through systems</h2>
+    <p class="etos-section-lead">ETOS follows how decisions propagate down through structures — and how consequences, friction, and correction move back through the system.</p>
+
+    <div class="etos-tree-v4" id="etosTree">
+      <div class="tree-mist"></div>
+      <div class="flow-particles down"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="flow-particles up"><span></span><span></span><span></span><span></span></div>
+
+      <button class="tree-node active" data-target="info-parliament">Parliament</button>
+      <div class="tree-connector"></div>
+
+      <button class="tree-node" data-target="info-government">Government</button>
+      <div class="tree-connector"></div>
+
+      <button class="tree-node" data-target="info-central">Central Administration</button>
+
+      <div class="tree-split-wrap">
+        <div class="tree-branch"></div>
+        <div class="tree-split">
+          <button class="tree-node half" data-target="info-regions">Regions</button>
+          <button class="tree-node half" data-target="info-municipalities">Municipalities</button>
+        </div>
+      </div>
+
+      <div class="tree-merge-wrap">
+        <div class="tree-merge-line"></div>
+        <div class="tree-connector short"></div>
+      </div>
+
+      <button class="tree-node" data-target="info-citizens">Citizens</button>
+
+      <div class="etos-info-panel">
+        <div class="etos-info-copy active" id="info-parliament"><strong>Parliament</strong><p>Defines the normative direction and formal mandate. This is where what counts as legitimate action is framed at the highest level.</p></div>
+        <div class="etos-info-copy" id="info-government"><strong>Government</strong><p>Turns political direction into executive pressure, priorities, and practical momentum. Here the abstract becomes actionable.</p></div>
+        <div class="etos-info-copy" id="info-central"><strong>Central Administration</strong><p>Translates direction into rules, procedures, and institutional logic. This is the layer where governance becomes administratively real.</p></div>
+        <div class="etos-info-copy" id="info-regions"><strong>Regions</strong><p>Carries decisions into large operational systems such as healthcare, where complexity, scale, and coordination become decisive.</p></div>
+        <div class="etos-info-copy" id="info-municipalities"><strong>Municipalities</strong><p>Implements decisions close to everyday life, where systems meet citizens directly and where consequences become concrete.</p></div>
+        <div class="etos-info-copy" id="info-citizens"><strong>Citizens</strong><p>Where decisions are actually lived, felt, resisted, or carried. ETOS makes this layer visible instead of treating it as downstream noise.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="etos-text-section dark-block">
+  <div class="etos-page-inner two-col-grid">
+    <div class="text-card">
+      <span class="tag">Why it matters</span>
+      <h3>ETOS does not treat decisions as answers</h3>
+      <p>Instead of optimising directly toward output, ETOS works with tensions, drift over time, and persistent ethical consequences. That makes it possible to reject technically efficient changes if they distort the system's normative purpose.</p>
+    </div>
+    <div class="text-card">
+      <span class="tag">AGI perspective</span>
+      <h3>A practical alignment testbed</h3>
+      <p>ETOS is not AGI. But it is a practical example of inspectable recursive self-correction, where a system can say no to its own improvement and show why.</p>
+    </div>
+  </div>
+</section>
+
+<section class="etos-cta-band">
+  <div class="etos-page-inner etos-cta-inner">
+    <div>
+      <span class="portal-eyebrow" style="color:#f0c850;">Research Corner · Simulation Lab</span>
+      <h2 class="etos-section-title" style="margin-bottom:8px;">Open the demos, simulation tracks, and working papers</h2>
+      <p class="etos-section-lead" style="margin-bottom:0;">The Research Corner is where ETOS is tested, challenged, and made readable to others.</p>
+    </div>
+    <a href="research-en.html" class="portal-cta-btn">Explore the Research Corner →</a>
+  </div>
+</section>
+
+<script>
+  const nodes = document.querySelectorAll('.tree-node[data-target]');
+  const panels = document.querySelectorAll('.etos-info-copy');
+  nodes.forEach(node => {
+    node.addEventListener('click', () => {
+      nodes.forEach(n => n.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      node.classList.add('active');
+      const target = document.getElementById(node.dataset.target);
+      if (target) target.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

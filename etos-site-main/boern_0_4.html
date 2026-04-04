@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hej, lille banker — 0–4 år</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    .b04-hero {
+      background: #1a1228;
+      padding: 64px 52px 56px;
+      position: relative; overflow: hidden;
+      text-align: center;
+    }
+    .b04-hero::before {
+      content: ''; position: absolute;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(180,120,220,0.16), transparent 70%);
+      pointer-events: none;
+    }
+    .b04-hero-inner { max-width: 600px; margin: 0 auto; position: relative; }
+    .b04-hero h1 { color: #f0e8f8; font-size: clamp(30px, 4vw, 48px); margin-bottom: 12px; }
+    .b04-hero .subtitle { color: rgba(240,232,248,0.55); font-size: 15px; }
+    .b04-age { color: #c89ee0; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; display: block; }
+
+    .rytme-card {
+      background: #1a1228;
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      border: 1px solid rgba(180,120,220,0.15);
+    }
+    .rytme-pulse {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, #d4a0f0, #8040b0);
+      margin: 0 auto 20px;
+      animation: bu-pulse 3s ease-in-out infinite;
+    }
+    @keyframes bu-pulse {
+      0%,100% { transform: scale(1); opacity: 0.9; box-shadow: 0 0 0 0 rgba(160,80,200,0.3); }
+      50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 0 14px rgba(160,80,200,0); }
+    }
+    .rytme-card .vers {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 22px;
+      line-height: 1.9;
+      color: #f0e8f8;
+    }
+
+    .til-voksne {
+      background: var(--bg-dark);
+      border-radius: var(--radius);
+      padding: 32px 36px;
+      margin: 16px 0;
+    }
+    .til-voksne h3 { color: var(--sand); margin-bottom: 16px; }
+    .til-voksne-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .til-voksne-item { text-align: center; }
+    .til-voksne-item p { color: rgba(240,235,224,0.55); font-size: 13px; }
+    .til-voksne-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px; color: #c89ee0;
+      margin-bottom: 6px; display: block;
+    }
+
+    @media (max-width: 760px) {
+      .b04-hero { padding: 44px 28px 40px; }
+      .til-voksne-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="fs-header">
+  <div class="fs-nav">
+    <a href="index.html" class="fs-logo">ETOS</a>
+    <nav class="fs-links">
+      <a href="mem.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1228;">🔬</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">M.E.M.</span><span class="fs-nav-sub">Grundmodel</span></span>
+      </a>
+      <a href="etos.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a2040;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Beslutningsmodel</span></span>
+      </a>
+      <a href="system.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#0d1117;">⚙️</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Systemet</span><span class="fs-nav-sub">Case analyse</span></span>
+      </a>
+      <a href="boerneunivers.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#2a1f1a;">📖</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Børneunivers</span><span class="fs-nav-sub">Børnebøger</span></span>
+      </a>
+      <a href="laering.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#0d1a2a;">🌐</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Lærings-uniVRs</span><span class="fs-nav-sub">Oplevelse</span></span>
+      </a>
+      <a href="dirigent-rum.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1a12;">🎼</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Dirigenten</span><span class="fs-nav-sub">Idéer</span></span>
+      </a>
+      <a href="regnskab-program.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#111520;">📊</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Regnskab</span><span class="fs-nav-sub">Økonomi</span></span>
+      </a>
+    </nav>
+    <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
+  </div>
+</header>
+
+<div class="b04-hero">
+  <div class="b04-hero-inner">
+    <span class="b04-age">0–4 år · Mærke</span>
+    <h1>Hej, lille banker</h1>
+    <p class="subtitle">Før børn forstår ord, forstår de rytme, nærvær og gentagelse.</p>
+  </div>
+</div>
+
+<div class="container">
+  <section class="section">
+    <div class="section-head" style="text-align:center; max-width:100%;">
+      <span class="eyebrow">Fra bogen</span>
+      <h2>Et uddrag</h2>
+    </div>
+    <div class="rytme-card">
+      <img src="bankeren_0_4.png" alt="Bankeren — det første du mærker" style="width:180px;border-radius:16px;margin:0 auto 20px;display:block;filter:drop-shadow(0 0 30px rgba(200,80,60,0.45));">
+      <div class="vers">
+        Hej lille banker<br>
+        Du siger bum<br>
+        Jeg siger hej
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow">Om bogen</span>
+      <h2>Rytme, nærvær og gentagelse</h2>
+      <p class="section-intro">Små børn lærer om verden gennem kroppen, rytmen og relationen. "Hej, lille banker" er en bog til at læse langsomt — og mærke sammen.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <h3>Sansning</h3>
+        <p>Bogen inviterer til at mærke — ikke forstå. Det er nok at lytte og være til stede.</p>
+      </div>
+      <div class="card">
+        <h3>Tryghed</h3>
+        <p>Gentagelse skaber tryghed. Ord der vender tilbage. En stemme man kender. Det er fundamentet.</p>
+      </div>
+      <div class="card">
+        <h3>Relation</h3>
+        <p>Bogen er en bro — mellem voksen og barn. Noget at gøre sammen, uden at skulle præstere.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="til-voksne">
+    <h3>Til den voksne der læser højt</h3>
+    <div class="til-voksne-grid">
+      <div class="til-voksne-item">
+        <span class="til-voksne-num">①</span>
+        <p>Læs langsomt. Lad ordene lande.</p>
+      </div>
+      <div class="til-voksne-item">
+        <span class="til-voksne-num">②</span>
+        <p>Mærk sammen. Du behøver ikke forklare.</p>
+      </div>
+      <div class="til-voksne-item">
+        <span class="til-voksne-num">③</span>
+        <p>Ingen forklaringer — bare nærvær.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 16px;">
+    <div class="cta-box">
+      <p>"Interesseret i samarbejde om bogen?"</p>
+      <div class="cta-btns">
+        <a href="kontakt.html" class="btn btn-primary">Tag kontakt</a>
+        <a href="boerneunivers.html" class="btn btn-ghost">← Tilbage til universet</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

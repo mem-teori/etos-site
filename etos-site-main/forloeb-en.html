@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ETOS Programmes — Guidance, reflection and decision support</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    .hub-hero {
+      background: linear-gradient(160deg, #1a1a12 0%, #1e2020 60%, #0d1117 100%);
+      padding: 72px 52px 64px; position: relative; overflow: hidden;
+    }
+    .hub-hero::before {
+      content: ''; position: absolute; top: -80px; right: -80px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(226,136,78,0.07), transparent 70%);
+      pointer-events: none;
+    }
+    .hub-hero-inner { max-width: 1160px; margin: 0 auto; position: relative; }
+    .hub-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 48px); color: #f0ebe0; font-weight: 400; line-height: 1.12; margin-bottom: 14px; }
+    .hub-hero h1 em { font-style: italic; color: var(--accent); }
+    .hub-hero-lead { font-family: 'DM Sans', sans-serif; font-size: 15px; color: rgba(240,235,224,0.5); line-height: 1.8; max-width: 560px; margin-bottom: 10px; }
+    .hub-pitch { font-family: 'Playfair Display', serif; font-size: 17px; color: rgba(240,235,224,0.35); font-style: italic; margin-top: 12px; }
+
+    .hub-cards { background: #f5f0e8; padding: 64px 52px; }
+    .hub-cards-inner { max-width: 1160px; margin: 0 auto; }
+    .hub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 36px; }
+
+    .hub-card { background: #fff; border: 1px solid rgba(0,0,0,0.07); border-radius: 20px; overflow: hidden; text-decoration: none; display: block; transition: transform 0.15s, box-shadow 0.15s; }
+    .hub-card:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(0,0,0,0.09); }
+    .hub-card-top { padding: 36px 36px 28px; }
+    .hub-card-icon { font-size: 32px; margin-bottom: 16px; display: block; }
+    .hub-card-tag { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 8px; }
+    .hub-card.paa .hub-card-tag { color: #7a9ee8; }
+    .hub-card.led .hub-card-tag { color: var(--accent); }
+    .hub-card h2 { font-family: 'Playfair Display', serif; font-size: 22px; color: #1a1a1a; font-weight: 400; margin-bottom: 8px; line-height: 1.25; }
+    .hub-card-pitch { font-family: 'Playfair Display', serif; font-size: 14px; color: #888; font-style: italic; margin-bottom: 14px; line-height: 1.6; }
+    .hub-card-desc { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #888; line-height: 1.75; }
+    .hub-card-modules { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px; }
+    .hub-card-module { font-family: 'DM Sans', sans-serif; font-size: 11px; padding: 4px 10px; border-radius: 20px; background: #f5f0e8; color: #888; }
+    .hub-card-bottom { padding: 18px 36px; border-top: 1px solid rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; }
+    .hub-card.paa .hub-card-bottom { background: rgba(122,158,232,0.04); }
+    .hub-card.led .hub-card-bottom { background: rgba(226,136,78,0.04); }
+    .hub-card-cta { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; }
+    .hub-card.paa .hub-card-cta { color: #7a9ee8; }
+    .hub-card.led .hub-card-cta { color: var(--accent); }
+    .hub-card-formats { font-family: 'DM Sans', sans-serif; font-size: 11px; color: #aaa; }
+
+    .hub-coming { background: #fff; border: 1px dashed rgba(0,0,0,0.15); border-radius: 20px; padding: 36px; display: flex; align-items: center; gap: 20px; margin-top: 0; }
+    .hub-coming-icon { font-size: 28px; opacity: 0.4; }
+    .hub-coming h3 { font-family: 'Playfair Display', serif; font-size: 18px; color: #aaa; font-weight: 400; margin-bottom: 4px; }
+    .hub-coming p { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #bbb; margin: 0; }
+
+    .hub-positionering { background: #1a2020; padding: 56px 52px; }
+    .hub-positionering-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 36px; }
+    .hub-pos-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 24px; text-align: center; }
+    .hub-pos-emoji { font-size: 28px; margin-bottom: 10px; display: block; }
+    .hub-pos-title { font-family: 'Playfair Display', serif; font-size: 16px; color: #f0ebe0; font-weight: 400; margin-bottom: 6px; }
+    .hub-pos-desc { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(240,235,224,0.4); line-height: 1.65; }
+
+    .hub-cta { background: #f5f0e8; padding: 56px 52px; border-top: 1px solid rgba(0,0,0,0.07); }
+    .hub-cta-inner { max-width: 1160px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+
+    @media (max-width: 860px) {
+      .hub-hero, .hub-cards, .hub-positionering, .hub-cta { padding: 48px 28px; }
+      .hub-grid { grid-template-columns: 1fr; }
+      .hub-positionering-inner { grid-template-columns: 1fr; }
+      .hub-cta-inner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="fs-header">
+<style>
+  .fs-dropdown { position: relative; }
+  .fs-dropdown-menu {
+    display: none; position: absolute; top: calc(100% + 6px); left: -8px;
+    background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 8px; min-width: 200px; z-index: 999;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+  }
+  .fs-dropdown:hover .fs-dropdown-menu { display: block; }
+  .fs-dropdown-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px; border-radius: 8px; text-decoration: none;
+    transition: background 0.12s;
+  }
+  .fs-dropdown-item:hover { background: rgba(255,255,255,0.07); }
+  .fs-dropdown-item-icon {
+    width: 28px; height: 28px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; flex-shrink: 0;
+  }
+  .fs-dropdown-item-text { display: flex; flex-direction: column; }
+  .fs-dropdown-item-title { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: #fff; line-height: 1.2; }
+  .fs-dropdown-item-sub { font-family: 'DM Sans', sans-serif; font-size: 10px; color: rgba(255,255,255,0.4); line-height: 1.2; }
+  .fs-nav-item-arrow { font-size: 9px; color: rgba(255,255,255,0.25); margin-left: 2px; }
+</style>
+  <div class="fs-nav">
+    <a href="index-en.html" class="fs-logo">M.E.M.</a>
+    <nav class="fs-links">
+
+      <!-- ETOS -->
+      <a href="etos-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Decision model</span></span>
+      </a>
+
+      <!-- FORLØB -->
+      <a href="forloeb-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a2020;">🔄</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Programmes</span><span class="fs-nav-sub">Carers · Leaders · Psychiatry</span></span>
+      </a>
+
+      <!-- PILOT -->
+      <a href="pilot-pakke-en.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1a0d;">🧪</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Pilot</span><span class="fs-nav-sub">Test it in practice</span></span>
+      </a>
+
+      <!-- MERE dropdown -->
+      <div class="fs-dropdown">
+        <a href="mem-en.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#0d1117;">✦</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">More</span><span class="fs-nav-sub">Theory · Children’s Universe · Democracy</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="mem-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🔬</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">M.E.M.</span><span class="fs-dropdown-item-sub">Foundation</span></span>
+          </a>
+          <a href="arkitektur-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🏗</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Architecture</span><span class="fs-dropdown-item-sub">IDK · ETOS · CDP</span></span>
+          </a>
+          <a href="etos-demokrati-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2820;">🗳</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Democracy</span><span class="fs-dropdown-item-sub">Promises · Accountability</span></span>
+          </a>
+          <a href="univers-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#2a1f1a;">🌱</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Children’s Universe</span><span class="fs-dropdown-item-sub">Books · uniVRs · Bankeren</span></span>
+          </a>
+          <a href="dirigent-rum-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1a12;">🎼</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Dirigenten</span><span class="fs-dropdown-item-sub">Ideas · Projects</span></span>
+          </a>
+          <a href="regnskab-program-en.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#111520;">📊</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Accounting</span><span class="fs-dropdown-item-sub">Økonomi · Overblik</span></span>
+          </a>
+        </div>
+      </div>
+
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt-en.html" class="fs-nav-cta">Contact</a>
+      <a href="forloeb.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">DA</a>
+    </div>
+  </div>
+</header>
+
+<div class="hub-hero">
+  <div class="hub-hero-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:20px;">ETOS Programmes</span>
+    <h1>Vejledning til dem der<br>navigerer i <em>svære situationer</em></h1>
+    <p class="hub-hero-lead">The ETOS programmes are not therapy and not consulting services. They are structured reflection programmes that help people understand complex situations — and act more consciously within them.</p>
+    <p class="hub-pitch">"Not to find the right answer — but to understand the tension."</p>
+  </div>
+</div>
+
+<div class="hub-cards">
+  <div class="hub-cards-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">Current programmes</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;">Four programmes — one foundation</h2>
+
+    <div class="hub-grid">
+      <a href="paarorende-en.html" class="hub-card paa">
+        <div class="hub-card-top">
+          <span class="hub-card-icon">💙</span>
+          <span class="hub-card-tag">Carers of people with addiction</span>
+          <h2>When you are close to someone with addiction</h2>
+          <p class="hub-card-pitch">"You cannot control the addiction — but you can understand the tensions and act differently within them."</p>
+          <p class="hub-card-desc">A four-module programme that helps carers understand the situation, find their own position and make better decisions without losing themselves.</p>
+          <div class="hub-card-modules">
+            <span class="hub-card-module">Understand the situation</span>
+            <span class="hub-card-module">See yourself</span>
+            <span class="hub-card-module">Decisions</span>
+            <span class="hub-card-module">Relationship & future</span>
+          </div>
+        </div>
+        <div class="hub-card-bottom">
+          <span class="hub-card-cta">See the programme →</span>
+          <span class="hub-card-formats">Workshop · 4-week programme · 1:1</span>
+        </div>
+      </a>
+
+      <a href="ledelseskompas-en.html" class="hub-card led">
+        <div class="hub-card-top">
+          <span class="hub-card-icon">🧭</span>
+          <span class="hub-card-tag">Leaders and organisations</span>
+          <h2>The Leadership Compass</h2>
+          <p class="hub-card-pitch">"Leadership is not about finding the right answer — but understanding the tension and taking responsibility for the choice."</p>
+          <p class="hub-card-desc">A four-module programme that helps leaders navigate complex decisions, understand their position and communicate decisions afterwards.</p>
+          <div class="hub-card-modules">
+            <span class="hub-card-module">The tension field</span>
+            <span class="hub-card-module">The leader's position</span>
+            <span class="hub-card-module">Beslutning</span>
+            <span class="hub-card-module">Aftermath</span>
+          </div>
+        </div>
+        <div class="hub-card-bottom">
+          <span class="hub-card-cta">See the programme →</span>
+          <span class="hub-card-formats">Workshop · Leadership programme · Organisation pilot</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="hub-grid" style="margin-top:20px;">
+      <a href="psykiatri-en.html" class="hub-card paa">
+        <div class="hub-card-top">
+          <span class="hub-card-icon">🏥</span>
+          <span class="hub-card-tag" style="color:#4ec88c;">Psychiatry and social work</span>
+          <h2>ETOS in psychiatric practice</h2>
+          <p class="hub-card-pitch">"When the situation is complex, the problem is not missing rules — but missing overview of tensions."</p>
+          <p class="hub-card-desc">Four modules that help professionals navigate between coercion, care and autonomy — and make decisions they can stand behind.</p>
+          <div class="hub-card-modules">
+            <span class="hub-card-module">The tension field</span>
+            <span class="hub-card-module">The professional's position</span>
+            <span class="hub-card-module">Beslutning</span>
+            <span class="hub-card-module">Aftermath</span>
+          </div>
+        </div>
+        <div class="hub-card-bottom" style="background:rgba(78,200,140,0.04);">
+          <span class="hub-card-cta" style="color:#4ec88c;">See the programme →</span>
+          <span class="hub-card-formats">Workshop · Programme · Institution pilot</span>
+        </div>
+      </a>
+
+      <a href="faellesskab-en.html" class="hub-card led">
+        <div class="hub-card-top">
+          <span class="hub-card-icon">🤝</span>
+          <span class="hub-card-tag" style="color:#c87ae8;">Schools, institutions, workplaces</span>
+          <h2>Community and bullying</h2>
+          <p class="hub-card-pitch">"Bullying is not an individual problem — it is a tension problem in the community."</p>
+          <p class="hub-card-desc">Four modules that help make tensions in groups visible and act early and precisely — from nursery to workplace.</p>
+          <div class="hub-card-modules">
+            <span class="hub-card-module">See the tension</span>
+            <span class="hub-card-module">Positions</span>
+            <span class="hub-card-module">Intervention</span>
+            <span class="hub-card-module">Culture</span>
+          </div>
+        </div>
+        <div class="hub-card-bottom" style="background:rgba(200,122,232,0.04);">
+          <span class="hub-card-cta" style="color:#c87ae8;">See the programme →</span>
+          <span class="hub-card-formats">Workshop · School programme · Municipality agreement</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="hub-positionering" style="padding:56px 52px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,235,224,0.35);display:block;margin-bottom:10px;">Positionsing</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:24px;color:#f0ebe0;font-weight:400;margin-bottom:32px;">What ETOS programmes are — and are not</h2>
+    <div class="hub-positionering-inner" style="margin-top:0;">
+      <div class="hub-pos-card">
+        <span class="hub-pos-emoji">🧭</span>
+        <div class="hub-pos-title">Systemic guide</div>
+        <div class="hub-pos-desc">Helps see the structure in a complex situation — not tell you what is right.</div>
+      </div>
+      <div class="hub-pos-card">
+        <span class="hub-pos-emoji">⚖️</span>
+        <div class="hub-pos-title">Decision support</div>
+        <div class="hub-pos-desc">Gives tools for making more conscious choices — not removing the dilemma.</div>
+      </div>
+      <div class="hub-pos-card">
+        <span class="hub-pos-emoji">🔍</span>
+        <div class="hub-pos-title">Reflection framework</div>
+        <div class="hub-pos-desc">Creates structure around the difficult — not therapy, not treatment, not expert advice.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hub-cta">
+  <div class="hub-cta-inner">
+    <div>
+      <p style="font-family:'Playfair Display',serif;font-size:22px;color:#1a1a1a;font-weight:400;font-style:italic;margin:0 0 6px;">Ready to take the first step?</p>
+      <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:#888;margin:0;">Free introductory conversation · no obligation · tailored to your situation</p>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <a href="kontakt-en.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;padding:12px 24px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;text-decoration:none;">Contact us →</a>
+      <a href="mailto:M.E.M.Teori@gmail.com" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--accent);padding:12px 24px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;border:1px solid rgba(226,136,78,0.3);text-decoration:none;">Write directly</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- PILOT STRIP -->
+<div style="background:#1a1a0d;padding:36px 52px;border-top:1px solid rgba(240,200,80,0.1);">
+  <div style="max-width:1160px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+    <div>
+      <p style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#f0c850;margin-bottom:6px;">● Pilot i gang</p>
+      <p style="font-family:'Playfair Display',serif;font-size:17px;color:#f0ebe0;font-style:italic;margin:0;">Vil du teste det i din virkelige situation? 90 min · gratis · ingen forberedelse.</p>
+    </div>
+    <a href="pilot-pakke-en.html" style="display:inline-flex;align-items:center;gap:8px;background:#f0c850;color:#1a1a0d;padding:11px 22px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;flex-shrink:0;">See the pilot package →</a>
+  </div>
+</div>
+
+</body>
+</html>

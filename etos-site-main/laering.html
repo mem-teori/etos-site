@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lærings-uniVRs — M.E.M.</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    /* HERO */
+    .vr-hero {
+      background: #0d1a2a;
+      padding: 80px 52px 72px;
+      position: relative; overflow: hidden;
+      text-align: center;
+    }
+    .vr-hero::before {
+      content: '';
+      position: absolute; top: -100px; left: 50%;
+      transform: translateX(-50%);
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(74,158,218,0.15), transparent 70%);
+      pointer-events: none;
+    }
+    .vr-hero::after {
+      content: '';
+      position: absolute; bottom: -60px; right: -60px;
+      width: 300px; height: 300px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(78,200,140,0.10), transparent 70%);
+      pointer-events: none;
+    }
+    .vr-hero-inner { max-width: 680px; margin: 0 auto; position: relative; }
+    .vr-hero h1 {
+      color: #e8f4fc;
+      font-size: clamp(34px, 5vw, 54px);
+      margin-bottom: 6px; line-height: 1.1;
+    }
+    .vr-hero h1 span { color: #4a9eda; font-style: italic; }
+    .vr-hero .subtitle {
+      color: rgba(232,244,252,0.55);
+      font-size: 16px; max-width: 480px;
+      margin: 16px auto 36px; line-height: 1.8;
+    }
+    .vr-hero-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .btn-vr {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px; font-weight: 500;
+      padding: 11px 22px; border-radius: 8px;
+      text-decoration: none; transition: all 0.15s; display: inline-block;
+    }
+    .btn-vr-primary { background: #4a9eda; color: #fff; }
+    .btn-vr-primary:hover { background: #3a8ecb; }
+    .btn-vr-outline {
+      background: transparent; color: rgba(232,244,252,0.7);
+      border: 1px solid rgba(232,244,252,0.2);
+    }
+    .btn-vr-outline:hover { border-color: rgba(232,244,252,0.45); color: #e8f4fc; }
+
+    /* FLOATING ORBS animation */
+    .orb-wrap {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none; overflow: hidden;
+    }
+    .orb {
+      position: absolute; border-radius: 50%; opacity: 0.35;
+      animation: float 6s ease-in-out infinite;
+    }
+    .orb-1 { width:18px; height:18px; background:#4a9eda; top:20%; left:15%; animation-delay:0s; }
+    .orb-2 { width:10px; height:10px; background:#4ec88c; top:60%; left:8%; animation-delay:1.2s; }
+    .orb-3 { width:14px; height:14px; background:#a78eda; top:35%; right:12%; animation-delay:0.6s; }
+    .orb-4 { width:8px;  height:8px;  background:#4a9eda; top:75%; right:18%; animation-delay:1.8s; }
+    .orb-5 { width:12px; height:12px; background:#4ec88c; top:15%; right:25%; animation-delay:2.4s; }
+    @keyframes float {
+      0%,100% { transform: translateY(0px); }
+      50% { transform: translateY(-14px); }
+    }
+
+    /* PROBLEM */
+    .vr-problem {
+      background: var(--bg);
+      padding: 64px 52px;
+    }
+    .vr-problem-inner { max-width: var(--max); margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .vr-problem-text h2 { color: var(--ink); margin-bottom: 16px; }
+    .vr-problem-text p { font-size: 15px; color: #555; line-height: 1.85; margin-bottom: 14px; }
+    .vr-problem-visual {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+    .vr-problem-box {
+      border-radius: 12px; padding: 20px;
+      font-family: 'DM Sans', sans-serif; font-size: 13px;
+    }
+    .vr-problem-box.bad {
+      background: #fdf0ee; border: 1px solid rgba(200,80,60,0.15);
+    }
+    .vr-problem-box.bad .box-label { color: #c8503c; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+    .vr-problem-box.bad p { color: #7a4040; font-size: 13px; }
+    .vr-problem-box.good {
+      background: #eef7f0; border: 1px solid rgba(60,160,90,0.15);
+    }
+    .vr-problem-box.good .box-label { color: #3c8c5a; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+    .vr-problem-box.good p { color: #2a5a3a; font-size: 13px; }
+    .vr-problem-box.wide { grid-column: span 2; }
+
+    /* LØSNING */
+    .vr-solution {
+      background: #0d1a2a;
+      padding: 64px 52px;
+    }
+    .vr-solution-inner { max-width: var(--max); margin: 0 auto; }
+    .vr-solution h2 { color: #e8f4fc; margin-bottom: 12px; }
+    .vr-solution .lead { color: rgba(232,244,252,0.55); font-size: 15px; max-width: 560px; line-height: 1.8; margin-bottom: 36px; }
+    .vr-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+    }
+    .vr-step {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(74,158,218,0.2);
+      border-radius: 12px; padding: 24px 20px;
+    }
+    .vr-step-icon { font-size: 22px; margin-bottom: 12px; }
+    .vr-step h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px; color: #e8f4fc; margin-bottom: 8px; font-weight: 400;
+    }
+    .vr-step p { font-size: 13px; color: rgba(232,244,252,0.45); line-height: 1.7; }
+
+    /* STORYTELLING */
+    .vr-story {
+      background: #f0f7fc;
+      padding: 64px 52px;
+    }
+    .vr-story-inner { max-width: var(--max); margin: 0 auto; }
+    .vr-story h2 { color: var(--ink); margin-bottom: 32px; }
+    .vr-story-steps { display: flex; flex-direction: column; gap: 0; }
+    .vr-story-step {
+      display: grid; grid-template-columns: 60px 1fr;
+      gap: 24px; padding: 28px 0;
+      border-bottom: 1px solid rgba(74,158,218,0.12);
+    }
+    .vr-story-step:last-child { border-bottom: none; }
+    .vr-story-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px; color: #4a9eda; opacity: 0.4;
+      font-weight: 400; line-height: 1;
+    }
+    .vr-story-step h4 { font-family: 'Playfair Display', serif; font-size: 18px; color: #1a2a3a; margin-bottom: 6px; font-weight: 400; }
+    .vr-story-step p { font-size: 14px; color: #4a6070; line-height: 1.75; }
+
+    /* MINECRAFT PILOT */
+    .vr-pilot {
+      background: #111a14;
+      padding: 64px 52px;
+    }
+    .vr-pilot-inner { max-width: var(--max); margin: 0 auto; }
+    .vr-pilot h2 { color: #e8f8ec; margin-bottom: 12px; }
+    .vr-pilot .lead { color: rgba(232,248,236,0.5); font-size: 15px; max-width: 520px; line-height: 1.8; margin-bottom: 32px; }
+    .vr-pilot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+    .vr-pilot-features { display: flex; flex-direction: column; gap: 12px; }
+    .vr-pilot-feature {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(78,200,140,0.2);
+      border-left: 3px solid #4ec88c;
+      border-radius: 10px; padding: 16px 20px;
+    }
+    .vr-pilot-feature h4 { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; color: #e8f8ec; margin-bottom: 4px; }
+    .vr-pilot-feature p { font-size: 13px; color: rgba(232,248,236,0.45); }
+    .vr-pilot-img {
+      border-radius: 14px; overflow: hidden;
+      border: 1px solid rgba(78,200,140,0.15);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .vr-pilot-img img { width: 100%; display: block; border-radius: 14px; }
+    .vr-pilot-img-placeholder {
+      background: #1a2a1e;
+      height: 260px; display: flex; align-items: center; justify-content: center;
+      color: rgba(232,248,236,0.3); font-size: 13px; font-family: 'DM Sans', sans-serif;
+      border-radius: 14px;
+    }
+
+    /* PLATFORM */
+    .vr-platform {
+      background: var(--bg);
+      padding: 64px 52px;
+    }
+    .vr-platform-inner { max-width: var(--max); margin: 0 auto; }
+    .vr-platform h2 { color: var(--ink); margin-bottom: 32px; }
+    .vr-platform-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
+    }
+    .vr-subject {
+      background: #fff; border: 1px solid var(--line);
+      border-radius: 12px; padding: 24px 16px;
+      text-align: center; transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .vr-subject:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .vr-subject.active { border-color: rgba(74,158,218,0.4); background: #eef6fc; }
+    .vr-subject-icon { font-size: 24px; margin-bottom: 10px; }
+    .vr-subject h4 { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--ink); font-weight: 400; margin-bottom: 4px; }
+    .vr-subject p { font-size: 12px; color: var(--muted); }
+    .vr-subject.active h4 { color: #1a6090; }
+    .vr-subject-tag {
+      display: inline-block; font-size: 10px; font-weight: 500;
+      padding: 2px 8px; border-radius: 20px; margin-top: 8px;
+      background: rgba(74,158,218,0.12); color: #3a80b0;
+    }
+
+    /* SAMARBEJDE */
+    .vr-collab {
+      background: #0d1a2a;
+      padding: 64px 52px;
+    }
+    .vr-collab-inner { max-width: var(--max); margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .vr-collab h2 { color: #e8f4fc; margin-bottom: 16px; }
+    .vr-collab .lead { color: rgba(232,244,252,0.5); font-size: 15px; line-height: 1.8; margin-bottom: 24px; }
+    .vr-collab-partners { display: flex; flex-direction: column; gap: 10px; }
+    .vr-partner {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(74,158,218,0.15);
+      border-radius: 10px; padding: 16px 20px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .vr-partner-icon { font-size: 20px; flex-shrink: 0; }
+    .vr-partner h4 { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: #e8f4fc; margin-bottom: 2px; }
+    .vr-partner p { font-size: 12px; color: rgba(232,244,252,0.4); }
+
+    /* MEM */
+    .vr-mem {
+      background: #f5f0e8;
+      padding: 56px 52px;
+      border-top: 1px solid rgba(0,0,0,0.06);
+    }
+    .vr-mem-inner { max-width: var(--max); margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .vr-mem h2 { color: var(--ink); margin-bottom: 16px; }
+    .vr-mem .lead { font-size: 15px; color: #555; line-height: 1.85; }
+    .vr-mem-model {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    }
+    .vr-mem-box {
+      background: #fff; border: 1px solid var(--line);
+      border-radius: 12px; padding: 20px; text-align: center;
+    }
+    .vr-mem-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px; color: var(--accent); font-weight: 400;
+      margin-bottom: 6px; display: block;
+    }
+    .vr-mem-box h4 { font-size: 14px; color: var(--ink); margin-bottom: 4px; }
+    .vr-mem-box p { font-size: 12px; color: var(--muted); }
+
+    /* RESPONSIVE */
+    @media (max-width: 860px) {
+      .vr-hero { padding: 56px 28px 48px; }
+      .vr-problem { padding: 48px 28px; }
+      .vr-problem-inner { grid-template-columns: 1fr; gap: 32px; }
+      .vr-solution { padding: 48px 28px; }
+      .vr-steps { grid-template-columns: repeat(2, 1fr); }
+      .vr-story { padding: 48px 28px; }
+      .vr-pilot { padding: 48px 28px; }
+      .vr-pilot-grid { grid-template-columns: 1fr; }
+      .vr-platform { padding: 48px 28px; }
+      .vr-platform-grid { grid-template-columns: repeat(3, 1fr); }
+      .vr-collab { padding: 48px 28px; }
+      .vr-collab-inner { grid-template-columns: 1fr; gap: 32px; }
+      .vr-mem { padding: 48px 28px; }
+      .vr-mem-inner { grid-template-columns: 1fr; gap: 32px; }
+    }
+    @media (max-width: 560px) {
+      .vr-steps { grid-template-columns: 1fr; }
+      .vr-platform-grid { grid-template-columns: repeat(2, 1fr); }
+      .vr-problem-visual { grid-template-columns: 1fr; }
+      .vr-problem-box.wide { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="fs-header">
+  <div class="fs-nav">
+    <a href="index.html" class="fs-logo">ETOS</a>
+    <nav class="fs-links">
+      <a href="mem.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1228;">🔬</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">M.E.M.</span><span class="fs-nav-sub">Grundmodel</span></span>
+      </a>
+      <a href="arkitektur.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#0d1a2a;">🏗</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Arkitektur</span><span class="fs-nav-sub">IDK · ETOS · CDP</span></span>
+      </a>
+      <a href="etos-demokrati.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a2820;">🗳</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Demokrati</span><span class="fs-nav-sub">Løfter · Ansvar</span></span>
+      </a>
+      <a href="system.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#0d1117;">⚙️</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Systemet</span><span class="fs-nav-sub">Case analyse</span></span>
+      </a>
+      <a href="boerneunivers.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#2a1f1a;">📖</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Børneunivers</span><span class="fs-nav-sub">Børnebøger</span></span>
+      </a>
+      <a href="laering.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#0d1a2a;">🌐</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Lærings-uniVRs</span><span class="fs-nav-sub">Oplevelse</span></span>
+      </a>
+      <a href="dirigent-rum.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1a12;">🎼</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Dirigenten</span><span class="fs-nav-sub">Idéer</span></span>
+      </a>
+      <a href="regnskab-program.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#111520;">📊</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Regnskab</span><span class="fs-nav-sub">Økonomi</span></span>
+      </a>
+    </nav>
+    <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="vr-hero">
+  <div class="orb-wrap">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="orb orb-4"></div>
+    <div class="orb orb-5"></div>
+  </div>
+  <div class="vr-hero-inner">
+    <span class="eyebrow" style="color:#4a9eda;">Læringsplatform · Under udvikling</span>
+    <h1>Lærings-uni<span>VRs</span></h1>
+    <p style="color:#6ab4e8; font-family:'Playfair Display',serif; font-size:18px; font-style:italic; margin-bottom:8px;">Et sted hvor succes kan opleves og mærkes</p>
+    <p class="subtitle">Et nyt læringsrum hvor børn udforsker verden gennem oplevelse — før forklaring.</p>
+    <div class="vr-hero-btns">
+      <a href="#koncept" class="btn-vr btn-vr-primary">Se koncept</a>
+      <a href="#pilot" class="btn-vr btn-vr-outline">Se Minecraft-pilot</a>
+      <a href="kontakt.html" class="btn-vr btn-vr-outline">Kontakt</a>
+    </div>
+  </div>
+</div>
+
+<!-- SEKTION 1: PROBLEMET -->
+<div class="vr-problem" id="koncept">
+  <div class="vr-problem-inner">
+    <div class="vr-problem-text">
+      <span class="eyebrow">Problemet</span>
+      <h2>Når læring starter forkert</h2>
+      <p>Mange børn møder naturvidenskab gennem forklaringer, begreber og krav — før de har haft mulighed for at opleve det.</p>
+      <p>For nogle børn skaber det nysgerrighed. For andre skaber det afstand.</p>
+      <p>Især i specialområdet ser vi, at læring ofte bliver for sproglig og abstrakt — og mister børnene, før de overhovedet er startet.</p>
+    </div>
+    <div class="vr-problem-visual">
+      <div class="vr-problem-box bad">
+        <div class="box-label">I dag</div>
+        <p>Forklaring → Forståelse → Oplevelse</p>
+      </div>
+      <div class="vr-problem-box good">
+        <div class="box-label">Lærings-uniVRs</div>
+        <p>Oplevelse → Forståelse → Forklaring</p>
+      </div>
+      <div class="vr-problem-box bad wide">
+        <div class="box-label">Konsekvensen</div>
+        <p>Børn der aldrig får lov at mærke det, lærer at naturvidenskab er noget for andre.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SEKTION 2: LØSNINGEN -->
+<div class="vr-solution">
+  <div class="vr-solution-inner">
+    <span class="eyebrow" style="color:#4a9eda;">Løsningen</span>
+    <h2>Oplevelse før forklaring</h2>
+    <p class="lead">Lærings-uniVRs er et eksperimenterende læringsmiljø, hvor børn først får lov til at udforske — og bagefter forstå.</p>
+    <div class="vr-steps">
+      <div class="vr-step">
+        <div class="vr-step-icon">🤲</div>
+        <h4>Tag atomer i hænderne</h4>
+        <p>Børn håndterer byggeklodser for materie — fysisk og intuitivt.</p>
+      </div>
+      <div class="vr-step">
+        <div class="vr-step-icon">🔬</div>
+        <h4>Kombinér og eksperimentér</h4>
+        <p>Hvad sker der, når to ting mødes? Prøv dig frem uden frygt for at fejle.</p>
+      </div>
+      <div class="vr-step">
+        <div class="vr-step-icon">⚡</div>
+        <h4>Se konsekvenser i realtid</h4>
+        <p>Reaktioner sker med det samme — kroppen og øjnene lærer, før hjernen forklarer.</p>
+      </div>
+      <div class="vr-step">
+        <div class="vr-step-icon">💡</div>
+        <h4>Lær gennem nysgerrighed</h4>
+        <p>Ingen opgaver. Ingen krav. Kun ting der kan udforskes på egne præmisser.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SEKTION 3: STORYTELLING -->
+<div class="vr-story">
+  <div class="vr-story-inner">
+    <span class="eyebrow">Oplevelsen</span>
+    <h2>Sådan opleves det</h2>
+    <div class="vr-story-steps">
+      <div class="vr-story-step">
+        <div class="vr-story-num">01</div>
+        <div>
+          <h4>Barnet træder ind</h4>
+          <p>Et roligt univers åbner sig. Der er ingen opgaver. Ingen krav. Kun ting der kan udforskes. Barnet bestemmer selv, hvad der er interessant.</p>
+        </div>
+      </div>
+      <div class="vr-story-step">
+        <div class="vr-story-num">02</div>
+        <div>
+          <h4>Noget tiltrækker opmærksomheden</h4>
+          <p>Et element lyser. En reaktion sker. Barnet nærmer sig — ikke fordi de skal, men fordi de vil. Nysgerrigheden er allerede vakt.</p>
+        </div>
+      </div>
+      <div class="vr-story-step">
+        <div class="vr-story-num">03</div>
+        <div>
+          <h4>Eksperimentet starter</h4>
+          <p>Barnet kombinerer, ændrer, prøver. Noget virker. Noget gør ikke. Begge dele er læring. Der er ingen forkerte svar her.</p>
+        </div>
+      </div>
+      <div class="vr-story-step">
+        <div class="vr-story-num">04</div>
+        <div>
+          <h4>Forståelsen opstår</h4>
+          <p>Bagefter — når oplevelsen sidder i kroppen — giver forklaringen mening. Ikke som abstrakt teori, men som noget barnet allerede kender.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SEKTION 4: MINECRAFT PILOT -->
+<div class="vr-pilot" id="pilot">
+  <div class="vr-pilot-inner">
+    <span class="eyebrow" style="color:#4ec88c;">Pilotprojekt</span>
+    <h2 style="color:#e8f8ec;">Første skridt: Minecraft-pilot</h2>
+    <p class="lead">For at teste konceptet udvikles en første version i Minecraft — et trygt og velkendt miljø for børn. Her skabes et "Science Sandbox" hvor elever kan eksperimentere frit.</p>
+    <div class="vr-pilot-grid">
+      <div class="vr-pilot-features">
+        <div class="vr-pilot-feature">
+          <h4>🧱 Byg molekyler</h4>
+          <p>Saml atomer og se, hvad der opstår. Vand, ilt, CO₂ — bygget med egne hænder.</p>
+        </div>
+        <div class="vr-pilot-feature">
+          <h4>🌡️ Ændre temperatur</h4>
+          <p>Hvad sker der med vand, når det bliver varmt? Oplev faseovergange direkte.</p>
+        </div>
+        <div class="vr-pilot-feature">
+          <h4>🔭 Eksperimentér frit</h4>
+          <p>Ingen rigtige svar. Kun opdagelser. Fejl er en del af processen.</p>
+        </div>
+        <div class="vr-pilot-feature">
+          <h4>📊 Lærerspor</h4>
+          <p>Læreren kan følge med — se hvad eleverne udforsker og bygge videre på det.</p>
+        </div>
+      </div>
+      <div class="vr-pilot-img">
+        <img src="minecraft.png" alt="Minecraft Science Sandbox prototype">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SEKTION 5: PLATFORM -->
+<div class="vr-platform">
+  <div class="vr-platform-inner">
+    <span class="eyebrow">Vision</span>
+    <h2>Fra pilot til læringsplatform</h2>
+    <p style="color:var(--muted); font-size:15px; max-width:520px; line-height:1.8; margin-bottom:32px;">Lærings-uniVRs starter i kemi — men kan udvikles til at dække alle naturvidenskabelige fag. Samme princip. Forskellige universer.</p>
+    <div class="vr-platform-grid">
+      <div class="vr-subject active">
+        <div class="vr-subject-icon">⚗️</div>
+        <h4>Kemi</h4>
+        <p>Atomer, molekyler og reaktioner</p>
+        <span class="vr-subject-tag">I gang</span>
+      </div>
+      <div class="vr-subject">
+        <div class="vr-subject-icon">🌿</div>
+        <h4>Biologi</h4>
+        <p>Celler, økosystemer og liv</p>
+      </div>
+      <div class="vr-subject">
+        <div class="vr-subject-icon">⚡</div>
+        <h4>Fysik</h4>
+        <p>Kræfter, energi og bevægelse</p>
+      </div>
+      <div class="vr-subject">
+        <div class="vr-subject-icon">📐</div>
+        <h4>Matematik</h4>
+        <p>Mønstre, rum og logik</p>
+      </div>
+      <div class="vr-subject">
+        <div class="vr-subject-icon">🌍</div>
+        <h4>Geografi</h4>
+        <p>Klima, landskaber og verden</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SEKTION 6: SAMARBEJDE -->
+<div class="vr-collab">
+  <div class="vr-collab-inner">
+    <div>
+      <span class="eyebrow" style="color:#4a9eda;">Samarbejde</span>
+      <h2>Bygget i dialog</h2>
+      <p class="lead">Projektet udvikles ikke alene — men i dialog med dem, der kender læringsrummet fra indersiden. Målet er at skabe et fælles læringsrum mellem praksis, teknologi og menneskelig erfaring.</p>
+      <a href="kontakt.html" class="btn-vr btn-vr-primary">Bliv samarbejdspartner</a>
+    </div>
+    <div class="vr-collab-partners">
+      <div class="vr-partner">
+        <div class="vr-partner-icon">🏫</div>
+        <div>
+          <h4>Skoler og lærere</h4>
+          <p>Dem der kender børnene og ved, hvad der faktisk virker i klasseværelset.</p>
+        </div>
+      </div>
+      <div class="vr-partner">
+        <div class="vr-partner-icon">💻</div>
+        <div>
+          <h4>Teknologipartnere</h4>
+          <p>Dem der kan bygge de platforme og miljøer, konceptet kræver.</p>
+        </div>
+      </div>
+      <div class="vr-partner">
+        <div class="vr-partner-icon">🧠</div>
+        <div>
+          <h4>Læringsmiljøer</h4>
+          <p>Specialskoler, pædagogiske centre og innovative læringsrum.</p>
+        </div>
+      </div>
+      <div class="vr-partner">
+        <div class="vr-partner-icon">🌐</div>
+        <div>
+          <h4>Khora og VR-partnere</h4>
+          <p>Teknologi der kan løfte oplevelsen fra Minecraft til fuldt immersivt læringsrum.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SEKTION 7: MEM -->
+<div class="vr-mem">
+  <div class="vr-mem-inner">
+    <div>
+      <span class="eyebrow">Fundament</span>
+      <h2>Bygger på M.E.M.</h2>
+      <p class="lead">Lærings-uniVRs udspringer af M.E.M. — Meaning, Experience, Model. En tilgang hvor forståelse opstår gennem oplevelse, ikke omvendt. Det er ikke en pædagogisk metode. Det er et princip om, hvordan mennesker faktisk lærer.</p>
+    </div>
+    <div class="vr-mem-model">
+      <div class="vr-mem-box">
+        <span class="vr-mem-letter">M</span>
+        <h4>Meaning</h4>
+        <p>Mening skabes, når noget giver resonans indefra.</p>
+      </div>
+      <div class="vr-mem-box">
+        <span class="vr-mem-letter">E</span>
+        <h4>Experience</h4>
+        <p>Oplevelsen er udgangspunktet — ikke målet.</p>
+      </div>
+      <div class="vr-mem-box">
+        <span class="vr-mem-letter">M</span>
+        <h4>Model</h4>
+        <p>Modellen opstår bagefter — som en ramme for det oplevede.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-strip">
+  <p class="cta-quote">"Vil du være med til at bygge det?"</p>
+  <div class="cta-strip-btns">
+    <a href="kontakt.html" class="btn btn-primary">Tag kontakt</a>
+    <a href="mailto:M.E.M.Teori@gmail.com" class="btn btn-ghost">Skriv direkte</a>
+  </div>
+</div>
+
+</body>
+</html>

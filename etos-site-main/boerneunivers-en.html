@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Children’s Books — M.E.M.</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    .bu-page{background:#1a0f1e;color:#f0e8f8;min-height:100vh}
+    .bu-top{position:sticky;top:0;z-index:50;background:rgba(26,15,30,.86);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .bu-top-inner{max-width:1160px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .bu-top a{text-decoration:none}
+    .bu-top-brand{font-family:'Playfair Display',serif;font-size:22px;color:#f0e8f8;display:flex;align-items:center;gap:10px}
+    .bu-badge{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(200,122,232,.16);color:#d49ced}
+    .bu-top-links{display:flex;gap:8px;flex-wrap:wrap}
+    .bu-top-link,.bu-top-back,.bu-top-lang{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;border-radius:999px;transition:all .15s}
+    .bu-top-link{color:rgba(240,232,248,.65);padding:8px 14px}
+    .bu-top-link:hover{color:#fff;background:rgba(255,255,255,.06)}
+    .bu-top-back{background:#d49ced;color:#160f1d;padding:9px 16px}
+    .bu-top-lang{background:rgba(255,255,255,.08);color:#f0e8f8;padding:9px 14px}
+    .bu-hero{padding:74px 28px 50px;text-align:center}
+    .bu-hero h1{font-family:'Playfair Display',serif;font-size:clamp(34px,5vw,54px);font-weight:400;line-height:1.08;color:#f0e8f8;margin-bottom:14px}
+    .bu-hero p{max-width:640px;margin:0 auto;font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;color:rgba(240,232,248,.56)}
+    .bu-grid{max-width:1160px;margin:0 auto;padding:0 28px 72px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .bu-card{border-radius:20px;padding:28px 24px;text-decoration:none;display:flex;flex-direction:column;min-height:250px;border:1px solid rgba(255,255,255,.08);box-shadow:0 16px 36px rgba(0,0,0,.18);transition:transform .18s}
+    .bu-card:hover{transform:translateY(-4px)}
+    .c1{background:linear-gradient(180deg,#1b1227,#160f21)} .c2{background:linear-gradient(180deg,#111c26,#0f1720)} .c3{background:linear-gradient(180deg,#1d1612,#18120f)}
+    .bu-card h2{font-family:'Playfair Display',serif;font-size:28px;font-weight:400;color:#f0e8f8;margin-bottom:10px}
+    .bu-card p{font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.8;color:rgba(240,232,248,.56);margin-bottom:16px}
+    .bu-age{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:12px}
+    .c1 .bu-age{color:#d49ced}.c2 .bu-age{color:#7fb9ee}.c3 .bu-age{color:#efb98b}
+    .bu-cta{margin-top:auto;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:#fff}
+    @media (max-width:900px){.bu-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body><div class="bu-page"><header class="bu-top"><div class="bu-top-inner"><a href="boerneunivers-en.html" class="bu-top-brand"><span class="bu-badge">📖</span><span>Children’s Books</span></a><nav class="bu-top-links"><a href="univers-en.html" class="bu-top-link">Back to Children’s Universe</a><a href="kontakt-en.html" class="bu-top-link">Contact</a><a href="index-en.html" class="bu-top-back">Back to M.E.M.</a><a href="boerneunivers.html" class="bu-top-lang">DA</a></nav></div></header>
+<section class="bu-hero"><h1>Books that help children feel, understand, and use their own voice</h1><p>This is the book track within Children’s Universe. The stories are organised by age and development — from sensing and safety to understanding and action.</p></section>
+<section class="bu-grid">
+<a href="boern_0_4.html" class="bu-card c1"><div class="bu-age">Ages 0–4 · Sense</div><h2>Hello, little Banker</h2><p>Before children understand words, they understand rhythm, presence, and repetition.</p><span class="bu-cta">Read more →</span></a>
+<a href="boern_5_8.html" class="bu-card c2"><div class="bu-age">Ages 5–8 · Understand</div><h2>What gets stuck</h2><p>Recognisable situations — feelings without explanations, but with room to exist.</p><span class="bu-cta">Read more →</span></a>
+<a href="boern_9_12.html" class="bu-card c3"><div class="bu-age">Ages 9–12 · Act</div><h2>When the world talks back</h2><p>A story about Alma discovering that her voice is not something she has to find — but something she has to dare to use.</p><span class="bu-cta">Read more →</span></a>
+</section></div></body></html>

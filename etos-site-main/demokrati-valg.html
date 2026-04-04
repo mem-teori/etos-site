@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="google-site-verification" content="N-tI0mRJKKnPVNDB_v0LWIN6QjN9BnB8Zw8DN8ARdF0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ETOS som demokratisk infrastruktur — Valg 2026</title>
+  <meta name="description" content="ETOS kortlægger om det politiske beslutningssystem hænger sammen — ikke gennem karakterer, men gennem strukturel gennemsigtighed." />
+  <meta property="og:title" content="ETOS som demokratisk infrastruktur" />
+  <meta property="og:description" content="Et system til at gøre politiske beslutninger strukturelt ansvarlige. Ikke vurderinger — strukturelle tilstande." />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    /* HERO */
+    .dv-hero {
+      background: linear-gradient(160deg, #0a1a0a 0%, #1a2820 50%, #0d1117 100%);
+      padding: 88px 52px 80px; position: relative; overflow: hidden;
+      text-align: center;
+    }
+    .dv-hero::before {
+      content: ''; position: absolute; top: -100px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(78,200,140,0.07), transparent 70%);
+      pointer-events: none;
+    }
+    .dv-hero-inner { max-width: 760px; margin: 0 auto; position: relative; }
+    .dv-valg-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(240,200,80,0.12); border: 1px solid rgba(240,200,80,0.3);
+      border-radius: 20px; padding: 7px 16px;
+      font-family: 'DM Sans', sans-serif; font-size: 12px; color: #f0c850; font-weight: 500;
+      margin-bottom: 24px;
+    }
+    .dv-valg-dot { width: 6px; height: 6px; border-radius: 50%; background: #f0c850; animation: vp 1.5s ease-in-out infinite; }
+    @keyframes vp { 0%,100%{opacity:1}50%{opacity:0.2} }
+    .dv-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 56px);
+      color: #f0ebe0; font-weight: 400; line-height: 1.1;
+      letter-spacing: -0.02em; margin-bottom: 16px;
+    }
+    .dv-hero h1 em { font-style: italic; color: #4ec88c; }
+    .dv-hero-lead {
+      font-family: 'DM Sans', sans-serif; font-size: 17px;
+      color: rgba(240,235,224,0.55); line-height: 1.8; margin-bottom: 32px;
+    }
+    .dv-hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; align-items: center; }
+    .dv-btn-primary { display: inline-flex; align-items: center; gap: 8px; background: #4ec88c; color: #0a1a0a; padding: 14px 28px; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; text-decoration: none; transition: background 0.15s; }
+    .dv-btn-primary:hover { background: #3ab07a; }
+    .dv-btn-ghost { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(240,235,224,0.4); text-decoration: none; border-bottom: 1px solid rgba(240,235,224,0.2); padding-bottom: 2px; transition: color 0.15s; }
+    .dv-btn-ghost:hover { color: rgba(240,235,224,0.7); }
+
+    /* KERNEPROBLEM */
+    .dv-problem { background: #f5f0e8; padding: 72px 52px; }
+    .dv-problem-inner { max-width: 760px; margin: 0 auto; }
+    .dv-problem h2 { font-family: 'Playfair Display', serif; font-size: 30px; color: #1a1a1a; font-weight: 400; margin-bottom: 20px; line-height: 1.3; }
+    .dv-problem p { font-family: 'DM Sans', sans-serif; font-size: 15px; color: #555; line-height: 1.9; margin-bottom: 16px; }
+    .dv-problem p strong { color: #1a1a1a; font-weight: 500; }
+    .dv-pullquote { border-left: 3px solid var(--accent); padding: 16px 24px; margin: 28px 0; background: rgba(226,136,78,0.04); border-radius: 0 10px 10px 0; }
+    .dv-pullquote p { font-family: 'Playfair Display', serif; font-size: 19px; color: #1a1a1a; font-style: italic; line-height: 1.6; margin: 0; }
+
+    /* TILSTANDE */
+    .dv-states { background: #0d1117; padding: 72px 52px; }
+    .dv-states-inner { max-width: 1160px; margin: 0 auto; }
+    .dv-states-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 10px; margin-top: 36px; }
+    .dv-state { border-radius: 12px; padding: 22px 18px; text-align: center; }
+    .dv-state.n  { background: rgba(78,200,140,0.08); border: 1px solid rgba(78,200,140,0.2); }
+    .dv-state.r  { background: rgba(122,158,232,0.08); border: 1px solid rgba(122,158,232,0.2); }
+    .dv-state.e  { background: rgba(224,112,112,0.08); border: 1px solid rgba(224,112,112,0.2); }
+    .dv-state.i  { background: rgba(226,136,78,0.08); border: 1px solid rgba(226,136,78,0.2); }
+    .dv-state.v  { background: rgba(200,122,232,0.08); border: 1px solid rgba(200,122,232,0.2); }
+    .dv-state-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 400; margin-bottom: 8px; }
+    .dv-state.n .dv-state-name { color: #4ec88c; }
+    .dv-state.r .dv-state-name { color: #7a9ee8; }
+    .dv-state.e .dv-state-name { color: #e07070; }
+    .dv-state.i .dv-state-name { color: var(--accent); }
+    .dv-state.v .dv-state-name { color: #c87ae8; }
+    .dv-state-desc { font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(240,235,224,0.4); line-height: 1.55; }
+    .dv-states-note { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(240,235,224,0.35); font-style: italic; text-align: center; margin-top: 20px; }
+
+    /* DIVERGENS + GÆLD */
+    .dv-concepts { background: #1a2820; padding: 72px 52px; }
+    .dv-concepts-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 36px; }
+    .dv-concept-card { border-radius: 16px; padding: 36px 32px; }
+    .dv-concept-card.div-card { background: rgba(122,158,232,0.07); border: 1px solid rgba(122,158,232,0.15); }
+    .dv-concept-card.debt-card { background: rgba(226,136,78,0.07); border: 1px solid rgba(226,136,78,0.15); }
+    .dv-concept-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 12px; }
+    .dv-concept-card.div-card .dv-concept-label { color: #7a9ee8; }
+    .dv-concept-card.debt-card .dv-concept-label { color: var(--accent); }
+    .dv-concept-card h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 400; margin-bottom: 12px; }
+    .dv-concept-card.div-card h3 { color: #e8ecfc; }
+    .dv-concept-card.debt-card h3 { color: #f0ebe0; }
+    .dv-concept-card p { font-family: 'DM Sans', sans-serif; font-size: 14px; line-height: 1.8; }
+    .dv-concept-card.div-card p { color: rgba(232,236,252,0.5); }
+    .dv-concept-card.debt-card p { color: rgba(240,235,224,0.5); }
+    .dv-concept-quote { font-family: 'Playfair Display', serif; font-size: 16px; font-style: italic; margin-top: 16px; padding: 14px 16px; border-radius: 8px; }
+    .dv-concept-card.div-card .dv-concept-quote { color: rgba(122,158,232,0.7); background: rgba(122,158,232,0.06); }
+    .dv-concept-card.debt-card .dv-concept-quote { color: rgba(226,136,78,0.7); background: rgba(226,136,78,0.06); }
+
+    /* EKSEMPEL */
+    .dv-example { background: #f5f0e8; padding: 72px 52px; }
+    .dv-example-inner { max-width: 1160px; margin: 0 auto; }
+    .dv-example-box { background: #fff; border: 1px solid rgba(0,0,0,0.07); border-radius: 16px; overflow: hidden; margin-top: 36px; }
+    .dv-example-header { background: #1a2820; padding: 20px 28px; display: flex; justify-content: space-between; align-items: center; }
+    .dv-example-body { padding: 28px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+    .dv-col-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; display: block; margin-bottom: 12px; }
+    .dv-item { font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 14px; border-radius: 8px; margin-bottom: 8px; line-height: 1.6; color: #555; background: #f8f8f8; }
+    .dv-item.t { color: #8a3030; background: rgba(224,112,112,0.08); border-left: 2px solid #e07070; }
+    .dv-item.a { color: #6a3a1a; background: rgba(226,136,78,0.08); border-left: 2px solid var(--accent); }
+    .dv-item.g { color: #2a6a40; background: rgba(78,200,140,0.08); border-left: 2px solid #4ec88c; }
+    .dv-example-footer { padding: 20px 28px; background: #1a2820; }
+    .dv-example-footer p { font-family: 'Playfair Display', serif; font-size: 15px; color: rgba(240,235,224,0.6); font-style: italic; line-height: 1.6; margin: 0; }
+    .dv-example-footer strong { color: #4ec88c; font-style: normal; }
+
+    /* IKKE ET FORSLAG */
+    .dv-exists { background: #0d1117; padding: 64px 52px; }
+    .dv-exists-inner { max-width: 760px; margin: 0 auto; text-align: center; }
+    .dv-exists h2 { font-family: 'Playfair Display', serif; font-size: 30px; color: #f0ebe0; font-weight: 400; margin-bottom: 16px; }
+    .dv-exists-lead { font-family: 'DM Sans', sans-serif; font-size: 15px; color: rgba(240,235,224,0.5); line-height: 1.8; margin-bottom: 32px; }
+    .dv-exists-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 36px; }
+    .dv-exists-item { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px 16px; text-align: center; }
+    .dv-exists-icon { font-size: 24px; margin-bottom: 8px; display: block; }
+    .dv-exists-name { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: rgba(240,235,224,0.6); margin-bottom: 4px; }
+    .dv-exists-desc { font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(240,235,224,0.3); line-height: 1.5; }
+
+    /* CTA -->
+    .dv-cta { background: #1a2820; padding: 72px 52px; text-align: center; }
+    .dv-cta-inner { max-width: 640px; margin: 0 auto; }
+    .dv-cta h2 { font-family: 'Playfair Display', serif; font-size: 30px; color: #f0ebe0; font-weight: 400; margin-bottom: 14px; }
+    .dv-cta p { font-family: 'DM Sans', sans-serif; font-size: 14px; color: rgba(240,235,224,0.5); line-height: 1.8; margin-bottom: 28px; }
+    .dv-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    @media (max-width: 860px) {
+      .dv-hero, .dv-problem, .dv-states, .dv-concepts, .dv-example, .dv-exists, .dv-cta { padding: 48px 28px; }
+      .dv-states-grid { grid-template-columns: repeat(2,1fr); }
+      .dv-concepts-inner { grid-template-columns: 1fr; }
+      .dv-example-body { grid-template-columns: 1fr; }
+      .dv-exists-grid { grid-template-columns: repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<header class="fs-header">
+
+  <div class="fs-nav">
+    <a href="index.html" class="fs-logo">M.E.M.</a>
+    <nav class="fs-links">
+
+      <!-- ETOS -->
+      <a href="etos.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Beslutningsmodel</span></span>
+      </a>
+
+      <!-- FORLØB -->
+      <a href="forloeb.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a2020;">🔄</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Forløb</span><span class="fs-nav-sub">Pårørende · Ledelse · Psykiatri</span></span>
+      </a>
+
+      <!-- PRODUKTER -->
+      <a href="produkter.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1228;">🛍</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Produkter</span><span class="fs-nav-sub">Software · Forløb · Bøger</span></span>
+      </a>
+
+      <!-- PILOT -->
+      <a href="pilot-pakke.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1a0d;">🧪</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Pilot</span><span class="fs-nav-sub">Test det i praksis</span></span>
+      </a>
+
+      <!-- MERE dropdown -->
+      <div class="fs-dropdown">
+        <a href="mem.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#0d1117;">✦</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">Mere</span><span class="fs-nav-sub">Teori · Univers · Demokrati</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="mem.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🔬</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">M.E.M.</span><span class="fs-dropdown-item-sub">Grundmodel</span></span>
+          </a>
+          <a href="arkitektur.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🏗</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Arkitektur</span><span class="fs-dropdown-item-sub">IDK · ETOS · CDP</span></span>
+          </a>
+          <a href="etos-demokrati.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2820;">🗳</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Demokrati</span><span class="fs-dropdown-item-sub">Løfter · Ansvar</span></span>
+          </a>
+          <a href="boerneunivers.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#2a1f1a;">🌱</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Universet</span><span class="fs-dropdown-item-sub">Børn · Bankeren · Læring</span></span>
+          </a>
+
+        </div>
+      </div>
+
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
+      <a href="index-en.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">EN</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="dv-hero">
+  <div class="dv-hero-inner">
+    <div class="dv-valg-badge">
+      <span class="dv-valg-dot"></span>
+      Valg 2026 · Folketing · 24. marts
+    </div>
+    <h1>ETOS som<br><em>demokratisk infrastruktur</em></h1>
+    <p class="dv-hero-lead">Et system til at gøre politiske beslutninger strukturelt ansvarlige. Ikke karakterer. Ikke faktachecking. Strukturel gennemsigtighed.</p>
+    <div class="dv-hero-btns">
+      <a href="#eksempel" class="dv-btn-primary">Se et eksempel →</a>
+      <a href="kontakt.html" class="dv-btn-ghost">Tal med os om det</a>
+    </div>
+  </div>
+</div>
+
+<!-- KERNEPROBLEM -->
+<div class="dv-problem">
+  <div class="dv-problem-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:16px;">Det strukturelle problem</span>
+    <h2>Vi har forvekslet måling med styring.</h2>
+    <p>Moderne demokratier måler alt. Vi måler vækst, beskæftigelse, ventetider, CO₂, tilfredshed og performance. Når systemer fejler, tilføjer vi flere målinger. Når resultater afviger fra intentioner, justerer vi indikatorer.</p>
+    <p>Alligevel gentager de samme problemer sig. Ikke fordi vi mangler målinger. <strong>Men fordi vi har forvekslet måling med styring.</strong></p>
+    <div class="dv-pullquote">
+      <p>"Løfter gives. Handlinger udføres. Resultater måles. Og alligevel hænger det ikke sammen."</p>
+    </div>
+    <p>Ansvar bliver uklart. Overblik forsvinder. Tilliden svækkes. Ikke nødvendigvis fordi nogen gør noget forkert — men fordi systemets spændinger ikke er synlige.</p>
+    <p>ETOS kortlægger om det politiske beslutningssystem hænger sammen. <strong>Det vurderer ikke om beslutninger er rigtige eller forkerte. Det gør spændingerne synlige.</strong></p>
+  </div>
+</div>
+
+<!-- BESLUTNINGSTILSTANDE -->
+<div class="dv-states">
+  <div class="dv-states-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:10px;">I stedet for karakterer</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#e8ecfc;font-weight:400;margin-bottom:8px;">ETOS arbejder med tilstande</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,0.4);max-width:560px;line-height:1.75;">Det er ikke vurderinger. Det er strukturelle tilstande — beskrivelser af hvad der sker i et beslutningssystem under pres.</p>
+    <div class="dv-states-grid">
+      <div class="dv-state n">
+        <div class="dv-state-name">Normal</div>
+        <div class="dv-state-desc">Sammenhæng mellem intention, handling og virkelighed</div>
+      </div>
+      <div class="dv-state r">
+        <div class="dv-state-name">Kræver vurdering</div>
+        <div class="dv-state-desc">Begyndende spænding — løfter og handlinger divergerer</div>
+      </div>
+      <div class="dv-state e">
+        <div class="dv-state-name">Nødtilstand</div>
+        <div class="dv-state-desc">Beslutninger truffet under pres — politisk gæld ophobes</div>
+      </div>
+      <div class="dv-state i">
+        <div class="dv-state-name">Uforeneligt</div>
+        <div class="dv-state-desc">Mål og handling kan ikke forenes — systemet modsiger sig selv</div>
+      </div>
+      <div class="dv-state v">
+        <div class="dv-state-name">Grundlovsveto</div>
+        <div class="dv-state-desc">Grundlæggende principper brydes — kræver menneskelig intervention</div>
+      </div>
+    </div>
+    <p class="dv-states-note">"Det er ikke vurderinger. Det er strukturelle tilstande."</p>
+  </div>
+</div>
+
+<!-- DIVERGENS + GÆLD -->
+<div class="dv-concepts">
+  <div style="max-width:1160px;margin:0 auto;">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:10px;">To centrale begreber</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#f0ebe0;font-weight:400;margin-bottom:32px;">Divergens og politisk gæld</h2>
+    <div class="dv-concepts-inner">
+      <div class="dv-concept-card div-card">
+        <span class="dv-concept-label">Divergens som signal</span>
+        <h3>Når systemet ikke kan forenes</h3>
+        <p>ETOS introducerer divergens som et strukturelt signal. Ikke som fejl. Ikke som afvigelse. Men som tegn på at systemet opererer under betingelser, hvor ikke alle hensyn kan forenes.</p>
+        <p style="margin-top:12px;">Det er her traditionelle målesystemer bryder sammen — de forsøger at optimere sig ud af spændingen. ETOS gør det modsatte.</p>
+        <div class="dv-concept-quote">"Høj divergens betyder ikke at systemet er forkert. Det betyder at det opererer under umulige betingelser."</div>
+      </div>
+      <div class="dv-concept-card debt-card">
+        <span class="dv-concept-label">Standing political debt</span>
+        <h3>Konsekvenser der ikke forsvinder</h3>
+        <p>Når systemer handler under høj spænding, forsvinder konsekvenserne ikke. De ophobes.</p>
+        <p style="margin-top:12px;">ETOS kalder dette <em>standing political debt</em>: mistrivsel, faldende tillid, pres på institutioner, udskudte konsekvenser. Denne gæld er ikke moralsk. Den er strukturel. Og den bæres videre over tid.</p>
+        <div class="dv-concept-quote">"Demokratier svækkes ikke kun af dårlige beslutninger — men når spændinger ikke anerkendes."</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EKSEMPEL -->
+<div class="dv-example" id="eksempel">
+  <div class="dv-example-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">Eksempel · Fiktivt</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">Sådan ser en ETOS-analyse ud</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;max-width:560px;line-height:1.75;">Alle tal og navne er opfundne. Princippet er reelt.</p>
+    <div class="dv-example-box">
+      <div class="dv-example-header">
+        <span style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:rgba(240,235,224,0.7);">Fiktivt parti · Valgperiode 2021–2025</span>
+        <span style="font-family:'Playfair Display',serif;font-size:14px;color:#e07070;">Nødtilstand — høj divergens</span>
+      </div>
+      <div class="dv-example-body">
+        <div>
+          <span class="dv-col-label">Meaning — Intentionen</span>
+          <div class="dv-item">"Kortere ventetider i psykiatrien"</div>
+          <div class="dv-item">"Grøn omstilling af transport"</div>
+          <div class="dv-item">"Lavere skat for lavtlønnede"</div>
+        </div>
+        <div>
+          <span class="dv-col-label">Reality — Hvad skete</span>
+          <div class="dv-item t">Ventetider steg 18%</div>
+          <div class="dv-item g">Elbusser i 12 kommuner ✓</div>
+          <div class="dv-item g">Skattelettelse gennemført ✓</div>
+        </div>
+        <div>
+          <span class="dv-col-label">ETOS registrerer</span>
+          <div class="dv-item a">Strukturel: regionerne manglede kapacitet</div>
+          <div class="dv-item g">Holdt — og overholdt</div>
+          <div class="dv-item g">Holdt som lovet</div>
+        </div>
+      </div>
+      <div class="dv-example-footer">
+        <p><strong>ETOS konkluderer:</strong> Partiet holdt 2 af 3 løfter. Svigtet på psykiatri skyldtes strukturelle betingelser — ikke manglende vilje. Politisk gæld er ophobet på sundheds­området og bæres videre.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DET EKSISTERER -->
+<div class="dv-exists">
+  <div class="dv-exists-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:16px;">Dette er ikke et forslag</span>
+    <h2>ETOS eksisterer.</h2>
+    <p class="dv-exists-lead">Det er en arkitektur der er bygget og dokumenteret. Spørgsmålet er ikke om det virker. Spørgsmålet er hvor det skal anvendes.</p>
+    <div class="dv-exists-grid">
+      <div class="dv-exists-item">
+        <span class="dv-exists-icon">🔬</span>
+        <div class="dv-exists-name">Teoretisk ramme</div>
+        <div class="dv-exists-desc">M.E.M. — Meaning, Experience, Model</div>
+      </div>
+      <div class="dv-exists-item">
+        <span class="dv-exists-icon">⚙️</span>
+        <div class="dv-exists-name">Beslutningsmotor</div>
+        <div class="dv-exists-desc">IDK — testet i 1.296 syntetiske cases</div>
+      </div>
+      <div class="dv-exists-item">
+        <span class="dv-exists-icon">🏛</span>
+        <div class="dv-exists-name">Governance-lag</div>
+        <div class="dv-exists-desc">CDP — transparent og auditerbart</div>
+      </div>
+      <div class="dv-exists-item">
+        <span class="dv-exists-icon">💻</span>
+        <div class="dv-exists-name">Fungerende prototype</div>
+        <div class="dv-exists-desc">ETOS — klar til pilotimplementering</div>
+      </div>
+    </div>
+    <a href="arkitektur.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);color:rgba(240,235,224,0.5);padding:10px 20px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;text-decoration:none;border:1px solid rgba(255,255,255,0.08);">Se den tekniske arkitektur →</a>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="dv-cta">
+  <div class="dv-cta-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:16px;">Valget er om 3 dage</span>
+    <h2>Idéen er klar.<br>Samtalen kan begynde.</h2>
+    <p>Søger samarbejde med medier, tænketanke, demokratiorganisationer og politiske institutioner der vil afprøve ETOS som demokratisk infrastruktur.</p>
+    <div class="dv-cta-btns">
+      <a href="kontakt.html" class="dv-btn-primary">Tag kontakt →</a>
+      <a href="mailto:M.E.M.Teori@gmail.com?subject=ETOS Demokrati - samarbejde" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:rgba(240,235,224,0.5);padding:14px 24px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;border:1px solid rgba(240,235,224,0.15);text-decoration:none;">Skriv direkte</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="google-site-verification" content="N-tI0mRJKKnPVNDB_v0LWIN6QjN9BnB8Zw8DN8ARdF0" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ETOS Demokrati — Løfter, handling og læring</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+    .dem-hero {
+      background: linear-gradient(135deg, #0d1a0d 0%, #1a2820 60%, #0d1117 100%);
+      padding: 72px 52px 64px; position: relative; overflow: hidden;
+    }
+    .dem-hero::before {
+      content: ''; position: absolute; top: -100px; right: -100px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(78,200,140,0.07), transparent 70%);
+      pointer-events: none;
+    }
+    .dem-hero::after {
+      content: ''; position: absolute; bottom: -60px; left: 60px;
+      width: 300px; height: 300px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(226,136,78,0.05), transparent 70%);
+      pointer-events: none;
+    }
+    .dem-hero-inner { max-width: 1160px; margin: 0 auto; position: relative; display: grid; grid-template-columns: 1fr 420px; gap: 64px; align-items: center; }
+    .dem-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 48px); color: #f0ebe0; font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .dem-hero h1 em { font-style: italic; color: #4ec88c; }
+    .dem-hero-lead { font-family: 'DM Sans', sans-serif; font-size: 15px; color: rgba(240,235,224,0.5); line-height: 1.8; margin-bottom: 28px; }
+    .dem-hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+    .dem-btn-primary { display: inline-flex; align-items: center; gap: 8px; background: #4ec88c; color: #0d1a0d; padding: 12px 24px; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; text-decoration: none; transition: background 0.15s; }
+    .dem-btn-primary:hover { background: #3ab07a; }
+    .dem-btn-ghost { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: rgba(240,235,224,0.55); padding: 12px 24px; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 13px; border: 1px solid rgba(240,235,224,0.15); text-decoration: none; transition: all 0.15s; }
+    .dem-btn-ghost:hover { color: rgba(240,235,224,0.9); border-color: rgba(240,235,224,0.3); }
+
+    /* RAPPORT MOCKUP */
+    .dem-report-mock {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(78,200,140,0.15);
+      border-radius: 16px; padding: 24px; position: relative;
+    }
+    .dem-report-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .dem-report-title { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: rgba(240,235,224,0.5); }
+    .dem-report-date { font-family: 'DM Sans', sans-serif; font-size: 11px; color: #4ec88c; }
+    .dem-promise { margin-bottom: 12px; padding: 14px 16px; border-radius: 8px; }
+    .dem-promise.kept    { background: rgba(78,200,140,0.08); border-left: 3px solid #4ec88c; }
+    .dem-promise.partial { background: rgba(122,158,232,0.08); border-left: 3px solid #7a9ee8; }
+    .dem-promise.broken  { background: rgba(224,112,112,0.08); border-left: 3px solid #e07070; }
+    .dem-promise.tension { background: rgba(226,136,78,0.08); border-left: 3px solid #e2a06a; }
+    .dem-promise-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+    .dem-promise-label { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; }
+    .dem-promise.kept    .dem-promise-label { color: #4ec88c; }
+    .dem-promise.partial .dem-promise-label { color: #7a9ee8; }
+    .dem-promise.broken  .dem-promise-label { color: #e07070; }
+    .dem-promise.tension .dem-promise-label { color: #e2a06a; }
+    .dem-promise-text { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(240,235,224,0.5); line-height: 1.5; }
+
+    /* IDEEN */
+    .dem-idea { background: #f5f0e8; padding: 64px 52px; }
+    .dem-idea-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .dem-idea h2 { font-family: 'Playfair Display', serif; font-size: 28px; color: #1a1a1a; font-weight: 400; margin-bottom: 16px; }
+    .dem-idea p { font-family: 'DM Sans', sans-serif; font-size: 14px; color: #666; line-height: 1.8; margin-bottom: 14px; }
+    .dem-principles { display: flex; flex-direction: column; gap: 10px; }
+    .dem-principle { display: flex; gap: 16px; align-items: flex-start; padding: 18px 20px; background: #fff; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06); }
+    .dem-principle-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+    .dem-principle h4 { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; color: #1a1a1a; margin-bottom: 3px; }
+    .dem-principle p { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #888; line-height: 1.6; margin: 0; }
+
+    /* HVORDAN DET VIRKER */
+    .dem-how { background: #1a2820; padding: 64px 52px; }
+    .dem-how-inner { max-width: 1160px; margin: 0 auto; }
+    .dem-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 40px; position: relative; }
+    .dem-flow::before { content: ''; position: absolute; top: 40px; left: 10%; right: 10%; height: 1px; background: rgba(78,200,140,0.2); z-index: 0; }
+    .dem-flow-step { text-align: center; padding: 0 16px; position: relative; z-index: 1; }
+    .dem-flow-num { width: 48px; height: 48px; border-radius: 50%; background: rgba(78,200,140,0.1); border: 1px solid rgba(78,200,140,0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-family: 'Playfair Display', serif; font-size: 18px; color: #4ec88c; font-weight: 400; }
+    .dem-flow-step h4 { font-family: 'Playfair Display', serif; font-size: 16px; color: #f0ebe0; font-weight: 400; margin-bottom: 8px; }
+    .dem-flow-step p { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(240,235,224,0.4); line-height: 1.65; }
+
+    /* MEM KOBLING */
+    .dem-mem { background: #0d1117; padding: 64px 52px; }
+    .dem-mem-inner { max-width: 1160px; margin: 0 auto; }
+    .dem-mem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 40px; }
+    .dem-mem-card { border-radius: 14px; padding: 28px 24px; }
+    .dem-mem-card.m { background: rgba(122,158,232,0.07); border: 1px solid rgba(122,158,232,0.15); }
+    .dem-mem-card.e { background: rgba(226,136,78,0.07); border: 1px solid rgba(226,136,78,0.15); }
+    .dem-mem-card.mo { background: rgba(78,200,140,0.07); border: 1px solid rgba(78,200,140,0.15); }
+    .dem-mem-card-letter { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 400; line-height: 1; margin-bottom: 10px; }
+    .dem-mem-card.m .dem-mem-card-letter { color: #7a9ee8; }
+    .dem-mem-card.e .dem-mem-card-letter { color: var(--accent); }
+    .dem-mem-card.mo .dem-mem-card-letter { color: #4ec88c; }
+    .dem-mem-card h4 { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+    .dem-mem-card.m h4 { color: #7a9ee8; }
+    .dem-mem-card.e h4 { color: var(--accent); }
+    .dem-mem-card.mo h4 { color: #4ec88c; }
+    .dem-mem-card-dem { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(232,236,252,0.6); line-height: 1.7; margin-bottom: 10px; font-style: italic; }
+    .dem-mem-card p { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(232,236,252,0.35); line-height: 1.65; margin: 0; }
+
+    /* EKSEMPEL */
+    .dem-example { background: #f5f0e8; padding: 64px 52px; }
+    .dem-example-inner { max-width: 1160px; margin: 0 auto; }
+    .dem-example-box { background: #fff; border: 1px solid rgba(0,0,0,0.07); border-radius: 16px; overflow: hidden; margin-top: 36px; }
+    .dem-example-header { background: #1a2820; padding: 20px 28px; display: flex; align-items: center; justify-content: space-between; }
+    .dem-example-party { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: rgba(240,235,224,0.7); }
+    .dem-example-period { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(240,235,224,0.35); }
+    .dem-example-body { padding: 28px; }
+    .dem-example-promise { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+    .dem-ex-col { }
+    .dem-ex-col-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; margin-bottom: 10px; display: block; }
+    .dem-ex-item { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #555; line-height: 1.65; padding: 10px 14px; background: #f8f8f8; border-radius: 8px; margin-bottom: 8px; }
+    .dem-ex-item.green { background: rgba(78,200,140,0.08); color: #2a7a50; border-left: 3px solid #4ec88c; }
+    .dem-ex-item.blue  { background: rgba(122,158,232,0.08); color: #3a5a90; border-left: 3px solid #7a9ee8; }
+    .dem-ex-item.red   { background: rgba(224,112,112,0.08); color: #8a3030; border-left: 3px solid #e07070; }
+    .dem-ex-item.orange{ background: rgba(226,136,78,0.08); color: #8a4a1a; border-left: 3px solid var(--accent); }
+    .dem-example-insight { background: #1a2820; border-radius: 10px; padding: 18px 20px; }
+    .dem-example-insight p { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(240,235,224,0.55); line-height: 1.7; margin: 0; }
+    .dem-example-insight strong { color: #4ec88c; }
+
+    /* IKKE POLITISK */
+    .dem-neutral { background: #1a2820; padding: 64px 52px; }
+    .dem-neutral-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+    .dem-neutral h2 { font-family: 'Playfair Display', serif; font-size: 28px; color: #f0ebe0; font-weight: 400; margin-bottom: 16px; }
+    .dem-neutral p { font-family: 'DM Sans', sans-serif; font-size: 14px; color: rgba(240,235,224,0.5); line-height: 1.8; margin-bottom: 14px; }
+    .dem-neutral-boxes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 32px 0; text-align: left; }
+    .dem-neutral-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px 22px; }
+    .dem-neutral-box-title { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #4ec88c; margin-bottom: 8px; }
+    .dem-neutral-box p { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(240,235,224,0.45); line-height: 1.65; margin: 0; }
+
+    /* CTA */
+    .dem-cta { background: #0d1a0d; padding: 56px 52px; }
+    .dem-cta-inner { max-width: 1160px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+
+    @media (max-width: 860px) {
+      .dem-hero { padding: 48px 28px; }
+      .dem-hero-inner { grid-template-columns: 1fr; }
+      .dem-idea { padding: 48px 28px; }
+      .dem-idea-inner { grid-template-columns: 1fr; }
+      .dem-how { padding: 48px 28px; }
+      .dem-flow { grid-template-columns: repeat(2, 1fr); }
+      .dem-flow::before { display: none; }
+      .dem-mem { padding: 48px 28px; }
+      .dem-mem-grid { grid-template-columns: 1fr; }
+      .dem-example { padding: 48px 28px; }
+      .dem-example-promise { grid-template-columns: 1fr; }
+      .dem-neutral { padding: 48px 28px; }
+      .dem-neutral-boxes { grid-template-columns: 1fr; }
+      .dem-cta { padding: 40px 28px; }
+      .dem-cta-inner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="fs-header">
+
+  <div class="fs-nav">
+    <a href="index.html" class="fs-logo">M.E.M.</a>
+    <nav class="fs-links">
+
+      <!-- ETOS -->
+      <a href="etos.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Beslutningsmodel</span></span>
+      </a>
+
+      <!-- FORLØB -->
+      <a href="forloeb.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a2020;">🔄</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Forløb</span><span class="fs-nav-sub">Pårørende · Ledelse · Psykiatri</span></span>
+      </a>
+
+      <!-- PRODUKTER -->
+      <a href="produkter.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1228;">🛍</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Produkter</span><span class="fs-nav-sub">Software · Forløb · Bøger</span></span>
+      </a>
+
+      <!-- PILOT -->
+      <a href="pilot-pakke.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a1a0d;">🧪</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Pilot</span><span class="fs-nav-sub">Test det i praksis</span></span>
+      </a>
+
+      <!-- MERE dropdown -->
+      <div class="fs-dropdown">
+        <a href="mem.html" class="fs-nav-item">
+          <span class="fs-nav-icon" style="background:#0d1117;">✦</span>
+          <span class="fs-nav-text"><span class="fs-nav-title">Mere</span><span class="fs-nav-sub">Teori · Univers · Demokrati</span></span>
+          <span class="fs-nav-item-arrow">▾</span>
+        </a>
+        <div class="fs-dropdown-menu">
+          <a href="mem.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a1228;">🔬</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">M.E.M.</span><span class="fs-dropdown-item-sub">Grundmodel</span></span>
+          </a>
+          <a href="arkitektur.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🏗</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Arkitektur</span><span class="fs-dropdown-item-sub">IDK · ETOS · CDP</span></span>
+          </a>
+          <a href="etos-demokrati.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#1a2820;">🗳</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Demokrati</span><span class="fs-dropdown-item-sub">Løfter · Ansvar</span></span>
+          </a>
+          <a href="boerneunivers.html" class="fs-dropdown-item">
+            <span class="fs-dropdown-item-icon" style="background:#2a1f1a;">🌱</span>
+            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Universet</span><span class="fs-dropdown-item-sub">Børn · Bankeren · Læring</span></span>
+          </a>
+
+        </div>
+      </div>
+
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
+      <a href="index-en.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">EN</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="dem-hero">
+  <div class="dem-hero-inner">
+    <div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:20px;">
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ec88c;">ETOS Demokrati</span>
+      <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(240,200,80,0.12);border:1px solid rgba(240,200,80,0.3);border-radius:20px;padding:4px 12px;font-family:'DM Sans',sans-serif;font-size:11px;color:#f0c850;font-weight:500;"><span style="width:5px;height:5px;border-radius:50%;background:#f0c850;display:inline-block;"></span>Valg 24. marts 2026</span>
+    </div>
+      <h1>Hvad lovede de?<br>Hvad <em>gjorde</em> de?<br>Hvad lærte vi?</h1>
+      <p class="dem-hero-lead">Dagen efter et valg burde alle kunne trække en rapport der sammenligner et partis valgløfter med hvad de faktisk gennemførte — ikke for at dømme, men for at lære og holde demokratiet ansvarligt.</p>
+      <div class="dem-hero-btns">
+        <a href="kontakt.html" class="dem-btn-primary">Tal med os om idéen →</a>
+        <a href="#hvordan" class="dem-btn-ghost">Hvordan det virker ↓</a>
+      </div>
+    </div>
+
+    <div class="dem-report-mock">
+      <div class="dem-report-header">
+        <span class="dem-report-title">Demokratirapport · Eksempel</span>
+        <span class="dem-report-date">Dagen efter valget</span>
+      </div>
+      <div class="dem-promise kept">
+        <div class="dem-promise-top">
+          <span class="dem-promise-label">✓ Holdt</span>
+        </div>
+        <div class="dem-promise-text">Lavere børnechecks til højtlønnede gennemført som lovet</div>
+      </div>
+      <div class="dem-promise partial">
+        <div class="dem-promise-top">
+          <span class="dem-promise-label">~ Delvist</span>
+        </div>
+        <div class="dem-promise-text">Klimaplan vedtaget — men mål reduceret med 40%</div>
+      </div>
+      <div class="dem-promise broken">
+        <div class="dem-promise-top">
+          <span class="dem-promise-label">✗ Ikke holdt</span>
+        </div>
+        <div class="dem-promise-text">Løfte om kortere ventetider i psykiatrien — ingen handling</div>
+      </div>
+      <div class="dem-promise tension">
+        <div class="dem-promise-top">
+          <span class="dem-promise-label">⚡ Spænding</span>
+        </div>
+        <div class="dem-promise-text">Strukturelle betingelser forhindrede gennemførelse — ikke ond vilje</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- IDEEN -->
+<div class="dem-idea">
+  <div class="dem-idea-inner">
+    <div>
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#3a8a5a;display:block;margin-bottom:10px;">Grundidéen</span>
+      <h2>Demokrati kræver hukommelse</h2>
+      <p>Vælgere husker løfter — men systemet glemmer dem. Der er ingen struktureret måde at holde styr på hvad partier lovede, hvad de gennemførte, og hvad der faktisk forhindrede dem.</p>
+      <p>ETOS Demokrati er ikke et anklageskrift. Det er et læringsredskab — for vælgere, politikere, journalister og fremtidige kandidater der vil forstå hvad der virkede og hvad der ikke gjorde.</p>
+      <p>Det centrale spørgsmål er ikke <em>"hvem har skylden?"</em> men <em>"hvad var de strukturelle betingelser?"</em> — den samme grundlogik som i M.E.M.</p>
+    </div>
+    <div class="dem-principles">
+      <div class="dem-principle">
+        <span class="dem-principle-icon">📋</span>
+        <div>
+          <h4>Løfter registreres</h4>
+          <p>Valgprogrammer, taler og konkrete løfter dokumenteres systematisk inden valget.</p>
+        </div>
+      </div>
+      <div class="dem-principle">
+        <span class="dem-principle-icon">⚖️</span>
+        <div>
+          <h4>Handling sammenlignes</h4>
+          <p>Hvad blev faktisk gennemført? Hvad blev ændret undervejs? Hvad forsvandt helt?</p>
+        </div>
+      </div>
+      <div class="dem-principle">
+        <span class="dem-principle-icon">🔍</span>
+        <div>
+          <h4>Betingelser synliggøres</h4>
+          <p>Var det manglende vilje — eller strukturelle betingelser der forhindrede handling?</p>
+        </div>
+      </div>
+      <div class="dem-principle">
+        <span class="dem-principle-icon">📈</span>
+        <div>
+          <h4>Mønstre identificeres</h4>
+          <p>Hvilke løftetyper holder? Hvilke bryder systematisk? Hvad kan vi lære på tværs?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HVORDAN DET VIRKER -->
+<div class="dem-how" id="hvordan">
+  <div class="dem-how-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:10px;">Processen</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#f0ebe0;font-weight:400;margin-bottom:8px;">Fra valgkamp til demokratirapport</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,0.45);max-width:560px;line-height:1.75;">En rapport der kan trækkes af alle — dagen efter valget er udskrevet.</p>
+    <div class="dem-flow">
+      <div class="dem-flow-step">
+        <div class="dem-flow-num">1</div>
+        <h4>Valgprogram</h4>
+        <p>Løfter og mål registreres systematisk inden valget. Hvad lovede partiet konkret?</p>
+      </div>
+      <div class="dem-flow-step">
+        <div class="dem-flow-num">2</div>
+        <h4>Regeringsperiode</h4>
+        <p>Handlinger, vedtagelser og frafald dokumenteres løbende. Hvad skete der?</p>
+      </div>
+      <div class="dem-flow-step">
+        <div class="dem-flow-num">3</div>
+        <h4>Analyse</h4>
+        <p>ETOS sammenligner løfte og handling — og synliggør de strukturelle betingelser.</p>
+      </div>
+      <div class="dem-flow-step">
+        <div class="dem-flow-num">4</div>
+        <h4>Rapport</h4>
+        <p>En åben, tilgængelig rapport alle kan læse, dele og lære af. Ikke anklage — forståelse.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- M.E.M. KOBLING -->
+<div class="dem-mem">
+  <div class="dem-mem-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7a9ee8;display:block;margin-bottom:10px;">M.E.M. i demokratiet</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#e8ecfc;font-weight:400;margin-bottom:8px;">Den samme grundmodel</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(232,236,252,0.45);max-width:580px;line-height:1.75;">ETOS Demokrati er en direkte anvendelse af M.E.M.-teorien på det politiske felt. Spændingen mellem løfter, virkelighed og systemer er præcis den normative spænding M.E.M. er designet til at synliggøre.</p>
+    <div class="dem-mem-grid">
+      <div class="dem-mem-card m">
+        <div class="dem-mem-card-letter">M</div>
+        <h4>Meaning</h4>
+        <div class="dem-mem-card-dem">"Vi vil skabe et mere retfærdigt sundhedssystem."</div>
+        <p>De normative værdier og løfter partiet gik til valg på. Det de sagde de stod for.</p>
+      </div>
+      <div class="dem-mem-card e">
+        <div class="dem-mem-card-letter">E</div>
+        <h4>Experience</h4>
+        <div class="dem-mem-card-dem">"Ventetiderne steg. Vi mærkede det ikke."</div>
+        <p>Vælgernes og borgernes levede erfaring med politikken i praksis.</p>
+      </div>
+      <div class="dem-mem-card mo">
+        <div class="dem-mem-card-letter">M</div>
+        <h4>Model</h4>
+        <div class="dem-mem-card-dem">"Regionerne har ikke kapacitet. Budgetterne holder ikke."</div>
+        <p>De strukturelle betingelser — systemer, økonomi, institutioner — der formede hvad der var muligt.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EKSEMPEL -->
+<div class="dem-example">
+  <div class="dem-example-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;">Eksempel · Fiktivt</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">Sådan kan en rapport se ud</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;max-width:560px;line-height:1.75;">Dette er et fiktivt eksempel der illustrerer princippet. Alle navne og tal er opfundne.</p>
+    <div class="dem-example-box">
+      <div class="dem-example-header">
+        <span class="dem-example-party">🗳 Fiktivt Parti · Valgperiode 2021–2025</span>
+        <span class="dem-example-period">Rapport genereret: 5. november 2025</span>
+      </div>
+      <div class="dem-example-body">
+        <div class="dem-example-promise">
+          <div class="dem-ex-col">
+            <span class="dem-ex-col-label">Valgløfter</span>
+            <div class="dem-ex-item">Kortere ventetider i psykiatrien</div>
+            <div class="dem-ex-item">Grøn omstilling af transport</div>
+            <div class="dem-ex-item">Flere pædagoger i daginstitutioner</div>
+            <div class="dem-ex-item">Lavere skat for lavtlønnede</div>
+          </div>
+          <div class="dem-ex-col">
+            <span class="dem-ex-col-label">Hvad skete der</span>
+            <div class="dem-ex-item red">Ventetider steg med 18%</div>
+            <div class="dem-ex-item green">Elbusser i 12 kommuner</div>
+            <div class="dem-ex-item blue">Delvist — 800 nye stillinger</div>
+            <div class="dem-ex-item green">Gennemført fuldt ud</div>
+          </div>
+          <div class="dem-ex-col">
+            <span class="dem-ex-col-label">ETOS registrerer</span>
+            <div class="dem-ex-item orange">Strukturel — regionerne manglede kapacitet</div>
+            <div class="dem-ex-item green">Holdt — og overholdt</div>
+            <div class="dem-ex-item blue">Budgetbegrænsning forhindrede fuld gennemførelse</div>
+            <div class="dem-ex-item green">Holdt som lovet</div>
+          </div>
+        </div>
+        <div class="dem-example-insight">
+          <p><strong>ETOS Demokrati konkluderer:</strong> Partiet holdt 2 af 4 løfter fuldt ud. 1 løfte faldt på strukturelle betingelser uden for partiets direkte kontrol. 1 løfte blev ikke holdt trods mulighed. Mønster: Skatteløfter holdes — social- og sundhedsløfter rammes af systemisk friktion.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- IKKE POLITISK -->
+<div class="dem-neutral">
+  <div class="dem-neutral-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:16px;">Principper</span>
+    <h2>Ikke politisk — demokratisk</h2>
+    <p>ETOS Demokrati er ikke designet til at favorisere nogen ideologi eller parti. Det er et redskab der gælder alle partier ens — og som handler om overensstemmelse, ikke om hvad der er "rigtigt" politisk.</p>
+    <div class="dem-neutral-boxes">
+      <div class="dem-neutral-box">
+        <div class="dem-neutral-box-title">Hvad systemet gør</div>
+        <p>Sammenligner løfter med handling. Synliggør strukturelle betingelser. Identificerer mønstre på tværs af partier og perioder.</p>
+      </div>
+      <div class="dem-neutral-box">
+        <div class="dem-neutral-box-title">Hvad systemet ikke gør</div>
+        <p>Dømmer politikere som personer. Vurderer om politikken var "god". Tager politisk stilling til prioriteringer.</p>
+      </div>
+      <div class="dem-neutral-box">
+        <div class="dem-neutral-box-title">For alle parter</div>
+        <p>Vælgere der vil forstå. Journalister der vil dokumentere. Politikere der vil lære. Forskere der vil analysere.</p>
+      </div>
+      <div class="dem-neutral-box">
+        <div class="dem-neutral-box-title">Læring frem for anklage</div>
+        <p>Hvad virker? Hvad virker ikke? Hvad var strukturelle betingelser? Det er de spørgsmål demokratiet har brug for svar på.</p>
+      </div>
+    </div>
+    <p style="font-style:italic;color:rgba(240,235,224,0.3);font-family:'Playfair Display',serif;font-size:16px;">"Demokrati kræver ikke perfekte politikere — det kræver et system der kan lære."</p>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="dem-cta">
+  <div class="dem-cta-inner">
+    <div>
+      <p style="font-family:'Playfair Display',serif;font-size:24px;color:#f0ebe0;font-weight:400;font-style:italic;margin:0 0 8px;">Idéen er klar. Samtalen kan begynde.</p>
+      <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,0.3);margin:0;">Konceptfase · Søger samarbejdspartnere og faglig feedback</p>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <a href="demokrati-valg.html" class="dem-btn-primary">Læs den fulde analyse →</a>
+      <a href="kontakt.html" class="dem-btn-ghost">Tal med os</a>
+      <a href="arkitektur.html" class="dem-btn-ghost">Se den tekniske arkitektur</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
