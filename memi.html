@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M.E.M.I. — spændingsbaseret beslutningsarkitektur med aktiv hukommelse</title>
+<meta name="description" content="M.E.M.I. er en eksperimentel beslutningsarkitektur der opdager begyndende brud, husker dem som strukturelle erfaringer og reagerer tidligere næste gang — uden klassisk regelstyring eller ren statistik.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style-additions.css">
+<style>
+section{padding:78px 52px}.wrap{max-width:1160px;margin:0 auto}
+.eyebrow{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:14px}
+.hero{background:#130d1a;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;right:-120px;top:-120px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(122,100,200,.12),transparent 70%)}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;position:relative}
+.h1{font-family:'Playfair Display',serif;font-size:clamp(40px,5vw,60px);line-height:1.03;font-weight:400;letter-spacing:-.02em;margin:0 0 14px;color:#f0ebe0}
+.sub{font-family:'Playfair Display',serif;font-size:clamp(18px,2vw,26px);font-style:italic;color:#a08de8;margin:0 0 18px}
+.lead{font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.82;color:rgba(240,235,224,.58);max-width:640px;margin:0 0 28px}
+.btns{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:#7a64c8;color:#fff;padding:14px 26px;border-radius:9px;text-decoration:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;transition:background .15s}
+.btn-p:hover{background:#6a54b8}
+.btn-s{font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,.5);text-decoration:none;border-bottom:1px solid rgba(240,235,224,.18);padding-bottom:2px}
+.panel{background:rgba(255,255,255,.04);border:1px solid rgba(122,100,200,.2);border-radius:18px;padding:28px}
+.panel h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;color:#f0ebe0;margin:0 0 10px}
+.panel p{font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.5);margin:0 0 10px}
+.panel p:last-child{margin:0}
+.light{background:#f5f0e8}.light h2{color:#161616}.light p{color:#555}
+.dark{background:#0d1117}.dark h2{color:#f0ebe0}.dark p{color:rgba(240,235,224,.54)}
+.mid{background:#0f0d1a}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{border-radius:16px;padding:24px 22px;border:1px solid rgba(0,0,0,.08);background:#fff}
+.dark .card,.mid .card{background:rgba(122,100,200,.05);border:1px solid rgba(122,100,200,.15)}
+.card h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;margin:0 0 8px;color:#f0ebe0}
+.dark .card h3,.mid .card h3{color:#f0ebe0}
+.light .card h3{color:#161616}
+.card p{font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;margin:0}
+.dark .card p,.mid .card p{color:rgba(240,235,224,.55)}
+.light .card p{color:#666}
+.mini{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:10px;color:#a08de8}
+.light .mini{color:#7a64c8}
+.metric{font-family:'Playfair Display',serif;font-size:34px;color:#a08de8;margin-bottom:8px}
+.timeline{display:flex;flex-direction:column;gap:12px}
+.step{display:grid;grid-template-columns:90px 1fr;gap:16px;align-items:start;padding:18px 20px;border-radius:14px;background:rgba(122,100,200,.05);border:1px solid rgba(122,100,200,.15)}
+.light .step{background:#fff;border:1px solid rgba(0,0,0,.08)}
+.step-no{font-family:'Playfair Display',serif;font-size:13px;font-weight:600;color:#a08de8;letter-spacing:.05em;padding-top:4px}
+.step h4{font-family:'Playfair Display',serif;font-size:19px;font-weight:400;margin:0 0 6px;color:#f0ebe0}
+.light .step h4{color:#161616}
+.step p{font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;margin:0;color:rgba(240,235,224,.55)}
+.light .step p{color:#666}
+.status-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.badge{font-family:'DM Sans',sans-serif;font-size:11px;padding:5px 12px;border-radius:999px;font-weight:500}
+.badge-green{background:rgba(78,200,140,.12);border:1px solid rgba(78,200,140,.25);color:#4ec88c}
+.badge-purple{background:rgba(122,100,200,.12);border:1px solid rgba(122,100,200,.25);color:#a08de8}
+.badge-yellow{background:rgba(240,200,80,.10);border:1px solid rgba(240,200,80,.20);color:#f0c850}
+.badge-open{background:rgba(240,235,224,.05);border:1px solid rgba(240,235,224,.15);color:rgba(240,235,224,.5)}
+.cta-section{background:#1a0d2a}
+.tagrow{display:flex;gap:8px;flex-wrap:wrap}
+.tag{font-family:'DM Sans',sans-serif;font-size:11px;padding:5px 10px;border-radius:999px;background:rgba(122,100,200,.10);border:1px solid rgba(122,100,200,.20);color:#a08de8}
+.m-vs{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:16px;overflow:hidden}
+.m-vs-col{padding:32px 28px}
+.m-vs-col h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;margin:0 0 16px}
+.m-vs-col ul{list-style:none;padding:0;margin:0}
+.m-vs-col ul li{font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.8;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.06);color:rgba(240,235,224,.6)}
+.m-vs-col ul li:last-child{border-bottom:none}
+.m-vs-col ul li::before{content:'→ ';color:#a08de8;font-weight:600}
+@media(max-width:920px){.hero .wrap,.grid-2,.grid-3,.m-vs{grid-template-columns:1fr}.step{grid-template-columns:1fr}section{padding:56px 28px}}
+</style>
+</head>
+<body>
+
+<header class="fs-header"><div class="fs-nav">
+    <a href="index.html" class="fs-logo">M.E.M.</a>
+    <nav class="fs-links">
+
+      <a href="memi.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a0d2a;">🧠</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">M.E.M.I.</span><span class="fs-nav-sub">Beslutningsarkitektur · forskning</span></span>
+      </a>
+
+      <a href="etos.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Governance-native platform</span></span>
+      </a>
+
+      <a href="research.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#0d1a2a;">🧪</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Forskerhjørnet</span><span class="fs-nav-sub">Fund · working papers · demoer</span></span>
+      </a>
+
+      <a href="boerneunivers.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#2a1f1a;">🌱</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Børneunivers</span><span class="fs-nav-sub">Bøger · uniVRs · Bankeren</span></span>
+      </a>
+
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
+      <a href="memi-en.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">EN</a>
+    </div>
+  </div></header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow" style="color:#a08de8;">M.E.M.I. · Eksperimentel baseline v6.8 · Aktiv forskning</span>
+      <h1 class="h1">Et system der ikke blot registrerer —<br>men <em style="font-style:italic;color:#a08de8;">husker, genkender og handler tidligere</em></h1>
+      <p class="sub">Spændingsbaseret beslutningsarkitektur med aktiv hukommelse for begyndende brud</p>
+      <p class="lead">M.E.M.I. er ikke en klassisk controller og ikke ren statistik. Det er en arkitektur der læser udviklingen i tilstanden frem for blot at reagere på enkeltstående hændelser — og spørger ikke kun "er noget galt nu?", men "er vi på vej ind i noget, der ligner et kendt brud?"</p>
+      <div class="btns">
+        <a href="research.html" class="btn-p">Se de dokumenterede fund →</a>
+        <a href="#mekanismer" class="btn-s">Forstå mekanismerne ↓</a>
+      </div>
+      <div class="status-row">
+        <span class="badge badge-green">v6.8 baseline verificeret</span>
+        <span class="badge badge-purple">PreRuptureMemory aktiv</span>
+        <span class="badge badge-yellow">De-eskalation: åbent problem</span>
+        <span class="badge badge-open">Sukker_Fabrikken: alternativ controller</span>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Det centrale fremskridt</h3>
+      <p>M.E.M.I. er begyndt at håndtere en klassisk balance mekanisk i stedet for via tærskel-justering: systemet har i de vigtigste tests vist tre ting <em style="color:rgba(240,235,224,.75);">samtidig</em> —</p>
+      <p>→ Markant bedre detektion af langsom drift<br>→ Åbning af tidligere blinde value-drift-scenarier<br>→ Fjernelse af falske alarmer i oscillerende scenarier</p>
+      <p>De tre fejltyper trækker normalt i hver sin retning. At håndtere dem samlet er det dokumenterede gennembrud.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HVAD DET ER -->
+<section class="light">
+  <div class="wrap">
+    <span class="eyebrow" style="color:#7a64c8;">Hvad M.E.M.I. er — og ikke er</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 16px;">En arkitektur, ikke en klassificeringsmodel</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;max-width:760px;margin:0 0 34px;color:#555;">M.E.M.I. bør på nuværende tidspunkt forstås som: en eksperimentel, spændingsbaseret beslutningsarkitektur med aktiv hukommelse for begyndende brud. Det er ikke bare en model der klassificerer. Det er et system der forsøger at holde styr på tre ting på én gang.</p>
+    <div class="grid-3">
+      <div class="card" style="background:#fff;border:1px solid rgba(0,0,0,.08);">
+        <span class="mini" style="color:#7a64c8;">Spørgsmål 1</span>
+        <h3 style="color:#161616;">Ligner det et kendt brud?</h3>
+        <p style="color:#666;">Systemet sammenligner den aktuelle tilstandsudvikling med lagrede episoder fra tidligere brud — ikke som mønstermatch, men som strukturel genkendelse.</p>
+      </div>
+      <div class="card" style="background:#fff;border:1px solid rgba(0,0,0,.08);">
+        <span class="mini" style="color:#7a64c8;">Spørgsmål 2</span>
+        <h3 style="color:#161616;">Bevæger vi os mod eller fra fare?</h3>
+        <p style="color:#666;">Trajectory-awareness: systemet måler retning og acceleration i tilstanden, ikke kun den aktuelle position. Et system kan være langt fra grænsen men bevæge sig hurtigt mod den.</p>
+      </div>
+      <div class="card" style="background:#fff;border:1px solid rgba(0,0,0,.08);">
+        <span class="mini" style="color:#7a64c8;">Spørgsmål 3</span>
+        <h3 style="color:#161616;">Hvordan skal erfaring påvirke næste valg?</h3>
+        <p style="color:#666;">Ikke bare "hvad skete der sidst", men hvad der var strukturelt anderledes ved bruddet, og om det mønster bør øge eller mindske sensitiviteten nu.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEKANISMER -->
+<section class="dark" id="mekanismer">
+  <div class="wrap">
+    <span class="eyebrow" style="color:#a08de8;">Hvad er teknisk bevist</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 16px;">Dokumenterede fund og mekanismer</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;max-width:760px;margin:0 0 32px;color:rgba(240,235,224,.58);">Udviklingen er ikke sket som bred parameter-søgning, men som en række præcise diagnoser og efterfølgende målrettede patches. Hvert skridt er bygget ud fra observerede fejlmekanismer.</p>
+    <div class="timeline">
+      <div class="step">
+        <div class="step-no">Fund 01</div>
+        <div><h4>Stærke episoder skal veje tungere</h4><p>Stærkere drift-episoder skal vægte mere end svage ved sammenligning med hukommelsen. Lineær vægtning undervurderer systemisk bevægelse.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-no">Fund 02</div>
+        <div><h4>Tidlig alarm handler om lagring, ikke tærskler</h4><p>Tidlig alarm handler ikke kun om tærskler, men om hvordan et brud lagres som episode. Forkert lagring medfører forsinket eller manglende genkendelse.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-no">Fund 03</div>
+        <div><h4>Statiske episoder forældes under langsom drift</h4><p>Statiske episoder kan ikke spore langsom drift. De forældes og må opdateres via trajectory-aware refresh for at forblive relevante.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-no">Fund 04</div>
+        <div><h4>Oscillation kræver særskilt gating</h4><p>Oscillation kan ikke skilles fra reel drift via goal-distance alene. Systemet kræver særskilt gating-logik for at undgå falske alarmer i oscillerende scenarier.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-no">Fund 05</div>
+        <div><h4>Episode-spam er et selvstændigt problem</h4><p>Vedvarende pres kan generere episode-spam som forurener hukommelsen. Cooldown-mekanismer reducerer dette uden at skade detektion.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BASELINE v6.8 -->
+<section class="mid">
+  <div class="wrap">
+    <span class="eyebrow" style="color:#f0c850;">Nuværende baseline</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 16px;color:#f0ebe0;">PreRuptureMemory v6.8</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;max-width:760px;margin:0 0 32px;color:rgba(240,235,224,.58);">Den første version der samlet set gav bedre detektion, åbnede blinde scenarier og eliminerede falsk alarm — uden at skabe nye regressioner. v6.8 fungerer nu som referencepunkt for næste spor.</p>
+    <div class="grid-2">
+      <div>
+        <div class="card" style="margin-bottom:14px;">
+          <span class="mini">Verificeret ✓</span>
+          <h3>Bedre detektion i langsom drift</h3>
+          <p>Trajectory-aware refresh sikrer at episoder ikke forældes under gradvise systemforandringer.</p>
+        </div>
+        <div class="card" style="margin-bottom:14px;">
+          <span class="mini">Verificeret ✓</span>
+          <h3>Value drift: tidligere blinde scenarier åbnet</h3>
+          <p>Systemet opdager nu value drift-mønstre der tidligere gik ubemærket fordi de ikke matchede kendte goal-distance-mønstre.</p>
+        </div>
+        <div class="card">
+          <span class="mini">Verificeret ✓</span>
+          <h3>Nul falsk alarm i oscillationsscenarie</h3>
+          <p>Oscillation-gating forhindrer at systemet opfatter rytmiske udsving som begynnende brud.</p>
+        </div>
+      </div>
+      <div class="panel" style="align-self:start;">
+        <h3>Det åbne problem: de-eskalation</h3>
+        <p>Det vigtigste åbne problem er ikke længere tidlig detektion — men <em style="color:rgba(240,235,224,.75);">de-eskalation</em>.</p>
+        <p>M.E.M.I. er blevet god til at opdage og fastholde betydningen af et brud. Det næste forskningsspørgsmål er: hvornår og hvordan skal systemet slippe en alarmtilstand igen, uden at glemme for tidligt?</p>
+        <p>Det er et sværere problem end klassisk recovery, fordi systemet netop ikke må blive blindt igen med det samme. Arbejdet peger mod mekanismer for kontrolleret afspænding af hukommelse og risiko, uden at skade den dokumenterede detektion.</p>
+        <div class="status-row" style="margin-top:16px;">
+          <span class="badge badge-yellow">Aktiv forskning</span>
+          <span class="badge badge-open">Ingen løsning endnu</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUKKER_FABRIKKEN -->
+<section class="dark">
+  <div class="wrap">
+    <span class="eyebrow" style="color:#4ec88c;">Alternativ controller</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 16px;">Sukker_Fabrikken</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;max-width:760px;margin:0 0 32px;color:rgba(240,235,224,.58);">Som en del af M.E.M.I.-forskningen er der udviklet et alternativt controller-koncept. Sukker_Fabrikken er designet som en modvægt til klassisk PID-regulering og symbolsk regelstyring — med fokus på kontekstsensitiv adaption frem for fast regelapplikation.</p>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>Hvad det er</h3>
+        <p>En controller-arkitektur der arbejder med spændinger og kontekst frem for faste regler. Bygger videre på M.E.M.I.s trajectory-logik men som en selvstændig reguleringsmekanisme.</p>
+        <p style="margin-top:10px;">Status: konceptuelt udviklet, afventer empirisk test i M.E.M.I.-regi.</p>
+      </div>
+      <div class="panel">
+        <h3>Forskellen fra klassisk control</h3>
+        <p>Klassiske controllere korrigerer afvigelser. Sukker_Fabrikken forsøger at forstå <em style="color:rgba(240,235,224,.75);">retningen</em> af afvigelsen — og justere reaktionen afhængigt af om systemet er på vej ind i et brud eller på vej ud af det.</p>
+        <p style="margin-top:10px;">Relevant for de-eskalationsproblemet: kan en kontekstsensitiv controller hjælpe systemet med at slippe alarmtilstanden mere kontrolleret?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- M.E.M. FUNDAMENT -->
+<section class="light">
+  <div class="wrap">
+    <span class="eyebrow" style="color:#7a64c8;">Teoretisk fundament</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 16px;">M.E.M.I. udspringer af M.E.M.</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;max-width:760px;margin:0 0 32px;color:#555;">M.E.M. (Meaning · Experience · Model) er det teoretiske grundlag. M.E.M.I. er det tekniske udtryk for samme grundstruktur: et system der arbejder med spændinger — ikke svar — og som forstår sig selv som en del af det felt, det navigerer i.</p>
+    <div class="m-vs" style="border:1px solid rgba(0,0,0,.08);">
+      <div class="m-vs-col" style="background:#f5f0e8;border-right:1px solid rgba(0,0,0,.08);">
+        <h3 style="color:#161616;">M.E.M. — teorien</h3>
+        <ul style="list-style:none;padding:0;margin:0;">
+          <li style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.8;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.06);color:#555;">→ Spændinger som strukturelle træk, ikke fejl</li>
+          <li style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.8;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.06);color:#555;">→ Meaning · Experience · Model som tre dimensioner</li>
+          <li style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.8;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.06);color:#555;">→ Normativ spænding som udgangspunkt for analyse</li>
+          <li style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.8;padding:6px 0;color:#555;">→ Forklaring som deltagelse, ikke observation</li>
+        </ul>
+        <a href="mem.html" style="display:inline-block;margin-top:18px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:#7a64c8;text-decoration:none;">Læs om M.E.M. →</a>
+      </div>
+      <div class="m-vs-col" style="background:#1a0d2a;">
+        <h3 style="color:#f0ebe0;">M.E.M.I. — arkitekturen</h3>
+        <ul style="list-style:none;padding:0;margin:0;">
+          <li style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.8;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.07);color:rgba(240,235,224,.6);">→ Spændingsbaseret beslutning i tekniske systemer</li>
+          <li style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.8;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.07);color:rgba(240,235,224,.6);">→ PreRuptureMemory som aktiv erfaringsstruktur</li>
+          <li style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.8;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.07);color:rgba(240,235,224,.6);">→ Trajectory-awareness frem for tærskel-reaktion</li>
+          <li style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.8;padding:6px 0;color:rgba(240,235,224,.6);">→ De-eskalation som åbent forskningsproblem</li>
+        </ul>
+        <a href="research.html" style="display:inline-block;margin-top:18px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:#a08de8;text-decoration:none;">Se fundene i Forskerhjørnet →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="wrap" style="padding:78px 0;">
+    <span class="eyebrow" style="color:#a08de8;">M.E.M.I. er ikke en færdig løsning</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 14px;color:#f0ebe0;">Det opfører sig som en arkitektur med identificerbare mekanismer — ikke en løs idé</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;color:rgba(240,235,224,.58);margin:0 0 26px;max-width:800px;">M.E.M.I. har passeret et vigtigt punkt: dokumenterede fejlformer, reproducerbare forbedringer og en baseline der holder. Vi søger fagpersoner og organisationer der vil tænke med i næste fase — særligt omkring de-eskalation og Sukker_Fabrikken.</p>
+    <div class="btns">
+      <a href="research.html" class="btn-p">Se alle fund →</a>
+      <a href="kontakt.html" class="btn-s">Tal med os om M.E.M.I.</a>
+    </div>
+    <div class="tagrow" style="margin-top:24px;">
+      <span class="tag">PreRuptureMemory</span>
+      <span class="tag">trajectory-awareness</span>
+      <span class="tag">de-eskalation</span>
+      <span class="tag">episode-hukommelse</span>
+      <span class="tag">oscillation-gating</span>
+      <span class="tag">Sukker_Fabrikken</span>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

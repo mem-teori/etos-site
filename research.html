@@ -1,385 +1,159 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Forskerhjørnet — ETOS · AGI-BABY · Dirigenten</title>
-  <meta name="description" content="Forskerhjørnet samler tre forskningsspor: ETOS governance-infrastruktur, AGI-BABY udviklingsarkitektur og Dirigenten personlig beslutningsstøtte.">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="style-additions.css">
-  <style>
-    section { padding: 76px 52px; }
-    .inner { max-width: 1160px; margin: 0 auto; }
-    .eyebrow { font-family:'DM Sans',sans-serif; font-size:11px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; display:block; margin-bottom:14px; }
-    .hero { background:#10161d; color:#f0ebe0; position:relative; overflow:hidden; }
-    .hero::before { content:''; position:absolute; top:-140px; left:50%; transform:translateX(-50%); width:560px; height:560px; border-radius:50%; background:radial-gradient(circle, rgba(122,158,232,.08), transparent 70%); pointer-events:none; }
-    .hero .inner { position:relative; display:grid; grid-template-columns:1.02fr .98fr; gap:52px; align-items:center; }
-    h1 { font-family:'Playfair Display',serif; font-size:clamp(40px,5vw,60px); font-weight:400; line-height:1.05; letter-spacing:-.02em; margin:0 0 12px; }
-    .subtitle { font-family:'Playfair Display',serif; font-size:clamp(20px,2.3vw,28px); color:#7a9ee8; font-style:italic; margin-bottom:18px; }
-    .lead { font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.85; color:rgba(240,235,224,.56); max-width:700px; margin-bottom:28px; }
-    .btns { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
-    .btn-primary { display:inline-flex; align-items:center; gap:8px; background:#7a9ee8; color:#0d1117; padding:14px 28px; border-radius:9px; text-decoration:none; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:700; }
-    .btn-secondary { font-family:'DM Sans',sans-serif; font-size:14px; color:rgba(240,235,224,.46); text-decoration:none; border-bottom:1px solid rgba(240,235,224,.18); padding-bottom:2px; }
-    .hero-card { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:24px; }
-    .hero-card h3 { font-family:'Playfair Display',serif; font-size:22px; font-weight:400; margin:0 0 10px; color:#f0ebe0; }
-    .hero-card p { font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.75; color:rgba(240,235,224,.52); margin:0; }
-    .pill-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:16px; }
-    .pill { font-family:'DM Sans',sans-serif; font-size:11px; padding:4px 10px; border-radius:999px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); color:rgba(240,235,224,.62); }
-    .light { background:#f5f0e8; }
-    .dark { background:#0d1117; color:#e8ecfc; }
-    .light h2, .dark h2 { font-family:'Playfair Display',serif; font-size:30px; font-weight:400; margin:0 0 8px; }
-    .sub { font-family:'DM Sans',sans-serif; font-size:14px; line-height:1.8; max-width:760px; margin-bottom:34px; color:#666; }
-    .dark .sub { color:rgba(232,236,252,.48); }
-    .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-    .grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
-    .card { background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:16px; padding:24px 22px; }
-    .dark .card { background:rgba(255,255,255,.03); border-color:rgba(255,255,255,.07); }
-    .card h3 { font-family:'Playfair Display',serif; font-size:21px; font-weight:400; margin:0 0 10px; color:#1a1a1a; }
-    .dark .card h3 { color:#e8ecfc; }
-    .card p { font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.75; margin:0; color:#666; }
-    .dark .card p { color:rgba(232,236,252,.46); }
-    .kicker { display:inline-flex; font-family:'DM Sans',sans-serif; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); margin-bottom:10px; }
-    .demo-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
-    .demo-card { border-radius:18px; padding:24px; background:#121922; border:1px solid rgba(255,255,255,.08); }
-    .demo-card h3 { font-family:'Playfair Display',serif; font-size:24px; font-weight:400; color:#f0ebe0; margin:0 0 10px; }
-    .demo-card p { font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.78; color:rgba(240,235,224,.5); margin:0 0 16px; }
-    .demo-link { display:inline-flex; align-items:center; gap:8px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:700; color:#7a9ee8; text-decoration:none; }
-    .list { display:flex; flex-direction:column; gap:10px; }
-    .list-item { padding:14px 16px; border-radius:12px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07); font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.7; color:rgba(232,236,252,.56); }
-    .cta-band { background:#1a1a0d; color:#f0ebe0; }
-    .cta-band .inner { display:flex; align-items:center; justify-content:space-between; gap:28px; flex-wrap:wrap; }
-    .cta-band p { font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.8; color:rgba(240,235,224,.52); margin:8px 0 0; max-width:620px; }
-
-    /* TRACK CARDS */
-    .track-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:8px; }
-    .track-card { border-radius:20px; padding:32px 28px; position:relative; overflow:hidden; border:1px solid rgba(255,255,255,.07); display:flex; flex-direction:column; gap:16px; transition:transform 0.18s, box-shadow 0.18s; }
-    .track-card:hover { transform:translateY(-3px); box-shadow:0 16px 40px rgba(0,0,0,0.25); }
-    .track-card.etos { background:linear-gradient(135deg,#0e1e10 0%,#142218 100%); }
-    .track-card.agi  { background:linear-gradient(135deg,#0d1520 0%,#111c2a 100%); }
-    .track-card.dirg { background:linear-gradient(135deg,#1a1020 0%,#1e1428 100%); }
-    .track-card::before { content:''; position:absolute; top:-60px; right:-60px; width:180px; height:180px; border-radius:50%; pointer-events:none; }
-    .track-card.etos::before { background:radial-gradient(circle,rgba(80,180,100,.10),transparent 70%); }
-    .track-card.agi::before  { background:radial-gradient(circle,rgba(122,158,232,.10),transparent 70%); }
-    .track-card.dirg::before { background:radial-gradient(circle,rgba(226,136,78,.10),transparent 70%); }
-    .track-icon { font-size:28px; line-height:1; }
-    .track-label { font-family:'DM Sans',sans-serif; font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
-    .track-card.etos .track-label { color:#6ddb85; }
-    .track-card.agi  .track-label { color:#7a9ee8; }
-    .track-card.dirg .track-label { color:#E2884E; }
-    .track-card h3 { font-family:'Playfair Display',serif; font-size:22px; font-weight:400; color:#f0ebe0; margin:0; line-height:1.2; }
-    .track-card p { font-family:'DM Sans',sans-serif; font-size:13px; line-height:1.78; color:rgba(240,235,224,.50); margin:0; flex:1; }
-    .track-tag-row { display:flex; gap:6px; flex-wrap:wrap; }
-    .track-tag { font-family:'DM Sans',sans-serif; font-size:10px; padding:3px 9px; border-radius:999px; border:1px solid rgba(255,255,255,.1); color:rgba(240,235,224,.5); }
-    .track-link { display:inline-flex; align-items:center; gap:7px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:700; text-decoration:none; margin-top:auto; }
-    .track-card.etos .track-link { color:#6ddb85; }
-    .track-card.agi  .track-link { color:#7a9ee8; }
-    .track-card.dirg .track-link { color:#E2884E; }
-
-    /* AGI STATUS CHIPS */
-    .status-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:8px; }
-    .status-chip { border-radius:14px; padding:20px 18px; border:1px solid rgba(0,0,0,.08); font-family:'DM Sans',sans-serif; }
-    .status-chip .regime-dot { width:10px; height:10px; border-radius:50%; display:inline-block; margin-bottom:10px; }
-    .status-chip h4 { font-size:15px; font-weight:500; color:#1a1a1a; margin:0 0 6px; }
-    .status-chip p { font-size:12px; color:#666; margin:0; line-height:1.65; }
-    .status-chip.stable   { background:rgba(80,180,100,.06); border-color:rgba(80,180,100,.20); }
-    .status-chip.unstable { background:rgba(230,180,60,.06); border-color:rgba(230,180,60,.20); }
-    .status-chip.overload { background:rgba(220,80,80,.06); border-color:rgba(220,80,80,.20); }
-    .stable .regime-dot   { background:#50b464; }
-    .unstable .regime-dot { background:#e6b43c; }
-    .overload .regime-dot { background:#dc5050; }
-
-    /* TENSION BARS */
-    .tension-row { display:flex; flex-direction:column; gap:12px; }
-    .tension-item { display:flex; align-items:center; gap:14px; }
-    .tension-label { font-family:'DM Sans',sans-serif; font-size:12px; color:rgba(232,236,252,.55); width:180px; flex-shrink:0; }
-    .tension-bar-bg { flex:1; height:6px; border-radius:999px; background:rgba(255,255,255,.07); }
-    .tension-bar { height:6px; border-radius:999px; background:linear-gradient(90deg,#E2884E,#d4743a); }
-    .tension-val { font-family:'DM Sans',sans-serif; font-size:11px; color:rgba(232,236,252,.4); width:28px; text-align:right; }
-
-    .big-quote { font-family:'Playfair Display',serif; font-size:clamp(18px,2.5vw,26px); font-style:italic; font-weight:400; border-left:3px solid #7a9ee8; padding-left:24px; margin:0; line-height:1.5; }
-
-    @media (max-width:900px) {
-      section { padding:52px 28px; }
-      .hero .inner,.grid-3,.grid-2,.demo-grid,.track-grid,.status-grid { grid-template-columns:1fr; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forskerhjørnet — fund, mekanismer og arbejdet i bevægelse</title>
+<meta name="description" content="Forskerhjørnet samler de dokumenterede fund fra M.E.M.I.-forskningen og ETOS-arkitekturen. Arbejdet i bevægelse.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style-additions.css">
+<style>
+section{padding:78px 52px}.wrap{max-width:1160px;margin:0 auto}
+.eyebrow{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:14px}
+.hero{background:#0d1a2a;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;right:-120px;top:-120px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(122,158,232,.10),transparent 70%)}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;position:relative}
+.h1{font-family:'Playfair Display',serif;font-size:clamp(38px,5vw,58px);line-height:1.05;font-weight:400;letter-spacing:-.02em;margin:0 0 14px;color:#f0ebe0}
+.lead{font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.82;color:rgba(240,235,224,.55);max-width:640px;margin:0 0 28px}
+.btns{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:#7a9ee8;color:#0d1117;padding:14px 26px;border-radius:9px;text-decoration:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700}
+.btn-s{font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,.5);text-decoration:none;border-bottom:1px solid rgba(240,235,224,.18);padding-bottom:2px}
+.panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:28px}
+.panel h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;color:#f0ebe0;margin:0 0 10px}
+.panel p{font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.5);margin:0 0 8px}
+.panel p:last-child{margin:0}
+.light{background:#f5f0e8}.light h2{color:#161616}.light p{color:#555}
+.dark{background:#0d1117}.dark h2{color:#f0ebe0}
+.mid{background:#0a0f1a}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{border-radius:16px;padding:24px 22px;border:1px solid rgba(0,0,0,.08);background:#fff}
+.dark .card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08)}
+.mid .card{background:rgba(122,158,232,.04);border:1px solid rgba(122,158,232,.12)}
+.light .card h3{color:#161616}.light .card p{color:#666}
+.dark .card h3,.mid .card h3{color:#f0ebe0}
+.dark .card p,.mid .card p{color:rgba(240,235,224,.55)}
+.card h3{font-family:'Playfair Display',serif;font-size:19px;font-weight:400;margin:0 0 8px}
+.card p{font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;margin:0}
+.mini{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:10px}
+.light .mini{color:var(--accent)}.dark .mini,.mid .mini{color:#7a9ee8}
+.finding{border-radius:16px;padding:28px;margin-bottom:14px;border-left:3px solid}
+.finding-memi{background:rgba(122,100,200,.06);border-left-color:#a08de8}
+.finding-etos{background:rgba(78,200,140,.04);border-left-color:#4ec88c}
+.finding-open{background:rgba(240,200,80,.04);border-left-color:#f0c850}
+.finding-tag{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:inline-block;margin-bottom:10px;padding:3px 9px;border-radius:999px}
+.tag-memi{background:rgba(122,100,200,.12);color:#a08de8;border:1px solid rgba(122,100,200,.2)}
+.tag-etos{background:rgba(78,200,140,.10);color:#4ec88c;border:1px solid rgba(78,200,140,.2)}
+.tag-open{background:rgba(240,200,80,.10);color:#f0c850;border:1px solid rgba(240,200,80,.2)}
+.finding h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;color:#f0ebe0;margin:0 0 8px}
+.finding p{font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.58);margin:0}
+.version-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.version-badge{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px;background:rgba(122,158,232,.12);border:1px solid rgba(122,158,232,.2);color:#7a9ee8}
+.cta-dark{background:#1a1a0d}
+@media(max-width:920px){.hero .wrap,.grid-2,.grid-3{grid-template-columns:1fr}section{padding:56px 28px}}
+</style>
 </head>
 <body>
-
-<header class="fs-header">
-  <div class="fs-nav">
+<header class="fs-header"><div class="fs-nav">
     <a href="index.html" class="fs-logo">M.E.M.</a>
     <nav class="fs-links">
-      <a href="etos.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Governance-lag</span></span>
-      </a>
-      <a href="produkter.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#1a1228;">🛍</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Produkter</span><span class="fs-nav-sub">Software · Forløb · Bøger</span></span>
-      </a>
-      <div class="fs-dropdown">
-        <a href="research.html" class="fs-nav-item active">
-          <span class="fs-nav-icon" style="background:#111520;">🧪</span>
-          <span class="fs-nav-text"><span class="fs-nav-title">Forskerhjørnet</span><span class="fs-nav-sub">Lab · AGI-BABY · Dirigenten</span></span>
-          <span class="fs-nav-item-arrow">▾</span>
-        </a>
-        <div class="fs-dropdown-menu">
-          <a href="research.html" class="fs-dropdown-item">
-            <span class="fs-dropdown-item-icon" style="background:#111520;">🧪</span>
-            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Forskerhjørnet</span><span class="fs-dropdown-item-sub">Overblik over alle spor</span></span>
-          </a>
-          <a href="meta_demo.html" class="fs-dropdown-item">
-            <span class="fs-dropdown-item-icon" style="background:#0d1a2a;">🧠</span>
-            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Meta Demo</span><span class="fs-dropdown-item-sub">Statiske signaturcases</span></span>
-          </a>
-          <a href="propose.html" class="fs-dropdown-item">
-            <span class="fs-dropdown-item-icon" style="background:#1a2020;">⚙️</span>
-            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Proposal Generator</span><span class="fs-dropdown-item-sub">Semi-dynamisk ETOS-Self</span></span>
-          </a>
-          <a href="agi-baby.html" class="fs-dropdown-item">
-            <span class="fs-dropdown-item-icon" style="background:#0d1520;">🧸</span>
-            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">AGI-BABY</span><span class="fs-dropdown-item-sub">Udviklingsarkitektur</span></span>
-          </a>
-          <a href="dirigent-rum.html" class="fs-dropdown-item">
-            <span class="fs-dropdown-item-icon" style="background:#1a1020;">🎼</span>
-            <span class="fs-dropdown-item-text"><span class="fs-dropdown-item-title">Dirigenten</span><span class="fs-dropdown-item-sub">Personlig beslutningsstøtte</span></span>
-          </a>
-        </div>
-      </div>
+      <a href="memi.html" class="fs-nav-item"><span class="fs-nav-icon" style="background:#1a0d2a;">&#x1F9E0;</span><span class="fs-nav-text"><span class="fs-nav-title">M.E.M.I.</span><span class="fs-nav-sub">Beslutningsarkitektur &middot; forskning</span></span></a>
+      <a href="etos.html" class="fs-nav-item"><span class="fs-nav-icon" style="background:#1E2E1F;">&#x1F9ED;</span><span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Governance-native platform</span></span></a>
+      <a href="research.html" class="fs-nav-item"><span class="fs-nav-icon" style="background:#0d1a2a;">&#x1F9EA;</span><span class="fs-nav-text"><span class="fs-nav-title">Forskerhjørnet</span><span class="fs-nav-sub">Fund &middot; working papers &middot; demoer</span></span></a>
+      <a href="boerneunivers.html" class="fs-nav-item"><span class="fs-nav-icon" style="background:#2a1f1a;">&#x1F331;</span><span class="fs-nav-text"><span class="fs-nav-title">B&#xF8;rneunivers</span><span class="fs-nav-sub">B&#xF8;ger &middot; uniVRs &middot; Bankeren</span></span></a>
     </nav>
     <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
       <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
       <a href="research-en.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">EN</a>
     </div>
-  </div>
-</header>
+  </div></header>
 
-<section class="hero">
-  <div class="inner">
+<section class="hero"><div class="wrap">
+  <div>
+    <span class="eyebrow" style="color:#7a9ee8;">Forskerh&oslash;rnet &middot; offentligt laboratorium</span>
+    <h1 class="h1">Ikke bare resultater &mdash;<br><em style="font-style:italic;color:#7a9ee8;">arbejdet i bev&aelig;gelse</em></h1>
+    <p class="lead">Forskerh&oslash;rnet er det offentlige laboratorium for M.E.M.I. og ETOS: dokumenterede fund, mekanismer vi har identificeret og udfordret, eksperimenter der gik godt og dem der viste noget vigtigt ved at g&aring; galt.</p>
+    <div class="btns">
+      <a href="memi.html" class="btn-p">Forst&aring; M.E.M.I. &rarr;</a>
+      <a href="etos.html" class="btn-s">Se ETOS-platformen &darr;</a>
+    </div>
+  </div>
+  <div class="panel">
+    <h3>I Niels Bohrs &aring;nd</h3>
+    <p>Id&eacute;en er enkel: videnskab og erkendelse m&aring; kunne deles. Ikke alt skal offentligg&oslash;res i motor-rummet, men udvikling, argumenter og fund skal kunne l&aelig;ses, udfordres og tages videre.</p>
+    <p>Det her er ikke en side om, hvad vi har bygget f&aelig;rdigt. Det er en side om, hvad vi har l&aelig;rt undervejs &mdash; og hvad der stadig er &aring;bent.</p>
+  </div>
+</div></section>
+
+<section class="light"><div class="wrap">
+  <span class="eyebrow" style="color:var(--accent);">Hvad der er tilg&aelig;ngeligt nu</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 32px;">Alt det der er &mdash; ingen ventelister</h2>
+  <div class="grid-3">
+    <div class="card"><span class="mini">M.E.M.I.-forskning</span><h3>PreRuptureMemory fund</h3><p>Dokumenterede mekanismer fra v3 til v6.8: episodelagring, trajectory-awareness, oscillation-gating og episode-spam. Pr&aelig;cise diagnoser, ikke brede hypoteser.</p></div>
+    <div class="card"><span class="mini">ETOS-arkitektur</span><h3>Governance-loop og v3.0&ndash;v3.5</h3><p>Udviklingen af ETOS fra drift-aware governance til aktiv styring: CDP, ETOS-Self, Drift Memory og det lukkede feedback-loop der binder dem sammen.</p></div>
+    <div class="card"><span class="mini">&Aring;bne problemer</span><h3>De-eskalation og Sukker_Fabrikken</h3><p>De vigtigste ul&oslash;ste sp&oslash;rgsm&aring;l: hvorn&aring;r og hvordan slipper et system en alarmtilstand kontrolleret? Hvad kan en kontekstsensitiv controller tilbyde her?</p></div>
+  </div>
+</div></section>
+
+<section class="dark"><div class="wrap">
+  <span class="eyebrow" style="color:#7a9ee8;">Dokumenterede fund</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 8px;">Hvad vi ved med sikkerhed</h2>
+  <p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;max-width:760px;margin:0 0 36px;color:rgba(240,235,224,.55);">Disse fund er reproducerbare &mdash; pr&aelig;cise diagnoser bekr&aelig;ftet via m&aring;lrettede patches, ikke tilf&aelig;ldige observationer.</p>
+
+  <div class="finding finding-memi"><div class="version-row"><span class="finding-tag tag-memi">M.E.M.I.</span><span class="version-badge">PreRuptureMemory</span></div><h3>Episodestyrke skal afspejle driftsstyrke</h3><p>St&aelig;rkere drift-episoder skal v&aelig;gte mere end svage. Line&aelig;r v&aelig;gtning undervurderer systemisk bev&aelig;gelse og forsinker tidlig detektion i de scenarier, der er vigtigst at opfange tidligt.</p></div>
+
+  <div class="finding finding-memi"><div class="version-row"><span class="finding-tag tag-memi">M.E.M.I.</span><span class="version-badge">PreRuptureMemory</span></div><h3>Tidlig alarm er et lagringsproblem, ikke et t&aelig;rskelproblem</h3><p>Forkert episodelagring medf&oslash;rer forsinket eller manglende genkendelse &mdash; uanset t&aelig;rskelv&aelig;rdi. Strukturen af den lagrede episode bestemmer om en lignende fremtidig tilstand genkendes i tide.</p></div>
+
+  <div class="finding finding-memi"><div class="version-row"><span class="finding-tag tag-memi">M.E.M.I.</span><span class="version-badge">Trajectory-awareness</span></div><h3>Statiske episoder for&aelig;ldes under langsom drift</h3><p>Et system kan bev&aelig;ge sig st&oslash;dt mod et brud over lang tid, mens lagrede episoder stille for&aelig;ldes. Trajectory-aware refresh er n&oslash;dvendig for at opretholde relevant hukommelse.</p></div>
+
+  <div class="finding finding-memi"><div class="version-row"><span class="finding-tag tag-memi">M.E.M.I.</span><span class="version-badge">Oscillation-gating</span></div><h3>Oscillation og drift kan ikke skilles via goal-distance alene</h3><p>Rytmiske udsving og reel retningsdrift ser ens ud i goal-distance-m&aring;let. S&aelig;rskilt gating-logik er n&oslash;dvendig for at undg&aring; falske alarmer i oscillerende scenarier.</p></div>
+
+  <div class="finding finding-memi"><div class="version-row"><span class="finding-tag tag-memi">M.E.M.I.</span><span class="version-badge">Hukommelseshygiejne</span></div><h3>Vedvarende pres genererer episode-spam</h3><p>Under vedvarende pres kan systemet overskrives med n&aelig;sten-identiske episoder. Cooldown-mekanismer h&aring;ndterer dette uden at kompromittere detektion.</p></div>
+
+  <div class="finding finding-etos"><div class="version-row"><span class="finding-tag tag-etos">ETOS v3.5</span><span class="version-badge">Governance-loop</span></div><h3>Governance skal styre, ikke dokumentere</h3><p>Den afg&oslash;rende forskel i ETOS v3.5: governance er ikke en log &mdash; det er en operativ tilstand der former fremtidige forslag. Recommended mode, human review enforcement og aktiv stabilisering er operationelle mekanismer.</p></div>
+
+  <div class="finding finding-open"><div class="version-row"><span class="finding-tag tag-open">&Aring;bent problem</span><span class="version-badge">De-eskalation</span></div><h3>Hvorn&aring;r skal et system glemme kontrolleret?</h3><p>M.E.M.I. er god til at holde fast i betydningen af et brud. Det ul&oslash;ste sp&oslash;rgsm&aring;l: hvorn&aring;r og under hvilke betingelser b&oslash;r en alarmtilstand afsp&aelig;ndes, uden at systemet bliver blindt igen?</p></div>
+</div></section>
+
+<section class="mid"><div class="wrap">
+  <span class="eyebrow" style="color:#7a9ee8;">Baseline-oversigt</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 16px;color:#f0ebe0;">Fra v3 til v6.8</h2>
+  <p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;max-width:760px;margin:0 0 32px;color:rgba(240,235,224,.55);">Hvert trin er en pr&aelig;cis diagnose og patch &mdash; ikke bred parameter-s&oslash;gning.</p>
+  <div class="grid-2">
     <div>
-      <span class="eyebrow" style="color:#7a9ee8;">ETOS Research Lab · åbent laboratorium</span>
-      <h1>Forskerhjørnet</h1>
-      <p class="subtitle">Tre spor. Ét forskningsunivers.</p>
-      <p class="lead">Forskerhjørnet er ikke bare et sted at publicere resultater — det er et åbent laboratorium, hvor selve forskningsbevægelsen er synlig. Her finder du ETOS's governance-arkitektur, AGI-BABY's udviklingsmekanik og Dirigentens menneskelige beslutningslag samlet under ét tag.</p>
-      <div class="btns">
-        <a href="#spor" class="btn-primary">Se de tre spor →</a>
-        <a href="simulation-lab-da.html" class="btn-secondary">Simulation Lab</a>
-      </div>
-      <div class="pill-row">
-        <span class="pill">ETOS · governance</span>
-        <span class="pill">AGI-BABY · udviklingsarkitektur</span>
-        <span class="pill">Dirigenten · menneskelig skala</span>
-      </div>
+      <div class="card" style="margin-bottom:12px;"><span class="mini">v3 &rarr; v4</span><h3>Episodelagring introduceret</h3><p>F&oslash;rste version med struktureret hukommelse for brudhændelser. Viste problemet med line&aelig;r v&aelig;gtning.</p></div>
+      <div class="card" style="margin-bottom:12px;"><span class="mini">v4 &rarr; v5</span><h3>Trajectory-awareness</h3><p>Systemet m&aring;ler retning, ikke kun position. Statisk episodefore&aelig;ldelse identificeret.</p></div>
+      <div class="card"><span class="mini">v5 &rarr; v6</span><h3>Oscillation-gating og cooldown</h3><p>S&aelig;rskilt logik for oscillerende scenarier. Episode-spam reduceret.</p></div>
     </div>
-    <div class="hero-card">
-      <h3>Et samlet forskningsunivers</h3>
-      <p>De tre spor undersøger tre forskellige niveauer af det samme grundspørgsmål: hvordan systemer — tekniske, kognitive og menneskelige — bevarer frihed, håndterer pres og træffer beslutninger, der kan stå på mål.</p>
-      <div style="margin-top:18px;display:flex;flex-direction:column;gap:8px;">
-        <div style="display:flex;align-items:center;gap:10px;">
-          <span style="width:8px;height:8px;border-radius:50%;background:#6ddb85;flex-shrink:0;"></span>
-          <span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,.55);">ETOS — governance i systemer</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <span style="width:8px;height:8px;border-radius:50%;background:#7a9ee8;flex-shrink:0;"></span>
-          <span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,.55);">AGI-BABY — udviklingsmekanik og recovery</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <span style="width:8px;height:8px;border-radius:50%;background:#E2884E;flex-shrink:0;"></span>
-          <span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,.55);">Dirigenten — menneskelig regulering</span>
-        </div>
+    <div class="panel" style="align-self:start;">
+      <h3>v6.8 &mdash; nuv&aelig;rende baseline</h3>
+      <p>F&oslash;rste version der samlet viste bedre detektion i langsom drift, &aring;bnede value drift-scenarier og eliminerede falsk alarm &mdash; <em style="color:rgba(240,235,224,.75);">uden nye regressioner</em>.</p>
+      <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+        <span style="font-family:'DM Sans',sans-serif;font-size:11px;padding:4px 10px;border-radius:999px;background:rgba(78,200,140,.12);border:1px solid rgba(78,200,140,.2);color:#4ec88c;">Langsom drift &#10003;</span>
+        <span style="font-family:'DM Sans',sans-serif;font-size:11px;padding:4px 10px;border-radius:999px;background:rgba(78,200,140,.12);border:1px solid rgba(78,200,140,.2);color:#4ec88c;">Value drift &#10003;</span>
+        <span style="font-family:'DM Sans',sans-serif;font-size:11px;padding:4px 10px;border-radius:999px;background:rgba(78,200,140,.12);border:1px solid rgba(78,200,140,.2);color:#4ec88c;">Nul falsk alarm &#10003;</span>
+        <span style="font-family:'DM Sans',sans-serif;font-size:11px;padding:4px 10px;border-radius:999px;background:rgba(240,200,80,.10);border:1px solid rgba(240,200,80,.2);color:#f0c850;">De-eskalation: &aring;ben</span>
       </div>
     </div>
   </div>
-</section>
+</div></section>
 
-<!-- TRE SPOR -->
-<section class="dark" id="spor">
-  <div class="inner">
-    <span class="eyebrow" style="color:var(--accent);">Forskningsspor</span>
-    <h2>Tre spor — tre perspektiver på det samme spørgsmål</h2>
-    <p class="sub">Hvert spor er selvstændigt. Men de hænger sammen som ét laboratorium: ETOS viser, hvad governance er. AGI-BABY viser, hvad udvikling er. Dirigenten viser, hvad det vil sige at regulere sig selv som menneske.</p>
-    <div class="track-grid">
-      <div class="track-card etos">
-        <div><div class="track-icon">🧭</div><div class="track-label" style="margin-top:10px;">Spor 1</div></div>
-        <h3>ETOS</h3>
-        <p>Governance-native beslutningsinfrastruktur. ETOS viser, hvordan systemer kan træffe beslutninger under normative rammer — og sige nej til sig selv, når det er nødvendigt.</p>
-        <div class="track-tag-row">
-          <span class="track-tag">Recursive governance</span>
-          <span class="track-tag">Drift detection</span>
-          <span class="track-tag">Alignment</span>
-          <span class="track-tag">CDP</span>
-        </div>
-        <a href="etos.html" class="track-link">Gå til ETOS →</a>
-      </div>
-      <div class="track-card agi">
-        <div><div class="track-icon">🧸</div><div class="track-label" style="margin-top:10px;">Spor 2</div></div>
-        <h3>AGI-BABY</h3>
-        <p>Et dynamisk, miljøfølsomt udviklingssystem med realistisk sårbarhed, recovery og ikke-deterministisk adfærd. Ikke AGI — men heller ikke længere bare en simulation af metrics.</p>
-        <div class="track-tag-row">
-          <span class="track-tag">Developmental dynamics</span>
-          <span class="track-tag">Recovery</span>
-          <span class="track-tag">Regime detection</span>
-          <span class="track-tag">Diagnostics</span>
-        </div>
-        <a href="agi-baby.html" class="track-link">Gå til AGI-BABY →</a>
-      </div>
-      <div class="track-card dirg">
-        <div><div class="track-icon">🎼</div><div class="track-label" style="margin-top:10px;">Spor 3</div></div>
-        <h3>Dirigenten</h3>
-        <p>ETOS i menneskelig skala. Dirigenten hjælper med at regulere beslutningsenergi, skabe overblik og håndtere spændinger — ikke ved at optimere, men ved at give stemme til det rigtige tidspunkt.</p>
-        <div class="track-tag-row">
-          <span class="track-tag">Tension model</span>
-          <span class="track-tag">Governance modes</span>
-          <span class="track-tag">Drift tracking</span>
-          <span class="track-tag">ETOS-P</span>
-        </div>
-        <a href="dirigent-rum.html" class="track-link">Gå til Dirigenten →</a>
-      </div>
-    </div>
-  </div>
-</section>
+<section class="light"><div class="wrap">
+  <span class="eyebrow">Pr&oslash;v det selv</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 16px;">ETOS live-demo</h2>
+  <p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;max-width:660px;margin:0 0 28px;color:#555;">Den interaktive demo lader dig se, hvordan ETOS registrerer sp&aelig;ndinger og hvordan beslutningsmode &aelig;ndrer sig n&aring;r parametre bev&aelig;ger sig. Et fungerende system, ikke en animation.</p>
+  <a href="system.html" style="display:inline-flex;align-items:center;gap:8px;background:#7a9ee8;color:#0d1117;padding:14px 26px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;text-decoration:none;">&Aring;bn demoen &rarr;</a>
+</div></section>
 
-<!-- AGI-BABY SNAPSHOT -->
-<section class="light">
-  <div class="inner">
-    <span class="eyebrow" style="color:#7a9ee8;">AGI-BABY · Baseline v1</span>
-    <h2>Et fungerende udviklingsystem med tre regimer</h2>
-    <p class="sub">AGI-BABY er ikke AGI. Men det er heller ikke længere bare en scoremaskine. Det er et dynamisk system, der kan vokse, kollapse og komme sig — og gøre det forskelligt afhængigt af miljøet.</p>
-    <blockquote class="big-quote" style="color:#1a1a1a;margin-bottom:32px;">"Stabilisering er ikke det samme som recovery."</blockquote>
-    <div class="status-grid">
-      <div class="status-chip stable">
-        <span class="regime-dot"></span>
-        <h4>🟢 Stable</h4>
-        <p>Troværdig livscyklus. Kan nå infant/toddler, falde tilbage og komme sig igen. Kollaps via coherence-erosion. Recovery er mulig og varieret.</p>
-      </div>
-      <div class="status-chip unstable">
-        <span class="regime-dot"></span>
-        <h4>🟡 Unstable</h4>
-        <p>Sårbart men ikke deterministisk. Nogle runs når infant, andre kollapser tidligt. Pause-lock sker — men ikke altid.</p>
-      </div>
-      <div class="status-chip overload">
-        <span class="regime-dot"></span>
-        <h4>🔴 Overload</h4>
-        <p>Korrekt ekstremtilstand. Aldrig progression. Permanent pause-lock. Kollaps via suppression. Ingen recovery mulig.</p>
-      </div>
-    </div>
-    <div style="margin-top:24px;">
-      <a href="agi-baby.html" style="display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;color:#7a9ee8;text-decoration:none;">Læs hele AGI-BABY status →</a>
-    </div>
+<section class="cta-dark"><div class="wrap" style="padding:78px 0;">
+  <span class="eyebrow" style="color:#7a9ee8;">Samarbejde og dialog</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 14px;color:#f0ebe0;">Forskerh&oslash;rnet er ikke kun til l&aelig;sning</h2>
+  <p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;color:rgba(240,235,224,.58);margin:0 0 26px;max-width:800px;">Har du erfaringer, kritik eller indsigter der kan berige arbejdet? Skriv direkte &mdash; ingen dagsorden n&oslash;dvendig.</p>
+  <div class="btns">
+    <a href="kontakt.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;padding:14px 26px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;text-decoration:none;">Kontakt os &rarr;</a>
+    <a href="memi.html" style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(240,235,224,.5);text-decoration:none;border-bottom:1px solid rgba(240,235,224,.18);padding-bottom:2px;">L&aelig;s om M.E.M.I.</a>
   </div>
-</section>
-
-<!-- DIRIGENTEN SNAPSHOT -->
-<section class="dark">
-  <div class="inner">
-    <span class="eyebrow" style="color:#E2884E;">Dirigenten · ETOS-P</span>
-    <h2>ETOS i menneskelig skala</h2>
-    <p class="sub">Dirigenten er ikke bare et produktivitetsværktøj. Det er det første sted, ETOS bliver konkret som menneskelig praksis — med spændingsmodel, governance-modes og drift tracking.</p>
-    <div class="grid-2">
-      <div>
-        <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(232,236,252,.55);line-height:1.8;margin-bottom:20px;">Dirigenten v2 indfører tre nye lag: en eksplicit spændingsmodel, governance modes (optimize · monitor · stabilize · pause) og drift tracking over tid — så systemet registrerer retning og acceleration i brugerens beslutningsadfærd, ikke bare øjeblikstilstand.</p>
-        <div class="tension-row">
-          <div class="tension-item">
-            <span class="tension-label">Orden vs. frihed</span>
-            <div class="tension-bar-bg"><div class="tension-bar" style="width:70%;"></div></div>
-            <span class="tension-val">0.7</span>
-          </div>
-          <div class="tension-item">
-            <span class="tension-label">Indsats vs. overload</span>
-            <div class="tension-bar-bg"><div class="tension-bar" style="width:50%;"></div></div>
-            <span class="tension-val">0.5</span>
-          </div>
-          <div class="tension-item">
-            <span class="tension-label">Kontrol vs. autonomi</span>
-            <div class="tension-bar-bg"><div class="tension-bar" style="width:80%;"></div></div>
-            <span class="tension-val">0.8</span>
-          </div>
-        </div>
-        <div style="margin-top:24px;">
-          <a href="dirigent-rum.html" style="display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;color:#E2884E;text-decoration:none;">Åbn Dirigenten →</a>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:12px;">
-        <div class="card" style="background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.07);">
-          <span class="kicker" style="color:#E2884E;">ETOS-P</span>
-          <h3 style="color:#e8ecfc;font-size:17px;">ETOS på menneskeniveau</h3>
-          <p style="color:rgba(232,236,252,.46);">Dirigenten er det tredje niveau: efter systemer og cybersikkerhed nu menneskelig beslutningsenergi og overblik som et ETOS-kompatibelt lag.</p>
-        </div>
-        <div class="card" style="background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.07);">
-          <span class="kicker" style="color:#E2884E;">Governance modes</span>
-          <h3 style="color:#e8ecfc;font-size:17px;">Modes der matcher energi</h3>
-          <p style="color:rgba(232,236,252,.46);">Lav energi → stabilize. Overload → pause. Systemet styrer tempo og forslag — ikke brugeren alene.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DEMOER -->
-<section class="light" id="demoer">
-  <div class="inner">
-    <span class="eyebrow" style="color:var(--accent);">Live spor</span>
-    <h2>Demoer og simulationer</h2>
-    <p class="sub">Herfra kan man gå direkte ind i de konkrete demoer. De viser ikke bare output — men hvordan ETOS vurderer, afviser, accepterer eller eskalerer forslag gennem et governance-loop.</p>
-    <div class="demo-grid">
-      <div class="demo-card">
-        <span class="kicker">Signaturcases</span>
-        <h3>Meta Demo</h3>
-        <p>Viser de tydelige cases, hvor ETOS fx afviser en teknisk valid optimering, fordi den undergraver systemets normative rolle. Det er stedet, hvor "The Rejection That Makes Sense" bliver synligt.</p>
-        <a class="demo-link" href="meta_demo.html">Åbn Meta Demo →</a>
-      </div>
-      <div class="demo-card">
-        <span class="kicker">Semi-dynamisk loop</span>
-        <h3>Proposal Generator</h3>
-        <p>Lader ETOS-Self generere forslag ud fra kontekstprofiler, som derefter evalueres af CDP. Det gør den rekursive idé mere håndgribelig og viser, hvordan forslag bliver til governance-beslutninger.</p>
-        <a class="demo-link" href="propose.html">Åbn Proposal Generator →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CENTRALE SPØRGSMÅL -->
-<section class="dark">
-  <div class="inner">
-    <span class="eyebrow" style="color:var(--accent);">Hvad der undersøges</span>
-    <h2>De centrale spørgsmål på tværs af sporene</h2>
-    <p class="sub">Sporene er selvstændige — men undersøger varianter af det samme grundspørgsmål om frihed, pres og recovery i systemer på forskellige niveauer.</p>
-    <div class="grid-2">
-      <div class="card">
-        <span class="kicker">ETOS · Recursive governance</span>
-        <h3>Kan et system lære under governance?</h3>
-        <p>ETOS undersøger, om et system kan korrigere sig selv uden at glide udenom sine egne konstitutionelle rammer.</p>
-      </div>
-      <div class="card">
-        <span class="kicker">AGI-BABY · Recovery</span>
-        <h3>Hvornår er stabilisering ikke nok?</h3>
-        <p>AGI-BABY viser at et system kan stabilisere sig — og stadig miste coherence. Recovery kræver aktiv mekanik, ikke bare dæmpning.</p>
-      </div>
-      <div class="card">
-        <span class="kicker">ETOS · Drift</span>
-        <h3>Kan normativ bevægelse opdages tidligt?</h3>
-        <p>Drift, velocity, acceleration og oscillation bruges som praktiske signaler på, om et system bevæger sig væk fra sit formål.</p>
-      </div>
-      <div class="card">
-        <span class="kicker">Dirigenten · ETOS-P</span>
-        <h3>Kan et menneske have et governance-lag?</h3>
-        <p>Dirigenten tester, om ETOS-principperne kan overføres til menneskelig beslutningsenergi — med spændingsmodeller og governance modes.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="cta-band">
-  <div class="inner">
-    <div>
-      <span class="eyebrow" style="color:#f0c850;">Næste skridt</span>
-      <h2 style="font-family:'Playfair Display',serif;font-size:30px;font-weight:400;margin:0;color:#f0ebe0;">Vil du følge udviklingen — eller starte et eget spor?</h2>
-      <p>Forskerhjørnet er tænkt som både dokumentation og invitation. Hvis du vil følge med, udfordre noget eller undersøge et eget projektspor, er det her indgangen begynder.</p>
-    </div>
-    <a href="kontakt.html" class="btn-primary" style="background:#f0c850;color:#1a1a0d;">Tag kontakt →</a>
-  </div>
-</section>
+</div></section>
 
 </body>
 </html>
