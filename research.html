@@ -51,6 +51,8 @@ section{padding:78px 52px}.wrap{max-width:1160px;margin:0 auto}
 .version-badge{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px;background:rgba(122,158,232,.12);border:1px solid rgba(122,158,232,.2);color:#7a9ee8}
 .cta-dark{background:#1a1a0d}
 @media(max-width:920px){.hero .wrap,.grid-2,.grid-3{grid-template-columns:1fr}section{padding:56px 28px}}
+
+    @media(max-width:920px){.cap-grid,.open-grid,.summary-grid{grid-template-columns:1fr!important}.test-grid{grid-template-columns:1fr 1fr!important}.open-grid .span-2{grid-column:span 1!important}}
 </style>
 </head>
 <body>
@@ -97,6 +99,122 @@ section{padding:78px 52px}.wrap{max-width:1160px;margin:0 auto}
     <p>Det her er ikke en side om, hvad vi har bygget f&aelig;rdigt. Det er en side om, hvad vi har l&aelig;rt undervejs &mdash; og hvad der stadig er &aring;bent.</p>
   </div>
 </div></section>
+
+<section style="background:#130d1a;padding:78px 52px;border-top:1px solid rgba(160,141,232,0.12);">
+  <div style="max-width:1160px;margin:0 auto;">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:14px;color:#a08de8;">M.E.M.I. v6.8 · Status april 2026</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 14px;color:#f0ebe0;">Et epistemisk beslutningssystem —<br><em style="font-style:italic;color:#a08de8;">der arbejder på spændinger, ikke regler</em></h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;max-width:760px;margin:0 0 48px;color:rgba(240,235,224,.55);">M.E.M.I. er i den nuværende version fokuseret på at forstå og håndtere brud i systemets tilstand — ikke blot reagere på dem. Her er den samlede status fra april 2026.</p>
+
+    <!-- Hvad systemet KAN nu -->
+    <div style="margin-bottom:48px;">
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:20px;">Hvad systemet kan nu</span>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;" class="cap-grid">
+        <div style="background:rgba(78,200,140,.05);border:1px solid rgba(78,200,140,.15);border-radius:14px;padding:22px 20px;">
+          <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:8px;">Tidlig detektion</span>
+          <p style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.6);margin:0;">Systemet identificerer begyndende drift, før den bliver kritisk, baseret på trajectory i spændingsfeltet — ikke enkeltstående signaler.</p>
+        </div>
+        <div style="background:rgba(78,200,140,.05);border:1px solid rgba(78,200,140,.15);border-radius:14px;padding:22px 20px;">
+          <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:8px;">Reel drift vs. midlertidigt pres</span>
+          <p style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.6);margin:0;">Kortvarige forstyrrelser udløser ikke alarmer. Systemet reagerer kun når der er vedvarende strukturel ændring.</p>
+        </div>
+        <div style="background:rgba(78,200,140,.05);border:1px solid rgba(78,200,140,.15);border-radius:14px;padding:22px 20px;">
+          <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:8px;">Forløb, ikke bare tilstande</span>
+          <p style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.6);margin:0;">Episoder gemmes som trajectories (retning + udvikling), hvilket gør genkendelse kontekstafhængig i stedet for statisk.</p>
+        </div>
+        <div style="background:rgba(78,200,140,.05);border:1px solid rgba(78,200,140,.15);border-radius:14px;padding:22px 20px;">
+          <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:8px;">Stabilitet under støj · 0% false alarms</span>
+          <p style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.6);margin:0;">Validering viser 0% false alarms i scenarier med midlertidigt pres (V4). Når et brud er erkendt, fastholder systemet alarmen stabilt uden oscillation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hvad vi har testet -->
+    <div style="margin-bottom:48px;">
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#7a9ee8;display:block;margin-bottom:20px;">Hvad vi har testet — og hvad det viste</span>
+      <div style="background:rgba(122,158,232,.04);border:1px solid rgba(122,158,232,.12);border-radius:16px;padding:28px;">
+        <p style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.85;color:rgba(240,235,224,.6);margin:0 0 16px;">Følgende mekanismer er implementeret og testet. Alle reducerer kompleksitet eller støj — men ingen af dem løser alarmen efter et reelt brud:</p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;" class="test-grid">
+          <div style="background:rgba(255,255,255,.03);border-radius:10px;padding:14px 16px;">
+            <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;color:#7a9ee8;display:block;margin-bottom:4px;">drift cooldown</span>
+            <span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,.4);">Begrænser episode-spam</span>
+          </div>
+          <div style="background:rgba(255,255,255,.03);border-radius:10px;padding:14px 16px;">
+            <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;color:#7a9ee8;display:block;margin-bottom:4px;">let de-eskalering</span>
+            <span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,.4);">EMA-baseret</span>
+          </div>
+          <div style="background:rgba(255,255,255,.03);border-radius:10px;padding:14px 16px;">
+            <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;color:#7a9ee8;display:block;margin-bottom:4px;">hård reset af risiko</span>
+            <span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,.4);">Direkte tilstandsnulstilling</span>
+          </div>
+          <div style="background:rgba(255,255,255,.03);border-radius:10px;padding:14px 16px;">
+            <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;color:#7a9ee8;display:block;margin-bottom:4px;">episode release</span>
+            <span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,.4);">Nedvægtning af gamle episoder</span>
+          </div>
+          <div style="background:rgba(255,255,255,.03);border-radius:10px;padding:14px 16px;">
+            <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;color:#7a9ee8;display:block;margin-bottom:4px;">stateful RELEASE gate</span>
+            <span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,.4);">Betinget alarmfrigivelse</span>
+          </div>
+          <div style="background:rgba(240,200,80,.05);border:1px solid rgba(240,200,80,.15);border-radius:10px;padding:14px 16px;">
+            <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;color:#f0c850;display:block;margin-bottom:4px;">Fælles resultat</span>
+            <span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,.45);">Ingen reducerer alarmen efter reelt brud</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Det centrale fund -->
+    <div style="margin-bottom:48px;">
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#f0c850;display:block;margin-bottom:20px;">Det centrale fund</span>
+      <div style="background:rgba(240,200,80,.05);border:1px solid rgba(240,200,80,.2);border-radius:16px;padding:32px;">
+        <p style="font-family:'Playfair Display',serif;font-size:20px;font-weight:400;color:#f0ebe0;line-height:1.5;margin:0 0 16px;">Problemet ligger ikke i hukommelsen alene.</p>
+        <p style="font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.85;color:rgba(240,235,224,.65);margin:0 0 16px;">Systemet forbliver i alarm, fordi den aktuelle trajectory stadig matcher tidligere brud — <em style="color:rgba(240,235,224,.85);">selv når systemet er i recovery.</em></p>
+        <p style="font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.85;color:rgba(240,235,224,.65);margin:0 0 20px;">Det betyder: M.E.M.I. mangler endnu en mekanisme til at afgøre, hvornår et tidligere brud ikke længere er relevant for den nuværende tilstand.</p>
+        <div style="background:rgba(240,200,80,.08);border-radius:10px;padding:16px 18px;border-left:3px solid #f0c850;">
+          <p style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.7);margin:0;">Dette er ikke et spørgsmål om <em>"at glemme"</em> — men om at skelne mellem <strong style="color:#f0ebe0;">samme mønster</strong> og <strong style="color:#f0ebe0;">samme betydning</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hvad der er åbent -->
+    <div>
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#a08de8;display:block;margin-bottom:20px;">Hvad der er åbent — næste mekanisme</span>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;" class="open-grid">
+        <div style="background:rgba(122,100,200,.06);border:1px solid rgba(122,100,200,.15);border-radius:14px;padding:22px 20px;">
+          <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#a08de8;display:block;margin-bottom:8px;">Exit / release-beslutning</span>
+          <p style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.55);margin:0;">En mekanisme der eksplicit beslutter, hvornår en alarmtilstand er afsluttet — ikke blot nedtoner den gradvist.</p>
+        </div>
+        <div style="background:rgba(122,100,200,.06);border:1px solid rgba(122,100,200,.15);border-radius:14px;padding:22px 20px;">
+          <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#a08de8;display:block;margin-bottom:8px;">Recovery-validering</span>
+          <p style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.55);margin:0;">En måde at validere recovery som en ny tilstand — forskellig fra den tilstand der udløste alarmen.</p>
+        </div>
+        <div style="background:rgba(122,100,200,.06);border:1px solid rgba(122,100,200,.15);border-radius:14px;padding:22px 20px;grid-column:span 2;">
+          <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#a08de8;display:block;margin-bottom:8px;">Semantisk relevans-vurdering</span>
+          <p style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.55);margin:0;">En funktion der kan afgøre: <em style="color:rgba(240,235,224,.8);">hvornår betyder en lignende trajectory ikke længere det samme?</em> Det er en strukturelt anderledes slags vurdering end dem M.E.M.I. allerede laver.</p>
+        </div>
+      </div>
+
+      <!-- Kort opsummering -->
+      <div style="margin-top:24px;background:#0d1117;border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:24px 28px;display:grid;grid-template-columns:1fr 1fr;gap:24px;" class="summary-grid">
+        <div>
+          <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:10px;">M.E.M.I. kan nu</span>
+          <ul style="list-style:none;padding:0;margin:0;">
+            <li style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,.6);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.05);">✓ Opdage brud korrekt</li>
+            <li style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,.6);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.05);">✓ Huske dem præcist</li>
+            <li style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,.6);padding:4px 0;">✓ Undgå falske alarmer</li>
+          </ul>
+        </div>
+        <div>
+          <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#f0c850;display:block;margin-bottom:10px;">Mangler stadig</span>
+          <ul style="list-style:none;padding:0;margin:0;">
+            <li style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,.6);padding:4px 0;">→ En principiel måde at afslutte et brud på</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <section class="light"><div class="wrap">
   <span class="eyebrow" style="color:var(--accent);">Hvad der er tilg&aelig;ngeligt nu</span>

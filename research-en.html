@@ -51,6 +51,8 @@ section{padding:78px 52px}.wrap{max-width:1160px;margin:0 auto}
 .version-badge{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px;background:rgba(122,158,232,.12);border:1px solid rgba(122,158,232,.2);color:#7a9ee8}
 .cta-dark{background:#1a1a0d}
 @media(max-width:920px){.hero .wrap,.grid-2,.grid-3{grid-template-columns:1fr}section{padding:56px 28px}}
+
+    @media(max-width:920px){.cap-grid,.open-grid,.summary-grid{grid-template-columns:1fr!important}.test-grid{grid-template-columns:1fr 1fr!important}.open-grid .span-2{grid-column:span 1!important}}
 </style>
 </head>
 <body>
@@ -98,6 +100,98 @@ section{padding:78px 52px}.wrap{max-width:1160px;margin:0 auto}
     <p>This is not a page about what we have finished building. It is a page about what we have learned along the way &mdash; and what remains open.</p>
   </div>
 </div></section>
+
+<section style="background:#130d1a;padding:78px 52px;border-top:1px solid rgba(160,141,232,0.12);">
+  <div style="max-width:1160px;margin:0 auto;">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:14px;color:#a08de8;">M.E.M.I. v6.8 &middot; Status April 2026</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin:0 0 14px;color:#f0ebe0;">An epistemic decision system &mdash;<br><em style="font-style:italic;color:#a08de8;">working on tensions, not rules</em></h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;max-width:760px;margin:0 0 48px;color:rgba(240,235,224,.55);">In the current version, M.E.M.I. is focused on understanding and handling ruptures in the system&rsquo;s state &mdash; not merely reacting to them. Here is the full status as of April 2026.</p>
+
+    <div style="margin-bottom:48px;">
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:20px;">What the system can do now</span>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;" class="cap-grid">
+        <div style="background:rgba(78,200,140,.05);border:1px solid rgba(78,200,140,.15);border-radius:14px;padding:22px 20px;">
+          <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:8px;">Early detection</span>
+          <p style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.6);margin:0;">The system identifies incipient drift before it becomes critical, based on trajectory in the tension field &mdash; not individual signals.</p>
+        </div>
+        <div style="background:rgba(78,200,140,.05);border:1px solid rgba(78,200,140,.15);border-radius:14px;padding:22px 20px;">
+          <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:8px;">Real drift vs. temporary pressure</span>
+          <p style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.6);margin:0;">Short-lived disturbances do not trigger alarms. The system only responds when there is sustained structural change.</p>
+        </div>
+        <div style="background:rgba(78,200,140,.05);border:1px solid rgba(78,200,140,.15);border-radius:14px;padding:22px 20px;">
+          <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:8px;">Trajectories, not just states</span>
+          <p style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.6);margin:0;">Episodes are stored as trajectories (direction + development), making recognition context-dependent rather than static.</p>
+        </div>
+        <div style="background:rgba(78,200,140,.05);border:1px solid rgba(78,200,140,.15);border-radius:14px;padding:22px 20px;">
+          <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:8px;">Stability under noise &middot; 0% false alarms</span>
+          <p style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.6);margin:0;">Validation shows 0% false alarms in temporary-pressure scenarios (V4). Once a rupture is recognised, the system holds the alarm stably without oscillation.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:48px;">
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#7a9ee8;display:block;margin-bottom:20px;">What we have tested &mdash; and what it showed</span>
+      <div style="background:rgba(122,158,232,.04);border:1px solid rgba(122,158,232,.12);border-radius:16px;padding:28px;">
+        <p style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.85;color:rgba(240,235,224,.6);margin:0 0 16px;">The following mechanisms have been implemented and tested. All reduce complexity or noise &mdash; but none of them resolve the alarm after a real rupture:</p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;" class="test-grid">
+          <div style="background:rgba(255,255,255,.03);border-radius:10px;padding:14px 16px;"><span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;color:#7a9ee8;display:block;margin-bottom:4px;">drift cooldown</span><span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,.4);">Limits episode spam</span></div>
+          <div style="background:rgba(255,255,255,.03);border-radius:10px;padding:14px 16px;"><span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;color:#7a9ee8;display:block;margin-bottom:4px;">soft de-escalation</span><span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,.4);">EMA-based</span></div>
+          <div style="background:rgba(255,255,255,.03);border-radius:10px;padding:14px 16px;"><span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;color:#7a9ee8;display:block;margin-bottom:4px;">hard risk reset</span><span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,.4);">Direct state reset</span></div>
+          <div style="background:rgba(255,255,255,.03);border-radius:10px;padding:14px 16px;"><span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;color:#7a9ee8;display:block;margin-bottom:4px;">episode release</span><span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,.4);">Down-weighting old episodes</span></div>
+          <div style="background:rgba(255,255,255,.03);border-radius:10px;padding:14px 16px;"><span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;color:#7a9ee8;display:block;margin-bottom:4px;">stateful RELEASE gate</span><span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,.4);">Conditional alarm release</span></div>
+          <div style="background:rgba(240,200,80,.05);border:1px solid rgba(240,200,80,.15);border-radius:10px;padding:14px 16px;"><span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;color:#f0c850;display:block;margin-bottom:4px;">Shared result</span><span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(240,235,224,.45);">None resolve the alarm after a real rupture</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:48px;">
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#f0c850;display:block;margin-bottom:20px;">The central finding</span>
+      <div style="background:rgba(240,200,80,.05);border:1px solid rgba(240,200,80,.2);border-radius:16px;padding:32px;">
+        <p style="font-family:'Playfair Display',serif;font-size:20px;font-weight:400;color:#f0ebe0;line-height:1.5;margin:0 0 16px;">The problem does not lie in memory alone.</p>
+        <p style="font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.85;color:rgba(240,235,224,.65);margin:0 0 16px;">The system remains in alarm because the current trajectory still matches previous ruptures &mdash; <em style="color:rgba(240,235,224,.85);">even when the system is in recovery.</em></p>
+        <p style="font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.85;color:rgba(240,235,224,.65);margin:0 0 20px;">This means: M.E.M.I. still lacks a mechanism to determine when a previous rupture is no longer relevant to the current state.</p>
+        <div style="background:rgba(240,200,80,.08);border-radius:10px;padding:16px 18px;border-left:3px solid #f0c850;">
+          <p style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.7);margin:0;">This is not a question of <em>&ldquo;forgetting&rdquo;</em> &mdash; but of distinguishing between <strong style="color:#f0ebe0;">the same pattern</strong> and <strong style="color:#f0ebe0;">the same meaning</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#a08de8;display:block;margin-bottom:20px;">What is open &mdash; the next mechanism</span>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;" class="open-grid">
+        <div style="background:rgba(122,100,200,.06);border:1px solid rgba(122,100,200,.15);border-radius:14px;padding:22px 20px;">
+          <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#a08de8;display:block;margin-bottom:8px;">Exit / release decision</span>
+          <p style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.55);margin:0;">A mechanism that explicitly decides when an alarm state has ended &mdash; rather than simply fading it out gradually.</p>
+        </div>
+        <div style="background:rgba(122,100,200,.06);border:1px solid rgba(122,100,200,.15);border-radius:14px;padding:22px 20px;">
+          <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#a08de8;display:block;margin-bottom:8px;">Recovery validation</span>
+          <p style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.55);margin:0;">A way to validate recovery as a new state &mdash; distinct from the state that triggered the alarm.</p>
+        </div>
+        <div style="background:rgba(122,100,200,.06);border:1px solid rgba(122,100,200,.15);border-radius:14px;padding:22px 20px;grid-column:span 2;">
+          <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#a08de8;display:block;margin-bottom:8px;">Semantic relevance assessment</span>
+          <p style="font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.75;color:rgba(240,235,224,.55);margin:0;">A function that can determine: <em style="color:rgba(240,235,224,.8);">when does a similar trajectory no longer mean the same thing?</em> This is a structurally different kind of evaluation from those M.E.M.I. already performs.</p>
+        </div>
+      </div>
+      <div style="margin-top:24px;background:#0d1117;border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:24px 28px;display:grid;grid-template-columns:1fr 1fr;gap:24px;" class="summary-grid">
+        <div>
+          <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#4ec88c;display:block;margin-bottom:10px;">M.E.M.I. can now</span>
+          <ul style="list-style:none;padding:0;margin:0;">
+            <li style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,.6);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.05);">&#10003; Detect ruptures correctly</li>
+            <li style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,.6);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.05);">&#10003; Remember them precisely</li>
+            <li style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,.6);padding:4px 0;">&#10003; Avoid false alarms</li>
+          </ul>
+        </div>
+        <div>
+          <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#f0c850;display:block;margin-bottom:10px;">Still missing</span>
+          <ul style="list-style:none;padding:0;margin:0;">
+            <li style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,.6);padding:4px 0;">&rarr; A principled way to end a rupture</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <section class="light"><div class="wrap">
   <span class="eyebrow" style="color:var(--accent);">What is available now</span>
