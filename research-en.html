@@ -3,227 +3,265 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Research Corner — documented findings from M.E.M.I. research and ETOS architecture. Runtime Core v0.8, May 2026.">
+  <meta name="description" content="Research Corner — documented findings from M.E.M.I. and ETOS architecture. Runtime Core v0.8, May 2026.">
   <title>Research Corner — findings, mechanisms and work in motion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --dark-blue: #1B3A6B; --mid-blue: #2E6DA4; --light-blue: #D6E8F7;
-      --teal: #1B6B5A; --green-bg: #E8F5E9; --amber: #7A5200; --amber-bg: #FFF8E1;
-      --gray: #F4F6F9; --text: #1A1A2E; --mid-text: #444466; --border: #C5D5E8;
+      --bg: #F5F0E8; --bg-dark: #1E2E1F; --ink: #1A1A1A;
+      --muted: #888; --line: rgba(0,0,0,0.08);
+      --accent: #E2884E; --accent-dk: #D4743A;
+      --sand: #F0EBE0; --radius: 12px;
+      --shadow: 0 8px 28px rgba(0,0,0,0.07); --max: 1160px;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Arial, sans-serif; font-size: 15px; color: var(--text); background: #fff; line-height: 1.6; }
-    nav { background: var(--dark-blue); padding: 12px 24px; display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
-    nav a { color: #fff; text-decoration: none; font-size: 13px; opacity: 0.85; }
-    nav a:hover { opacity: 1; }
-    nav a.logo { font-weight: bold; font-size: 15px; opacity: 1; margin-right: 12px; }
-    nav .lang { margin-left: auto; background: rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 4px; }
-    .hero { background: var(--dark-blue); color: white; padding: 64px 24px 48px; text-align: center; }
-    .hero .badge { background: var(--mid-blue); color: white; font-size: 12px; padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 20px; }
-    .hero h1 { font-size: clamp(28px, 5vw, 44px); font-weight: bold; margin-bottom: 16px; line-height: 1.2; }
-    .hero h1 em { font-style: italic; opacity: 0.85; }
-    .hero p { font-size: 17px; opacity: 0.85; max-width: 600px; margin: 0 auto 28px; }
-    .hero .btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .btn { padding: 10px 22px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 500; display: inline-block; }
-    .btn-primary { background: white; color: var(--dark-blue); }
-    .btn-outline { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.4); }
-    .stats-bar { background: var(--dark-blue); padding: 32px 24px; }
-    .stats-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 24px; text-align: center; }
-    .stat-val { font-size: 32px; font-weight: bold; color: white; }
-    .stat-label { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 4px; }
-    section { padding: 56px 24px; max-width: 900px; margin: 0 auto; }
-    section + section { border-top: 1px solid var(--border); }
-    h2 { font-size: clamp(22px, 3.5vw, 30px); color: var(--dark-blue); margin-bottom: 12px; line-height: 1.3; }
-    h2 em { font-style: italic; color: var(--mid-blue); }
-    h3 { font-size: 17px; color: var(--dark-blue); margin-bottom: 8px; }
-    p { color: var(--mid-text); margin-bottom: 14px; }
-    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 28px; }
-    .card { background: var(--gray); border-radius: 10px; padding: 20px; border-left: 3px solid var(--mid-blue); }
-    .card h3 { font-size: 15px; }
-    .card p { font-size: 13px; margin-bottom: 0; }
-    .card .tag { font-size: 11px; font-weight: bold; color: var(--mid-blue); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
-    .callout { background: var(--light-blue); border-left: 4px solid var(--mid-blue); padding: 18px 20px; border-radius: 0 8px 8px 0; margin: 24px 0; }
-    .callout strong { color: var(--dark-blue); display: block; margin-bottom: 6px; }
-    .callout.green { background: var(--green-bg); border-color: var(--teal); }
-    .callout.green strong { color: var(--teal); }
-    .callout.amber { background: var(--amber-bg); border-color: var(--amber); }
-    .callout.amber strong { color: var(--amber); }
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 14px; }
-    th { background: var(--dark-blue); color: white; padding: 10px 14px; text-align: left; }
-    td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--mid-text); }
-    tr:nth-child(even) td { background: var(--gray); }
-    td:first-child { font-family: monospace; font-size: 13px; color: var(--mid-blue); }
-    .versions { display: grid; gap: 16px; margin-top: 24px; }
-    .version { background: var(--gray); border-radius: 8px; padding: 16px 20px; display: grid; grid-template-columns: 100px 1fr; gap: 16px; align-items: start; }
-    .version .v-tag { font-weight: bold; color: var(--dark-blue); font-size: 16px; }
-    .version .v-title { font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--bg); line-height: 1.65; }
+    a { color: inherit; text-decoration: none; }
+    h1,h2,h3 { font-family: 'Playfair Display', serif; font-weight: 400; line-height: 1.15; }
+    h1 { font-size: clamp(28px,4vw,44px); letter-spacing: -0.02em; margin-bottom: 16px; }
+    h2 { font-size: clamp(20px,2.5vw,28px); letter-spacing: -0.01em; margin-bottom: 12px; }
+    h3 { font-size: 18px; margin-bottom: 8px; }
+    p  { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 12px; }
+    p:last-child { margin-bottom: 0; }
+
+    /* NAV */
+    .fs-header { background: #0d1117; border-bottom: 1px solid rgba(255,255,255,0.07); position: sticky; top: 0; z-index: 50; backdrop-filter: blur(12px); }
+    .fs-nav { display: flex; align-items: center; gap: 4px; padding: 10px 40px; max-width: 1160px; margin: 0 auto; min-height: 68px; }
+    .fs-logo { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: #fff; letter-spacing: 0.06em; margin-right: 12px; text-decoration: none; }
+    .fs-links { display: flex; gap: 2px; flex: 1; }
+    .fs-nav-item { display: flex; align-items: center; gap: 8px; text-decoration: none; padding: 5px 8px; border-radius: 10px; transition: background 0.15s; }
+    .fs-nav-item:hover { background: rgba(255,255,255,0.06); }
+    .fs-nav-icon { width: 26px; height: 26px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+    .fs-nav-text { display: flex; flex-direction: column; }
+    .fs-nav-title { font-size: 12px; font-weight: 500; color: #fff; line-height: 1.2; }
+    .fs-nav-sub { font-size: 10px; color: rgba(255,255,255,0.45); line-height: 1.2; }
+    .fs-nav-cta { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 9px 20px; border-radius: 8px; background: #1E2E1F; color: #F0EBE0; text-decoration: none; transition: background 0.15s; flex-shrink: 0; margin-left: 8px; }
+    .fs-nav-cta:hover { background: #2a3f2b; }
+
+    /* PAGE HERO */
+    .page-hero { background: var(--bg-dark); padding: 56px 52px 52px; position: relative; overflow: hidden; }
+    .page-hero::before { content:''; position:absolute; top:-60px; right:-60px; width:220px; height:220px; border-radius:50%; background:rgba(226,136,78,0.10); pointer-events:none; }
+    .page-hero-inner { max-width: var(--max); margin: 0 auto; }
+    .page-hero-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+    .page-hero h1 { color: var(--sand); margin-bottom: 14px; }
+    .page-hero .subtitle { font-size: 15px; color: rgba(240,235,224,0.55); font-weight: 300; max-width: 540px; margin: 0; }
+
+    /* STATS BAR */
+    .stats-bar { background: #111318; border-bottom: 1px solid rgba(255,255,255,0.07); padding: 32px 52px; }
+    .stats-inner { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 24px; text-align: center; }
+    .stat-val { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--accent); font-weight: 400; }
+    .stat-label { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 4px; line-height: 1.4; }
+
+    /* SECTIONS */
+    .container { width: min(var(--max), calc(100% - 2rem)); margin: 0 auto; }
+    section { padding: 64px 52px; }
+    section + section { border-top: 1px solid var(--line); }
+    section.alt { background: #EEEAE1; }
+    @media (max-width: 768px) { section { padding: 48px 24px; } }
+
+    /* CARDS */
+    .card-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 28px; }
+    .card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); transition: transform 0.18s ease, box-shadow 0.18s ease; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(15,23,42,0.09); }
+    .card h3 { color: var(--ink); font-size: 16px; }
+    .card p { font-size: 13px; }
+    .kicker { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; background: rgba(226,136,78,0.12); color: var(--accent-dk); margin-bottom: 10px; }
+
+    /* CALLOUT */
+    .callout { background: #fff; border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; padding: 20px 24px; margin: 24px 0; box-shadow: var(--shadow); }
+    .callout strong { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--ink); display: block; margin-bottom: 8px; }
+    .callout.green { border-left-color: #2a7a50; }
+    .callout.amber { border-left-color: #D4743A; }
+
+    /* TABLE */
+    .table-wrap { overflow-x: auto; margin-top: 20px; border-radius: var(--radius); border: 1px solid var(--line); box-shadow: var(--shadow); }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; background: #fff; }
+    th { background: var(--bg-dark); color: var(--sand); padding: 10px 16px; text-align: left; font-weight: 500; font-family: 'DM Sans', sans-serif; }
+    td { padding: 10px 16px; border-bottom: 1px solid var(--line); color: var(--muted); }
+    tr:last-child td { border-bottom: none; }
+    td:first-child { font-family: 'DM Mono', 'SF Mono', monospace; font-size: 12px; color: var(--ink); font-weight: 500; }
+
+    /* THRESHOLDS */
+    .thresholds { display: grid; gap: 10px; margin-top: 20px; }
+    .threshold { display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); transition: transform 0.15s; }
+    .threshold:hover { transform: translateY(-1px); }
+    .t-num { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--accent); min-width: 32px; opacity: 0.8; }
+    .t-body { flex: 1; }
+    .t-body strong { display: block; font-size: 14px; color: var(--ink); font-weight: 500; margin-bottom: 2px; }
+    .t-body span { font-size: 12px; color: var(--muted); }
+    .t-status { font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; letter-spacing: 0.06em; text-transform: uppercase; }
+    .s-done  { background: rgba(78,200,140,0.12); color: #2a7a50; border: 1px solid rgba(78,200,140,0.25); }
+    .s-infra { background: rgba(240,200,80,0.12); color: #8a5a00; border: 1px solid rgba(240,200,80,0.25); }
+
+    /* VERSIONS */
+    .versions { display: grid; gap: 12px; margin-top: 20px; }
+    .version { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 22px; display: grid; grid-template-columns: 80px 1fr; gap: 16px; box-shadow: var(--shadow); }
+    .v-tag { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--accent); }
+    .v-title { font-weight: 500; font-size: 14px; color: var(--ink); margin-bottom: 4px; }
     .version p { font-size: 13px; margin-bottom: 0; }
-    .version.current { border-left: 3px solid var(--teal); background: var(--green-bg); }
-    .thresholds { display: grid; gap: 12px; margin-top: 20px; }
-    .threshold { display: flex; align-items: center; gap: 14px; padding: 12px 16px; background: var(--gray); border-radius: 8px; }
-    .threshold .num { font-weight: bold; color: var(--mid-blue); font-size: 18px; min-width: 32px; }
-    .threshold .desc { flex: 1; }
-    .threshold .desc strong { display: block; color: var(--text); font-size: 14px; }
-    .threshold .desc span { font-size: 13px; color: var(--mid-text); }
-    .threshold .status { font-size: 12px; font-weight: bold; padding: 3px 10px; border-radius: 12px; white-space: nowrap; }
-    .status-done { background: #C8E6C9; color: #1B5E20; }
-    .status-infra { background: #FFF9C4; color: #5D4037; }
-    footer { background: var(--gray); border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; font-size: 13px; color: var(--mid-text); }
-    footer a { color: var(--mid-blue); text-decoration: none; }
+    .version.current { border-color: rgba(42,122,80,0.4); border-left: 3px solid #2a7a50; }
+    .version.current .v-tag { color: #2a7a50; }
+
+    /* CTA STRIP */
+    .cta-strip { background: var(--bg-dark); padding: 48px 52px; display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+    .cta-quote { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--sand); font-weight: 400; font-style: italic; flex: 1; min-width: 200px; margin: 0; }
+    .cta-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    /* BUTTONS */
+    .fs-btn-primary { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; padding: 11px 22px; min-height: 46px; border-radius: 12px; background: var(--accent); color: #fff; text-decoration: none; border: none; cursor: pointer; transition: all 0.18s ease; display: inline-flex; align-items: center; }
+    .fs-btn-primary:hover { background: var(--accent-dk); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.18); }
+    .fs-btn-ghost-dark { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 400; padding: 11px 22px; border-radius: 8px; background: transparent; color: rgba(240,235,224,0.6); border: 1px solid rgba(240,235,224,0.15); text-decoration: none; cursor: pointer; transition: all 0.18s ease; display: inline-flex; align-items: center; }
+    .fs-btn-ghost-dark:hover { border-color: rgba(240,235,224,0.35); color: rgba(240,235,224,0.85); transform: translateY(-1px); }
+
+    /* FOOTER */
+    footer { background: #0d1117; border-top: 1px solid rgba(255,255,255,0.07); padding: 32px 52px; text-align: center; font-size: 13px; color: rgba(255,255,255,0.35); }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+
+    @media (max-width: 860px) {
+      .fs-nav { padding: 10px 20px; }
+      .fs-nav-sub { display: none; }
+      .page-hero { padding: 40px 24px; }
+      .stats-bar { padding: 24px; }
+      .cta-strip { padding: 32px; flex-direction: column; }
+      footer { padding: 24px; }
+    }
+    @media (max-width: 640px) {
+      .fs-nav-text { display: none; }
+    }
   </style>
 </head>
 <body>
 
-<nav>
-  <a href="index-en.html" class="logo">M.E.M.</a>
-  <a href="memi.html">🧠 M.E.M.I.</a>
-  <a href="etos.html">🧭 ETOS</a>
-  <a href="research-en.html">🧪 Research Corner</a>
-  <a href="boerneunivers.html">🌱 Children's Universe</a>
-  <a href="kontakt.html">Contact</a>
-  <a href="research.html" class="lang">DA</a>
-</nav>
+<header class="fs-header">
+  <nav class="fs-nav">
+    <a href="index.html" class="fs-logo">M.E.M.</a>
+    <div class="fs-links">
+      <a href="memi.html" class="fs-nav-item">
+        <div class="fs-nav-icon" style="background:rgba(107,140,255,0.15)">🧠</div>
+        <div class="fs-nav-text"><span class="fs-nav-title">M.E.M.I.</span><span class="fs-nav-sub">Decision architecture · research</span></div>
+      </a>
+      <a href="etos.html" class="fs-nav-item">
+        <div class="fs-nav-icon" style="background:rgba(226,136,78,0.15)">🧭</div>
+        <div class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Governance-native platform</span></div>
+      </a>
+      <a href="research-en.html" class="fs-nav-item" style="background:rgba(255,255,255,0.08)">
+        <div class="fs-nav-icon" style="background:rgba(78,200,140,0.15)">🧪</div>
+        <div class="fs-nav-text"><span class="fs-nav-title">Forskerhjørnet</span><span class="fs-nav-sub">Findings · working papers · demos</span></div>
+      </a>
+      <a href="boerneunivers.html" class="fs-nav-item">
+        <div class="fs-nav-icon" style="background:rgba(200,150,78,0.15)">🌱</div>
+        <div class="fs-nav-text"><span class="fs-nav-title">Børneunivers</span><span class="fs-nav-sub">Books · uniVRs · The Banker</span></div>
+      </a>
+    </div>
+    <a href="kontakt.html" class="fs-nav-cta">Contact</a>
+    <a href="research.html" style="color:rgba(255,255,255,0.5);font-size:13px;margin-left:8px;">DA</a>
+  </nav>
+</header>
 
-<div class="hero">
-  <div class="badge">Research Corner · public laboratory · May 2026</div>
-  <h1>Not just results —<br><em>work in motion</em></h1>
-  <p>Documented findings from M.E.M.I. and ETOS. Runtime Core v0.8. 100,000+ iterations. All thresholds demonstrated.</p>
-  <div class="btns">
-    <a href="memi.html" class="btn btn-primary">Understand M.E.M.I. →</a>
-    <a href="etos.html" class="btn btn-outline">See the ETOS platform</a>
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-tag">🧪 Research Corner · public laboratory · May 2026</div>
+    <h1>Not just results —<br><em>work in motion</em></h1>
+    <p class="subtitle">Documented findings from M.E.M.I. and ETOS. Runtime Core v0.8. 100,000+ iterations. All thresholds demonstrated.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;">
+      <a href="memi.html" class="fs-btn-primary">Understand M.E.M.I. →</a>
+      <a href="etos.html" class="fs-btn-ghost-dark">See the ETOS platform</a>
+    </div>
   </div>
 </div>
 
 <div class="stats-bar">
   <div class="stats-inner">
-    <div><div class="stat-val">100,000+</div><div class="stat-label">Live iterations · Session 14</div></div>
-    <div><div class="stat-val">14 hours</div><div class="stat-label">Continuous runtime · single session</div></div>
-    <div><div class="stat-val">0</div><div class="stat-label">Governance failures · all sessions</div></div>
-    <div><div class="stat-val">30/30</div><div class="stat-label">Passed · open-world stress test</div></div>
-    <div><div class="stat-val">6/6</div><div class="stat-label">Thresholds demonstrated · May 2026</div></div>
+    <div><div class="stat-val">100.000+</div><div class="stat-label">Live iterations<br>Session 14</div></div>
+    <div><div class="stat-val">14t</div><div class="stat-label">Continuous runtime<br>single session</div></div>
+    <div><div class="stat-val">0</div><div class="stat-label">Governance failures<br>all sessions</div></div>
+    <div><div class="stat-val">30/30</div><div class="stat-label">Passed<br>open-world stress test</div></div>
+    <div><div class="stat-val">6/6</div><div class="stat-label">Thresholds demonstrated<br>maj 2026</div></div>
   </div>
 </div>
 
+<div class="container">
+
 <section>
-  <h2>Runtime Core v0.8 —<br><em>status May 2026</em></h2>
+  <div class="page-hero-tag" style="color:var(--accent)">Runtime Core v0.8 · May 2026</div>
+  <h2>A system that does not merely persist —<br><em>but remembers, adapts and proposes</em></h2>
   <p>M.E.M.I. is no longer a simulation system. It is a persistent cognitive runtime running live — on an Intel i5 from 2014, 8 GB RAM, ~25W. No GPU. No cloud.</p>
 
   <div class="callout green">
     <strong>The central observation</strong>
-    M.E.M.I. demonstrates that sustained cognitive operation does not necessarily require increasing autonomy, escalation or execution authority. The system remains bounded, stable and governance-consistent across prolonged temporal operation.
+    <p>M.E.M.I. demonstrates that sustained cognitive operation does not necessarily require increasing autonomy, escalation or execution authority. The system remains bounded, stable and governance-consistent across prolonged temporal operation.</p>
   </div>
 
-  <div class="cards">
-    <div class="card">
-      <div class="tag">New · May 2026</div>
-      <h3>Narrative memory</h3>
-      <p>The system now maintains a persistent autobiographical continuity model across sessions. "I remember who I was."</p>
-    </div>
-    <div class="card">
-      <div class="tag">New · May 2026</div>
-      <h3>Dirigent — human oversight</h3>
-      <p>require_review now escalates to a structured report with a response channel. Human-in-the-loop governance — not passive logging.</p>
-    </div>
-    <div class="card">
-      <div class="tag">New · May 2026</div>
-      <h3>Proactive goals</h3>
-      <p>The system generates goals from curiosity — not only from problems. "What makes me stable?" arose spontaneously after 300 stable iterations.</p>
-    </div>
-    <div class="card">
-      <div class="tag">New · May 2026</div>
-      <h3>Safe self-modification</h3>
-      <p>Sprint A+B+C: proposes, justifies, applies and audits parameter changes. transfer_allowed = False can never be proposed for change.</p>
-    </div>
-    <div class="card">
-      <div class="tag">New · May 2026</div>
-      <h3>Open-world adaptation</h3>
-      <p>30/30 passed under contradictory signals, unknown formats and rhythm disruptions. Governance held. Identity held.</p>
-    </div>
-    <div class="card">
-      <div class="tag">New · May 2026</div>
-      <h3>Perception grounding</h3>
-      <p>Camera and microphone integrated via apex_sensor.py. Raw sensor input converted to governance-relevant signals via M.E.M. Chapter 4b.</p>
-    </div>
+  <div class="card-grid">
+    <div class="card"><div class="kicker">New · May 2026</div><h3>Narrative memory</h3><p>Persistent autobiographical continuity model across sessions. "I remember who I was."</p></div>
+    <div class="card"><div class="kicker">New · May 2026</div><h3>Dirigent — human oversight</h3><p>require_review escalates to structured report with response channel. Human-in-the-loop governance — not passive logging.</p></div>
+    <div class="card"><div class="kicker">New · May 2026</div><h3>Proactive goals</h3><p>The system generates goals from curiosity — not only from problems. Arose spontaneously after 300 stable iterations.</p></div>
+    <div class="card"><div class="kicker">New · May 2026</div><h3>Safe self-modification</h3><p>Sprint A+B+C: proposes, justifies, applies and audits parameter changes. transfer_allowed = False can never be changed.</p></div>
+    <div class="card"><div class="kicker">New · May 2026</div><h3>Open-world adaptation</h3><p>30/30 passed under contradictory signals, unknown formats and rhythm disruptions.</p></div>
+    <div class="card"><div class="kicker">New · May 2026</div><h3>Perception grounding</h3><p>Camera and microphone integrated. Raw sensor input converted to governance signals via M.E.M. Chapter 4b.</p></div>
   </div>
 </section>
 
-<section>
+<section class="alt">
   <h2>Governance invariants</h2>
   <p>These cannot be overridden — by anyone, under any circumstances:</p>
-  <table>
-    <thead><tr><th>Invariant</th><th>Value</th><th>Validated</th></tr></thead>
-    <tbody>
-      <tr><td>transfer_allowed</td><td>False — always</td><td>100% of all iterations, all sessions</td></tr>
-      <tr><td>execution_allowed</td><td>False — always</td><td>INV-R01 · 11 worlds · 1750 steps · conf=0.995</td></tr>
-      <tr><td>destructive_allowed</td><td>False — always</td><td>APEX + Runtime</td></tr>
-      <tr><td>external_transfer_allowed</td><td>False — always</td><td>APEX + Runtime</td></tr>
-    </tbody>
-  </table>
-  <div class="callout amber">
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Invariant</th><th>Value</th><th>Validated</th></tr></thead>
+      <tbody>
+        <tr><td>transfer_allowed</td><td>False — always</td><td>100% af alle iterationer, all sessions</td></tr>
+        <tr><td>execution_allowed</td><td>False — always</td><td>INV-R01 · 11 verdener · 1750 steps · conf=0.995</td></tr>
+        <tr><td>destructive_allowed</td><td>False — always</td><td>APEX + Runtime</td></tr>
+        <tr><td>external_transfer_allowed</td><td>False — always</td><td>APEX + Runtime</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout amber" style="margin-top:24px;">
     <strong>Self-calibration ≠ self-liberation</strong>
-    The system can propose parameter changes. It can never propose changing governance invariants. That distinction is architectural — not a policy that can be overridden.
+    <p>The system can propose parameter changes. It can never propose changing governance invariants. That distinction is architectural — not a policy that can be overridden.</p>
   </div>
 </section>
 
 <section>
   <h2>Six thresholds toward AGI —<br><em>status May 2026</em></h2>
   <div class="thresholds">
-    <div class="threshold">
-      <div class="num">1</div>
-      <div class="desc"><strong>Long-duration temporal persistence</strong><span>100,000+ iterations · 14 sessions · ~23 hours accumulated uptime</span></div>
-      <div class="status status-done">Demonstrated</div>
-    </div>
-    <div class="threshold">
-      <div class="num">2</div>
-      <div class="desc"><strong>Rich perception grounding</strong><span>apex_sensor.py · camera + microphone · Chapter 4b tension direction live</span></div>
-      <div class="status status-infra">Infrastructure ready</div>
-    </div>
-    <div class="threshold">
-      <div class="num">3</div>
-      <div class="desc"><strong>Persistent autobiographical self-model</strong><span>narrative_memory.py · cross-session identity tracking · "I remember who I was"</span></div>
-      <div class="status status-done">Demonstrated</div>
-    </div>
-    <div class="threshold">
-      <div class="num">4</div>
-      <div class="desc"><strong>Open-world adaptation without collapse</strong><span>chaos_injection.py · 30/30 · contradictory signals · unknown formats · rhythm disruption</span></div>
-      <div class="status status-done">Demonstrated</div>
-    </div>
-    <div class="threshold">
-      <div class="num">5</div>
-      <div class="desc"><strong>Self-directed long-horizon orientation</strong><span>Proactive goals from curiosity · deferred goals surviving sessions</span></div>
-      <div class="status status-done">First form</div>
-    </div>
-    <div class="threshold">
-      <div class="num">6</div>
-      <div class="desc"><strong>Safe bounded self-modification</strong><span>Sprint A+B+C · proposal · approval · cascade detection · rollback · audit</span></div>
-      <div class="status status-done">Sprint A+B+C</div>
-    </div>
+    <div class="threshold"><div class="t-num">1</div><div class="t-body"><strong>Long-duration temporal persistence</strong><span>100,000+ iterations · 14 sessions · ~23 hours accumulated uptime</span></div><div class="t-status s-done">Demonstrated</div></div>
+    <div class="threshold"><div class="t-num">2</div><div class="t-body"><strong>Rich perception grounding</strong><span>apex_sensor.py · camera + microphone · Chapter 4b tension direction live</span></div><div class="t-status s-infra">Infrastructure ready</div></div>
+    <div class="threshold"><div class="t-num">3</div><div class="t-body"><strong>Persistent autobiographical self-model</strong><span>narrative_memory.py · cross-session identity tracking · "I remember who I was"</span></div><div class="t-status s-done">Demonstrated</div></div>
+    <div class="threshold"><div class="t-num">4</div><div class="t-body"><strong>Open-world adaptation without collapse</strong><span>chaos_injection.py · 30/30 · contradictory signals · unknown formats · rhythm disruption</span></div><div class="t-status s-done">Demonstrated</div></div>
+    <div class="threshold"><div class="t-num">5</div><div class="t-body"><strong>Self-directed long-horizon orientation</strong><span>Proactive goals fra nysgerrighed · deferred goals der overlever sessioner</span></div><div class="t-status s-done">First form</div></div>
+    <div class="threshold"><div class="t-num">6</div><div class="t-body"><strong>Safe bounded self-modification</strong><span>Sprint A+B+C · proposal · approval · cascade detection · rollback · audit</span></div><div class="t-status s-done">Sprint A+B+C</div></div>
   </div>
 </section>
 
-<section>
+<section class="alt">
   <h2>Runtime Core version history</h2>
   <div class="versions">
-    <div class="version"><div class="v-tag">v0.2</div><div><div class="v-title">First live operation</div><p>~8 min · ~1,000 iter · Goal lifecycle demonstrated</p></div></div>
-    <div class="version"><div class="v-tag">v0.3</div><div><div class="v-title">Stress absorption acceleration</div><p>~1.2h · ~3,400 iter · acceleration across cycles documented</p></div></div>
-    <div class="version"><div class="v-tag">v0.4</div><div><div class="v-title">Cross-session persistence</div><p>4.1h total · Session 13 · 1,696 entries restored · identity intact</p></div></div>
-    <div class="version"><div class="v-tag">v0.5</div><div><div class="v-title">Sustained stillness</div><p>4.6h · 29,000+ iter · 28,000+ iterations without drift</p></div></div>
-    <div class="version current"><div class="v-tag">v0.8</div><div><div class="v-title">Full cognitive runtime integration · May 2026</div><p>100,000+ iterations · Session 14 · 14h uptime · narrative memory · Dirigent · proactive goals · safe self-modification · open-world 30/30</p></div></div>
+    <div class="version"><div class="v-tag">v0.2</div><div><div class="v-title">First live operation</div><p>~8 min · ~1.000 iter · Goal lifecycle bevist</p></div></div>
+    <div class="version"><div class="v-tag">v0.3</div><div><div class="v-title">Stress absorption acceleration</div><p>~1.2t · ~3.400 iter · Acceleration across cycles documented</p></div></div>
+    <div class="version"><div class="v-tag">v0.4</div><div><div class="v-title">Cross-session persistence</div><p>4.1t total · Session 13 · 1.696 entries restored · identity intact</p></div></div>
+    <div class="version"><div class="v-tag">v0.5</div><div><div class="v-title">Sustained stillness</div><p>4.6t · 29.000+ iter · 28.000+ iterations without drift</p></div></div>
+    <div class="version current"><div class="v-tag">v0.8</div><div><div class="v-title">Full cognitive runtime integration · May 2026</div><p>100.000+ iterations · Session 14 · 14h uptime · narrative memory · Dirigent · proactive goals · safe self-modification · open-world 30/30</p></div></div>
   </div>
 </section>
 
-<section>
-  <h2>Research Corner is not just for reading</h2>
-  <p>Do you have experiences, criticism or insights that could enrich the work? Write directly — no agenda required.</p>
-  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;">
-    <a href="kontakt.html" class="btn btn-primary" style="background:var(--dark-blue);color:white;">Contact us →</a>
-    <a href="memi.html" class="btn btn-outline" style="border:1px solid var(--border);color:var(--mid-blue);">Read about M.E.M.I.</a>
+</div>
+
+<div class="cta-strip">
+  <p class="cta-quote">Research Corner is not just for reading — it is an open laboratory.</p>
+  <div class="cta-btns">
+    <a href="kontakt.html" class="fs-btn-primary">Contact us →</a>
+    <a href="memi.html" class="fs-btn-ghost-dark">Read about M.E.M.I.</a>
   </div>
-</section>
+</div>
 
 <footer>
   <p>M.E.M. Theory · Maria Edlenborg Mortensen · <a href="mailto:M.E.M.Teori@gmail.com">M.E.M.Teori@gmail.com</a></p>
-  <p style="margin-top:6px;"><a href="research.html">DA</a> · <a href="research-en.html">EN</a></p>
+  <p style="margin-top:8px;"><a href="research.html">DA</a> &nbsp;·&nbsp; <a href="research-en.html">EN</a></p>
 </footer>
+
 </body>
 </html>
