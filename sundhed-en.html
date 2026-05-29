@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ETOS and M.E.M.I. for healthcare — governance-native decision support, traceability and human oversight for complex decisions.">
+  <title>ETOS for healthcare — decision support and AI governance</title>
+  <style>
+    :root {
+      --dark-blue: #1B3A6B; --mid-blue: #2E6DA4; --light-blue: #D6E8F7;
+      --teal: #1B6B5A; --green-bg: #E8F5E9; --amber: #7A5200; --amber-bg: #FFF8E1;
+      --gray: #F4F6F9; --text: #1A1A2E; --mid-text: #444466; --border: #C5D5E8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; font-size: 15px; color: var(--text); background: #fff; line-height: 1.6; }
+    nav { background: var(--dark-blue); padding: 12px 24px; display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+    nav a { color: #fff; text-decoration: none; font-size: 13px; opacity: 0.85; }
+    nav a:hover { opacity: 1; }
+    nav a.logo { font-weight: bold; font-size: 15px; opacity: 1; margin-right: 12px; }
+    nav .lang { margin-left: auto; background: rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 4px; }
+    .hero { background: var(--dark-blue); color: white; padding: 64px 24px 48px; text-align: center; }
+    .hero .badge { background: var(--mid-blue); color: white; font-size: 12px; padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 20px; }
+    .hero h1 { font-size: clamp(26px, 5vw, 42px); font-weight: bold; margin-bottom: 16px; line-height: 1.2; }
+    .hero h1 em { font-style: italic; opacity: 0.85; }
+    .hero p { font-size: 17px; opacity: 0.85; max-width: 620px; margin: 0 auto 28px; }
+    .hero .btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn { padding: 10px 22px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 500; display: inline-block; }
+    .btn-primary { background: white; color: var(--dark-blue); }
+    .btn-outline { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.4); }
+    section { padding: 56px 24px; max-width: 900px; margin: 0 auto; }
+    section + section { border-top: 1px solid var(--border); }
+    h2 { font-size: clamp(22px, 3.5vw, 30px); color: var(--dark-blue); margin-bottom: 12px; line-height: 1.3; }
+    h2 em { font-style: italic; color: var(--mid-blue); }
+    h3 { font-size: 17px; color: var(--dark-blue); margin-bottom: 8px; }
+    p { color: var(--mid-text); margin-bottom: 14px; }
+    .callout { background: var(--light-blue); border-left: 4px solid var(--mid-blue); padding: 18px 20px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+    .callout strong { color: var(--dark-blue); display: block; margin-bottom: 6px; }
+    .callout.green { background: var(--green-bg); border-color: var(--teal); }
+    .callout.green strong { color: var(--teal); }
+    .callout.amber { background: var(--amber-bg); border-color: var(--amber); }
+    .callout.amber strong { color: var(--amber); }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 28px; }
+    .card { background: var(--gray); border-radius: 10px; padding: 20px; border-left: 3px solid var(--mid-blue); }
+    .card .icon { font-size: 24px; margin-bottom: 10px; }
+    .card h3 { font-size: 15px; }
+    .card p { font-size: 13px; margin-bottom: 0; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 14px; }
+    th { background: var(--dark-blue); color: white; padding: 10px 14px; text-align: left; }
+    td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--mid-text); }
+    tr:nth-child(even) td { background: var(--gray); }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+    @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+    .col-box { padding: 20px; border-radius: 8px; }
+    .col-box h3 { font-size: 15px; margin-bottom: 10px; }
+    .col-box ul { padding-left: 18px; }
+    .col-box li { font-size: 13px; color: var(--mid-text); margin-bottom: 6px; }
+    .quote { background: var(--dark-blue); color: white; padding: 48px 24px; text-align: center; margin: 0; }
+    .quote blockquote { font-size: clamp(18px, 3vw, 24px); font-style: italic; max-width: 700px; margin: 0 auto; line-height: 1.5; opacity: 0.9; }
+    .quote cite { display: block; margin-top: 16px; font-size: 13px; opacity: 0.6; font-style: normal; }
+    footer { background: var(--gray); border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; font-size: 13px; color: var(--mid-text); }
+    footer a { color: var(--mid-blue); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index-en.html" class="logo">M.E.M.</a>
+  <a href="memi.html">🧠 M.E.M.I.</a>
+  <a href="etos.html">🧭 ETOS</a>
+  <a href="research-en.html">🧪 Research Corner</a>
+  <a href="boerneunivers.html">🌱 Children's Universe</a>
+  <a href="kontakt.html">Contact</a>
+  <a href="sundhed-da.html" class="lang">DA</a>
+</nav>
+
+<div class="hero">
+  <div class="badge">Healthcare · AI governance · decision support</div>
+  <h1>Decisions that are<br><em>difficult because they should be</em></h1>
+  <p>ETOS is built for healthcare: complex decisions, high consequences, requirements for traceability — and professionals who need to be able to stand behind what they do.</p>
+  <div class="btns">
+    <a href="etos.html" class="btn btn-primary">See the ETOS platform →</a>
+    <a href="kontakt.html" class="btn btn-outline">Get in touch</a>
+  </div>
+</div>
+
+<section>
+  <h2>The problem we work with</h2>
+  <p>In healthcare, difficult decisions are rarely difficult because rules are missing. They are difficult because considerations pull in different directions — and because they must be documented, justified and learned from afterwards.</p>
+
+  <div class="two-col">
+    <div class="col-box" style="background:var(--gray);">
+      <h3>The situation</h3>
+      <ul>
+        <li>Patient refuses treatment. Risk is high. Trust is low.</li>
+        <li>Documentation takes time. Decisions are made under pressure.</li>
+        <li>Who decided what — and why — is difficult to reconstruct.</li>
+        <li>Institutional learning rarely happens systematically.</li>
+      </ul>
+    </div>
+    <div class="col-box" style="background:var(--light-blue);">
+      <h3>What ETOS offers</h3>
+      <ul>
+        <li>Makes the tension visible — not just the situation</li>
+        <li>Documents the decision with justification and ethical context</li>
+        <li>Full audit trail — who, when, in what state</li>
+        <li>Pattern recognition across cases over time</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>ETOS in healthcare contexts</h2>
+  <div class="cards">
+    <div class="card">
+      <div class="icon">🏥</div>
+      <h3>Psychiatry and involuntary detention</h3>
+      <p>The system handles the tension between patient autonomy, the system's risk assessment and the relationship with the professional. Documents the dilemma — not just the decision.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🏠</div>
+      <h3>Elderly care and dementia</h3>
+      <p>ETOS Omtanke: intelligent assessment of nocturnal movement rather than panic alarm. No deprivation of liberty — but not blind passivity either.</p>
+    </div>
+    <div class="card">
+      <div class="icon">👶</div>
+      <h3>Child placement and social work</h3>
+      <p>Complex decisions with many parties and high consequences. ETOS makes tensions visible and ensures all considerations are registered — not just the conclusion.</p>
+    </div>
+    <div class="card">
+      <div class="icon">📊</div>
+      <h3>Data governance and AI systems</h3>
+      <p>EU AI Act compliant (Art. 9, 12, 13, 14, 17). Audit trail, human oversight and explainability as an architectural principle — not an afterthought.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Technical architecture</h2>
+  <p>ETOS is not a chatbot or a rule-based system. It is a governance-native decision platform built on M.E.M. theory.</p>
+  <table>
+    <thead><tr><th>Component</th><th>What it does</th><th>EU AI Act</th></tr></thead>
+    <tbody>
+      <tr><td>/decision</td><td>Classifies the situation · calculates divergence and ethical pressure · returns mode and justification</td><td>Art. 9, 13</td></tr>
+      <tr><td>/decision/review</td><td>Human oversight · approve/reject with justification · resolves ethical debt</td><td>Art. 14</td></tr>
+      <tr><td>/audit</td><td>Full traceability · who decided what · when · in what state</td><td>Art. 12</td></tr>
+      <tr><td>/reflection</td><td>System self-evaluation · patterns across cases · institutional learning</td><td>Art. 17</td></tr>
+      <tr><td>/compliance</td><td>Governance metrics · oversight rate · total ethical debt</td><td>Art. 12, 17</td></tr>
+    </tbody>
+  </table>
+  <div class="callout green">
+    <strong>Human oversight as an architectural principle</strong>
+    execution_allowed = False. The system does not make decisions. It makes them visible, documented and learnable — so the human who decides can do so responsibly.
+  </div>
+</section>
+
+<section>
+  <h2>Five decision modes</h2>
+  <p>ETOS classifies situations in five states — not as categories that lock, but as signals that orient:</p>
+  <div class="cards">
+    <div class="card" style="border-color:#2E7D32;"><h3>Normal</h3><p>Tensions are manageable. Standard procedure is sufficient.</p></div>
+    <div class="card" style="border-color:#F57F17;"><h3>Requires review</h3><p>Tensions are real. Action is possible — but with a conscious cost.</p></div>
+    <div class="card" style="border-color:#C62828;"><h3>Emergency</h3><p>High divergence. Action is needed now. Document the dilemma explicitly.</p></div>
+    <div class="card" style="border-color:#4A148C;"><h3>Incompatible</h3><p>Two considerations cannot both be met. The system cannot recommend — but can clarify.</p></div>
+    <div class="card" style="border-color:#1B3A6B;"><h3>Constitutional veto</h3><p>Action would violate inviolable principles. The system says stop.</p></div>
+  </div>
+</section>
+
+<div class="quote">
+  <blockquote>"ETOS does not make decisions — it makes them visible."</blockquote>
+  <cite>M.E.M. Theory · ETOS v3.5</cite>
+</div>
+
+<section>
+  <h2>Are you interested?</h2>
+  <p>We are looking for pilot environments in healthcare — organisations working with complex decisions who are curious about what it means to have AI governance as a real tool rather than a compliance requirement.</p>
+  <div class="callout amber">
+    <strong>What a pilot involves</strong>
+    90 minutes. No preparation. We take a concrete situation from your daily work and see what ETOS does with it. No commitment — but hopefully a useful insight.
+  </div>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;">
+    <a href="kontakt.html" class="btn btn-primary" style="background:var(--dark-blue);color:white;">Get in touch →</a>
+    <a href="research-en.html" class="btn" style="border:1px solid var(--border);color:var(--mid-blue);">See research results</a>
+    <a href="etos.html" class="btn" style="border:1px solid var(--border);color:var(--mid-blue);">ETOS platform</a>
+  </div>
+</section>
+
+<footer>
+  <p>M.E.M. Theory · Maria Edlenborg Mortensen · <a href="mailto:M.E.M.Teori@gmail.com">M.E.M.Teori@gmail.com</a></p>
+  <p style="margin-top:6px;"><a href="sundhed-da.html">DA</a> · <a href="sundhed-en.html">EN</a></p>
+</footer>
+</body>
+</html>
