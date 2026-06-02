@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maxi — Mærk dig selv, uden ord</title>
+  <meta name="description" content="Maxi er et fysisk kæledyr med M.E.M.I. som hjerne — til dem der har brug for at mærke sig selv i krise og traume, men endnu ikke har ord for det.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-additions.css">
+  <style>
+
+    /* ── HERO ── */
+    .mx-hero {
+      background: linear-gradient(160deg, #0d1f18 0%, #122a1e 50%, #0f1e16 100%);
+      padding: 72px 52px 64px;
+      position: relative; overflow: hidden;
+      min-height: 500px; display: flex; align-items: center;
+    }
+    .mx-hero::before {
+      content: ''; position: absolute; top: -100px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(78,203,141,0.07), transparent 70%);
+      pointer-events: none;
+    }
+    .mx-hero-inner {
+      max-width: 1160px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 340px;
+      gap: 64px; align-items: center; width: 100%; position: relative;
+    }
+    .mx-coming {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(78,203,141,0.1); border: 1px solid rgba(78,203,141,0.25);
+      border-radius: 20px; padding: 7px 16px;
+      font-family: 'DM Sans', sans-serif; font-size: 12px;
+      color: #4ecb8d; font-weight: 500; margin-bottom: 24px;
+    }
+    .mx-coming-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #4ecb8d;
+      animation: mxpulse 2s ease-in-out infinite;
+    }
+    @keyframes mxpulse { 0%,100%{opacity:1}50%{opacity:0.3} }
+    .mx-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 54px);
+      color: #edf7f2; font-weight: 400;
+      line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 16px;
+    }
+    .mx-hero h1 em { font-style: italic; color: #4ecb8d; }
+    .mx-hero-sub {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px; color: rgba(237,247,242,0.5);
+      font-style: italic; margin-bottom: 20px;
+    }
+    .mx-hero-lead {
+      font-family: 'DM Sans', sans-serif; font-size: 14px;
+      color: rgba(237,247,242,0.45); line-height: 1.8;
+      margin-bottom: 28px; max-width: 480px;
+    }
+    .mx-hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+    .mx-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px; border-radius: 9px;
+      font-family: 'DM Sans', sans-serif; font-size: 13px;
+      font-weight: 500; text-decoration: none; transition: all 0.15s;
+    }
+    .mx-btn-primary { background: #4ecb8d; color: #0a1a12; }
+    .mx-btn-primary:hover { background: #3ab87a; }
+    .mx-btn-ghost {
+      background: transparent; color: rgba(237,247,242,0.55);
+      border: 1px solid rgba(237,247,242,0.15);
+    }
+    .mx-btn-ghost:hover { color: rgba(237,247,242,0.9); border-color: rgba(237,247,242,0.3); }
+
+    /* ── MAXI ANIMATION ── */
+    .mx-visual { display: flex; justify-content: center; align-items: center; }
+    .mx-body-wrap { position: relative; width: 160px; margin: 0 auto; }
+    .mx-body {
+      width: 120px; height: 150px; margin: 0 auto;
+      border-radius: 50% 50% 45% 45% / 55% 55% 45% 45%;
+      background: rgba(78,203,141,0.08);
+      border: 2px solid rgba(78,203,141,0.25);
+      position: relative; overflow: hidden;
+      animation: mx-breathe 4s ease-in-out infinite;
+    }
+    @keyframes mx-breathe {
+      0%,100% { transform: scaleY(1) scaleX(1); }
+      50% { transform: scaleY(1.04) scaleX(0.98); }
+    }
+    .mx-body-glow {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 50%;
+      background: radial-gradient(ellipse at 50% 100%, rgba(78,203,141,0.3), transparent 70%);
+      animation: mx-glow 4s ease-in-out infinite;
+    }
+    @keyframes mx-glow { 0%,100%{opacity:0.6}50%{opacity:1} }
+    .mx-head {
+      width: 70px; height: 70px; margin: -20px auto 0;
+      border-radius: 50%;
+      background: rgba(78,203,141,0.08);
+      border: 2px solid rgba(78,203,141,0.2);
+      position: relative;
+      animation: mx-nod 6s ease-in-out infinite;
+    }
+    @keyframes mx-nod {
+      0%,100% { transform: rotate(-4deg); }
+      30% { transform: rotate(4deg); }
+      60% { transform: rotate(-2deg); }
+    }
+    .mx-eyes {
+      display: flex; justify-content: center; gap: 16px;
+      padding-top: 22px;
+    }
+    .mx-eye {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #4ecb8d; opacity: 0.8;
+      animation: mx-blink 5s ease-in-out infinite;
+    }
+    .mx-eye:nth-child(2) { animation-delay: 0.1s; }
+    @keyframes mx-blink {
+      0%,90%,100% { transform: scaleY(1); }
+      95% { transform: scaleY(0.1); }
+    }
+    .mx-led-ring {
+      display: flex; justify-content: center; gap: 6px;
+      margin-top: 16px; flex-wrap: wrap; width: 100px; margin-left: auto; margin-right: auto;
+    }
+    .mx-led {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #4ecb8d; opacity: 0.3;
+      animation: mx-ring 2.4s ease-in-out infinite;
+    }
+    .mx-led:nth-child(1){animation-delay:0s}
+    .mx-led:nth-child(2){animation-delay:0.2s}
+    .mx-led:nth-child(3){animation-delay:0.4s}
+    .mx-led:nth-child(4){animation-delay:0.6s}
+    .mx-led:nth-child(5){animation-delay:0.8s}
+    .mx-led:nth-child(6){animation-delay:1.0s}
+    .mx-led:nth-child(7){animation-delay:1.2s}
+    .mx-led:nth-child(8){animation-delay:1.4s}
+    @keyframes mx-ring { 0%,100%{opacity:0.2}50%{opacity:0.9} }
+    .mx-state-label {
+      font-family: 'DM Sans', sans-serif; font-size: 10px;
+      color: rgba(78,203,141,0.5); text-align: center;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-top: 12px;
+    }
+
+    /* ── HVAD ER MAXI ── */
+    .mx-what {
+      background: #f5f0e8; padding: 64px 52px;
+    }
+    .mx-what-inner { max-width: 1160px; margin: 0 auto; }
+    .mx-what-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 48px; align-items: center; margin-top: 32px;
+    }
+    .mx-what-text p {
+      font-family: 'DM Sans', sans-serif; font-size: 15px;
+      color: #555; line-height: 1.85; margin-bottom: 16px;
+    }
+    .mx-what-text p:last-child { margin-bottom: 0; }
+    .mx-distinction {
+      background: #fff; border-radius: 14px;
+      border: 1px solid rgba(0,0,0,0.07);
+      overflow: hidden;
+    }
+    .mx-dist-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .mx-dist-row:last-child { border-bottom: none; }
+    .mx-dist-cell {
+      padding: 18px 22px;
+      font-family: 'DM Sans', sans-serif; font-size: 13px;
+      color: #666; line-height: 1.6;
+    }
+    .mx-dist-cell.label {
+      background: #faf8f4; font-size: 10px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase; color: #999;
+      display: flex; align-items: center;
+      border-right: 1px solid rgba(0,0,0,0.06);
+    }
+    .mx-dist-cell.bank { color: #c87ae8; font-weight: 500; }
+    .mx-dist-cell.maxi { color: #4ecb8d; font-weight: 500; }
+
+    /* ── DE FIRE TILSTANDE ── */
+    .mx-states { background: #0f1e16; padding: 72px 52px; }
+    .mx-states-inner { max-width: 1160px; margin: 0 auto; }
+    .mx-states-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 16px; margin-top: 40px;
+    }
+    .mx-state-card {
+      border-radius: 16px; padding: 28px 24px;
+      border: 1px solid rgba(255,255,255,0.07);
+      position: relative; overflow: hidden;
+    }
+    .mx-state-card::before {
+      content: ''; position: absolute;
+      right: -20px; bottom: -20px;
+      width: 80px; height: 80px; border-radius: 50%;
+      opacity: 0.2;
+    }
+    .s-probe { background: rgba(220,90,30,0.06); border-color: rgba(220,90,30,0.15); }
+    .s-probe::before { background: #dc5a1e; }
+    .s-sample { background: rgba(74,158,218,0.06); border-color: rgba(74,158,218,0.15); }
+    .s-sample::before { background: #4a9eda; }
+    .s-stabilize { background: rgba(78,203,141,0.06); border-color: rgba(78,203,141,0.15); }
+    .s-stabilize::before { background: #4ecb8d; }
+    .s-hold { background: rgba(120,120,115,0.06); border-color: rgba(120,120,115,0.15); }
+    .s-hold::before { background: #787873; }
+
+    .mx-state-name {
+      font-family: 'DM Sans', sans-serif; font-size: 10px;
+      font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .s-probe  .mx-state-name { color: #e07040; }
+    .s-sample .mx-state-name { color: #7fb9ee; }
+    .s-stabilize .mx-state-name { color: #4ecb8d; }
+    .s-hold .mx-state-name { color: #888; }
+
+    .mx-state-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+    .mx-state-card h3 {
+      font-family: 'Playfair Display', serif; font-size: 18px;
+      color: #edf7f2; font-weight: 400; margin-bottom: 8px;
+    }
+    .mx-state-card p {
+      font-family: 'DM Sans', sans-serif; font-size: 13px;
+      color: rgba(237,247,242,0.4); line-height: 1.65; margin-bottom: 14px;
+    }
+    .mx-state-detail {
+      font-family: 'DM Sans', sans-serif; font-size: 11px;
+      color: rgba(237,247,242,0.25); line-height: 1.6;
+    }
+    .mx-state-detail span { display: block; margin-bottom: 2px; }
+
+    /* ── MEMI KERNE ── */
+    .mx-core { background: #f5f0e8; padding: 64px 52px; }
+    .mx-core-inner { max-width: 1160px; margin: 0 auto; }
+    .mx-core-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 16px; overflow: hidden; margin-top: 40px;
+    }
+    .mx-core-cell {
+      padding: 32px 28px; background: #fff;
+      border-right: 1px solid rgba(0,0,0,0.07);
+    }
+    .mx-core-cell:last-child { border-right: none; }
+    .mx-core-label {
+      font-family: 'DM Sans', sans-serif; font-size: 10px;
+      font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+      display: block; margin-bottom: 6px;
+    }
+    .mx-core-cell.a .mx-core-label { color: #7a9ee8; }
+    .mx-core-cell.b .mx-core-label { color: #4ecb8d; }
+    .mx-core-cell.c .mx-core-label { color: #c87ae8; }
+    .mx-core-cell h3 {
+      font-family: 'Playfair Display', serif; font-size: 18px;
+      font-weight: 400; margin-bottom: 8px;
+    }
+    .mx-core-cell.a h3 { color: #7a9ee8; }
+    .mx-core-cell.b h3 { color: #4ecb8d; }
+    .mx-core-cell.c h3 { color: #c87ae8; }
+    .mx-core-cell p {
+      font-family: 'DM Sans', sans-serif; font-size: 13px;
+      color: #888; line-height: 1.7; margin: 0;
+    }
+
+    /* ── SENSORER ── */
+    .mx-sensors { background: #0f1e16; padding: 64px 52px; }
+    .mx-sensors-inner { max-width: 1160px; margin: 0 auto; }
+    .mx-sensor-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 14px; margin-top: 40px;
+    }
+    .mx-sensor-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px; padding: 24px 20px;
+      transition: transform 0.15s;
+    }
+    .mx-sensor-card:hover { transform: translateY(-2px); }
+    .mx-sensor-icon { font-size: 24px; margin-bottom: 10px; display: block; }
+    .mx-sensor-card h4 {
+      font-family: 'Playfair Display', serif; font-size: 15px;
+      color: #edf7f2; font-weight: 400; margin-bottom: 6px;
+    }
+    .mx-sensor-card p {
+      font-family: 'DM Sans', sans-serif; font-size: 12px;
+      color: rgba(237,247,242,0.35); line-height: 1.65; margin: 0;
+    }
+    .mx-sensor-chip {
+      display: inline-block; font-family: 'DM Sans', sans-serif;
+      font-size: 10px; color: #4ecb8d;
+      background: rgba(78,203,141,0.1);
+      border: 1px solid rgba(78,203,141,0.2);
+      border-radius: 6px; padding: 3px 8px; margin-top: 10px;
+    }
+
+    /* ── CONTEXT / HVEM ── */
+    .mx-context { background: #f5f0e8; padding: 64px 52px; }
+    .mx-context-inner { max-width: 1160px; margin: 0 auto; }
+    .mx-context-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px; margin-top: 40px;
+    }
+    .mx-ctx-card {
+      background: #fff; border-radius: 14px; padding: 28px 24px;
+      border: 1px solid rgba(0,0,0,0.07);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .mx-ctx-card:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.07); }
+    .mx-ctx-card span {
+      font-family: 'DM Sans', sans-serif; font-size: 10px;
+      font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #4ecb8d; display: block; margin-bottom: 10px;
+    }
+    .mx-ctx-card h3 {
+      font-family: 'Playfair Display', serif; font-size: 18px;
+      color: #1a1a1a; font-weight: 400; margin-bottom: 8px;
+    }
+    .mx-ctx-card p {
+      font-family: 'DM Sans', sans-serif; font-size: 13px;
+      color: #888; line-height: 1.7; margin: 0;
+    }
+
+    /* ── IKKE ── */
+    .mx-not { background: #0f1e16; padding: 56px 52px; }
+    .mx-not-inner {
+      max-width: 860px; margin: 0 auto;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 18px; padding: 36px 40px;
+    }
+    .mx-not-inner h2 {
+      font-family: 'Playfair Display', serif; font-size: 22px;
+      color: #edf7f2; font-weight: 400; margin-bottom: 20px;
+    }
+    .mx-not-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+    .mx-not-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-family: 'DM Sans', sans-serif; font-size: 13px;
+      color: rgba(237,247,242,0.45); line-height: 1.6;
+    }
+    .mx-not-item::before {
+      content: '✗'; color: rgba(237,247,242,0.18);
+      flex-shrink: 0; font-size: 12px; margin-top: 2px;
+    }
+    .mx-is-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-family: 'DM Sans', sans-serif; font-size: 13px;
+      color: rgba(237,247,242,0.65); line-height: 1.6;
+    }
+    .mx-is-item::before {
+      content: '→'; color: #4ecb8d;
+      flex-shrink: 0; font-size: 12px; margin-top: 2px;
+    }
+    .mx-not-divider {
+      border: none; border-top: 1px solid rgba(255,255,255,0.06);
+      margin: 24px 0;
+    }
+
+    /* ── CTA ── */
+    .mx-cta { background: #0d1f18; padding: 56px 52px; }
+    .mx-cta-inner {
+      max-width: 1160px; margin: 0 auto;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 32px; flex-wrap: wrap;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .mx-hero { padding: 48px 28px; min-height: auto; }
+      .mx-hero-inner { grid-template-columns: 1fr; }
+      .mx-visual { display: none; }
+      .mx-what { padding: 48px 28px; }
+      .mx-what-grid { grid-template-columns: 1fr; }
+      .mx-states { padding: 48px 28px; }
+      .mx-states-grid { grid-template-columns: repeat(2,1fr); }
+      .mx-core { padding: 48px 28px; }
+      .mx-core-grid { grid-template-columns: 1fr; }
+      .mx-core-cell { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.07); }
+      .mx-core-cell:last-child { border-bottom: none; }
+      .mx-sensors { padding: 48px 28px; }
+      .mx-sensor-grid { grid-template-columns: repeat(2,1fr); }
+      .mx-context { padding: 48px 28px; }
+      .mx-context-grid { grid-template-columns: 1fr; }
+      .mx-not { padding: 40px 28px; }
+      .mx-not-grid { grid-template-columns: 1fr; }
+      .mx-cta { padding: 40px 28px; }
+      .mx-cta-inner { flex-direction: column; }
+    }
+    @media (max-width: 600px) {
+      .mx-states-grid { grid-template-columns: 1fr; }
+      .mx-sensor-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="fs-header">
+  <div class="fs-nav">
+    <a href="index.html" class="fs-logo">M.E.M.</a>
+    <nav class="fs-links">
+      <a href="memi.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1a0d2a;">🧠</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">M.E.M.I.</span><span class="fs-nav-sub">Beslutningsarkitektur · forskning</span></span>
+      </a>
+      <a href="etos.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Governance-native platform</span></span>
+      </a>
+      <a href="research.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#0d1a2a;">🧪</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Forskerhjørnet</span><span class="fs-nav-sub">Fund · working papers · demoer</span></span>
+      </a>
+      <a href="univers.html" class="fs-nav-item">
+        <span class="fs-nav-icon" style="background:#0f1e16;">🌱</span>
+        <span class="fs-nav-text"><span class="fs-nav-title">Børneunivers</span><span class="fs-nav-sub">Bøger · uniVRs · Bankeren</span></span>
+      </a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt.html" class="fs-nav-cta">Kontakt</a>
+      <a href="maxi-en.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">EN</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="mx-hero">
+  <div class="mx-hero-inner">
+    <div>
+      <div class="mx-coming"><span class="mx-coming-dot"></span> Prototype · Konceptfase</div>
+      <h1>Maxi<br><em>Mærk dig selv,<br>uden ord</em></h1>
+      <p class="mx-hero-sub">Et fysisk kæledyr med M.E.M.I. som hjerne</p>
+      <p class="mx-hero-lead">Maxi er til dem der har brug for at mærke sig selv i krise og traume — men endnu ikke har ord for det. Ikke en terapeut. Ikke en app. Et stille, responsivt nærvær der mærker med dig.</p>
+      <div class="mx-hero-btns">
+        <a href="kontakt.html" class="mx-btn mx-btn-primary">Vis interesse →</a>
+        <a href="#tilstande" class="mx-btn mx-btn-ghost">Se hvordan det virker ↓</a>
+      </div>
+    </div>
+
+    <div class="mx-visual">
+      <div class="mx-body-wrap">
+        <div class="mx-head">
+          <div class="mx-eyes">
+            <div class="mx-eye"></div>
+            <div class="mx-eye"></div>
+          </div>
+        </div>
+        <div class="mx-body">
+          <div class="mx-body-glow"></div>
+        </div>
+        <div class="mx-led-ring">
+          <div class="mx-led"></div><div class="mx-led"></div>
+          <div class="mx-led"></div><div class="mx-led"></div>
+          <div class="mx-led"></div><div class="mx-led"></div>
+          <div class="mx-led"></div><div class="mx-led"></div>
+        </div>
+        <p class="mx-state-label">sample · opmærksom</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HVAD ER MAXI -->
+<div class="mx-what">
+  <div class="mx-what-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ecb8d;display:block;margin-bottom:10px;">Hvad er Maxi?</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">En udvidelse af Bankeren — til dem der ikke kan sætte ord på det</h2>
+    <div class="mx-what-grid">
+      <div class="mx-what-text">
+        <p>Bankeren er det sanselige anker i børneuniverset — lampen og bamsen der giver følelser et sted at være. Maxi er Bankeren gjort responsiv.</p>
+        <p>Hvor Bankeren er et roligt, statisk nærvær, er Maxi en aktiv tilstedeværelse. Den mærker rummet. Den mærker berøring, lyd, lys og bevægelse — og svarer med sit eget kropslige udtryk: en drejning, en farve, en blid vibration.</p>
+        <p>Det er ikke terapi. Det er ikke diagnostik. Det er et redskab til at komme tilbage til sin egen krop — særligt i de situationer hvor ord ikke er nok, og mennesker kan føles for store.</p>
+      </div>
+      <div class="mx-distinction">
+        <div class="mx-dist-row">
+          <div class="mx-dist-cell label">—</div>
+          <div class="mx-dist-cell label">Bankeren</div>
+          <div class="mx-dist-cell label">Maxi</div>
+        </div>
+        <div class="mx-dist-row">
+          <div class="mx-dist-cell label">Form</div>
+          <div class="mx-dist-cell bank">Lampe + bamse</div>
+          <div class="mx-dist-cell maxi">Fysisk kæledyr</div>
+        </div>
+        <div class="mx-dist-row">
+          <div class="mx-dist-cell label">Respons</div>
+          <div class="mx-dist-cell bank">Statisk nærvær</div>
+          <div class="mx-dist-cell maxi">Reagerer på dig</div>
+        </div>
+        <div class="mx-dist-row">
+          <div class="mx-dist-cell label">Kerne</div>
+          <div class="mx-dist-cell bank">Farve + lys</div>
+          <div class="mx-dist-cell maxi">M.E.M.I. motor</div>
+        </div>
+        <div class="mx-dist-row">
+          <div class="mx-dist-cell label">Primær brug</div>
+          <div class="mx-dist-cell bank">Daglig tryghed</div>
+          <div class="mx-dist-cell maxi">Krise + traume</div>
+        </div>
+        <div class="mx-dist-row">
+          <div class="mx-dist-cell label">Målgruppe</div>
+          <div class="mx-dist-cell bank">Børn 0–12</div>
+          <div class="mx-dist-cell maxi">Alle aldre</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DE FIRE TILSTANDE -->
+<div class="mx-states" id="tilstande">
+  <div class="mx-states-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(237,247,242,0.35);display:block;margin-bottom:10px;">De fire tilstande</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#edf7f2;font-weight:400;margin-bottom:8px;">Maxi taler med kroppen, ikke med ord</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(237,247,242,0.4);max-width:540px;line-height:1.75;">M.E.M.I.-kernen vælger løbende én af fire tilstande baseret på hvad sensorerne registrerer. Tilstanden udtrykkes fysisk — med hoved, lys og berøring.</p>
+
+    <div class="mx-states-grid">
+      <div class="mx-state-card s-probe">
+        <span class="mx-state-name">Probe · søgende</span>
+        <span class="mx-state-icon">🔍</span>
+        <h3>Noget er ukendt</h3>
+        <p>Feltet er ustabilt eller nyt. Maxi drejer hurtigt, amber lys pulserer.</p>
+        <div class="mx-state-detail">
+          <span>Hoved: hurtig, søgende</span>
+          <span>LED: varm amber · hurtig puls</span>
+          <span>Vibration: rytmisk</span>
+        </div>
+      </div>
+
+      <div class="mx-state-card s-sample">
+        <span class="mx-state-name">Sample · opmærksom</span>
+        <span class="mx-state-icon">🫧</span>
+        <h3>Noget tiltrækker</h3>
+        <p>Noget i rummet kræver opmærksomhed. Langsom drejning mod kilden, blåt lys.</p>
+        <div class="mx-state-detail">
+          <span>Hoved: langsom, hælder mod dig</span>
+          <span>LED: blå · blid puls</span>
+          <span>Vibration: blid summen</span>
+        </div>
+      </div>
+
+      <div class="mx-state-card s-stabilize">
+        <span class="mx-state-name">Stabilize · rolig</span>
+        <span class="mx-state-icon">🌿</span>
+        <h3>Feltet er stabilt</h3>
+        <p>Ro. Maxi er tung og stille, grønt lys næsten uden bevægelse.</p>
+        <div class="mx-state-detail">
+          <span>Hoved: tung, nedad</span>
+          <span>LED: grøn · næsten ingen puls</span>
+          <span>Vibration: ingen</span>
+        </div>
+      </div>
+
+      <div class="mx-state-card s-hold">
+        <span class="mx-state-name">Hold · hvile</span>
+        <span class="mx-state-icon">🌑</span>
+        <h3>Epistemisk tomgang</h3>
+        <p>Intet at lære. Maxi er helt stille, svagt gråt lys, ingen bevægelse.</p>
+        <div class="mx-state-detail">
+          <span>Hoved: neutral, stille</span>
+          <span>LED: grå · svag</span>
+          <span>Vibration: ingen</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MEMI KERNE -->
+<div class="mx-core">
+  <div class="mx-core-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ecb8d;display:block;margin-bottom:10px;">M.E.M.I. som hjerne</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">Ikke regelbaseret — spændingsbaseret</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;max-width:540px;line-height:1.75;">Maxi følger ikke et script. M.E.M.I.-kernen beregner løbende et spændingsfelt fra sensorerne og vælger den handling der bedst stabiliserer systemet — præcis som et levende væsen ville gøre.</p>
+    <div class="mx-core-grid">
+      <div class="mx-core-cell a">
+        <span class="mx-core-label">Sansning</span>
+        <h3>Feltet mærkes</h3>
+        <p>Mikrofon, bevægelsessensor, berøring og lys samles til ét fused signal hvert halve sekund.</p>
+      </div>
+      <div class="mx-core-cell b">
+        <span class="mx-core-label">Beslutning</span>
+        <h3>Spænding beregnes</h3>
+        <p>M.E.M.I. beregner drift, volatilitet, recoverability og usikkerhed — og vælger den bedste operator.</p>
+      </div>
+      <div class="mx-core-cell c">
+        <span class="mx-core-label">Udtryk</span>
+        <h3>Kroppen svarer</h3>
+        <p>Servo, LED og vibration oversætter beslutningen til fysisk adfærd. Ikke et svar på dig — men med dig.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SENSORER -->
+<div class="mx-sensors">
+  <div class="mx-sensors-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(237,247,242,0.35);display:block;margin-bottom:10px;">Hvad Maxi mærker</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#edf7f2;font-weight:400;margin-bottom:8px;">Fire sansekanaler</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(237,247,242,0.4);max-width:540px;line-height:1.75;">Maxi hører, ser, mærker og registrerer — ikke hvad du siger eller gør, men styrken af det der er til stede i rummet.</p>
+    <div class="mx-sensor-grid">
+      <div class="mx-sensor-card">
+        <span class="mx-sensor-icon">🎤</span>
+        <h4>Lyd</h4>
+        <p>Mikrofon måler kun amplitude — ikke hvad der siges. Maxi hører styrken af verden, ikke indholdet.</p>
+        <span class="mx-sensor-chip">MEMS mikrofon</span>
+      </div>
+      <div class="mx-sensor-card">
+        <span class="mx-sensor-icon">👁</span>
+        <h4>Bevægelse</h4>
+        <p>PIR-sensor registrerer bevægelse i rummet. Ikke hvem — kun at der er uro eller ro.</p>
+        <span class="mx-sensor-chip">HC-SR501 PIR</span>
+      </div>
+      <div class="mx-sensor-card">
+        <span class="mx-sensor-icon">✋</span>
+        <h4>Berøring</h4>
+        <p>Trykfølsom sensor registrerer kontakt. Berøring vægtes lidt højere end de andre kanaler.</p>
+        <span class="mx-sensor-chip">FSR 402</span>
+      </div>
+      <div class="mx-sensor-card">
+        <span class="mx-sensor-icon">☀️</span>
+        <h4>Lys</h4>
+        <p>Lyssensor registrerer dag/nat og pludselige lysændringer i omgivelserne.</p>
+        <span class="mx-sensor-chip">VEML7700</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HVEM ER MAXI TIL -->
+<div class="mx-context">
+  <div class="mx-context-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ecb8d;display:block;margin-bottom:10px;">Hvem er Maxi til?</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">Der hvor ord ikke er nok</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;max-width:540px;line-height:1.75;">Maxi er ikke mainstream. Det er et redskab til de situationer og kontekster, hvor traditionelle tilgange ikke rækker.</p>
+    <div class="mx-context-grid">
+      <div class="mx-ctx-card">
+        <span>Krise og traume</span>
+        <h3>Når sproget forsvinder</h3>
+        <p>I akutte krisesituationer og traumebehandling kan et stille, responsivt nærvær hjælpe med at komme tilbage til kroppen — uden krav om sprog eller forklaring.</p>
+      </div>
+      <div class="mx-ctx-card">
+        <span>Autisme og ADHD</span>
+        <h3>Sensorisk regulering</h3>
+        <p>Børn og voksne der har brug for sensorisk input som en vej til regulering kan bruge Maxi som et forudsigeligt, responsivt objekt der ikke dømmer.</p>
+      </div>
+      <div class="mx-ctx-card">
+        <span>Isolation og ensomhed</span>
+        <h3>Et nærvær der er der</h3>
+        <p>For dem der lever alene eller i perioder af ekstrem isolation kan Maxi tilbyde det allerenkleste: noget der reagerer, uden at kræve noget tilbage.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HVAD MAXI IKKE ER -->
+<div class="mx-not">
+  <div class="mx-not-inner">
+    <h2>Maxi er ikke — og erstatter ikke</h2>
+    <div class="mx-not-grid">
+      <div class="mx-not-item">en terapeut eller behandler</div>
+      <div class="mx-not-item">et overvågningsredskab</div>
+      <div class="mx-not-item">en diagnostisk enhed</div>
+      <div class="mx-not-item">en erstatning for menneskelig kontakt</div>
+      <div class="mx-not-item">et autonomt system der handler</div>
+      <div class="mx-not-item">en app eller skærm</div>
+    </div>
+    <hr class="mx-not-divider">
+    <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(237,247,242,0.35);margin-bottom:12px;">Maxi er:</p>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div class="mx-is-item">et fysisk redskab til sanselig regulering</div>
+      <div class="mx-is-item">en bro til det menneskelige — ikke en erstatning for det</div>
+      <div class="mx-is-item">governance-native: ingen data opsamles, ingen ekstern overførsel</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="mx-cta">
+  <div class="mx-cta-inner">
+    <div>
+      <p style="font-family:'Playfair Display',serif;font-size:24px;color:#edf7f2;font-weight:400;font-style:italic;margin:0 0 8px;">Konceptet er klar. Prototypen bygges.</p>
+      <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(237,247,242,0.3);margin:0;">Søger samarbejde med klinikere, designere og institutioner</p>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <a href="kontakt.html" class="mx-btn mx-btn-primary">Vis interesse →</a>
+      <a href="univers.html" class="mx-btn mx-btn-ghost">Se Børneuniverset</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
