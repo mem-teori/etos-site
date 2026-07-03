@@ -149,6 +149,14 @@
       .indgange-grid { grid-template-columns: 1fr; }
       .mini-case-inner { grid-template-columns: 1fr; }
       .mini-case-arrow { display: none; }
+      .mem-cards-grid { grid-template-columns: 1fr !important; }
+    }
+    @media (max-width: 1180px) {
+      .fs-links a .fs-nav-title { font-size: 12px !important; }
+      .fs-links a { padding: 8px 8px !important; }
+    }
+    @media (max-width: 980px) {
+      .fs-links { flex-wrap: wrap; row-gap: 4px; }
     }
   </style>
 </head>
@@ -158,22 +166,24 @@
 
   <div class="fs-nav">
     <a href="index-en.html" class="fs-logo">M.E.M.</a>
-    <nav class="fs-links">
-      <a href="memi-en.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#1a0d2a;">🧠</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">M.E.M.I.</span><span class="fs-nav-sub">Decision architecture · research</span></span>
+    <nav class="fs-links" style="gap:4px;">
+      <a href="index-en.html" class="fs-nav-item" style="background:rgba(255,255,255,0.06);padding:8px 12px;">
+        <span class="fs-nav-title" style="font-size:13px;">Start</span>
       </a>
-      <a href="etos-en.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#1E2E1F;">🧭</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">ETOS</span><span class="fs-nav-sub">Governance-native platform</span></span>
+      <a href="produkter-en.html" class="fs-nav-item" style="padding:8px 12px;">
+        <span class="fs-nav-title" style="font-size:13px;">Products</span>
       </a>
-      <a href="research-en.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#0d1a2a;">🧪</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Research Corner</span><span class="fs-nav-sub">Findings · working papers · demos</span></span>
+      <a href="boerneunivers-en.html" class="fs-nav-item" style="padding:8px 12px;">
+        <span class="fs-nav-title" style="font-size:13px;">Children's Universe</span>
       </a>
-      <a href="boerneunivers-en.html" class="fs-nav-item">
-        <span class="fs-nav-icon" style="background:#2a1f1a;">🌱</span>
-        <span class="fs-nav-text"><span class="fs-nav-title">Children's Universe</span><span class="fs-nav-sub">Books · uniVRs · Bankeren</span></span>
+      <a href="research-en.html" class="fs-nav-item" style="padding:8px 12px;">
+        <span class="fs-nav-title" style="font-size:13px;">Research &amp; Lab</span>
+      </a>
+      <a href="forloeb-en.html" class="fs-nav-item" style="padding:8px 12px;">
+        <span class="fs-nav-title" style="font-size:13px;">Courses &amp; Programs</span>
+      </a>
+      <a href="oekonomi-ressourcer.html" class="fs-nav-item" style="padding:8px 12px;">
+        <span class="fs-nav-title" style="font-size:13px;">Resources</span>
       </a>
     </nav>
     <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
@@ -182,13 +192,6 @@
     </div>
   </div>
 </div>
-
-    </nav>
-    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
-      <a href="kontakt-en.html" class="fs-nav-cta">Contact</a>
-      <a href="index.html" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.color='rgba(255,255,255,0.35)';this.style.borderColor='rgba(255,255,255,0.12)'">DA</a>
-    </div>
-  </div>
 </header>
 
 <!-- 1. HERO — M.E.M. SOM FUNDAMENT -->
@@ -233,6 +236,64 @@
 
   </div>
 </section>
+
+<!-- 1B. UNIVERSE MAP -->
+<div class="section" id="universe-map" style="background:#141414;padding:64px 52px;border-top:1px solid rgba(255,255,255,0.06);">
+  <div style="max-width:900px;margin:0 auto;text-align:center;">
+    <span class="section-eyebrow" style="color:#7a9ee8;">The Universe Map</span>
+    <h2 class="section-h2" style="color:#e8ecfc;">It doesn't start as a product</h2>
+    <p class="section-lead" style="color:rgba(232,236,252,0.45);max-width:620px;margin:0 auto 40px;">It starts as a way of seeing relations, tensions, responsibility and recoverability. From there, the same underlying structure unfolds across different domains.</p>
+  </div>
+  <div style="max-width:900px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:0;">
+    <div style="background:rgba(122,158,232,0.1);border:1px solid rgba(122,158,232,0.3);border-radius:12px;padding:14px 28px;font-family:'Playfair Display',serif;font-size:16px;color:#e8ecfc;">M.E.M. Theory</div>
+    <div style="color:rgba(255,255,255,0.25);font-size:20px;line-height:1;padding:6px 0;">↓</div>
+    <div style="background:rgba(240,200,80,0.08);border:1px solid rgba(240,200,80,0.25);border-radius:12px;padding:14px 28px;font-family:'Playfair Display',serif;font-size:16px;color:#e8ecfc;">CDP / Constitutional Corpus</div>
+    <div style="color:rgba(255,255,255,0.25);font-size:20px;line-height:1;padding:6px 0;">↓</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:100%;max-width:760px;">
+      <div style="background:rgba(78,200,140,0.08);border:1px solid rgba(78,200,140,0.25);border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.06em;color:#4ec88c;margin-bottom:4px;">🧭 ETOS</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(232,236,252,0.4);">Decisions made visible</div>
+      </div>
+      <div style="background:rgba(160,141,232,0.08);border:1px solid rgba(160,141,232,0.25);border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.06em;color:#a08de8;margin-bottom:4px;">🧠 M.E.M.I.</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(232,236,252,0.4);">Governance-native systems</div>
+      </div>
+      <div style="background:rgba(122,158,232,0.08);border:1px solid rgba(122,158,232,0.25);border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.06em;color:#7a9ee8;margin-bottom:4px;">🧪 M.E.M. Research</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(232,236,252,0.4);">Findings, experiments, testing</div>
+      </div>
+    </div>
+    <div style="color:rgba(255,255,255,0.25);font-size:20px;line-height:1;padding:6px 0;">↓</div>
+    <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(232,236,252,0.35);text-align:center;max-width:600px;">Products/Courses/Legal · Agent systems/SafeSpace · Results/Verification/Papers</div>
+  </div>
+</div>
+
+<!-- 1C. THE THREE SISTER SITES -->
+<div class="section" style="background:#0d0d0d;padding:64px 52px;border-top:1px solid rgba(255,255,255,0.06);">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:36px;">
+      <span class="section-eyebrow" style="color:#f0c850;">Three sites, one whole</span>
+      <h2 class="section-h2" style="color:#e8ecfc;">Where do you need to go?</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;" class="mem-cards-grid">
+      <a href="https://ai-constitution.now/" style="display:block;background:#161616;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:26px;text-decoration:none;transition:border-color 0.15s;" onmouseover="this.style.borderColor='rgba(255,255,255,0.25)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
+        <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(232,236,252,0.35);display:block;margin-bottom:10px;">ai-constitution.now</span>
+        <h3 style="font-family:'Playfair Display',serif;font-size:19px;color:#f0ebe0;font-weight:400;margin-bottom:10px;">Citizens, democracy, AI governance</h3>
+        <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,0.4);line-height:1.7;">"Why is this necessary?" — for anyone who wants to understand responsibility and accountability in AI decisions.</p>
+      </a>
+      <a href="https://mem-teori.com/" style="display:block;background:#161616;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:26px;text-decoration:none;transition:border-color 0.15s;" onmouseover="this.style.borderColor='rgba(255,255,255,0.25)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
+        <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(232,236,252,0.35);display:block;margin-bottom:10px;">mem-teori.com</span>
+        <h3 style="font-family:'Playfair Display',serif;font-size:19px;color:#f0ebe0;font-weight:400;margin-bottom:10px;">Pilot, product, sales</h3>
+        <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,0.4);line-height:1.7;">"What can be used or tested?" — for anyone who wants to try the systems or start a pilot collaboration.</p>
+      </a>
+      <div style="display:block;background:rgba(122,158,232,0.08);border:1px solid rgba(122,158,232,0.35);border-radius:14px;padding:26px;">
+        <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#7a9ee8;display:block;margin-bottom:10px;">etos-site · you are here</span>
+        <h3 style="font-family:'Playfair Display',serif;font-size:19px;color:#f0ebe0;font-weight:400;margin-bottom:10px;">Universe, map, explanation</h3>
+        <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,235,224,0.4);line-height:1.7;">"How does it all fit together?" — the combined map of the whole M.E.M. ecosystem.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- 2. KONKRET EKSEMPEL — MINI-CASE -->
 <div class="mini-case" id="situation">
@@ -390,7 +451,7 @@
         <h3>Dirigenten</h3>
         <p>Dirigenten creates overview and direction for fast-moving thoughts.</p>
       </a>
-      <a href="boerneunivers.html" class="sys-card">
+      <a href="boerneunivers-en.html" class="sys-card">
         <span class="sys-card-icon">🧸</span>
         <span class="sys-card-tag">Experience</span>
         <h3>Bankeren</h3>
