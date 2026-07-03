@@ -182,7 +182,7 @@
       <a href="forloeb-en.html" class="fs-nav-item" style="padding:8px 12px;">
         <span class="fs-nav-title" style="font-size:13px;">Courses &amp; Programs</span>
       </a>
-      <a href="oekonomi-ressourcer.html" class="fs-nav-item" style="padding:8px 12px;">
+      <a href="oekonomi-ressourcer-en.html" class="fs-nav-item" style="padding:8px 12px;">
         <span class="fs-nav-title" style="font-size:13px;">Resources</span>
       </a>
     </nav>
@@ -507,7 +507,7 @@
 
 <script>
 const cases = [
-  {text:"A patient refuses treatment. The system assesses high risk. The patient wants to stay at home.",tags:[{c:"r",t:"High divergence"},{c:"o",t:"Ethical pressure"},{c:"b",t:"Low trust"}],verdict:"Systemlogik og menneskelig virkelighed trækker i modsat retning. Ethical debt opstår uanset valg."},
+  {text:"A patient refuses treatment. The system assesses high risk. The patient wants to stay at home.",tags:[{c:"r",t:"High divergence"},{c:"o",t:"Ethical pressure"},{c:"b",t:"Low trust"}],verdict:"System logic and human reality pull in opposite directions. Ethical debt accrues regardless of choice."},
   {text:"A family is assessed for placement. The parents cooperate. The child wants to stay at home.",tags:[{c:"o",t:"System conflict"},{c:"r",t:"Ethical pressure"},{c:"b",t:"Moderate trust"}],verdict:"Rules and relationship pull in different directions. ETOS registers what is at stake."},
   {text:"A manager must close a department. The staff are loyal. The decision came from above.",tags:[{c:"o",t:"Incompatible"},{c:"r",t:"Ethical debt"},{c:"b",t:"Unclear responsibility"}],verdict:"The system has decided. The manager is caught in the middle. Responsibility is unclear — and it has a cost."}
 ];
@@ -553,9 +553,9 @@ function demoUpdate(){
     h2.classList.toggle("active", s2>60);
     h3.classList.toggle("active", s3<40);
     if(window._tog==="b"){
-      h1.textContent=s1>66?"The system vil handle — det presser på":"The systems pres er håndterbart lige nu";
-      h2.textContent=s2>66?"Your reality vejer tungt i denne beslutning":"Your reality er kun delvist hørt";
-      h3.textContent=s3<33?"Low trust gør det svært at acceptere en beslutning":"Trust carries part of the burden";
+      h1.textContent=s1>66?"The system wants to act — it's pushing hard":"System pressure is manageable right now";
+      h2.textContent=s2>66?"Your reality weighs heavily in this decision":"Your reality is only partly heard";
+      h3.textContent=s3<33?"Low trust makes a decision hard to accept":"Trust carries part of the burden";
     } else {
       h1.textContent=s1>66?"High risk increases the system's need to act":"Risk level is moderate — there is room for dialogue";
       h2.textContent=s2>66?"High autonomy strengthens the right to self-determination":"Limited autonomy — the system weighs heavily";
@@ -566,7 +566,7 @@ function demoUpdate(){
   let mode,color,insight,rec;
   if(h>60&&e<33){
     mode="Normal"; color="#4ec88c";
-    insight="The systems vurdering og menneskets virkelighed peger i samme retning. Der er etisk plads til at handle.";
+    insight="The system's assessment and human reality point the same way. There is ethical room to act.";
     rec="Document the reasoning. Involve the person affected in the decision as far as possible.";
   } else if(e>72||d>75){
     mode="Critical tension"; color="#e07070";
@@ -574,7 +574,7 @@ function demoUpdate(){
     rec="Seek supervision. Do not let time pressure replace ethical reflection. Document the dilemma explicitly.";
   } else if(Math.abs(s1-s2)>55){
     mode="Incompatible considerations"; color="#e2a06a";
-    insight="The systems logik og individets behov kan ikke forenes i denne situation. Der opstår etisk gæld uanset valg.";
+    insight="The system's logic and the individual's needs cannot be reconciled in this situation. Ethical debt accrues regardless of choice.";
     rec="Acknowledge the conflict openly. No solution is perfect — choose the one that does least harm and explain why.";
   } else {
     mode="Requires review"; color="#7a9ee8";
