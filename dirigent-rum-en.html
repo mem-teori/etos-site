@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Conductor — M.E.M.</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* HERO */
+    .dir-hero {
+      background: #1a1a12;
+      padding: 88px 52px 80px;
+      position: relative; overflow: hidden;
+      text-align: center;
+    }
+    .dir-hero::before {
+      content: '';
+      position: absolute; top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 460px; height: 460px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(226,136,78,0.12), transparent 70%);
+      pointer-events: none;
+    }
+    .dir-hero-inner { max-width: 620px; margin: 0 auto; position: relative; }
+    .dir-hero h1 {
+      color: #fdf4e8; font-size: clamp(36px, 5vw, 58px);
+      margin-bottom: 20px; line-height: 1.08;
+    }
+    .dir-hero h1 em { color: var(--accent); font-style: italic; }
+    .dir-hero .lead {
+      font-size: 18px; color: rgba(253,244,232,0.55);
+      font-family: 'Playfair Display', serif; font-style: italic;
+      line-height: 1.7; margin-bottom: 14px;
+    }
+    .dir-hero .sub {
+      font-size: 14px; color: rgba(253,244,232,0.35);
+      line-height: 1.8; max-width: 440px; margin: 0 auto 36px;
+    }
+    .dir-hero-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .btn-dir-primary { background: var(--accent); color: #fff; }
+    .btn-dir-primary:hover { background: var(--accent-dk); }
+    .btn-dir-ghost {
+      background: transparent; color: rgba(253,244,232,0.65);
+      border: 1px solid rgba(253,244,232,0.2);
+    }
+    .btn-dir-ghost:hover { border-color: rgba(253,244,232,0.4); color: #fdf4e8; }
+
+    /* Floating notes */
+    .dir-notes {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none; overflow: hidden;
+    }
+    .dir-note {
+      position: absolute; font-size: 18px; opacity: 0.12;
+      animation: note-float 8s ease-in-out infinite;
+    }
+    @keyframes note-float {
+      0%,100% { transform: translateY(0px) rotate(0deg); opacity: 0.12; }
+      50% { transform: translateY(-20px) rotate(6deg); opacity: 0.22; }
+    }
+
+    /* PROBLEM */
+    .dir-problem {
+      background: var(--bg);
+      padding: 72px 52px;
+    }
+    .dir-problem-inner {
+      max-width: var(--max); margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: start;
+    }
+    .dir-problem h2 { color: var(--ink); margin-bottom: 20px; }
+    .dir-problem p { font-size: 15px; color: #555; line-height: 1.85; margin-bottom: 14px; }
+    .dir-compare {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .dir-compare-box {
+      border-radius: 12px; padding: 20px 24px;
+    }
+    .dir-compare-box.them {
+      background: #fdf0ee; border: 1px solid rgba(200,80,60,0.12);
+      border-left: 3px solid #c8503c;
+    }
+    .dir-compare-box.them .dir-compare-label { color: #c8503c; }
+    .dir-compare-box.you {
+      background: #fdf6ee; border: 1px solid rgba(226,136,78,0.18);
+      border-left: 3px solid var(--accent);
+    }
+    .dir-compare-box.you .dir-compare-label { color: var(--accent-dk); }
+    .dir-compare-label {
+      font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 10px; display: block;
+    }
+    .dir-compare-box ul { padding-left: 18px; }
+    .dir-compare-box ul li { font-size: 13px; margin-bottom: 6px; line-height: 1.6; }
+    .dir-compare-box.them ul li { color: #7a4040; }
+    .dir-compare-box.you ul li { color: #5a3a1a; }
+
+    /* SOLUTION */
+    .dir-solution {
+      background: #1a1a12;
+      padding: 72px 52px;
+    }
+    .dir-solution-inner { max-width: var(--max); margin: 0 auto; text-align: center; }
+    .dir-solution h2 { color: #fdf4e8; margin-bottom: 12px; }
+    .dir-solution .lead { color: rgba(253,244,232,0.45); font-size: 15px; font-style: italic; margin-bottom: 48px; max-width: 480px; margin-left: auto; margin-right: auto; }
+
+    .dir-flow {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0; flex-wrap: wrap; margin-bottom: 36px;
+    }
+    .dir-flow-step {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 20px 24px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(226,136,78,0.15);
+      border-radius: 12px; min-width: 120px;
+    }
+    .dir-flow-icon { font-size: 22px; margin-bottom: 8px; }
+    .dir-flow-step h4 {
+      font-family: 'Playfair Display', serif; font-size: 14px;
+      color: #fdf4e8; font-weight: 400; margin-bottom: 4px;
+    }
+    .dir-flow-step p { font-size: 11px; color: rgba(253,244,232,0.35); }
+    .dir-flow-arrow {
+      font-size: 18px; color: rgba(226,136,78,0.4); padding: 0 8px;
+      flex-shrink: 0;
+    }
+    .dir-solution .bottom-line {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 16px; color: rgba(253,244,232,0.4); max-width: 400px; margin: 0 auto;
+    }
+
+    /* STEPS */
+    .dir-how {
+      background: var(--bg);
+      padding: 72px 52px;
+    }
+    .dir-how-inner { max-width: var(--max); margin: 0 auto; }
+    .dir-how h2 { color: var(--ink); margin-bottom: 32px; }
+    .dir-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+    }
+    .dir-step {
+      background: #fff; border: 1px solid var(--line);
+      border-radius: 12px; padding: 28px 24px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .dir-step:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .dir-step-num {
+      font-family: 'Playfair Display', serif; font-size: 32px;
+      color: var(--accent); opacity: 0.5; margin-bottom: 12px;
+      display: block; font-weight: 400;
+    }
+    .dir-step h3 { font-size: 17px; color: var(--ink); margin-bottom: 8px; }
+    .dir-step p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+    /* FOR WHOM */
+    .dir-for {
+      background: #fdf6ee;
+      padding: 72px 52px;
+      border-top: 1px solid rgba(226,136,78,0.1);
+    }
+    .dir-for-inner {
+      max-width: var(--max); margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: center;
+    }
+    .dir-for h2 { color: var(--ink); margin-bottom: 16px; }
+    .dir-for p { font-size: 15px; color: #555; line-height: 1.85; margin-bottom: 14px; }
+    .dir-for ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+    .dir-for ul li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 14px; color: #555; line-height: 1.6;
+    }
+    .dir-for ul li::before {
+      content: '→'; color: var(--accent); font-size: 14px;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .dir-for-quote {
+      background: #1a1a12; border-radius: 16px; padding: 36px 32px;
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 20px; color: #fdf4e8; line-height: 1.6;
+      position: relative;
+    }
+    .dir-for-quote::before {
+      content: '"'; font-size: 72px; color: rgba(226,136,78,0.2);
+      position: absolute; top: 10px; left: 24px;
+      font-family: 'Playfair Display', serif; line-height: 1;
+    }
+    .dir-for-quote p { color: rgba(253,244,232,0.7); font-size: 20px; margin: 0; padding-top: 20px; }
+
+    /* LIVE DEMO */
+    .dir-demo {
+      background: var(--bg-dark);
+      padding: 72px 52px;
+    }
+    .dir-demo-inner { max-width: 680px; margin: 0 auto; }
+    .dir-demo h2 { color: var(--sand); margin-bottom: 8px; }
+    .dir-demo .lead { color: rgba(240,235,224,0.45); font-size: 14px; margin-bottom: 32px; }
+
+    .demo-input-wrap {
+      position: relative; margin-bottom: 16px;
+    }
+    .demo-input {
+      width: 100%; min-height: 100px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(240,235,224,0.15);
+      border-radius: 12px; padding: 20px 24px;
+      font-family: 'DM Sans', sans-serif; font-size: 15px;
+      color: #fdf4e8; line-height: 1.7; resize: none;
+      transition: border-color 0.15s;
+      outline: none;
+    }
+    .demo-input::placeholder { color: rgba(240,235,224,0.2); }
+    .demo-input:focus { border-color: rgba(226,136,78,0.4); }
+    .demo-char {
+      position: absolute; bottom: 12px; right: 16px;
+      font-size: 11px; color: rgba(240,235,224,0.2);
+    }
+
+    .demo-btn {
+      font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+      padding: 11px 24px; border-radius: 8px; border: none; cursor: pointer;
+      background: var(--accent); color: #fff; transition: background 0.15s;
+    }
+    .demo-btn:hover { background: var(--accent-dk); }
+    .demo-btn:disabled { opacity: 0.5; cursor: default; }
+
+    .demo-result {
+      margin-top: 24px; display: none;
+    }
+    .demo-result.visible { display: block; }
+    .demo-result-label {
+      font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+    }
+    .demo-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .demo-tag {
+      font-size: 12px; padding: 5px 12px; border-radius: 20px;
+      font-family: 'DM Sans', sans-serif; font-weight: 400;
+      animation: tag-appear 0.3s ease forwards;
+      opacity: 0; transform: translateY(6px);
+    }
+    @keyframes tag-appear {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .demo-tag-project { background: rgba(226,136,78,0.15); color: #e2a06a; }
+    .demo-tag-type    { background: rgba(74,158,218,0.15); color: #6ab4e8; }
+    .demo-tag-mood    { background: rgba(78,200,140,0.12); color: #4ec88c; }
+
+    .demo-suggestion {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(240,235,224,0.1);
+      border-left: 3px solid var(--accent);
+      border-radius: 10px; padding: 16px 20px;
+      animation: slide-in 0.3s ease forwards;
+    }
+    @keyframes slide-in {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .demo-suggestion p {
+      font-size: 13px; color: rgba(240,235,224,0.6); margin: 0; line-height: 1.7;
+    }
+    .demo-suggestion strong { color: rgba(240,235,224,0.85); font-weight: 500; }
+
+    .demo-note {
+      margin-top: 16px; font-size: 12px;
+      color: rgba(240,235,224,0.2); font-style: italic; text-align: center;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 860px) {
+      .dir-hero { padding: 60px 28px 52px; }
+      .dir-problem { padding: 52px 28px; }
+      .dir-problem-inner { grid-template-columns: 1fr; gap: 32px; }
+      .dir-solution { padding: 52px 28px; }
+      .dir-how { padding: 52px 28px; }
+      .dir-steps { grid-template-columns: repeat(2, 1fr); }
+      .dir-for { padding: 52px 28px; }
+      .dir-for-inner { grid-template-columns: 1fr; gap: 32px; }
+      .dir-demo { padding: 52px 28px; }
+      .dir-flow { gap: 0; }
+      .dir-flow-step { min-width: 90px; padding: 14px 12px; }
+      .dir-flow-arrow { padding: 0 4px; font-size: 14px; }
+    }
+    @media (max-width: 560px) {
+      .dir-steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<header class="fs-header">
+  <div class="fs-nav">
+    <a href="index-en.html" class="fs-logo">M.E.M.</a>
+    <nav class="fs-links" style="gap:4px;">
+      <a href="index-en.html" class="fs-nav-item" style="padding:8px 12px;"><span class="fs-nav-title" style="font-size:13px;">Start</span></a>
+      <a href="produkter-en.html" class="fs-nav-item" style="padding:8px 12px;"><span class="fs-nav-title" style="font-size:13px;">Products</span></a>
+      <a href="boerneunivers-en.html" class="fs-nav-item" style="padding:8px 12px;"><span class="fs-nav-title" style="font-size:13px;">Children's Universe</span></a>
+      <a href="research-en.html" class="fs-nav-item" style="padding:8px 12px;"><span class="fs-nav-title" style="font-size:13px;">Research &amp; Lab</span></a>
+      <a href="forloeb-en.html" class="fs-nav-item" style="padding:8px 12px;"><span class="fs-nav-title" style="font-size:13px;">Courses &amp; Programmes</span></a>
+      <a href="oekonomi-ressourcer-en.html" class="fs-nav-item" style="padding:8px 12px;"><span class="fs-nav-title" style="font-size:13px;">Resources</span></a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+      <a href="kontakt-en.html" class="fs-nav-cta">Contact</a>
+      <a href="dirigent-rum.html" class="fs-lang-pill">DA</a>
+    </div>
+  </div>
+</header>
+
+<nav class="site-nav">
+  <a href="index-en.html" class="nav-logo">ETOS</a>
+  <div class="nav-links">
+    <a href="etos-en.html" class="nav-item">
+      <span class="nav-item-icon" style="background:#1a2040;">🧭</span>
+      <span class="nav-item-text">
+        <span class="nav-item-title">ETOS</span>
+        <span class="nav-item-sub">Decision model</span>
+      </span>
+    </a>
+    <a href="system.html" class="nav-item">
+      <span class="nav-item-icon" style="background:#0d1117;">⚙️</span>
+      <span class="nav-item-text">
+        <span class="nav-item-title">The system</span>
+        <span class="nav-item-sub">Case analysis · Demo</span>
+      </span>
+    </a>
+    <a href="boerneunivers-en.html" class="nav-item">
+      <span class="nav-item-icon" style="background:#2a1f1a;">🌱</span>
+      <span class="nav-item-text"><span class="nav-item-title">Children's Universe</span><span class="nav-item-sub">Books · uniVRs · The Banker</span></span>
+    </a>
+    <a href="dirigent-rum-en.html" class="nav-item">
+      <span class="nav-item-icon" style="background:#1a1a12;">🎼</span>
+      <span class="nav-item-text">
+        <span class="nav-item-title">The Conductor</span>
+        <span class="nav-item-sub">Ideas · Projects</span>
+      </span>
+    </a>
+    <a href="regnskab-program-en.html" class="nav-item">
+      <span class="nav-item-icon" style="background:#111520;">📊</span>
+      <span class="nav-item-text">
+        <span class="nav-item-title">Accounting</span>
+        <span class="nav-item-sub">Finance · Overview</span>
+      </span>
+    </a>
+  </div>
+  <a href="kontakt-en.html" class="nav-cta">Contact</a>
+</nav>
+
+<!-- HERO -->
+<div class="dir-hero">
+  <div class="dir-notes">
+    <div class="dir-note" style="top:18%;left:8%;animation-delay:0s;">🎼</div>
+    <div class="dir-note" style="top:65%;left:5%;animation-delay:1.4s;">♩</div>
+    <div class="dir-note" style="top:30%;right:9%;animation-delay:0.7s;">♪</div>
+    <div class="dir-note" style="top:72%;right:7%;animation-delay:2.1s;">🎵</div>
+    <div class="dir-note" style="top:14%;right:22%;animation-delay:1.8s;">♫</div>
+  </div>
+  <div class="dir-hero-inner">
+    <span class="eyebrow" style="color:var(--accent);">Project · Fully working beta</span>
+    <h1>The Conductor</h1>
+    <p class="lead" style="font-family:'Playfair Display',serif;font-style:italic;font-size:18px;color:rgba(253,244,232,0.65);margin-bottom:8px;">Your personal OS for thoughts that come too fast</p>
+    <p class="sub">When ideas, notes, and half-sentences are swirling around in your head — The Conductor helps you land them. Without you having to structure it all yourself.</p>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px;">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(78,200,140,0.1);border:1px solid rgba(78,200,140,0.25);border-radius:20px;padding:6px 14px;font-size:12px;color:#4ec88c;font-weight:500;">
+        ✅ Fully working desktop version
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(226,136,78,0.1);border:1px solid rgba(226,136,78,0.25);border-radius:20px;padding:6px 14px;font-size:12px;color:var(--accent);font-weight:500;">
+        ✅ Ready to test now
+      </div>
+    </div>
+
+    <div class="dir-hero-btns">
+      <a href="kontakt-en.html" class="btn btn-primary" style="font-size:14px;padding:12px 24px;">Try The Conductor beta →</a>
+      <a href="#hvordan" class="btn btn-ghost" style="font-size:13px;">How it works</a>
+    </div>
+  </div>
+</div>
+
+<!-- THE PROBLEM -->
+<div class="dir-problem">
+  <div class="dir-problem-inner">
+    <div>
+      <span class="eyebrow">The problem</span>
+      <h2>Systems are built for one kind of thinking</h2>
+      <p>Most planning tools expect you to think linearly — one thing at a time, in order, broken into tasks.</p>
+      <p>For many people, that's the exact opposite of how thoughts actually work. Meaning comes before structure. Everything is connected. Overview emerges when something is allowed to exist raw.</p>
+      <p>That's not a problem with you. It's a problem with the system.</p>
+    </div>
+    <div class="dir-compare">
+      <div class="dir-compare-box them">
+        <span class="dir-compare-label">What the systems expect</span>
+        <ul>
+          <li>Think linearly</li>
+          <li>Prioritise before you understand</li>
+          <li>Break everything into tasks</li>
+          <li>Have it under control from the start</li>
+        </ul>
+      </div>
+      <div class="dir-compare-box you">
+        <span class="dir-compare-label">What actually happens</span>
+        <ul>
+          <li>Meaning comes before structure</li>
+          <li>Everything is connected at once</li>
+          <li>Overview emerges when something exists raw</li>
+          <li>Movement creates clarity</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SOLUTION -->
+<div class="dir-solution">
+  <div class="dir-solution-inner">
+    <span class="eyebrow" style="color:var(--accent);">The solution</span>
+    <h2 style="color:#fdf4e8;">A space for translation</h2>
+    <p class="lead">The Conductor is not a to-do list. It's a space between chaos and action.</p>
+    <div class="dir-flow">
+      <div class="dir-flow-step">
+        <div class="dir-flow-icon">🧠</div>
+        <h4>Thought</h4>
+        <p>Raw, unfiltered</p>
+      </div>
+      <div class="dir-flow-arrow">→</div>
+      <div class="dir-flow-step">
+        <div class="dir-flow-icon">📥</div>
+        <h4>Landing spot</h4>
+        <p>No structure yet</p>
+      </div>
+      <div class="dir-flow-arrow">→</div>
+      <div class="dir-flow-step">
+        <div class="dir-flow-icon">🧷</div>
+        <h4>Project</h4>
+        <p>Connections emerge</p>
+      </div>
+      <div class="dir-flow-arrow">→</div>
+      <div class="dir-flow-step">
+        <div class="dir-flow-icon">📊</div>
+        <h4>Portfolio</h4>
+        <p>Overview grows</p>
+      </div>
+    </div>
+    <p class="bottom-line">You don't start with structure. You start by getting it out.</p>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="dir-how" id="hvordan">
+  <div class="dir-how-inner">
+    <span class="eyebrow">Method</span>
+    <h2>How it works</h2>
+    <div class="dir-steps">
+      <div class="dir-step">
+        <span class="dir-step-num">01</span>
+        <h3>Land</h3>
+        <p>Write everything without a filter. No structure. No requirement that it makes sense — yet.</p>
+      </div>
+      <div class="dir-step">
+        <span class="dir-step-num">02</span>
+        <h3>Connect</h3>
+        <p>Link the idea to a project when it makes sense. Or let it sit and wait.</p>
+      </div>
+      <div class="dir-step">
+        <span class="dir-step-num">03</span>
+        <h3>Understand</h3>
+        <p>The Conductor suggests where the idea belongs — based on patterns, not rules.</p>
+      </div>
+      <div class="dir-step">
+        <span class="dir-step-num">04</span>
+        <h3>Develop</h3>
+        <p>The project grows into a living portfolio. Overview emerges on its own.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOR WHOM -->
+<div class="dir-for">
+  <div class="dir-for-inner">
+    <div>
+      <span class="eyebrow">Perfect for</span>
+      <h2>Built for people who think faster than they can organise</h2>
+      <p>The Conductor is for people who have many ideas at once — and get overwhelmed by classic planning tools.</p>
+      <ul>
+        <li>Neurodivergent minds and ADHD</li>
+        <li>Creatives juggling many balls at once</li>
+        <li>Solo founders who think fast and complex</li>
+        <li>Researchers and designers with many parallel tracks</li>
+      </ul>
+      <p style="margin-top:20px;">It's not a system to control you. It's a system to follow you.</p>
+    </div>
+    <div class="dir-for-quote">
+      <p>"Here I get to think as I am — not as the system wants me to be."</p>
+    </div>
+  </div>
+</div>
+
+<!-- LIVE DEMO -->
+<div class="dir-demo" id="demo">
+  <div class="dir-demo-inner">
+    <span class="eyebrow" style="color:var(--accent);">Try it</span>
+    <h2>Land a thought</h2>
+    <p class="lead">Write an idea, a thought, or something on your mind. Unfiltered. The Conductor is listening.</p>
+
+    <div class="demo-input-wrap">
+      <textarea
+        class="demo-input"
+        id="demoInput"
+        placeholder="Write what's in your head right now..."
+        maxlength="400"
+        oninput="updateChar(this)"
+      ></textarea>
+      <span class="demo-char" id="charCount">0 / 400</span>
+    </div>
+    <button class="demo-btn" id="demoBtn" onclick="landTanke()" disabled>
+      Land the thought →
+    </button>
+
+    <div class="demo-result" id="demoResult">
+      <div class="demo-result-label">The Conductor sees</div>
+      <div class="demo-tags" id="demoTags"></div>
+      <div class="demo-suggestion" id="demoSuggestion"></div>
+      <p class="demo-note">This is a simple demo — the real Conductor learns from your patterns over time.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-strip">
+  <p class="cta-quote">"The first version is built simply. But it's built honestly."</p>
+  <div class="cta-strip-btns">
+    <a href="kontakt-en.html" class="btn btn-primary">Get in from the start</a>
+    <a href="mailto:M.E.M.Teori@gmail.com" class="btn btn-ghost">Write directly</a>
+  </div>
+</div>
+
+<script>
+function updateChar(el) {
+  const len = el.value.length;
+  document.getElementById('charCount').textContent = len + ' / 400';
+  document.getElementById('demoBtn').disabled = len < 3;
+}
+
+function landTanke() {
+  const input = document.getElementById('demoInput').value.trim();
+  if (!input) return;
+
+  const btn = document.getElementById('demoBtn');
+  btn.disabled = true;
+  btn.textContent = 'Listening...';
+
+  setTimeout(() => {
+    const result = analyserTanke(input);
+    visDemoResultat(result);
+    btn.textContent = 'Land the thought →';
+    btn.disabled = false;
+  }, 900);
+}
+
+function analyserTanke(tekst) {
+  const t = tekst.toLowerCase();
+
+  // Project guess
+  let projekt = 'Loose idea';
+  if (t.match(/child|kid|school|teach|student|learn/)) { projekt = "Children's Universe"; }
+  else if (t.match(/music|song|sound|rhythm|tone/)) { projekt = 'Creative track'; }
+  else if (t.match(/money|finance|budget|accounting|invoice/)) { projekt = 'Accounting'; }
+  else if (t.match(/chemistry|physics|vr|science|nature/)) { projekt = 'Learning-uniVRs'; }
+  else if (t.match(/decision|ethic|system|rule|conflict/)) { projekt = 'ETOS'; }
+  else if (t.match(/idea|thought|project|plan|build|create/)) { projekt = 'New project?'; }
+
+  // Type
+  let type = 'Thought';
+  if (t.match(/\?/)) type = 'Question';
+  else if (t.match(/want to|should|ought|maybe|try/)) type = 'Intention';
+  else if (t.match(/what if|imagine|suppose/)) type = 'Vision';
+  else if (t.match(/problem|hard|frustrating|annoying/)) type = 'Challenge';
+  else if (t.match(/great|good|works|awesome|love/)) type = 'Energy';
+
+  // Mood
+  let stemning = 'Neutral';
+  if (t.match(/happy|great|excited|glad|yes|perfect|love/)) stemning = 'High energy';
+  else if (t.match(/tired|hard|heavy|annoying|frustrat|not/)) stemning = 'Resistance';
+  else if (t.match(/calm|quiet|maybe|thinking|considering/)) stemning = 'Reflective';
+  else if (t.match(/\?|what|how|why|who/)) stemning = 'Curious';
+
+  // Suggestion
+  const forslag = [
+    `<strong>Project:</strong> This thought looks like it belongs under "${projekt}".`,
+    `<strong>Next step:</strong> Let it sit for 24 hours — or write three more words about what's interesting about it.`,
+    `<strong>Pattern:</strong> You most often write about what gives you energy, not what demands something. That's information.`
+  ];
+
+  return { projekt, type, stemning, forslag: forslag[Math.floor(Math.random() * forslag.length)] };
+}
+
+function visDemoResultat(r) {
+  const tagsEl = document.getElementById('demoTags');
+  const suggEl = document.getElementById('demoSuggestion');
+  const resultEl = document.getElementById('demoResult');
+
+  tagsEl.innerHTML = '';
+  const tags = [
+    { text: r.projekt, cls: 'demo-tag-project' },
+    { text: r.type,    cls: 'demo-tag-type' },
+    { text: r.stemning,cls: 'demo-tag-mood' },
+  ];
+  tags.forEach((tag, i) => {
+    const el = document.createElement('span');
+    el.className = 'demo-tag ' + tag.cls;
+    el.textContent = tag.text;
+    el.style.animationDelay = (i * 0.12) + 's';
+    tagsEl.appendChild(el);
+  });
+
+  suggEl.innerHTML = '<p>' + r.forslag + '</p>';
+  resultEl.classList.add('visible');
+  resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+</script>
+
+</body>
+</html>
