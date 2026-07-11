@@ -79,7 +79,7 @@
     .mx-core-cell p{font-family:'DM Sans',sans-serif;font-size:13px;color:#888;line-height:1.7;margin:0}
     .mx-sensors{background:#0f1e16;padding:64px 52px}
     .mx-sensors-inner{max-width:1160px;margin:0 auto}
-    .mx-sensor-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
+    .mx-sensor-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:40px}
     .mx-sensor-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:24px 20px;transition:transform 0.15s}
     .mx-sensor-card:hover{transform:translateY(-2px)}
     .mx-sensor-icon{font-size:24px;margin-bottom:10px;display:block}
@@ -302,12 +302,12 @@
   <div class="mx-core-inner">
     <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ecb8d;display:block;margin-bottom:10px;">M.E.M.I. as the brain</span>
     <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">Not rule-based — tension-based</h2>
-    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;max-width:540px;line-height:1.75;">Maxi does not follow a script. The M.E.M.I. core continuously calculates a tension field from the sensors and selects the action that best stabilises the system — exactly as a living being would.</p>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;max-width:540px;line-height:1.75;">Maxi does not follow a script. The M.E.M.I. core continuously calculates a tension field from both outer senses and a simple inner body sense — and selects the action that best stabilises the system.</p>
     <div class="mx-core-grid">
       <div class="mx-core-cell a">
         <span class="mx-core-label">Sensing</span>
         <h3>The field is felt</h3>
-        <p>Microphone, motion sensor, touch and light are fused into one signal every half second.</p>
+        <p>Microphone, motion sensor, touch, light and body temperature are fused into one signal every half second.</p>
       </div>
       <div class="mx-core-cell b">
         <span class="mx-core-label">Decision</span>
@@ -317,7 +317,7 @@
       <div class="mx-core-cell c">
         <span class="mx-core-label">Expression</span>
         <h3>The body responds</h3>
-        <p>Servo, LED and vibration translate the decision into physical behaviour. Not a response to you — but with you.</p>
+        <p>Servo, LED, vibration and body warmth translate the decision into physical behaviour. Not a response to you — but with you.</p>
       </div>
     </div>
   </div>
@@ -326,8 +326,8 @@
 <div class="mx-sensors">
   <div class="mx-sensors-inner">
     <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(237,247,242,0.35);display:block;margin-bottom:10px;">What Maxi senses</span>
-    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#edf7f2;font-weight:400;margin-bottom:8px;">Four sense channels</h2>
-    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(237,247,242,0.4);max-width:540px;line-height:1.75;">Maxi hears, sees, feels and registers — not what you say or do, but the intensity of what is present in the room.</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#edf7f2;font-weight:400;margin-bottom:8px;">Four outer senses + one inner sense</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(237,247,242,0.4);max-width:640px;line-height:1.75;">Maxi hears, sees, feels and registers — not what you say or do, but the intensity of what is present in the room. The new inner sense measures body temperature, so Maxi can also regulate its own bodily calm.</p>
     <div class="mx-sensor-grid">
       <div class="mx-sensor-card">
         <span class="mx-sensor-icon">🎤</span>
@@ -353,7 +353,22 @@
         <p>Light sensor registers day/night and sudden changes in ambient light.</p>
         <span class="mx-sensor-chip">VEML7700</span>
       </div>
+      <div class="mx-sensor-card">
+        <span class="mx-sensor-icon">🌡️</span>
+        <h4>Inner body sense</h4>
+        <p>A thermistor measures Maxi's own body temperature. This gives a simple form of interoception: Maxi senses not only the room — but also itself.</p>
+        <span class="mx-sensor-chip">NTC 10kΩ + heat pad</span>
+      </div>
     </div>
+  </div>
+</div>
+
+<div class="mx-core">
+  <div class="mx-core-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ecb8d;display:block;margin-bottom:10px;">Embodied upgrade</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">Maxi also senses itself</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;max-width:680px;line-height:1.75;">Maxi is no longer only a body that responds to the room. With a thermistor and body warmth, it gains a simple inner sense: it can register distance from a calm comfort temperature and regulate the heat pad toward bodily presence. This makes Maxi calmer, more predictable and more physically present with the user.</p>
+    <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:#999;max-width:680px;line-height:1.75;margin-top:14px;">The warmth system follows a fail-safe principle: software regulates toward low body warmth, while hardware safety components act as independent protection layers. Software is never the final safety barrier.</p>
   </div>
 </div>
 

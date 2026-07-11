@@ -273,7 +273,7 @@
     .mx-sensors { background: #0f1e16; padding: 64px 52px; }
     .mx-sensors-inner { max-width: 1160px; margin: 0 auto; }
     .mx-sensor-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr);
+      display: grid; grid-template-columns: repeat(5, 1fr);
       gap: 14px; margin-top: 40px;
     }
     .mx-sensor-card {
@@ -643,12 +643,12 @@
   <div class="mx-core-inner">
     <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ecb8d;display:block;margin-bottom:10px;">M.E.M.I. som hjerne</span>
     <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">Ikke regelbaseret — spændingsbaseret</h2>
-    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;max-width:540px;line-height:1.75;">Maxi følger ikke et script. M.E.M.I.-kernen beregner løbende et spændingsfelt fra sensorerne og vælger den handling der bedst stabiliserer systemet — præcis som et levende væsen ville gøre.</p>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;max-width:540px;line-height:1.75;">Maxi følger ikke et script. M.E.M.I.-kernen beregner løbende et spændingsfelt fra både ydre sanser og en enkel indre kropssans — og vælger den handling der bedst stabiliserer systemet.</p>
     <div class="mx-core-grid">
       <div class="mx-core-cell a">
         <span class="mx-core-label">Sansning</span>
         <h3>Feltet mærkes</h3>
-        <p>Mikrofon, bevægelsessensor, berøring og lys samles til ét fused signal hvert halve sekund.</p>
+        <p>Mikrofon, bevægelsessensor, berøring, lys og kropstemperatur samles til ét fused signal hvert halve sekund.</p>
       </div>
       <div class="mx-core-cell b">
         <span class="mx-core-label">Beslutning</span>
@@ -658,7 +658,7 @@
       <div class="mx-core-cell c">
         <span class="mx-core-label">Udtryk</span>
         <h3>Kroppen svarer</h3>
-        <p>Servo, LED og vibration oversætter beslutningen til fysisk adfærd. Ikke et svar på dig — men med dig.</p>
+        <p>Servo, LED, vibration og kropsvarme oversætter beslutningen til fysisk adfærd. Ikke et svar på dig — men med dig.</p>
       </div>
     </div>
   </div>
@@ -668,8 +668,8 @@
 <div class="mx-sensors">
   <div class="mx-sensors-inner">
     <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(237,247,242,0.35);display:block;margin-bottom:10px;">Hvad Maxi mærker</span>
-    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#edf7f2;font-weight:400;margin-bottom:8px;">Fire sansekanaler</h2>
-    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(237,247,242,0.4);max-width:540px;line-height:1.75;">Maxi hører, ser, mærker og registrerer — ikke hvad du siger eller gør, men styrken af det der er til stede i rummet.</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#edf7f2;font-weight:400;margin-bottom:8px;">Fire ydre sanser + én indre sans</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(237,247,242,0.4);max-width:640px;line-height:1.75;">Maxi hører, ser, mærker og registrerer — ikke hvad du siger eller gør, men styrken af det der er til stede i rummet. Den nye indre sans måler kropstemperatur, så Maxi også kan regulere sin egen kropslige ro.</p>
     <div class="mx-sensor-grid">
       <div class="mx-sensor-card">
         <span class="mx-sensor-icon">🎤</span>
@@ -695,7 +695,23 @@
         <p>Lyssensor registrerer dag/nat og pludselige lysændringer i omgivelserne.</p>
         <span class="mx-sensor-chip">VEML7700</span>
       </div>
+      <div class="mx-sensor-card">
+        <span class="mx-sensor-icon">🌡️</span>
+        <h4>Indre kropssans</h4>
+        <p>Termistor måler Maxis egen kropstemperatur. Det giver en enkel form for interoception: Maxi mærker ikke kun rummet — men også sig selv.</p>
+        <span class="mx-sensor-chip">NTC 10kΩ + varmeflade</span>
+      </div>
     </div>
+  </div>
+</div>
+
+<!-- KROPSLIGT NÆRVÆR -->
+<div class="mx-core">
+  <div class="mx-core-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ecb8d;display:block;margin-bottom:10px;">Kropslig opgradering</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">Maxi mærker også sig selv</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;max-width:680px;line-height:1.75;">Maxi er ikke længere kun en krop der reagerer på rummet. Med termistor og kropsvarme får han en enkel indre sans: han kan registrere afstanden fra en rolig komforttemperatur og regulere varmefladen mod kropsligt nærvær. Det gør ham mere rolig, forudsigelig og fysisk i mødet med brugeren.</p>
+    <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:#999;max-width:680px;line-height:1.75;margin-top:14px;">Varmen er bygget med fail-safe princip: softwaren styrer mod lav kropsvarme, men hardware-sikringer står som uafhængigt sikkerhedslag. Softwaren er aldrig sidste værn.</p>
   </div>
 </div>
 
