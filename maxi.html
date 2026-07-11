@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Maxi — Mærk dig selv, uden ord</title>
-  <meta name="description" content="Maxi er et fysisk kæledyr med M.E.M.I. som hjerne — til dem der har brug for at mærke sig selv i krise og traume, men endnu ikke har ord for det.">
+  <meta name="description" content="Maxi er et fysisk, sansende nærvær med M.E.M.I. som hjerne — til akut krise, traume og de situationer hvor sprog ikke er løsningen.">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="style-additions.css">
   <style>
@@ -300,6 +300,44 @@
       border-radius: 6px; padding: 3px 8px; margin-top: 10px;
     }
 
+
+
+    /* ── NÆRVÆR ── */
+    .mx-presence { background: #fff; padding: 64px 52px; }
+    .mx-presence-inner { max-width: 1160px; margin: 0 auto; }
+    .mx-presence-grid {
+      display: grid; grid-template-columns: 0.95fr 1.05fr;
+      gap: 48px; align-items: start; margin-top: 36px;
+    }
+    .mx-presence-text p {
+      font-family: 'DM Sans', sans-serif; font-size: 15px;
+      color: #555; line-height: 1.85; margin-bottom: 16px;
+    }
+    .mx-presence-quote {
+      font-family: 'Playfair Display', serif; font-size: 24px;
+      color: #1a1a1a; font-weight: 400; font-style: italic;
+      line-height: 1.45; margin: 0 0 22px;
+      border-left: 3px solid #4ecb8d; padding-left: 22px;
+    }
+    .mx-presence-cards { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    .mx-presence-card {
+      background: #f5f0e8; border: 1px solid rgba(0,0,0,0.07);
+      border-radius: 14px; padding: 22px 24px;
+    }
+    .mx-presence-card span {
+      font-family: 'DM Sans', sans-serif; font-size: 10px;
+      font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #4ecb8d; display: block; margin-bottom: 8px;
+    }
+    .mx-presence-card h3 {
+      font-family: 'Playfair Display', serif; font-size: 18px;
+      color: #1a1a1a; font-weight: 400; margin-bottom: 8px;
+    }
+    .mx-presence-card p {
+      font-family: 'DM Sans', sans-serif; font-size: 13px;
+      color: #777; line-height: 1.7; margin: 0;
+    }
+
     /* ── CONTEXT / HVEM ── */
     .mx-context { background: #f5f0e8; padding: 64px 52px; }
     .mx-context-inner { max-width: 1160px; margin: 0 auto; }
@@ -388,6 +426,8 @@
       .mx-core-cell:last-child { border-bottom: none; }
       .mx-sensors { padding: 48px 28px; }
       .mx-sensor-grid { grid-template-columns: repeat(2,1fr); }
+      .mx-presence { padding: 48px 28px; }
+      .mx-presence-grid { grid-template-columns: 1fr; }
       .mx-context { padding: 48px 28px; }
       .mx-context-grid { grid-template-columns: 1fr; }
       .mx-not { padding: 40px 28px; }
@@ -429,7 +469,7 @@
       <div class="mx-coming"><span class="mx-coming-dot"></span> Prototype · Konceptfase</div>
       <h1>Maxi<br><em>Mærk dig selv,<br>uden ord</em></h1>
       <p class="mx-hero-sub">Et fysisk kæledyr med M.E.M.I. som hjerne</p>
-      <p class="mx-hero-lead">Maxi er til dem der har brug for at mærke sig selv i krise og traume — men endnu ikke har ord for det. Ikke en terapeut. Ikke en app. Et stille, responsivt nærvær der mærker med dig.</p>
+      <p class="mx-hero-lead">Maxi er til akut krise, traume og de øjeblikke, hvor sprog ikke er løsningen. Ikke en terapeut. Ikke en app. En rolig, fysisk relation uden krav — et nærvær der mærker med dig.</p>
       <div class="mx-hero-btns">
         <a href="kontakt.html" class="mx-btn mx-btn-primary">Vis interesse →</a>
         <a href="#tilstande" class="mx-btn mx-btn-ghost">Se hvordan det virker ↓</a>
@@ -468,7 +508,7 @@
       <div class="mx-what-text">
         <p>Bankeren er det sanselige anker i børneuniverset — lampen og bamsen der giver følelser et sted at være. Maxi er Bankeren gjort responsiv.</p>
         <p>Hvor Bankeren er et roligt, statisk nærvær, er Maxi en aktiv tilstedeværelse. Den mærker rummet. Den mærker berøring, lyd, lys og bevægelse — og svarer med sit eget kropslige udtryk: en drejning, en farve, en blid vibration.</p>
-        <p>Det er ikke terapi. Det er ikke diagnostik. Det er et redskab til at komme tilbage til sin egen krop — særligt i de situationer hvor ord ikke er nok, og mennesker kan føles for store.</p>
+        <p>Det er ikke terapi. Det er ikke diagnostik. Det er et redskab til at komme tilbage til sin egen krop — særligt i de situationer hvor ord, spørgsmål og forklaringer kan blive for store.</p>
       </div>
       <div class="mx-distinction">
         <div class="mx-dist-row">
@@ -479,7 +519,7 @@
         <div class="mx-dist-row">
           <div class="mx-dist-cell label">Form</div>
           <div class="mx-dist-cell bank">Lampe + bamse</div>
-          <div class="mx-dist-cell maxi">Fysisk kæledyr</div>
+          <div class="mx-dist-cell maxi">Fysisk hundelignende nærvær</div>
         </div>
         <div class="mx-dist-row">
           <div class="mx-dist-cell label">Respons</div>
@@ -500,6 +540,39 @@
           <div class="mx-dist-cell label">Målgruppe</div>
           <div class="mx-dist-cell bank">Børn 0–12</div>
           <div class="mx-dist-cell maxi">Alle aldre</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- NÆRVÆR FØR SPROG -->
+<div class="mx-presence">
+  <div class="mx-presence-inner">
+    <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ecb8d;display:block;margin-bottom:10px;">Nærvær før sprog</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">Designet til de øjeblikke, hvor kroppen skal mødes før ordene</h2>
+    <div class="mx-presence-grid">
+      <div class="mx-presence-text">
+        <p class="mx-presence-quote">Maxi er ikke en robot, der taler dig til ro. Maxi er en fysisk relation, der hjælper kroppen med at finde tilbage til sig selv.</p>
+        <p>Maxi er tænkt som en fysisk hund til akut krise- og traumestøtte. Når et menneske er overvældet, stresset, ophidset eller lukker ned, er det ikke altid sproget der hjælper først. Nogle gange er det roligt nærvær.</p>
+        <p>Derfor møder Maxi brugeren uden spørgsmål, forklaringer eller krav. Han kan komme roligt nærmere som en åben relation: forudsigelig, blid og uden forventning om, at brugeren skal præstere, svare eller forklare sig.</p>
+      </div>
+      <div class="mx-presence-cards">
+        <div class="mx-presence-card">
+          <span>Akut regulering</span>
+          <h3>Ro før forklaring</h3>
+          <p>I krise og traume kan Maxi tilbyde et stabilt, fysisk holdepunkt, der ikke kræver ord for at virke.</p>
+        </div>
+        <div class="mx-presence-card">
+          <span>Følelsesmæssigt spejl</span>
+          <h3>At lære at mærke sig selv</h3>
+          <p>Maxi kan gøre indre tilstande mere synlige, så børn og voksne gradvist kan genkende uro, stress, træthed eller behov for pause.</p>
+        </div>
+        <div class="mx-presence-card">
+          <span>Personlig kalibrering</span>
+          <h3>Respons efter brugerens felt</h3>
+          <p>Over tid kan Maxi kalibreres til en bestemt bruger, så hans reaktioner tager udgangspunkt i brugerens følelsesmæssige mønstre.</p>
         </div>
       </div>
     </div>
@@ -631,7 +704,7 @@
   <div class="mx-context-inner">
     <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#4ecb8d;display:block;margin-bottom:10px;">Hvem er Maxi til?</span>
     <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1a1a1a;font-weight:400;margin-bottom:8px;">Der hvor ord ikke er nok</h2>
-    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;max-width:540px;line-height:1.75;">Maxi er ikke mainstream. Det er et redskab til de situationer og kontekster, hvor traditionelle tilgange ikke rækker.</p>
+    <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;max-width:540px;line-height:1.75;">Maxi er ikke mainstream. Det er et redskab til situationer, hvor kroppen har brug for en rolig relation før ord, analyse og krav.</p>
     <div class="mx-context-grid">
       <div class="mx-ctx-card">
         <span>Krise og traume</span>
@@ -642,6 +715,11 @@
         <span>Autisme og ADHD</span>
         <h3>Sensorisk regulering</h3>
         <p>Børn og voksne der har brug for sensorisk input som en vej til regulering kan bruge Maxi som et forudsigeligt, responsivt objekt der ikke dømmer.</p>
+      </div>
+      <div class="mx-ctx-card">
+        <span>Følelsesmæssig læring</span>
+        <h3>Når følelsen kommer før ordet</h3>
+        <p>Børn og voksne der har svært ved at mærke eller navngive egne følelser kan bruge Maxi som et roligt spejl for kroppens signaler.</p>
       </div>
       <div class="mx-ctx-card">
         <span>Isolation og ensomhed</span>
@@ -667,7 +745,7 @@
     <hr class="mx-not-divider">
     <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(237,247,242,0.35);margin-bottom:12px;">Maxi er:</p>
     <div style="display:flex;flex-direction:column;gap:8px;">
-      <div class="mx-is-item">et fysisk redskab til sanselig regulering</div>
+      <div class="mx-is-item">et fysisk redskab til sanselig og følelsesmæssig regulering</div>
       <div class="mx-is-item">en bro til det menneskelige — ikke en erstatning for det</div>
       <div class="mx-is-item">governance-native: ingen data opsamles, ingen ekstern overførsel</div>
     </div>
