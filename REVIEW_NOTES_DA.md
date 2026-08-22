@@ -21,6 +21,15 @@ Dato: 22. august 2026
 - GEO-OBS Sprint 1 og 2A er bevaret som afviste spor.
 - Simulationsfund er ikke ommærket som empiriske eller kliniske fund.
 - Det Relationelle Periodiske System (RPS) er placeret før manifestation i lag 1–2. RPS beskriver de relationelle betingelser og overgange, der gør det muligt, at det periodiske grundstofsystem kan fremtræde som lag 3-manifestation. Det er derfor ikke en alternativ tabel eller konkurrent til det etablerede periodiske system.
+- Den matematiske Batch 00-audit er indarbejdet med skellet mellem tilstandsrum og operatorer: μ, π, G og χ fremstilles med hver sin afgrænsede rolle.
+- ACCESS v0.3 er indarbejdet med seks kanoniserede operatorer og et eksplicit skel mellem epistemisk adgang og AO-04 som konstitutiv fortsættelsesadgang.
+- Operator Composition Test 01, P3-genkørslen og Test 02 er indarbejdet uden at skjule den oprindelige semantiske underbestemthed.
+- AO-04 P1 er angivet som retrospektivt fysisk witness; P2 er angivet som prospektivt frosset og uden langsigtet udfald endnu.
+- Bridge Test 02 bevares som ABSTAIN/NOT_PROMOTED. Bridge Test 03 bevares som 11/11 gates med scope-grænser og uden schemaændring.
+- Population 04 er angivet som preregistreret og identitetsfrosset, men uden lokaliseret afsluttende populationsresultat.
+- DNA v0.1–v0.3 er indarbejdet som negativt metodisk fund: E. coli-kandidaten blev forklaret af lokal sekvensstruktur ved Markov-orden 5.
+- KC-01a er rettet til Outcome D/blandet resultat: VESPA falsificerede H1 i den præregistrerede retning; Firefly-signalet er SSP-følsomt, og MaStar-proben er åben.
+- GENESIS er rettet til et frosset konstrueret brotestresultat: kerne-2×2 PASS, partial-access schema stress og strengt svar NEJ.
 
 ## City Energy
 
@@ -46,7 +55,8 @@ Dato: 22. august 2026
 - Den frosne Windfarm v1.3-pakke, hvis der ønskes direkte offentlige artefaktlinks.
 - Verificerede driftsdata og antagelser for Nakskov, hvis modellen skal bruges lokalt.
 - De præcise kildepakker for GENESIS/DTRH/MCC11, hvis flere numeriske resultater skal offentliggøres.
-- Den seneste specifikation, datamodel og eventuelle testresultater for RPS, før bestemte forbindelser fra lag 1–2 til det manifesterede grundstofsystem offentliggøres som fortjente.
+- Selve den refererede frosne Adgangskort v0.1.2-artefakt, hvis schemaet senere skal tilbydes direkte til download.
+- Afsluttende Population 04-resultat og et kvalificerende MESOLAND-langtidresultat til AO-04 P2.
 
 M.E.M. Universet er en separat, undersøgende hjemmeside og er linket som en frivillig vej videre. Rollefordelingen er bevidst: Universet inviterer besøgende til at kigge, udforske og følge forbindelser uden et facit; ETOS-sitet viser de udviklede systemer, metoden, dokumentationen og de praktiske anvendelsesmuligheder. RPS må derfor fremtræde begge steder, men med forskellig funktion og stemme.
 
