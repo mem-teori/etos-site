@@ -20,8 +20,7 @@ Dato: 22. august 2026
 - Language Carrier Gate 02 er mærket som frosset før autoritativ kørsel og uden resultat endnu.
 - GEO-OBS Sprint 1 og 2A er bevaret som afviste spor.
 - Simulationsfund er ikke ommærket som empiriske eller kliniske fund.
-- Det relationelle periodiske system er tilføjet som aktiv formalisering, men ikke som erstatning for det etablerede periodiske system eller som et allerede valideret kemisk resultat.
-- M.E.M. Universet er knyttet til Forskerhjørnet som offentligt atlas og formidlingslag; det er ikke sidestillet med korpus, freeze notes eller resultatregister.
+- Det Relationelle Periodiske System (RPS) er placeret før manifestation i lag 1–2. RPS beskriver de relationelle betingelser og overgange, der gør det muligt, at det periodiske grundstofsystem kan fremtræde som lag 3-manifestation. Det er derfor ikke en alternativ tabel eller konkurrent til det etablerede periodiske system.
 
 ## City Energy
 
@@ -47,11 +46,9 @@ Dato: 22. august 2026
 - Den frosne Windfarm v1.3-pakke, hvis der ønskes direkte offentlige artefaktlinks.
 - Verificerede driftsdata og antagelser for Nakskov, hvis modellen skal bruges lokalt.
 - De præcise kildepakker for GENESIS/DTRH/MCC11, hvis flere numeriske resultater skal offentliggøres.
-- Den seneste specifikation, datamodel og eventuelle testresultater for Det Relationelle Periodiske System, før konkrete kemiske prædiktionspåstande offentliggøres.
+- Den seneste specifikation, datamodel og eventuelle testresultater for RPS, før bestemte forbindelser fra lag 1–2 til det manifesterede grundstofsystem offentliggøres som fortjente.
 
-## Strukturhul fundet i M.E.M. Universet v0.1
-
-Det offentlige atlas har verdener for liv, krop, menneske, fortælling, tegn, jord, rum, teknologi, valg og muligheder. Det Relationelle Periodiske System falder ikke rent ind i nogen af dem. En fremtidig atlasopdatering bør derfor overveje en selvstændig verden for `Stof` med eksempelvis kemi, materialer, bindinger og betingede fase-/tilstandsovergange. Det vil gøre sporet synligt uden at presse det ind under biologi eller teknologi.
+M.E.M. Universet er en separat, undersøgende hjemmeside og er linket som en frivillig vej videre. Rollefordelingen er bevidst: Universet inviterer besøgende til at kigge, udforske og følge forbindelser uden et facit; ETOS-sitet viser de udviklede systemer, metoden, dokumentationen og de praktiske anvendelsesmuligheder. RPS må derfor fremtræde begge steder, men med forskellig funktion og stemme.
 
 ## Teknisk kontrol
 
